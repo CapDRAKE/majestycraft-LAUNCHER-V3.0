@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="lib" path="C:/Program Files/Java/jre1.8.0_271/lib/ext/jfxrt.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
+	<classpathentry kind="lib" path="A:/Downloads/Alternative Api Reloaded.jar"/>
+	<classpathentry kind="lib" path="A:/Downloads/Alternative_Api_Reloaded/commons-codec-1.10.jar"/>
+	<classpathentry kind="lib" path="A:/Downloads/Alternative_Api_Reloaded/commons-io-2.8.0.jar"/>
+	<classpathentry kind="lib" path="A:/Downloads/Alternative_Api_Reloaded/commons-lang3-3.11.jar"/>
+	<classpathentry kind="lib" path="A:/Downloads/Alternative_Api_Reloaded/commons-logging-1.2.jar"/>
+	<classpathentry kind="lib" path="A:/Downloads/Alternative_Api_Reloaded/gson-2.8.6.jar"/>
+	<classpathentry kind="lib" path="A:/Downloads/Alternative_Api_Reloaded/guava-15.0.jar"/>
+	<classpathentry kind="lib" path="A:/Downloads/Alternative_Api_Reloaded/httpclient-4.5.6.jar"/>
+	<classpathentry kind="lib" path="A:/Downloads/Alternative_Api_Reloaded/httpcore-4.4.10.jar"/>
+	<classpathentry kind="lib" path="A:/Downloads/Alternative_Api_Reloaded/json-simple-1.1.1.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
