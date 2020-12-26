@@ -64,7 +64,6 @@ public class LauncherPanel extends IScreen{
 	private LauncherButton youtubeButton;
 	private GameEngine theGameEngine;
 
-	/** AUTO LOGIN */
 	private Timer autoLoginTimer;
 	private LauncherLabel autoLoginLabel;
 	private LauncherRectangle autoLoginRectangle;
