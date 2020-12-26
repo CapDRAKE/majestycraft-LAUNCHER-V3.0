@@ -185,4 +185,12 @@ public class LauncherSettings extends IScreen {
 			this.windowsSizeList.getItems().add(size.getDesc());
 		}
 	}
+	
+	private String isAutoLogin() {
+		 if (autoLogin.isSelected()) {
+		 return "true";
+		 } else {
+		 return "false";
+		 }
+		 }
 }

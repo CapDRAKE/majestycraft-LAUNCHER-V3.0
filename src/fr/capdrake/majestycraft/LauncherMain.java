@@ -5,6 +5,7 @@ package fr.capdrake.majestycraft;
 import fr.trxyy.alternative.alternative_api.GameConnect;
 import fr.trxyy.alternative.alternative_api.GameEngine;
 import fr.trxyy.alternative.alternative_api.GameFolder;
+import fr.trxyy.alternative.alternative_api.GameForge;
 import fr.trxyy.alternative.alternative_api.GameLinks;
 import fr.trxyy.alternative.alternative_api.GameStyle;
 import fr.trxyy.alternative.alternative_api.LauncherPreferences;
@@ -24,8 +25,9 @@ public class LauncherMain extends AlternativeBase{
 		
 	private GameFolder gameFolder = new GameFolder("majestycraft");
 	private LauncherPreferences launcherPreferences = new LauncherPreferences("Launcher MajestyCraft 1.16.2", 950, 600, true);
-	private GameLinks gameLinks = new GameLinks("https://majestycraftmc.alwaysdata.net/", "optifine.json");
+	private GameLinks gameLinks = new GameLinks("https://majestycraftmc.alwaysdata.net/", "1.16.2.json");
 	private GameEngine gameEngine = new GameEngine(this.gameFolder, this.gameLinks, this.launcherPreferences, GameStyle.OPTIFINE);
+	private GameForge newForge = new GameForge("fmlclient", "33.0.61", "1.16.2", "net.minecraft.launchwrapper.Launch", "20200812.004259");
 	private GameMaintenance gameMaintenance = new GameMaintenance(Maintenance.USE, gameEngine);
 	private GameConnect gameConnect = new GameConnect("51.38.13.50", "25764");
 	
@@ -39,6 +41,7 @@ public class LauncherMain extends AlternativeBase{
 		// TODO Auto-generated method stub
 		Scene scene = new Scene(createContent());
 		this.gameEngine.reg(primaryStage);
+		this.gameEngine.reg(this.newForge);
 		this.gameEngine.reg(this.gameLinks);
 		this.gameEngine.reg(this.gameMaintenance);
 		this.gameEngine.reg(this.gameConnect);

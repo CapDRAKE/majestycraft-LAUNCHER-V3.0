@@ -49,6 +49,11 @@ public class LauncherPanel extends IScreen{
 	private LauncherImage titleImage;
 	private LauncherTextField usernameField;
 	private LauncherPasswordField passwordField;
+	
+	private LauncherButton siteButton;
+	private LauncherButton forumButton;
+	private LauncherButton voteButton;
+	private LauncherButton boutiqueButton;
 	private LauncherButton loginButton;
 	private LauncherButton settingsButton;
 	private LauncherButton closeButton;
@@ -81,6 +86,10 @@ public class LauncherPanel extends IScreen{
 	private String INSTAGRAM_URL = "http://instagram.com/";
 	private String TWITTER_URL = "http://twitter.com/craftsurvie";
 	private String YOUTUBE_URL = "http://youtube.com/";
+	private String VOTE_URL = "https://majestycraft.w2.websr.fr/index.php?&page=voter";
+	private String BOUTIQUE_URL = "https://majestycraft.w2.websr.fr/index.php?&page=boutique";
+	private String SITE_URL = "https://majestycraft.w2.websr.fr/index.php";
+	private String FORUM_URL = "https://majestycraft.w2.websr.fr/index.php?page=forum";
 	public LauncherConfig config;
 	
 	
@@ -212,6 +221,63 @@ public class LauncherPanel extends IScreen{
 		this.reduceButton.setOnAction(event -> {
 			Stage stage = (Stage) ((LauncherButton) event.getSource()).getScene().getWindow();
 			stage.setIconified(true);
+		});
+		
+		/** ===================== BOUTON URL VOTE ===================== */
+		this.voteButton = new LauncherButton(root);
+		this.voteButton.setText("Voter");
+		this.voteButton.setFont(FontLoader.loadFont("Comfortaa-Regular.ttf", "Comfortaa", 22F));
+		this.voteButton.setPosition(engine.getWidth() / 2 - 260,  engine.getHeight() / 2 + 120);
+		this.voteButton.setSize(250,  45);
+		this.voteButton.setStyle("-fx-background-color: rgba(0 ,0 ,0 , 0.4); -fx-text-fill: orange");
+		this.voteButton.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				openLink(VOTE_URL);
+			}
+		});
+		
+		
+		/** ===================== BOUTON URL BOUTIQUE ===================== */
+		this.boutiqueButton = new LauncherButton(root);
+		this.boutiqueButton.setText("Boutique");
+		this.boutiqueButton.setFont(FontLoader.loadFont("Comfortaa-Regular.ttf", "Comfortaa", 22F));
+		this.boutiqueButton.setPosition(engine.getWidth() / 2 - 125 + 130,  engine.getHeight() / 2 + 120);
+		this.boutiqueButton.setSize(250,  45);
+		this.boutiqueButton.setStyle("-fx-background-color: rgba(0 ,0 ,0 , 0.4); -fx-text-fill: orange");
+		this.boutiqueButton.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				openLink(BOUTIQUE_URL);
+			}
+		});
+		
+		/** ===================== BOUTON URL SITE ===================== */
+		this.siteButton = new LauncherButton(root);
+		this.siteButton.setText("Site");
+		this.siteButton.setFont(FontLoader.loadFont("Comfortaa-Regular.ttf", "Comfortaa", 22F));
+		this.siteButton.setPosition(engine.getWidth() /2 - 500,  engine.getHeight() - 107);
+		this.siteButton.setSize(200,  45);
+		this.siteButton.setStyle("-fx-background-color: rgba(0 ,0 ,0 , 0.4); -fx-text-fill: orange");
+		this.siteButton.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				openLink(SITE_URL);
+			}
+		});
+		
+		/** ===================== BOUTON URL SITE ===================== */
+		this.forumButton = new LauncherButton(root);
+		this.forumButton.setText("Forum");
+		this.forumButton.setFont(FontLoader.loadFont("Comfortaa-Regular.ttf", "Comfortaa", 22F));
+		this.forumButton.setPosition(engine.getWidth() /2 + 300,  engine.getHeight() - 107);
+		this.forumButton.setSize(200,  45);
+		this.forumButton.setStyle("-fx-background-color: rgba(0 ,0 ,0 , 0.4); -fx-text-fill: orange");
+		this.forumButton.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				openLink(FORUM_URL);
+			}
 		});
 		
 		/** ===================== BOUTON URL FACEBOOK ===================== */
@@ -394,8 +460,9 @@ public class LauncherPanel extends IScreen{
 					autoLoginButton.setVisible(true);
 				}
 			});
+
 		}
-		}
+	}
 		
 	public void update(GameEngine engine, GameAuth auth) {
 			this.usernameField.setDisable(true);
@@ -456,10 +523,6 @@ public class LauncherPanel extends IScreen{
 			}
 			this.currentFileLabel.setText(engine.getGameUpdater().getCurrentFile());
 			this.currentStep.setText(engine.getGameUpdater().getCurrentInfo());
-			
-			
-			
-			
 			double percent = (engine.getGameUpdater().downloadedFiles * 100.0D / engine.getGameUpdater().filesToDownload / 100.0D);
 			this.bar.setProgress(percent);
 		}
