@@ -24,8 +24,8 @@ import javafx.stage.StageStyle;
 public class LauncherMain extends AlternativeBase{
 		
 	private GameFolder gameFolder = new GameFolder("majestycraft");
-	private LauncherPreferences launcherPreferences = new LauncherPreferences("Launcher MajestyCraft 1.16.2", 950, 600, true);
-	private GameLinks gameLinks = new GameLinks("https://majestycraftmc.alwaysdata.net/", "1.16.2.json");
+	private LauncherPreferences launcherPreferences = new LauncherPreferences("Launcher MajestyCraft 1.16.2 Optifine + Forge", 950, 600, true);
+	private GameLinks gameLinks = new GameLinks("https://majestycraft.w2.websr.fr/minecraft/", "1.16.2.json");
 	private GameEngine gameEngine = new GameEngine(this.gameFolder, this.gameLinks, this.launcherPreferences, GameStyle.OPTIFINE);
 	private GameForge newForge = new GameForge("fmlclient", "33.0.61", "1.16.2", "net.minecraft.launchwrapper.Launch", "20200812.004259");
 	private GameMaintenance gameMaintenance = new GameMaintenance(Maintenance.USE, gameEngine);
@@ -40,12 +40,12 @@ public class LauncherMain extends AlternativeBase{
 	public void start(Stage primaryStage) throws Exception {
 		// TODO Auto-generated method stub
 		Scene scene = new Scene(createContent());
-		this.gameEngine.reg(primaryStage);
-		this.gameEngine.reg(this.newForge);
-		this.gameEngine.reg(this.gameLinks);
+		this.gameEngine.reg(primaryStage);  
 		this.gameEngine.reg(this.gameMaintenance);
-		this.gameEngine.reg(this.gameConnect);
-		LauncherBase launcherBase = new LauncherBase(primaryStage, scene, StageStyle.UNDECORATED, gameEngine);
+		this.gameEngine.reg(this.gameLinks);
+		//this.gameEngine.reg(this.gameConnect);
+		this.gameEngine.reg(this.newForge);
+		LauncherBase launcherBase = new LauncherBase(primaryStage, scene, StageStyle.TRANSPARENT, gameEngine);
 		launcherBase.setIconImage(primaryStage,  getResourceLocation().loadImage(gameEngine, "favicon.png"));
 	}
 	

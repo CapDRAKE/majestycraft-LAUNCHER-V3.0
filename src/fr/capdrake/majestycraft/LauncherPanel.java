@@ -47,6 +47,10 @@ public class LauncherPanel extends IScreen{
 	private LauncherRectangle topRectangle;
 	private LauncherLabel titleLabel;
 	private LauncherImage titleImage;
+	private LauncherLabel titleMajestycraft;
+	private LauncherLabel titleMajestycraft2;
+	private LauncherLabel titleTropicolands;
+	private LauncherLabel titleTropicolands2;
 	private LauncherTextField usernameField;
 	private LauncherPasswordField passwordField;
 	
@@ -89,6 +93,7 @@ public class LauncherPanel extends IScreen{
 	private String BOUTIQUE_URL = "https://majestycraft.w2.websr.fr/index.php?&page=boutique";
 	private String SITE_URL = "https://majestycraft.w2.websr.fr/index.php";
 	private String FORUM_URL = "https://majestycraft.w2.websr.fr/index.php?page=forum";
+	private String TROPICOLANDS_URL = "https://tropicolands.ezcraft.fr/";
 	public LauncherConfig config;
 	
 	
@@ -105,19 +110,55 @@ public class LauncherPanel extends IScreen{
 		
 		this.drawLogo(engine, getResourceLocation().loadImage(engine, "logo.png"), engine.getWidth() / 2 - 165, 50, 330, 160, root, Mover.DONT_MOVE);
 		
+		this.drawLogo(engine, getResourceLocation().loadImage(engine, "NEWlogo.jpg"), engine.getWidth() / 2 - 386, 260, 130, 130, root, Mover.DONT_MOVE);
+		
+		this.drawLogo(engine, getResourceLocation().loadImage(engine, "tropicolands.png"), engine.getWidth() / 2 + 266, 260, 130, 130, root, Mover.DONT_MOVE);
+		
 		//Partie texte
 		this.titleLabel = new LauncherLabel(root);
-		this.titleLabel.setText("Launcher MajestyCraft 1.16.2");
+		this.titleLabel.setText("Launcher MajestyCraft 1.16.2 Optifine + Forge");
 		this.titleLabel.setFont(FontLoader.loadFont("Roboto-Light.ttf", "Roboto Light", 18F));
 		this.titleLabel.setStyle("-fx-background-color: transparent; -fx-text-fill: orange");
-		this.titleLabel.setPosition(engine.getWidth() / 2 - 80, -4);
+		this.titleLabel.setPosition(engine.getWidth() / 2 - 170, -4);
 		this.titleLabel.setOpacity(0.7);
 		this.titleLabel.setSize(500,  40);
+		
+		this.titleMajestycraft = new LauncherLabel(root);
+		this.titleMajestycraft.setText("Bienvenue sur");
+		this.titleMajestycraft.setFont(FontLoader.loadFont("Comfortaa-Regular.ttf", "Comfortaa", 22F));
+		this.titleMajestycraft.setStyle("-fx-background-color: transparent; -fx-text-fill: orange");
+		this.titleMajestycraft.setPosition(engine.getWidth() / 2 - 400, engine.getHeight() / 2- 130);
+		this.titleMajestycraft.setOpacity(0.7);
+		this.titleMajestycraft.setSize(500,  40);
+		
+		this.titleMajestycraft2 = new LauncherLabel(root);
+		this.titleMajestycraft2.setText("MajestyCraft");
+		this.titleMajestycraft2.setFont(FontLoader.loadFont("Comfortaa-Regular.ttf", "Comfortaa", 22F));
+		this.titleMajestycraft2.setStyle("-fx-background-color: transparent; -fx-text-fill: orange");
+		this.titleMajestycraft2.setPosition(engine.getWidth() / 2 - 394, engine.getHeight() / 2- 90);
+		this.titleMajestycraft2.setOpacity(0.7);
+		this.titleMajestycraft2.setSize(500,  40);
+		
+		this.titleTropicolands = new LauncherLabel(root);
+		this.titleTropicolands.setText("Partenaire : ");
+		this.titleTropicolands.setFont(FontLoader.loadFont("Comfortaa-Regular.ttf", "Comfortaa", 22F));
+		this.titleTropicolands.setStyle("-fx-background-color: transparent; -fx-text-fill: orange");
+		this.titleTropicolands.setPosition(engine.getWidth() / 2 + 264, engine.getHeight() / 2- 130);
+		this.titleTropicolands.setOpacity(0.7);
+		this.titleTropicolands.setSize(500,  40);
+		
+		this.titleTropicolands2 = new LauncherLabel(root);
+		this.titleTropicolands2.setText("TropicoLands");
+		this.titleTropicolands2.setFont(FontLoader.loadFont("Comfortaa-Regular.ttf", "Comfortaa", 22F));
+		this.titleTropicolands2.setStyle("-fx-background-color: transparent; -fx-text-fill: green");
+		this.titleTropicolands2.setPosition(engine.getWidth() / 2 + 253, engine.getHeight() / 2- 90);
+		this.titleTropicolands2.setOpacity(0.7);
+		this.titleTropicolands2.setSize(500,  40);
 		
 		this.titleImage = new LauncherImage(root);
 		this.titleImage.setImage(getResourceLocation().loadImage(engine, "favicon.png"));
 		this.titleImage.setSize(25, 25);
-		this.titleImage.setPosition(engine.getWidth() / 3 + 40, 3);
+		this.titleImage.setPosition(engine.getWidth() / 3 - 50, 3);
 		
 		this.usernameField = new LauncherTextField(root);
 		this.usernameField.setText((String)this.config.getValue("username"));
@@ -152,7 +193,7 @@ public class LauncherPanel extends IScreen{
 				GameAuth auth = new GameAuth(usernameField.getText(), passwordField.getText(),
 						AccountType.OFFLINE);
 				if (auth.isLogged()) {
-					this.update(engine, auth);
+					update(engine, auth);
 				}
 			}
 			/** ===================== AUTHENTIFICATION OFFICIELLE ===================== */
@@ -265,7 +306,7 @@ public class LauncherPanel extends IScreen{
 			}
 		});
 		
-		/** ===================== BOUTON URL SITE ===================== */
+		/** ===================== BOUTON URL FORUM ===================== */
 		this.forumButton = new LauncherButton(root);
 		this.forumButton.setText("Forum");
 		this.forumButton.setFont(FontLoader.loadFont("Comfortaa-Regular.ttf", "Comfortaa", 22F));
@@ -392,7 +433,6 @@ public class LauncherPanel extends IScreen{
 		this.bar.setSize(250, 20);
 		this.bar.setVisible(false);
 		
-		
 		/** =============== LOGIN AUTOMATIQUE (CRACK SEULEMENT) =============== **/
 		this.autoLoginRectangle = new LauncherRectangle(root, 0, theGameEngine.getHeight() - 32, 1000, theGameEngine.getHeight());
 		this.autoLoginRectangle.setFill(Color.rgb(0, 0, 0, 0.70));
@@ -442,12 +482,17 @@ public class LauncherPanel extends IScreen{
 									autoLoginLabel.setVisible(false);
 									autoLoginButton.setVisible(false);
 									autoLoginRectangle.setVisible(false);
+									GameAuth auth = new GameAuth(usernameField.getText(), passwordField.getText(),
+											AccountType.OFFLINE);
+									update(engine, auth);
+									
 								}
 							} else {
 								final int time = (waitTime - (elapsed % waitTime));
 								Platform.runLater(new Runnable() {
 									public void run() {
 										autoLoginLabel.setText("Connexion auto dans " + time + " secondes.");
+
 									}
 								});
 							}
@@ -459,6 +504,7 @@ public class LauncherPanel extends IScreen{
 					autoLoginButton.setVisible(true);
 				}
 			});
+		 
 
 		}
 	}
