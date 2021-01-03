@@ -1,7 +1,5 @@
 package fr.capdrake.majestycraft;
 
-
-
 import fr.trxyy.alternative.alternative_api.GameConnect;
 import fr.trxyy.alternative.alternative_api.GameEngine;
 import fr.trxyy.alternative.alternative_api.GameFolder;
@@ -30,14 +28,15 @@ public class LauncherMain extends AlternativeBase{
 	private GameForge newForge = new GameForge("fmlclient", "33.0.61", "1.16.2", "net.minecraft.launchwrapper.Launch", "20200812.004259");
 	private GameMaintenance gameMaintenance = new GameMaintenance(Maintenance.USE, gameEngine);
 	private GameConnect gameConnect = new GameConnect("51.38.13.50", "25764");
+
 	
-	public static void main(String[] args) {
+	public static void main(String[] args){
 		// TODO Auto-generated method stub
 		launch(args);
 	}
 
 	@Override
-	public void start(Stage primaryStage) throws Exception {
+	public void start(Stage primaryStage){
 		// TODO Auto-generated method stub
 		Scene scene = new Scene(createContent());
 		this.gameEngine.reg(primaryStage);  
@@ -49,7 +48,7 @@ public class LauncherMain extends AlternativeBase{
 		launcherBase.setIconImage(primaryStage,  getResourceLocation().loadImage(gameEngine, "favicon.png"));
 	}
 	
-	private Parent createContent() {
+	private Parent createContent(){
 		LauncherPane contentPane = new LauncherPane(gameEngine);
 		Rectangle rectangle = new Rectangle(gameEngine.getLauncherPreferences().getWidth(), gameEngine.getLauncherPreferences().getHeight());
 		rectangle.setArcWidth(15.0);
@@ -60,5 +59,6 @@ public class LauncherMain extends AlternativeBase{
 		new LauncherPanel(contentPane, this.gameEngine);
 		return contentPane;
 	}
+
 
 }

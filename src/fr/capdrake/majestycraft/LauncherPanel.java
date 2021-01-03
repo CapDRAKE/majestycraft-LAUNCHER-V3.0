@@ -1,5 +1,6 @@
 package fr.capdrake.majestycraft;
 
+import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -38,11 +39,17 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
-import javafx.stage.Modality;
+import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import re.alwyn974.minecraftserverping.MinecraftServerPing;
+import re.alwyn974.minecraftserverping.MinecraftServerPingInfos;
+import re.alwyn974.minecraftserverping.MinecraftServerPingOptions;
 
 public class LauncherPanel extends IScreen{
+	
+	
+	
 	
 	private LauncherRectangle topRectangle;
 	private LauncherLabel titleLabel;
@@ -51,8 +58,12 @@ public class LauncherPanel extends IScreen{
 	private LauncherLabel titleMajestycraft2;
 	private LauncherLabel titleTropicolands;
 	private LauncherLabel titleTropicolands2;
+	private LauncherLabel infoServeur;
+	private LauncherLabel infoJoueur;
 	private LauncherTextField usernameField;
 	private LauncherPasswordField passwordField;
+	
+	
 	
 	private LauncherButton siteButton;
 	private LauncherButton forumButton;
@@ -93,11 +104,42 @@ public class LauncherPanel extends IScreen{
 	private String BOUTIQUE_URL = "https://majestycraft.w2.websr.fr/index.php?&page=boutique";
 	private String SITE_URL = "https://majestycraft.w2.websr.fr/index.php";
 	private String FORUM_URL = "https://majestycraft.w2.websr.fr/index.php?page=forum";
-	private String TROPICOLANDS_URL = "https://tropicolands.ezcraft.fr/";
+	//private String TROPICOLANDS_URL = "https://tropicolands.ezcraft.fr/";
 	public LauncherConfig config;
 	
 	
-	public LauncherPanel(Pane root, GameEngine engine) {
+	public LauncherPanel(Pane root, GameEngine engine){
+		
+		
+		/** ===================== INFO SERVEUR ===================== */
+		this.infoServeur = new LauncherLabel(root);
+		try {
+			MinecraftServerPingInfos data = new MinecraftServerPing().getPing(new MinecraftServerPingOptions().setHostname("51.38.13.50").setPort(25764));
+			this.infoServeur.setText("MajestyCraft - Information\n" + data.getVersion().getName() + "\n" + data.getLatency() + " ms\n");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		this.infoServeur.setPosition(engine.getWidth() / 2 - 450, engine.getHeight() / 2 - 250);
+		this.infoServeur.setFont(Font.font("FontName", FontWeight.BOLD, 18d));
+		this.infoServeur.setStyle("-fx-background-color: transparent; -fx-text-fill: red");
+		this.infoServeur.setOpacity(0.7);
+		
+		
+		/** ===================== INFO NB JOUEURS ===================== */
+		this.infoJoueur = new LauncherLabel(root);
+		try {
+			MinecraftServerPingInfos data = new MinecraftServerPing().getPing(new MinecraftServerPingOptions().setHostname("51.38.13.50").setPort(25764));
+			this.infoJoueur.setText("MajestyCraft - Joueurs\n" + data.getPlayers().getOnline() + " / " + data.getPlayers().getMax() + " joueurs");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		this.infoJoueur.setPosition(engine.getWidth() / 2 + 253, engine.getHeight() / 2 - 250);
+		this.infoJoueur.setFont(Font.font("FontName", FontWeight.BOLD, 18d));
+		this.infoJoueur.setStyle("-fx-background-color: transparent; -fx-text-fill: red");
+		this.infoJoueur.setOpacity(0.7);
+		
 		
 		
 		this.theGameEngine = engine;
@@ -106,7 +148,7 @@ public class LauncherPanel extends IScreen{
 		this.config.loadConfiguration();
 		
 		this.topRectangle = new LauncherRectangle(root, 0, 0, engine.getWidth(), 31);
-		this.topRectangle.setFill(Color.rgb(0, 0, 0, 0.70));
+		this.topRectangle.setFill(Color.rgb(0, 0, 0, 0.50));
 		
 		this.drawLogo(engine, getResourceLocation().loadImage(engine, "logo.png"), engine.getWidth() / 2 - 165, 50, 330, 160, root, Mover.DONT_MOVE);
 		
@@ -125,35 +167,37 @@ public class LauncherPanel extends IScreen{
 		
 		this.titleMajestycraft = new LauncherLabel(root);
 		this.titleMajestycraft.setText("Bienvenue sur");
-		this.titleMajestycraft.setFont(FontLoader.loadFont("Comfortaa-Regular.ttf", "Comfortaa", 22F));
+		this.titleMajestycraft.setFont(Font.font("FontName", FontWeight.BOLD, 22d));
 		this.titleMajestycraft.setStyle("-fx-background-color: transparent; -fx-text-fill: orange");
-		this.titleMajestycraft.setPosition(engine.getWidth() / 2 - 400, engine.getHeight() / 2- 130);
+		this.titleMajestycraft.setPosition(engine.getWidth() / 2 - 395, engine.getHeight() / 2- 130);
 		this.titleMajestycraft.setOpacity(0.7);
 		this.titleMajestycraft.setSize(500,  40);
 		
 		this.titleMajestycraft2 = new LauncherLabel(root);
 		this.titleMajestycraft2.setText("MajestyCraft");
-		this.titleMajestycraft2.setFont(FontLoader.loadFont("Comfortaa-Regular.ttf", "Comfortaa", 22F));
+		this.titleMajestycraft2.setFont(Font.font("FontName", FontWeight.BOLD, 22d));
 		this.titleMajestycraft2.setStyle("-fx-background-color: transparent; -fx-text-fill: orange");
-		this.titleMajestycraft2.setPosition(engine.getWidth() / 2 - 394, engine.getHeight() / 2- 90);
+		this.titleMajestycraft2.setPosition(engine.getWidth() / 2 - 389, engine.getHeight() / 2- 90);
 		this.titleMajestycraft2.setOpacity(0.7);
 		this.titleMajestycraft2.setSize(500,  40);
 		
 		this.titleTropicolands = new LauncherLabel(root);
 		this.titleTropicolands.setText("Partenaire : ");
-		this.titleTropicolands.setFont(FontLoader.loadFont("Comfortaa-Regular.ttf", "Comfortaa", 22F));
+		this.titleTropicolands.setFont(Font.font("FontName", FontWeight.BOLD, 22d));
 		this.titleTropicolands.setStyle("-fx-background-color: transparent; -fx-text-fill: orange");
-		this.titleTropicolands.setPosition(engine.getWidth() / 2 + 264, engine.getHeight() / 2- 130);
+		this.titleTropicolands.setPosition(engine.getWidth() / 2 + 268, engine.getHeight() / 2- 130);
 		this.titleTropicolands.setOpacity(0.7);
 		this.titleTropicolands.setSize(500,  40);
 		
 		this.titleTropicolands2 = new LauncherLabel(root);
 		this.titleTropicolands2.setText("TropicoLands");
-		this.titleTropicolands2.setFont(FontLoader.loadFont("Comfortaa-Regular.ttf", "Comfortaa", 22F));
+		this.titleTropicolands2.setFont(Font.font("FontName", FontWeight.BOLD, 22d));
 		this.titleTropicolands2.setStyle("-fx-background-color: transparent; -fx-text-fill: green");
-		this.titleTropicolands2.setPosition(engine.getWidth() / 2 + 253, engine.getHeight() / 2- 90);
+		this.titleTropicolands2.setPosition(engine.getWidth() / 2 + 257, engine.getHeight() / 2- 90);
 		this.titleTropicolands2.setOpacity(0.7);
 		this.titleTropicolands2.setSize(500,  40);
+
+
 		
 		this.titleImage = new LauncherImage(root);
 		this.titleImage.setImage(getResourceLocation().loadImage(engine, "favicon.png"));
@@ -252,7 +296,7 @@ public class LauncherPanel extends IScreen{
 		
 		this.reduceButton = new LauncherButton(root);
 		//this.reduceButton.setInvisible();
-		LauncherImage reduceImg = new LauncherImage(root, getResourceLocation().loadImage(engine, "minimize.png"));
+		LauncherImage reduceImg = new LauncherImage(root, getResourceLocation().loadImage(engine, "reduce.png"));
 		reduceImg.setSize(15, 15);
 		this.reduceButton.setGraphic(reduceImg);
 		this.reduceButton.setBackground(null);
@@ -508,6 +552,7 @@ public class LauncherPanel extends IScreen{
 
 		}
 	}
+
 		
 	public void update(GameEngine engine, GameAuth auth) {
 			this.usernameField.setDisable(true);
