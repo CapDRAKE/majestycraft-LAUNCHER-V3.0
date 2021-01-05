@@ -2,7 +2,6 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="lib/Alternative Api Reloaded.jar"/>
 	<classpathentry kind="lib" path="lib/commons-codec-1.10.jar"/>
 	<classpathentry kind="lib" path="lib/commons-io-2.8.0.jar"/>
 	<classpathentry kind="lib" path="lib/commons-lang3-3.11.jar"/>
@@ -14,5 +13,6 @@
 	<classpathentry kind="lib" path="lib/json-simple-1.1.1.jar"/>
 	<classpathentry kind="lib" path="lib/jfxrt.jar"/>
 	<classpathentry kind="lib" path="lib/MinecraftServerPing-2.0.0 (1).jar"/>
+	<classpathentry kind="lib" path="lib/Alternative Api Reloaded (3).jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

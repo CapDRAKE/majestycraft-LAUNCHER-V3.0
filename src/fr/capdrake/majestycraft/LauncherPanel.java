@@ -2,13 +2,11 @@ package fr.capdrake.majestycraft;
 
 import java.io.IOException;
 import java.text.DecimalFormat;
+import java.util.HashMap;
 import java.util.Timer;
 import java.util.TimerTask;
 
 import fr.trxyy.alternative.alternative_api.GameEngine;
-import fr.trxyy.alternative.alternative_api.GameMemory;
-import fr.trxyy.alternative.alternative_api.GameSize;
-import fr.trxyy.alternative.alternative_api.JVMArguments;
 import fr.trxyy.alternative.alternative_api.account.AccountType;
 import fr.trxyy.alternative.alternative_api.auth.GameAuth;
 import fr.trxyy.alternative.alternative_api.updater.GameUpdater;
@@ -34,6 +32,7 @@ import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.CheckBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -47,24 +46,13 @@ import re.alwyn974.minecraftserverping.MinecraftServerPingInfos;
 import re.alwyn974.minecraftserverping.MinecraftServerPingOptions;
 
 public class LauncherPanel extends IScreen{
-	
-	
-	
-	
-	private LauncherRectangle topRectangle;
-	private LauncherLabel titleLabel;
+
 	private LauncherImage titleImage;
-	private LauncherLabel titleMajestycraft;
-	private LauncherLabel titleMajestycraft2;
-	private LauncherLabel titleTropicolands;
-	private LauncherLabel titleTropicolands2;
-	private LauncherLabel infoServeur;
-	private LauncherLabel infoJoueur;
+
 	private LauncherTextField usernameField;
 	private LauncherPasswordField passwordField;
 	
-	
-	
+	//Les bouttons 
 	private LauncherButton siteButton;
 	private LauncherButton forumButton;
 	private LauncherButton voteButton;
@@ -77,24 +65,42 @@ public class LauncherPanel extends IScreen{
 	private LauncherButton twitterButton;
 	private LauncherButton instagramButton;
 	private LauncherButton youtubeButton;
+	
+	//Les labels
+	private LauncherLabel autoLoginLabel;
+	private LauncherLabel updateLabel;
+	private LauncherLabel currentFileLabel;
+	private LauncherLabel percentageLabel;
+	private LauncherLabel currentStep;
+	private LauncherLabel titleMajestycraft;
+	private LauncherLabel titleMajestycraft2;
+	private LauncherLabel titleTropicolands;
+	private LauncherLabel titleTropicolands2;
+	private LauncherLabel infoServeur;
+	private LauncherLabel infoJoueur;
+	private LauncherLabel titleLabel;
+	
+
+	private LauncherRectangle autoLoginRectangle;
+	private LauncherRectangle topRectangle;
+	private LauncherRectangle updateRectangle;
+	
 	private GameEngine theGameEngine;
+	// Se souvenir de moi
+	private CheckBox rememberMe;
 
 	private Timer autoLoginTimer;
-	private LauncherLabel autoLoginLabel;
-	private LauncherRectangle autoLoginRectangle;
+
 	private LauncherButton autoLoginButton;
 	
 	private Timeline timeline;
 	private DecimalFormat decimalFormat = new DecimalFormat(".#");
 	private Thread updateThread;
 	private GameUpdater gameUpdater = new GameUpdater();
-	private LauncherRectangle updateRectangle;
-	private LauncherLabel updateLabel;
-	private LauncherLabel currentFileLabel;
-	private LauncherLabel percentageLabel;
-	private LauncherLabel currentStep;
-	
+
 	public LauncherProgressBar bar;
+	
+
 	
 	private String FACEBOOK_URL = "http://facebook.com/";
 	private String INSTAGRAM_URL = "http://instagram.com/";
@@ -165,6 +171,8 @@ public class LauncherPanel extends IScreen{
 		this.titleLabel.setOpacity(0.7);
 		this.titleLabel.setSize(500,  40);
 		
+		
+		/** ===================== TITRE 1 MAJESTYCRAFT ===================== */
 		this.titleMajestycraft = new LauncherLabel(root);
 		this.titleMajestycraft.setText("Bienvenue sur");
 		this.titleMajestycraft.setFont(Font.font("FontName", FontWeight.BOLD, 22d));
@@ -173,6 +181,7 @@ public class LauncherPanel extends IScreen{
 		this.titleMajestycraft.setOpacity(0.7);
 		this.titleMajestycraft.setSize(500,  40);
 		
+		/** ===================== TITRE 2 MAJESTYCRAFT ===================== */
 		this.titleMajestycraft2 = new LauncherLabel(root);
 		this.titleMajestycraft2.setText("MajestyCraft");
 		this.titleMajestycraft2.setFont(Font.font("FontName", FontWeight.BOLD, 22d));
@@ -181,6 +190,7 @@ public class LauncherPanel extends IScreen{
 		this.titleMajestycraft2.setOpacity(0.7);
 		this.titleMajestycraft2.setSize(500,  40);
 		
+		/** ===================== TITRE 1 TROPICOLANDS ===================== */
 		this.titleTropicolands = new LauncherLabel(root);
 		this.titleTropicolands.setText("Partenaire : ");
 		this.titleTropicolands.setFont(Font.font("FontName", FontWeight.BOLD, 22d));
@@ -189,6 +199,8 @@ public class LauncherPanel extends IScreen{
 		this.titleTropicolands.setOpacity(0.7);
 		this.titleTropicolands.setSize(500,  40);
 		
+		
+		/** ===================== TITRE 2 TROPICOLANDS ===================== */
 		this.titleTropicolands2 = new LauncherLabel(root);
 		this.titleTropicolands2.setText("TropicoLands");
 		this.titleTropicolands2.setFont(Font.font("FontName", FontWeight.BOLD, 22d));
@@ -199,26 +211,40 @@ public class LauncherPanel extends IScreen{
 
 
 		
+		/** ===================== IMAGE DU LOGO EN HAUT ===================== */
 		this.titleImage = new LauncherImage(root);
 		this.titleImage.setImage(getResourceLocation().loadImage(engine, "favicon.png"));
 		this.titleImage.setSize(25, 25);
 		this.titleImage.setPosition(engine.getWidth() / 3 - 50, 3);
 		
+		/** ===================== NOM D'UTILISATEUR ===================== */
 		this.usernameField = new LauncherTextField(root);
 		this.usernameField.setText((String)this.config.getValue("username"));
-		this.usernameField.setPosition(engine.getWidth() / 2 - 135, engine.getHeight() / 2- 57);
+		this.usernameField.setPosition(engine.getWidth() / 2 - 135, engine.getHeight() / 2- 82);
 		this.usernameField.setSize(270, 50);
 		this.usernameField.setFont(FontLoader.loadFont("Roboto-Light.ttf", "Roboto Light", 14F));
 		this.usernameField.setStyle("-fx-background-color: rgba(0 ,0 ,0 , 0.4); -fx-text-fill: orange");
 		this.usernameField.setVoidText("Votre pseudo (ou email si premium)");
 		
+		/** ===================== MOT DE PASSE ===================== */
 		this.passwordField = new LauncherPasswordField(root);
-		this.passwordField.setPosition(engine.getWidth() / 2 - 135, engine.getHeight() / 2);
+		this.passwordField.setPosition(engine.getWidth() / 2 - 135, engine.getHeight() / 2 - 25);
 		this.passwordField.setSize(270, 50);
 		this.passwordField.setFont(FontLoader.loadFont("Roboto-Light.ttf", "Roboto Light", 14F));
 		this.passwordField.setStyle("-fx-background-color: rgba(0 ,0 ,0 , 0.4); -fx-text-fill: orange");
 		this.passwordField.setVoidText("Mot de passe (vide = compte crack)");
 		
+		//Verif si la case "se souvenir de moi" est coché
+		if((boolean) config.getValue("rememberme") == true) 
+		{
+			passwordField.setText((String) config.getValue("password"));
+		} 
+		else 
+		{
+			passwordField.setText("");
+		} 
+		
+		/** ===================== BOUTON DE CONNEXION ===================== */
 		this.loginButton = new LauncherButton(root);
 		this.loginButton.setText("Connexion");
 		this.loginButton.setFont(FontLoader.loadFont("Roboto-Light.ttf", "Roboto Light", 22F));
@@ -230,6 +256,14 @@ public class LauncherPanel extends IScreen{
 			 * ===================== AUTHENTIFICATION OFFLINE (CRACK) =====================
 			 */
 			config.updateValue("username", usernameField.getText());
+			if((boolean) config.getValue("rememberme") == true) 
+			{
+				config.updateValue("password", passwordField.getText());
+			} 
+			else 
+			{
+				config.updateValue("password", "");
+			} 
 			if (usernameField.getText().length() < 3) {
 				new LauncherAlert("Authentification echouee",
 						"Il y a un probleme lors de la tentative de connexion: Le pseudonyme doit comprendre au moins 3 caracteres.");
@@ -259,6 +293,28 @@ public class LauncherPanel extends IScreen{
 			}
 		});
 		
+		/** ===================== CHECKBOX SE SOUVENIR ===================== */
+		this.rememberMe = new CheckBox();
+		this.rememberMe.setText("Se souvenir de moi");
+		this.rememberMe.setSelected((boolean) config.getValue("rememberme"));
+		this.rememberMe.setOpacity(1.0);
+		this.rememberMe.setFont(FontLoader.loadFont("Comfortaa-Regular.ttf", "Comfortaa", 14F));
+		this.rememberMe.setStyle("-fx-text-fill: orange;");
+		this.rememberMe.setLayoutX(340);
+		this.rememberMe.setLayoutY(332);
+		this.rememberMe.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				HashMap<String, String> configMap = new HashMap<String, String>();
+				configMap.put("rememberme", "" + rememberMe.isSelected());
+				config.updateValues(configMap);
+			}
+		});
+		
+		root.getChildren().add(rememberMe);
+		
+		/** ===================== BOUTON PARAMETRE ===================== */
 		this.settingsButton = new LauncherButton(root);
 		this.settingsButton.setStyle("-fx-background-color: rgba(0 ,0 ,0 , 0.4); -fx-text-fill: orange");
 		LauncherImage settingsImg = new LauncherImage(root, getResourceLocation().loadImage(engine, "settings.png"));
@@ -282,6 +338,7 @@ public class LauncherPanel extends IScreen{
 			}
 		});
 		
+		/** ===================== BOUTON FERMETURE ===================== */
 		this.closeButton = new LauncherButton(root);
 		//this.closeButton.setInvisible();
 		LauncherImage closeImg = new LauncherImage(root, getResourceLocation().loadImage(engine, "close.png"));
@@ -294,6 +351,7 @@ public class LauncherPanel extends IScreen{
 			System.exit(0);
 		});
 		
+		/** ===================== BOUTON REDUIRE ===================== */
 		this.reduceButton = new LauncherButton(root);
 		//this.reduceButton.setInvisible();
 		LauncherImage reduceImg = new LauncherImage(root, getResourceLocation().loadImage(engine, "reduce.png"));
@@ -425,7 +483,8 @@ public class LauncherPanel extends IScreen{
 			}
 		});
 		
-		this.updateRectangle = new LauncherRectangle(root, engine.getWidth() / 2 - 175, engine.getHeight() / 2 - 60, 350, 180);
+		/** ===================== RECTANGLE DE MISE A JOURS ===================== */
+		this.updateRectangle = new LauncherRectangle(root, engine.getWidth() / 2 - 175, engine.getHeight() / 2 - 80, 350, 180);
 		this.updateRectangle.setArcWidth(10.0);
 		this.updateRectangle.setArcHeight(10.0);
 		this.updateRectangle.setFill(Color.rgb(0, 0, 0, 0.60));
@@ -437,7 +496,7 @@ public class LauncherPanel extends IScreen{
 		this.updateLabel.setAlignment(Pos.CENTER);
 		this.updateLabel.setFont(FontLoader.loadFont("Comfortaa-Regular.ttf", "Comfortaa", 22F));
 		this.updateLabel.setStyle("-fx-background-color: transparent; -fx-text-fill: orange;");
-		this.updateLabel.setPosition(engine.getWidth() / 2 - 95, engine.getHeight() / 2 - 55);
+		this.updateLabel.setPosition(engine.getWidth() / 2 - 95, engine.getHeight() / 2 - 75);
 		this.updateLabel.setOpacity(1);
 		this.updateLabel.setSize(190, 40);
 		this.updateLabel.setVisible(false);
@@ -447,7 +506,7 @@ public class LauncherPanel extends IScreen{
 		this.currentStep.setFont(Font.font("Verdana", FontPosture.ITALIC, 18F)); // FontPosture.ITALIC
 		this.currentStep.setStyle("-fx-background-color: transparent; -fx-text-fill: orange;");
 		this.currentStep.setAlignment(Pos.CENTER);
-		this.currentStep.setPosition(engine.getWidth() / 2 - 160, engine.getHeight() / 2 + 83);
+		this.currentStep.setPosition(engine.getWidth() / 2 - 160, engine.getHeight() / 2 + 63);
 		this.currentStep.setOpacity(0.4);
 		this.currentStep.setSize(320, 40);
 		this.currentStep.setVisible(false);
@@ -457,7 +516,7 @@ public class LauncherPanel extends IScreen{
 		this.currentFileLabel.setFont(FontLoader.loadFont("Comfortaa-Regular.ttf", "Comfortaa", 18F));
 		this.currentFileLabel.setStyle("-fx-background-color: transparent; -fx-text-fill: orange;");
 		this.currentFileLabel.setAlignment(Pos.CENTER);
-		this.currentFileLabel.setPosition(engine.getWidth() / 2 - 160, engine.getHeight() / 2 + 25);
+		this.currentFileLabel.setPosition(engine.getWidth() / 2 - 160, engine.getHeight() / 2 + 5);
 		this.currentFileLabel.setOpacity(0.8);
 		this.currentFileLabel.setSize(320, 40);
 		this.currentFileLabel.setVisible(false);
@@ -467,13 +526,14 @@ public class LauncherPanel extends IScreen{
 		this.percentageLabel.setFont(FontLoader.loadFont("Comfortaa-Regular.ttf", "Comfortaa", 30F));
 		this.percentageLabel.setStyle("-fx-background-color: transparent; -fx-text-fill: orange;");
 		this.percentageLabel.setAlignment(Pos.CENTER);
-		this.percentageLabel.setPosition(engine.getWidth() / 2 - 50, engine.getHeight() / 2 - 5);
+		this.percentageLabel.setPosition(engine.getWidth() / 2 - 50, engine.getHeight() / 2 - 25);
 		this.percentageLabel.setOpacity(0.8);
 		this.percentageLabel.setSize(100, 40);
 		this.percentageLabel.setVisible(false);
 		
+		/** ===================== BARRE DE CHARGEMENT ===================== */
 		this.bar = new LauncherProgressBar(root);
-		this.bar.setPosition(engine.getWidth() / 2 - 125, engine.getHeight() / 2 + 60);
+		this.bar.setPosition(engine.getWidth() / 2 - 125, engine.getHeight() / 2 + 40);
 		this.bar.setSize(250, 20);
 		this.bar.setVisible(false);
 		
@@ -483,6 +543,7 @@ public class LauncherPanel extends IScreen{
 		this.autoLoginRectangle.setOpacity(1.0);
 		this.autoLoginRectangle.setVisible(false);
 		
+		/** ===================== MESSAGE AUTOLOGIN ===================== */
 		this.autoLoginLabel = new LauncherLabel(root);
 		this.autoLoginLabel.setText("Connexion auto dans 3 secondes. Appuyez sur ECHAP pour annuler.");
 		this.autoLoginLabel.setFont(FontLoader.loadFont("Comfortaa-Regular.ttf", "Comfortaa", 18F));
@@ -492,6 +553,7 @@ public class LauncherPanel extends IScreen{
 		this.autoLoginLabel.setSize(700, 40);
 		this.autoLoginLabel.setVisible(false);
 		
+		/** ===================== ANNULER AUTOLOGIN ===================== */
 		this.autoLoginButton = new LauncherButton(root);
 		this.autoLoginButton.setText("Annuler");
 		this.autoLoginButton.setFont(FontLoader.loadFont("Comfortaa-Regular.ttf", "Comfortaa", 14F));
@@ -556,10 +618,12 @@ public class LauncherPanel extends IScreen{
 		
 	public void update(GameEngine engine, GameAuth auth) {
 			this.usernameField.setDisable(true);
+			this.rememberMe.setDisable(true);
 			this.passwordField.setDisable(true);
 			this.loginButton.setDisable(true);
 			this.settingsButton.setDisable(true);
 			this.usernameField.setVisible(false);
+			this.rememberMe.setVisible(false);
 			this.passwordField.setVisible(false);
 			this.loginButton.setVisible(false);
 			this.settingsButton.setVisible(false);
@@ -569,63 +633,65 @@ public class LauncherPanel extends IScreen{
 			this.currentFileLabel.setVisible(true);
 			this.percentageLabel.setVisible(true);
 			this.bar.setVisible(true);
-			
+			theGameEngine.getGameLinks().JSON_URL = theGameEngine.getGameLinks().BASE_URL + this.config.getValue("version") + ".json";
 			gameUpdater.reg(engine);
 			gameUpdater.reg(auth.getSession());
 
 			
-			this.theGameEngine.reg(GameMemory.getMemory(Double.parseDouble((String) this.config.getValue("allocatedram"))));
-			this.theGameEngine.reg(GameSize.getWindowSize(Integer.parseInt((String) this.config.getValue("gamesize"))));
-			boolean useVmArgs = (Boolean)config.getValue("usevmarguments");
-			String vmArgs = (String) config.getValue("vmarguments");
-			String[] s = null;
-			if (useVmArgs) {
-				if (vmArgs.length() > 3) {
-					s = vmArgs.split(" ");
-				}
-				JVMArguments arguments = new JVMArguments(s);
-				this.theGameEngine.reg(arguments);
-			}
-			/** END */
-			engine.reg(this.gameUpdater);
+			theGameEngine.reg(this.gameUpdater);
+
 			this.updateThread = new Thread() {
 				public void run() {
-					engine.getGameUpdater().run();
+					theGameEngine.getGameUpdater().run();
 				}
 			};
 			this.updateThread.start();
-			
-			/** ===================== REFAICHIR LE NOM DU FICHIER, PROGRESSBAR, POURCENTAGE  ===================== **/
-			this.timeline = new Timeline(new KeyFrame[] {
-					new KeyFrame(javafx.util.Duration.seconds(0.0D), e -> updateDownload(engine),
-					new javafx.animation.KeyValue[0]),
-					new KeyFrame (javafx.util.Duration.seconds(0.1D),
-					new javafx.animation.KeyValue[0])
-			});
+			/**
+			 * ===================== REFAICHIR LE NOM DU FICHIER, PROGRESSBAR, POURCENTAGE
+			 * =====================
+			 **/
+			this.timeline = new Timeline(
+					new KeyFrame[] { new KeyFrame(javafx.util.Duration.seconds(0.0D), new EventHandler<ActionEvent>() {
+						@Override
+						public void handle(ActionEvent event) {
+							timelineUpdate(theGameEngine);
+						}
+					}, new javafx.animation.KeyValue[0]),
+							new KeyFrame(javafx.util.Duration.seconds(0.1D), new javafx.animation.KeyValue[0]) });
 			this.timeline.setCycleCount(Animation.INDEFINITE);
 			this.timeline.play();
 
 		}
 
-		public void updateDownload(GameEngine engine) {
-			if (engine.getGameUpdater().downloadedFiles > 0) {
-				this.percentageLabel.setText(decimalFormat.format(engine.getGameUpdater().downloadedFiles * 100.0D / engine.getGameUpdater().filesToDownload) + "%");
-			}
-			this.currentFileLabel.setText(engine.getGameUpdater().getCurrentFile());
-			this.currentStep.setText(engine.getGameUpdater().getCurrentInfo());
-			double percent = (engine.getGameUpdater().downloadedFiles * 100.0D / engine.getGameUpdater().filesToDownload / 100.0D);
-			this.bar.setProgress(percent);
+	public void timelineUpdate(GameEngine engine) {
+		if (engine.getGameUpdater().downloadedFiles > 0) {
+			this.percentageLabel.setText(decimalFormat.format(
+					engine.getGameUpdater().downloadedFiles * 100.0D / engine.getGameUpdater().filesToDownload) + "%");
 		}
+		this.currentFileLabel.setText(engine.getGameUpdater().getCurrentFile());
+		this.currentStep.setText(engine.getGameUpdater().getCurrentInfo());
+		double percent = (engine.getGameUpdater().downloadedFiles * 100.0D / engine.getGameUpdater().filesToDownload
+				/ 100.0D);
+		this.bar.setProgress(percent);
+	}
 		
 		private Parent createSettingsPanel() {
 			LauncherPane contentPane = new LauncherPane(theGameEngine);
-			Rectangle rect = new Rectangle(500, 300);
+			Rectangle rect = new Rectangle(800, 500);
 			rect.setArcHeight(15.0);
 			rect.setArcWidth(15.0);
 			contentPane.setClip(rect);
 			contentPane.setStyle("-fx-background-color: transparent;");
 			new LauncherSettings(contentPane, theGameEngine, this);
 			return contentPane;
+		}
+		
+		public LauncherTextField getUsernameField() {
+			return usernameField;
+		}
+
+		public LauncherPasswordField getPasswordField() {
+			return passwordField;
 		}
 	
 }
