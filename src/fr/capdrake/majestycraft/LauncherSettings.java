@@ -4,10 +4,8 @@ package fr.capdrake.majestycraft;
 import java.util.HashMap;
 
 import fr.trxyy.alternative.alternative_api.GameEngine;
-import fr.trxyy.alternative.alternative_api.GameForge;
 import fr.trxyy.alternative.alternative_api.GameMemory;
 import fr.trxyy.alternative.alternative_api.GameSize;
-import fr.trxyy.alternative.alternative_api.GameStyle;
 import fr.trxyy.alternative.alternative_api.utils.FontLoader;
 import fr.trxyy.alternative.alternative_api_ui.base.IScreen;
 import fr.trxyy.alternative.alternative_api_ui.components.LauncherButton;
@@ -186,12 +184,13 @@ public class LauncherSettings extends IScreen {
 		this.useForge.setFont(FontLoader.loadFont("Comfortaa-Regular.ttf", "Comfortaa", 14F));
 		this.useForge.setStyle("-fx-text-fill: white;");
 		this.useForge.setLayoutX(300);
-		this.useForge.setLayoutY(255);
+		this.useForge.setLayoutY(255);		
 		root.getChildren().add(useForge);
+		
 		
 		/** ===================== AUTO LOGIN CHECK BOX ===================== */
 		this.autoLogin = new CheckBox();
-		this.autoLogin.setText("Connexion auto (crack)");
+		this.autoLogin.setText("Connexion automatique");
 		this.autoLogin.setSelected((Boolean)pane.config.getValue("autologin"));
 		this.autoLogin.setFont(FontLoader.loadFont("Comfortaa-Regular.ttf", "Comfortaa", 14F));
 		this.autoLogin.setStyle("-fx-text-fill: white;");
@@ -223,18 +222,6 @@ public class LauncherSettings extends IScreen {
 				engine.reg(GameSize.getWindowSize(Integer.parseInt((String) pane.config.getValue("gamesize"))));
 				engine.getGameLinks().JSON_NAME = (String) pane.config.getValue("version") + ".json";
 				engine.getGameLinks().JSON_URL = engine.getGameLinks().BASE_URL + engine.getGameLinks().JSON_NAME;	
-				if(useForge.isSelected())
-				{
-					switch(engine.getGameLinks().JSON_NAME)
-					{
-						case "1.16.2.json":
-							engine.setGameStyle(GameStyle.OPTIFINE);
-							LauncherMain.gameForge = new GameForge("fmlclient", "33.0.61", "1.16.2", "net.minecraft.launchwrapper.Launch", "20200812.004259");
-							break;
-					}
-				} else {
-					engine.setGameStyle(GameStyle.VANILLA);
-				}
 				engine.reg(engine.getGameLinks());
 				engine.reg(engine.getGameStyle());
 				Stage stage = (Stage)((LauncherButton)event.getSource()).getScene().getWindow();
@@ -250,12 +237,14 @@ public class LauncherSettings extends IScreen {
 	}
 	
 	//private String isAutoLogin() {
-		 //if (autoLogin.isSelected()) {
-		 //return "true";
-		 //} else {
-		 //return "false";
-		 //}
-		 //}
+	//	 if (autoLogin.isSelected()) {
+	//	 return "true";
+	//	 } else {
+	//	 return "false";
+	///	/ }
+	//	 }
+	
+	
 	private void populateVersionList() 
 	{
 		for(int i = 1; i < 12; i++) 

@@ -7,6 +7,8 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import fr.trxyy.alternative.alternative_api.GameEngine;
+import fr.trxyy.alternative.alternative_api.GameForge;
+import fr.trxyy.alternative.alternative_api.GameStyle;
 import fr.trxyy.alternative.alternative_api.account.AccountType;
 import fr.trxyy.alternative.alternative_api.auth.GameAuth;
 import fr.trxyy.alternative.alternative_api.updater.GameUpdater;
@@ -253,6 +255,21 @@ public class LauncherPanel extends IScreen{
 		this.loginButton.setStyle("-fx-background-color: rgba(0 ,0 ,0 , 0.4); -fx-text-fill: orange");
 		this.loginButton.setAction(event -> {
 			/**
+			 * ===================== VERIFICATION USEFORGE =====================
+			 */
+			if((boolean) config.getValue("useforge"))
+			{
+				switch(engine.getGameLinks().JSON_NAME)
+				{
+					case "1.16.2.json":
+						engine.setGameStyle(GameStyle.OPTIFINE);
+						LauncherMain.gameForge = new GameForge("fmlclient", "33.0.61", "1.16.2", "net.minecraft.launchwrapper.Launch", "20200812.004259");
+						break;
+				}
+			} else {
+				engine.setGameStyle(GameStyle.VANILLA);
+			}
+			/**
 			 * ===================== AUTHENTIFICATION OFFLINE (CRACK) =====================
 			 */
 			config.updateValue("username", usernameField.getText());
@@ -292,6 +309,118 @@ public class LauncherPanel extends IScreen{
 								+ " \nIl y a un probleme lors de la tentative de connexion. \n\n-Verifiez que le pseudonyme comprenne au minimum 3 caracteres.");
 			}
 		});
+		
+		/** =============== LOGIN AUTOMATIQUE (CRACK SEULEMENT) =============== **/
+		this.autoLoginRectangle = new LauncherRectangle(root, 0, theGameEngine.getHeight() - 32, 1000, theGameEngine.getHeight());
+		this.autoLoginRectangle.setFill(Color.rgb(0, 0, 0, 0.70));
+		this.autoLoginRectangle.setOpacity(1.0);
+		this.autoLoginRectangle.setVisible(false);
+		
+		/** ===================== MESSAGE AUTOLOGIN ===================== */
+		this.autoLoginLabel = new LauncherLabel(root);
+		this.autoLoginLabel.setText("Connexion auto dans 3 secondes. Appuyez sur ECHAP pour annuler.");
+		this.autoLoginLabel.setFont(FontLoader.loadFont("Comfortaa-Regular.ttf", "Comfortaa", 18F));
+		this.autoLoginLabel.setStyle("-fx-background-color: transparent; -fx-text-fill: red;");
+		this.autoLoginLabel.setPosition(theGameEngine.getWidth() / 2 - 280, theGameEngine.getHeight() - 34);
+		this.autoLoginLabel.setOpacity(0.7);
+		this.autoLoginLabel.setSize(700, 40);
+		this.autoLoginLabel.setVisible(false);
+		
+		/** ===================== ANNULER AUTOLOGIN ===================== */
+		this.autoLoginButton = new LauncherButton(root);
+		this.autoLoginButton.setText("Annuler");
+		this.autoLoginButton.setFont(FontLoader.loadFont("Comfortaa-Regular.ttf", "Comfortaa", 14F));
+		this.autoLoginButton.setPosition(theGameEngine.getWidth() / 2 + 60, theGameEngine.getHeight() - 30);
+		this.autoLoginButton.setSize(200, 20);
+		this.autoLoginButton.setStyle("-fx-background-color: rgba(255, 255, 255, 0.4); -fx-text-fill: black;");
+		this.autoLoginButton.setVisible(false);
+		this.autoLoginButton.setOnAction(new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent event) {
+				autoLoginTimer.cancel();
+				autoLoginLabel.setVisible(false);
+				autoLoginButton.setVisible(false);
+				autoLoginRectangle.setVisible(false);
+			}
+		});
+		String userName = (String)this.config.getValue("username");
+		if (userName.length() > 2 && (boolean)this.config.getValue("autologin").equals(true)) {
+			Platform.runLater(new Runnable() {
+				public void run() {
+					autoLoginTimer = new Timer();
+					TimerTask timerTask = new TimerTask() {
+						int waitTime = 5;
+						int elapsed = 0;
+						@Override
+						
+						public void run() {
+							/**
+							 * ===================== VERIFICATION USEFORGE =====================
+							 */
+							if((boolean) config.getValue("useforge"))
+							{
+								switch(engine.getGameLinks().JSON_NAME)
+								{
+									case "1.16.2.json":
+										engine.setGameStyle(GameStyle.OPTIFINE);
+										LauncherMain.gameForge = new GameForge("fmlclient", "33.0.61", "1.16.2", "net.minecraft.launchwrapper.Launch", "20200812.004259");
+										break;
+								}
+							} else {
+								engine.setGameStyle(GameStyle.VANILLA);
+							}
+							
+							elapsed++;
+							//S'execute à la fin du compte à rebours
+							if (elapsed % waitTime == 0) { 
+								if (!theGameEngine.getGameMaintenance().isAccessBlocked()) {
+									/**
+									 * ===================== AUTHENTIFICATION OFFLINE (CRACK) =====================
+									 */
+									if (usernameField.getText().length() > 3 && passwordField.getText().isEmpty()) {
+										loginButton.fire();
+										autoLoginTimer.cancel();
+										autoLoginLabel.setVisible(false);
+										autoLoginButton.setVisible(false);
+										autoLoginRectangle.setVisible(false);
+										GameAuth auth = new GameAuth(usernameField.getText(), passwordField.getText(),
+												AccountType.OFFLINE);
+										update(engine, auth);
+									}
+									
+									/** ===================== AUTHENTIFICATION OFFICIELLE ===================== */
+									else{
+										loginButton.fire();
+										autoLoginTimer.cancel();
+										autoLoginLabel.setVisible(false);
+										autoLoginButton.setVisible(false);
+										autoLoginRectangle.setVisible(false);
+										GameAuth auth = new GameAuth(usernameField.getText(), passwordField.getText(),
+												AccountType.MOJANG);
+										update(engine, auth);
+									}
+								}
+							} 
+							/** ===================== MESSAGE DE CONNEXION AUTO ===================== */
+							else {
+								final int time = (waitTime - (elapsed % waitTime));
+								Platform.runLater(new Runnable() {
+									public void run() {
+										autoLoginLabel.setText("Connexion auto dans " + time + " secondes.");
+
+									}
+								});
+							}
+						}
+					};
+					autoLoginTimer.schedule(timerTask, 0, 1000);
+					autoLoginLabel.setVisible(true);
+					autoLoginRectangle.setVisible(true);
+					autoLoginButton.setVisible(true);
+				}
+			});
+		 
+
+		}
 		
 		/** ===================== CHECKBOX SE SOUVENIR ===================== */
 		this.rememberMe = new CheckBox();
@@ -537,82 +666,7 @@ public class LauncherPanel extends IScreen{
 		this.bar.setSize(250, 20);
 		this.bar.setVisible(false);
 		
-		/** =============== LOGIN AUTOMATIQUE (CRACK SEULEMENT) =============== **/
-		this.autoLoginRectangle = new LauncherRectangle(root, 0, theGameEngine.getHeight() - 32, 1000, theGameEngine.getHeight());
-		this.autoLoginRectangle.setFill(Color.rgb(0, 0, 0, 0.70));
-		this.autoLoginRectangle.setOpacity(1.0);
-		this.autoLoginRectangle.setVisible(false);
-		
-		/** ===================== MESSAGE AUTOLOGIN ===================== */
-		this.autoLoginLabel = new LauncherLabel(root);
-		this.autoLoginLabel.setText("Connexion auto dans 3 secondes. Appuyez sur ECHAP pour annuler.");
-		this.autoLoginLabel.setFont(FontLoader.loadFont("Comfortaa-Regular.ttf", "Comfortaa", 18F));
-		this.autoLoginLabel.setStyle("-fx-background-color: transparent; -fx-text-fill: red;");
-		this.autoLoginLabel.setPosition(theGameEngine.getWidth() / 2 - 280, theGameEngine.getHeight() - 34);
-		this.autoLoginLabel.setOpacity(0.7);
-		this.autoLoginLabel.setSize(700, 40);
-		this.autoLoginLabel.setVisible(false);
-		
-		/** ===================== ANNULER AUTOLOGIN ===================== */
-		this.autoLoginButton = new LauncherButton(root);
-		this.autoLoginButton.setText("Annuler");
-		this.autoLoginButton.setFont(FontLoader.loadFont("Comfortaa-Regular.ttf", "Comfortaa", 14F));
-		this.autoLoginButton.setPosition(theGameEngine.getWidth() / 2 + 60, theGameEngine.getHeight() - 30);
-		this.autoLoginButton.setSize(200, 20);
-		this.autoLoginButton.setStyle("-fx-background-color: rgba(255, 255, 255, 0.4); -fx-text-fill: black;");
-		this.autoLoginButton.setVisible(false);
-		this.autoLoginButton.setOnAction(new EventHandler<ActionEvent>() {
-			public void handle(ActionEvent event) {
-				autoLoginTimer.cancel();
-				autoLoginLabel.setVisible(false);
-				autoLoginButton.setVisible(false);
-				autoLoginRectangle.setVisible(false);
-			}
-		});
-		String userName = (String)this.config.getValue("username");
-		if (userName.length() > 2 && !userName.contains("@") && (boolean)this.config.getValue("autologin").equals(true)) {
-			Platform.runLater(new Runnable() {
-				public void run() {
-					autoLoginTimer = new Timer();
-					TimerTask timerTask = new TimerTask() {
-						int waitTime = 5;
-						int elapsed = 0;
-						@Override
-						public void run() {
-							elapsed++;
 
-							if (elapsed % waitTime == 0) {
-								if (!theGameEngine.getGameMaintenance().isAccessBlocked()) {
-									loginButton.fire();
-									autoLoginTimer.cancel();
-									autoLoginLabel.setVisible(false);
-									autoLoginButton.setVisible(false);
-									autoLoginRectangle.setVisible(false);
-									GameAuth auth = new GameAuth(usernameField.getText(), passwordField.getText(),
-											AccountType.OFFLINE);
-									update(engine, auth);
-									
-								}
-							} else {
-								final int time = (waitTime - (elapsed % waitTime));
-								Platform.runLater(new Runnable() {
-									public void run() {
-										autoLoginLabel.setText("Connexion auto dans " + time + " secondes.");
-
-									}
-								});
-							}
-						}
-					};
-					autoLoginTimer.schedule(timerTask, 0, 1000);
-					autoLoginLabel.setVisible(true);
-					autoLoginRectangle.setVisible(true);
-					autoLoginButton.setVisible(true);
-				}
-			});
-		 
-
-		}
 	}
 
 		
