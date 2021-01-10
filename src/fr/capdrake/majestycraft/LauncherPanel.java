@@ -310,7 +310,7 @@ public class LauncherPanel extends IScreen{
 			}
 		});
 		
-		/** =============== LOGIN AUTOMATIQUE (CRACK SEULEMENT) =============== **/
+		/** =============== LOGIN AUTOMATIQUE (CRACK ET PREMIUM =============== **/
 		this.autoLoginRectangle = new LauncherRectangle(root, 0, theGameEngine.getHeight() - 32, 1000, theGameEngine.getHeight());
 		this.autoLoginRectangle.setFill(Color.rgb(0, 0, 0, 0.70));
 		this.autoLoginRectangle.setOpacity(1.0);
