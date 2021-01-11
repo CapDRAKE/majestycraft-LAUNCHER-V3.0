@@ -82,10 +82,12 @@ public class LauncherPanel extends IScreen{
 	private LauncherLabel infoJoueur;
 	private LauncherLabel titleLabel;
 	
-
+	// Les rectangles 
 	private LauncherRectangle autoLoginRectangle;
 	private LauncherRectangle topRectangle;
 	private LauncherRectangle updateRectangle;
+	private LauncherRectangle serveurRectangle;
+	private LauncherRectangle joueursRectangle;
 	
 	private GameEngine theGameEngine;
 	// Se souvenir de moi
@@ -119,6 +121,13 @@ public class LauncherPanel extends IScreen{
 	public LauncherPanel(Pane root, GameEngine engine){
 		
 		
+		/** ===================== RECTANGLE INFO SERVEUR ===================== */
+		this.serveurRectangle = new LauncherRectangle(root, engine.getWidth() / 2 - 460, engine.getHeight() / 2 - 255, 250, 90);
+		this.serveurRectangle.setArcWidth(10.0);
+		this.serveurRectangle.setArcHeight(10.0);
+		this.serveurRectangle.setFill(Color.rgb(0, 0, 0, 0.40));
+		
+		
 		/** ===================== INFO SERVEUR ===================== */
 		this.infoServeur = new LauncherLabel(root);
 		try {
@@ -133,6 +142,11 @@ public class LauncherPanel extends IScreen{
 		this.infoServeur.setStyle("-fx-background-color: transparent; -fx-text-fill: red");
 		this.infoServeur.setOpacity(0.7);
 		
+		/** ===================== RECTANGLE INFO NB JOUEURS ===================== */
+		this.joueursRectangle = new LauncherRectangle(root, engine.getWidth() / 2 + 205, engine.getHeight() / 2 - 255, 250, 90);
+		this.joueursRectangle.setArcWidth(10.0);
+		this.joueursRectangle.setArcHeight(10.0);
+		this.joueursRectangle.setFill(Color.rgb(0, 0, 0, 0.40));
 		
 		/** ===================== INFO NB JOUEURS ===================== */
 		this.infoJoueur = new LauncherLabel(root);
@@ -143,7 +157,7 @@ public class LauncherPanel extends IScreen{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		this.infoJoueur.setPosition(engine.getWidth() / 2 + 253, engine.getHeight() / 2 - 250);
+		this.infoJoueur.setPosition(engine.getWidth() / 2 + 235, engine.getHeight() / 2 - 250);
 		this.infoJoueur.setFont(Font.font("FontName", FontWeight.BOLD, 18d));
 		this.infoJoueur.setStyle("-fx-background-color: transparent; -fx-text-fill: red");
 		this.infoJoueur.setOpacity(0.7);

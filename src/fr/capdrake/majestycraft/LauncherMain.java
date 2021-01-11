@@ -26,7 +26,7 @@ public class LauncherMain extends AlternativeBase{
 		
 	private GameFolder gameFolder = new GameFolder("majestycraft");
 	private LauncherPreferences launcherPreferences = new LauncherPreferences("Launcher MajestyCraft 1.16.2 Optifine + Forge", 950, 600, true);
-	private GameLinks gameLinks = new GameLinks("https://majestycraft.w2.websr.fr/minecraft/", "1.16.2.json");
+	private GameLinks gameLinks = new GameLinks("https://majestycraft.com/minecraft/", "1.16.2.json");
 	private GameEngine gameEngine = new GameEngine(this.gameFolder, this.gameLinks, this.launcherPreferences, GameStyle.VANILLA);
 	public static GameForge gameForge;
 	private GameMaintenance gameMaintenance = new GameMaintenance(Maintenance.USE, gameEngine);
