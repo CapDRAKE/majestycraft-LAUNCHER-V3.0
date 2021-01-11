@@ -110,10 +110,10 @@ public class LauncherPanel extends IScreen{
 	private String INSTAGRAM_URL = "http://instagram.com/";
 	private String TWITTER_URL = "http://twitter.com/craftsurvie";
 	private String YOUTUBE_URL = "http://youtube.com/";
-	private String VOTE_URL = "https://majestycraft.w2.websr.fr/index.php?&page=voter";
-	private String BOUTIQUE_URL = "https://majestycraft.w2.websr.fr/index.php?&page=boutique";
-	private String SITE_URL = "https://majestycraft.w2.websr.fr/index.php";
-	private String FORUM_URL = "https://majestycraft.w2.websr.fr/index.php?page=forum";
+	private String VOTE_URL = "https://majestycraft.com/index.php?&page=voter";
+	private String BOUTIQUE_URL = "https://majestycraft.com/index.php?&page=boutique";
+	private String SITE_URL = "https://majestycraft.com/index.php";
+	private String FORUM_URL = "https://majestycraft.com/index.php?page=forum";
 	//private String TROPICOLANDS_URL = "https://tropicolands.ezcraft.fr/";
 	public LauncherConfig config;
 	
