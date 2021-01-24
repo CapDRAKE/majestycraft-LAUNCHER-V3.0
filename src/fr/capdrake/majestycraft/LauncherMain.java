@@ -10,7 +10,6 @@ import fr.trxyy.alternative.alternative_api.GameStyle;
 import fr.trxyy.alternative.alternative_api.LauncherPreferences;
 import fr.trxyy.alternative.alternative_api.maintenance.GameMaintenance;
 import fr.trxyy.alternative.alternative_api.maintenance.Maintenance;
-import fr.trxyy.alternative.alternative_api_ui.LauncherAlert;
 import fr.trxyy.alternative.alternative_api_ui.LauncherBackground;
 import fr.trxyy.alternative.alternative_api_ui.LauncherPane;
 import fr.trxyy.alternative.alternative_api_ui.base.AlternativeBase;

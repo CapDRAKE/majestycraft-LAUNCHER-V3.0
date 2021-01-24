@@ -71,6 +71,9 @@ public class LauncherPanel extends IScreen{
 	private LauncherButton twitterButton;
 	private LauncherButton instagramButton;
 	private LauncherButton youtubeButton;
+	private LauncherButton infoButton;
+	private LauncherButton muteButton;
+	private LauncherButton unmuteButton;
 	
 	//Les labels
 	private LauncherLabel autoLoginLabel;
@@ -120,7 +123,7 @@ public class LauncherPanel extends IScreen{
 	private String VOTE_URL = "https://majestycraft.com/index.php?&page=voter";
 	private String BOUTIQUE_URL = "https://majestycraft.com/index.php?&page=boutique";
 	private String SITE_URL = "https://majestycraft.com/index.php";
-	private String FORUM_URL = "https://majestycraft.com/index.php?page=forum";
+	private String DISCORD_URL = "https://discord.gg/bj7mUb9";
 	//private String TROPICOLANDS_URL = "https://tropicolands.ezcraft.fr/";
 	public LauncherConfig config;
 	
@@ -247,6 +250,60 @@ public class LauncherPanel extends IScreen{
 		this.titleImage.setSize(25, 25);
 		this.titleImage.setPosition(engine.getWidth() / 3 - 50, 3);
 		
+		/** ===================== BOUTON info ===================== */
+		this.infoButton = new LauncherButton(root);
+		this.infoButton.setStyle("-fx-background-color: rgba(0 ,0 ,0 , 0.4); -fx-text-fill: orange");
+		LauncherImage settingsImg = new LauncherImage(root, getResourceLocation().loadImage(engine, "info.png"));
+		settingsImg.setSize(27, 27);
+		this.infoButton.setGraphic(settingsImg);
+		this.infoButton.setPosition(engine.getWidth() / 2 - 525, engine.getHeight() / 2 - 320);
+		this.infoButton.setSize(60, 46);
+		this.infoButton.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				Scene scene = new Scene(createInfoPanel());
+				Stage stage = new Stage();
+				scene.setFill(Color.TRANSPARENT);
+				stage.setResizable(false);
+				stage.initStyle(StageStyle.TRANSPARENT);
+				stage.setTitle("Parametres Launcher");
+				stage.setWidth(900);
+				stage.setHeight(600);
+				stage.setScene(scene);
+				stage.show();
+			}
+		});
+		
+		/** ===================== BOUTON MUSIQUE OFF ===================== */
+		this.muteButton = new LauncherButton(root);
+		this.muteButton.setStyle("-fx-background-color: rgba(0 ,0 ,0 , 0.4); -fx-text-fill: orange");
+		settingsImg = new LauncherImage(root, getResourceLocation().loadImage(engine, "mute.png"));
+		settingsImg.setSize(27, 27);
+		this.muteButton.setGraphic(settingsImg);
+		this.muteButton.setPosition(engine.getWidth() / 2 - 525, engine.getHeight() / 2 - 270);
+		this.muteButton.setSize(60, 46);
+		this.muteButton.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				LauncherMain.muteMusic();
+			}
+		});
+		
+		/** ===================== BOUTON MUSIQUE ON ===================== */
+		this.unmuteButton = new LauncherButton(root);
+		this.unmuteButton.setStyle("-fx-background-color: rgba(0 ,0 ,0 , 0.4); -fx-text-fill: orange");
+		settingsImg = new LauncherImage(root, getResourceLocation().loadImage(engine, "unmute.png"));
+		settingsImg.setSize(27, 27);
+		this.unmuteButton.setGraphic(settingsImg);
+		this.unmuteButton.setPosition(engine.getWidth() / 2 - 525, engine.getHeight() / 2 - 220);
+		this.unmuteButton.setSize(60, 46);
+		this.unmuteButton.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				LauncherMain.resumeMusic();
+			}
+		});
+		
 		/** ===================== RECTANGLE DES CONNEXIONS ===================== */
 		this.connexionRectangle = new LauncherRectangle(root, -10 , engine.getHeight() / 2 - 150 , 1350, 320);
 		this.connexionRectangle.setArcWidth(10.0);
@@ -305,6 +362,7 @@ public class LauncherPanel extends IScreen{
 			 * ===================== AUTHENTIFICATION OFFLINE (CRACK) =====================
 			 */
 			config.updateValue("username", usernameField2.getText());
+			config.updateValue("password", "");
 			if (usernameField2.getText().length() < 3) {
 				new LauncherAlert("Authentification echouee",
 						"Il y a un probleme lors de la tentative de connexion: Le pseudonyme doit comprendre au moins 3 caracteres.");
@@ -320,7 +378,7 @@ public class LauncherPanel extends IScreen{
 		/** ===================== BOUTON PARAMETRE ===================== */
 		this.settingsButton2 = new LauncherButton(root);
 		this.settingsButton2.setStyle("-fx-background-color: rgba(0 ,0 ,0 , 0.4); -fx-text-fill: orange");
-		LauncherImage settingsImg = new LauncherImage(root, getResourceLocation().loadImage(engine, "settings.png"));
+		settingsImg = new LauncherImage(root, getResourceLocation().loadImage(engine, "settings.png"));
 		settingsImg.setSize(27, 27);
 		this.settingsButton2.setGraphic(settingsImg);
 		this.settingsButton2.setPosition(engine.getWidth() / 2 +176, engine.getHeight() / 2 + 100);
@@ -358,8 +416,8 @@ public class LauncherPanel extends IScreen{
 		
 		/** ===================== NOM D'UTILISATEUR ===================== */
 		this.usernameField = new LauncherTextField(root);
-		this.usernameField.setText((String)this.config.getValue("username"));
 		this.usernameField.setPosition(engine.getWidth() / 2 - 435, engine.getHeight() / 2- 42);
+		this.usernameField.setText((String)this.config.getValue("username"));
 		this.usernameField.setSize(270, 50);
 		this.usernameField.setFont(FontLoader.loadFont("Roboto-Light.ttf", "Roboto Light", 14F));
 		this.usernameField.setStyle("-fx-background-color: rgba(0 ,0 ,0 , 0.2); -fx-text-fill: orange");
@@ -422,13 +480,13 @@ public class LauncherPanel extends IScreen{
 				if (auth.isLogged()) {
 					update(engine, auth);
 				} else {
-					new LauncherAlert("Authentification echouee!",
+					new LauncherAlert("Authentification echouée!",
 							"Impossible de se connecter, l'authentification semble etre une authentification 'en-ligne'"
 									+ " \nIl y a un probleme lors de la tentative de connexion. \n\n-Verifiez que le pseudonyme comprenne au minimum 3 caracteres. (compte non migrer)"
 									+ "\n-Faites bien attention aux majuscules et minuscules. \nAssurez-vous d'utiliser un compte Mojang. \nAssurez-vous de bien utiliser votre email dans le  cas d'une connexion avec un compte Mojang !");
 				}
 			} else {
-				new LauncherAlert("Authentification echouee!",
+				new LauncherAlert("Authentification echouée!",
 						"Impossible de se connecter, l'authentification semble etre une authentification 'hors-ligne'"
 								+ " \nIl y a un probleme lors de la tentative de connexion. \n\n-Verifiez que le pseudonyme comprenne au minimum 3 caracteres.");
 			}
@@ -513,7 +571,7 @@ public class LauncherPanel extends IScreen{
 									}
 									
 									/** ===================== AUTHENTIFICATION OFFICIELLE ===================== */
-									else{
+									else if (usernameField.getText().length() > 3 && !passwordField.getText().isEmpty()) {
 										loginButton.fire();
 										autoLoginTimer.cancel();
 										autoLoginLabel.setVisible(false);
@@ -523,7 +581,8 @@ public class LauncherPanel extends IScreen{
 												AccountType.MOJANG);
 										if (auth.isLogged()) {
 											update(engine, auth);
-										} else {
+										} 
+										else {
 											new LauncherAlert("Authentification echouee!",
 													"Impossible de se connecter, l'authentification semble etre une authentification 'en-ligne'"
 															+ " \nIl y a un probleme lors de la tentative de connexion. \n\n-Verifiez que le pseudonyme comprenne au minimum 3 caracteres. (compte non migrer)"
@@ -671,7 +730,7 @@ public class LauncherPanel extends IScreen{
 		
 		/** ===================== BOUTON URL FORUM ===================== */
 		this.forumButton = new LauncherButton(root);
-		this.forumButton.setText("Forum");
+		this.forumButton.setText("Discord");
 		this.forumButton.setFont(FontLoader.loadFont("Comfortaa-Regular.ttf", "Comfortaa", 22F));
 		this.forumButton.setPosition(engine.getWidth() /2 + 300,  engine.getHeight() - 107);
 		this.forumButton.setSize(200,  45);
@@ -679,7 +738,7 @@ public class LauncherPanel extends IScreen{
 		this.forumButton.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				openLink(FORUM_URL);
+				openLink(DISCORD_URL);
 			}
 		});
 		
@@ -882,6 +941,17 @@ public class LauncherPanel extends IScreen{
 			contentPane.setStyle("-fx-background-color: transparent;");
 			new LauncherSettings(contentPane, theGameEngine, this);
 			return contentPane;
+		}
+		
+		private Parent createInfoPanel() {
+			LauncherPane contentPane2 = new LauncherPane(theGameEngine);
+			Rectangle rect = new Rectangle(1500, 900);
+			rect.setArcHeight(15.0);
+			rect.setArcWidth(15.0);
+			contentPane2.setClip(rect);
+			contentPane2.setStyle("-fx-background-color: transparent;");
+			new LauncherInfo(contentPane2, theGameEngine, this);
+			return contentPane2;
 		}
 		
 		public LauncherTextField getUsernameField() {
