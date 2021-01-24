@@ -247,7 +247,7 @@ public class LauncherSettings extends IScreen {
 	
 	private void populateVersionList() 
 	{
-		for(int i = 1; i < 12; i++) 
+		for(int i = 1; i < 13; i++) 
 		{
 			if(i == 1) 
 			{
@@ -292,6 +292,10 @@ public class LauncherSettings extends IScreen {
 			else if(i == 11) 
 			{
 				this.versionList.getItems().add("1.16.4");
+			}
+			else if(i == 12) 
+			{
+				this.versionList.getItems().add("1.16.5");
 			}
 		}
 	}

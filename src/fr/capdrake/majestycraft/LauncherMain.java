@@ -10,6 +10,7 @@ import fr.trxyy.alternative.alternative_api.GameStyle;
 import fr.trxyy.alternative.alternative_api.LauncherPreferences;
 import fr.trxyy.alternative.alternative_api.maintenance.GameMaintenance;
 import fr.trxyy.alternative.alternative_api.maintenance.Maintenance;
+import fr.trxyy.alternative.alternative_api_ui.LauncherAlert;
 import fr.trxyy.alternative.alternative_api_ui.LauncherBackground;
 import fr.trxyy.alternative.alternative_api_ui.LauncherPane;
 import fr.trxyy.alternative.alternative_api_ui.base.AlternativeBase;
@@ -25,7 +26,7 @@ import javafx.scene.media.MediaPlayer;
 public class LauncherMain extends AlternativeBase{
 		
 	private GameFolder gameFolder = new GameFolder("majestycraft");
-	private LauncherPreferences launcherPreferences = new LauncherPreferences("Launcher MajestyCraft 1.16.2 Optifine + Forge", 950, 600, true);
+	private LauncherPreferences launcherPreferences = new LauncherPreferences("Launcher MajestyCraft 1.16.2 Optifine + Forge", 1050, 750, true);
 	private GameLinks gameLinks = new GameLinks("https://majestycraft.com/minecraft/", "1.16.2.json");
 	private GameEngine gameEngine = new GameEngine(this.gameFolder, this.gameLinks, this.launcherPreferences, GameStyle.VANILLA);
 	public static GameForge gameForge;
@@ -46,7 +47,7 @@ public class LauncherMain extends AlternativeBase{
 		Scene scene = new Scene(createContent());
 		this.gameEngine.reg(primaryStage);  
 		this.gameEngine.reg(this.gameMaintenance);
-		//playMusic(media, "Minecraft.mp3");
+		playMusic(media, "Minecraft.mp3");
 		//this.gameEngine.reg(this.gameLinks);
 		//this.gameEngine.reg(this.gameConnect);
 		//this.gameEngine.reg(this.newForge);
@@ -70,12 +71,12 @@ public class LauncherMain extends AlternativeBase{
 		return contentPane;
 	}
 	
-	//private void playMusic(Media media, String path) 
-	//{
-		//media = getResourceLocation().getMedia(this.gameEngine, path);
-		//mediaPlayer = new MediaPlayer(media);
-		//mediaPlayer.play();
-	//}
+	private void playMusic(Media media, String path) 
+	{
+		media = getResourceLocation().getMedia(this.gameEngine, path);
+		mediaPlayer = new MediaPlayer(media);
+		mediaPlayer.play();
+	}
 	
 	private void readVersion(LauncherPanel panel)
 	{
@@ -113,6 +114,9 @@ public class LauncherMain extends AlternativeBase{
 				break;
 			case "1.16.3":
 				gameLinks.JSON_URL = gameLinks.BASE_URL + "1.16.3.json";
+				break;
+			case "1.16.5":
+				gameLinks.JSON_URL = gameLinks.BASE_URL + "1.16.5.json";
 				break;
 			default :
                 panel.config.updateValue("version", gameLinks.getJsonName().replace(".json",""));
