@@ -43,6 +43,7 @@ import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.scene.image.Image;
 import re.alwyn974.minecraftserverping.MinecraftServerPing;
 import re.alwyn974.minecraftserverping.MinecraftServerPingInfos;
 import re.alwyn974.minecraftserverping.MinecraftServerPingOptions;
@@ -99,7 +100,9 @@ public class LauncherPanel extends IScreen{
 	private LauncherRectangle joueursRectangle;
 	private LauncherRectangle connexionRectangle;
 	
-	private GameEngine theGameEngine;
+	/** GAMEENGINE REQUIRED */
+	private static GameEngine theGameEngine;	
+	
 	// Se souvenir de moi
 	private CheckBox rememberMe;
 
@@ -113,6 +116,11 @@ public class LauncherPanel extends IScreen{
 	private GameUpdater gameUpdater = new GameUpdater();
 
 	public LauncherProgressBar bar;
+	
+	// Image
+		public static LauncherImage avatar;
+		public static LauncherImage avatar2;
+		public static LauncherImage avatar3;
 	
 
 	
@@ -130,6 +138,10 @@ public class LauncherPanel extends IScreen{
 	
 	public LauncherPanel(Pane root, GameEngine engine){
 		
+		// Déselectionne la textfield par défaut
+	    Platform.runLater( () -> root.requestFocus());
+	    
+	    
 		
 		/** ===================== RECTANGLE INFO SERVEUR ===================== */
 		this.serveurRectangle = new LauncherRectangle(root, engine.getWidth() / 2 - 460, engine.getHeight() / 2 - 255, 250, 90);
@@ -177,7 +189,7 @@ public class LauncherPanel extends IScreen{
 		this.infoJoueur.setVisible(false);
 		
 		
-		this.theGameEngine = engine;
+		theGameEngine = engine;
 		
 		this.config = new LauncherConfig(engine);
 		this.config.loadConfiguration();
@@ -311,7 +323,10 @@ public class LauncherPanel extends IScreen{
 		this.connexionRectangle.setFill(Color.rgb(255, 255, 255, 0.10));
 		this.connexionRectangle.setVisible(true);
 		
-		
+		/** ===================== AVATAR CONSTANT CRACK ===================== */
+		avatar2 = new LauncherImage(root, new Image("https://minotar.net/avatar/MHF_Steve.png"));
+		avatar2.setSize(50, 50);
+		avatar2.setPosition(theGameEngine.getWidth() / 2 + 121, theGameEngine.getHeight() / 2-12);
 		
 		/** ================================ PARTIE CRACK ================================== */
 		
@@ -346,6 +361,7 @@ public class LauncherPanel extends IScreen{
 			/**
 			 * ===================== VERIFICATION USEFORGE =====================
 			 */
+
 			if((boolean) config.getValue("useforge"))
 			{
 				switch(engine.getGameLinks().JSON_NAME)
@@ -361,6 +377,7 @@ public class LauncherPanel extends IScreen{
 			/**
 			 * ===================== AUTHENTIFICATION OFFLINE (CRACK) =====================
 			 */
+
 			config.updateValue("username", usernameField2.getText());
 			config.updateValue("password", "");
 			if (usernameField2.getText().length() < 3) {
@@ -371,6 +388,8 @@ public class LauncherPanel extends IScreen{
 						AccountType.OFFLINE);
 				if (auth.isLogged()) {
 					update(engine, auth);
+					connectAccountCrackCO(root);
+
 				}
 			}
 		});
@@ -421,7 +440,7 @@ public class LauncherPanel extends IScreen{
 		this.usernameField.setSize(270, 50);
 		this.usernameField.setFont(FontLoader.loadFont("Roboto-Light.ttf", "Roboto Light", 14F));
 		this.usernameField.setStyle("-fx-background-color: rgba(0 ,0 ,0 , 0.2); -fx-text-fill: orange");
-		this.usernameField.setVoidText("Votre pseudo (ou email si premium)");
+		this.usernameField.setVoidText("Votre email");
 		
 		/** ===================== MOT DE PASSE ===================== */
 		this.passwordField = new LauncherPasswordField(root);
@@ -479,6 +498,7 @@ public class LauncherPanel extends IScreen{
 						AccountType.MOJANG);
 				if (auth.isLogged()) {
 					update(engine, auth);
+					connectAccountPremiumCO(auth.getSession().getUsername(), root);
 				} else {
 					new LauncherAlert("Authentification echouée!",
 							"Impossible de se connecter, l'authentification semble etre une authentification 'en-ligne'"
@@ -492,7 +512,32 @@ public class LauncherPanel extends IScreen{
 			}
 		});
 		
-		/** =============== LOGIN AUTOMATIQUE (CRACK ET PREMIUM =============== **/
+		
+		
+		
+		/** =============== AFFICHAGE DE LA TETE DU JOUEUR =============== **/
+		if (usernameField.getText().length() > 3) {
+			GameAuth auth = new GameAuth(usernameField.getText(), passwordField.getText(),
+					AccountType.MOJANG);
+			if (auth.isLogged()) {
+				this.usernameField2.setText("");
+				connectAccountPremium(auth.getSession().getUsername(), root);
+				connectAccountPremiumCO(auth.getSession().getUsername(), root);
+			}
+			else if(usernameField.getText().contains("@")) {
+				this.usernameField2.setText("");
+				connectAccountCrack(root);
+				connectAccountCrackCO(root);
+			}
+			else {
+				this.usernameField.setText("");
+				connectAccountCrack(root);
+				connectAccountCrackCO(root);
+			}
+		}
+		
+		
+		/** =============== LOGIN AUTOMATIQUE (CRACK ET PREMIUM) =============== **/
 		this.autoLoginRectangle = new LauncherRectangle(root, 0, theGameEngine.getHeight() - 32, 2000, theGameEngine.getHeight());
 		this.autoLoginRectangle.setFill(Color.rgb(0, 0, 0, 0.70));
 		this.autoLoginRectangle.setOpacity(1.0);
@@ -525,6 +570,7 @@ public class LauncherPanel extends IScreen{
 			}
 		});
 		String userName = (String)this.config.getValue("username");
+		
 		if (userName.length() > 2 && (boolean)this.config.getValue("autologin").equals(true)) {
 			Platform.runLater(new Runnable() {
 				public void run() {
@@ -551,6 +597,8 @@ public class LauncherPanel extends IScreen{
 								engine.setGameStyle(GameStyle.VANILLA);
 							}
 							
+							
+							
 							elapsed++;
 							//S'execute à la fin du compte à rebours
 							if (elapsed % waitTime == 0) { 
@@ -558,7 +606,7 @@ public class LauncherPanel extends IScreen{
 									/**
 									 * ===================== AUTHENTIFICATION OFFLINE (CRACK) =====================
 									 */
-									if (usernameField.getText().length() > 3 && passwordField.getText().isEmpty()) {
+									if (usernameField2.getText().length() > 3 && passwordField.getText().isEmpty()) {
 										loginButton.fire();
 										autoLoginTimer.cancel();
 										autoLoginLabel.setVisible(false);
@@ -567,26 +615,32 @@ public class LauncherPanel extends IScreen{
 										GameAuth auth = new GameAuth(usernameField.getText(), passwordField.getText(),
 												AccountType.OFFLINE);
 										update(engine, auth);
+
 										
 									}
 									
 									/** ===================== AUTHENTIFICATION OFFICIELLE ===================== */
 									else if (usernameField.getText().length() > 3 && !passwordField.getText().isEmpty()) {
-										loginButton.fire();
 										autoLoginTimer.cancel();
+										loginButton.fire();
 										autoLoginLabel.setVisible(false);
 										autoLoginButton.setVisible(false);
 										autoLoginRectangle.setVisible(false);
+
 										GameAuth auth = new GameAuth(usernameField.getText(), passwordField.getText(),
 												AccountType.MOJANG);
 										if (auth.isLogged()) {
 											update(engine, auth);
 										} 
 										else {
-											new LauncherAlert("Authentification echouee!",
+											//Ceci est nécessaire pour éviter de faire planter. Le LauncherAlert ne peut s'afficher lors de l'utilisation d'un "time"
+											Platform.runLater(() -> {
+											new LauncherAlert("Authentification echouée!",
 													"Impossible de se connecter, l'authentification semble etre une authentification 'en-ligne'"
 															+ " \nIl y a un probleme lors de la tentative de connexion. \n\n-Verifiez que le pseudonyme comprenne au minimum 3 caracteres. (compte non migrer)"
 															+ "\n-Faites bien attention aux majuscules et minuscules. \nAssurez-vous d'utiliser un compte Mojang. \nAssurez-vous de bien utiliser votre email dans le  cas d'une connexion avec un compte Mojang !");
+											System.out.println("test");
+											});
 										}
 									}
 								}
@@ -857,6 +911,11 @@ public class LauncherPanel extends IScreen{
 		this.bar.setSize(250, 20);
 		this.bar.setVisible(false);
 		
+		
+		//Sert à éviter que la tête de connexion s'affichent lors de la connexion
+		avatar3.setVisible(false);
+		
+		
 
 	}
 
@@ -890,10 +949,14 @@ public class LauncherPanel extends IScreen{
 			this.currentFileLabel.setVisible(true);
 			this.percentageLabel.setVisible(true);
 			this.bar.setVisible(true);
+			avatar.setVisible(false);
+			avatar2.setVisible(false);
+			avatar3.setVisible(true);
 			theGameEngine.getGameLinks().JSON_URL = theGameEngine.getGameLinks().BASE_URL + this.config.getValue("version") + ".json";
 			gameUpdater.reg(engine);
 			gameUpdater.reg(auth.getSession());
-
+			
+			
 			
 			theGameEngine.reg(this.gameUpdater);
 
@@ -954,6 +1017,40 @@ public class LauncherPanel extends IScreen{
 			return contentPane2;
 		}
 		
+		public void update2(GameAuth auth) {
+			gameUpdater.reg(auth.getSession());
+			theGameEngine.reg(this.gameUpdater);
+
+		}
+		
+		public static void connectAccountCrack(Pane root)
+		{
+			avatar = new LauncherImage(root, new Image("https://minotar.net/avatar/MHF_Steve.png"));
+			avatar.setSize(50, 50);
+			avatar.setPosition(theGameEngine.getWidth() / 2 - 490, theGameEngine.getHeight() / 2- 42);
+		}
+		
+		public static void connectAccountPremium(String username, Pane root) 
+		{
+			avatar = new LauncherImage(root, new Image("https://minotar.net/avatar/" + username + ".png"));
+			avatar.setSize(50, 50);
+			avatar.setPosition(theGameEngine.getWidth() / 2 - 490, theGameEngine.getHeight() / 2- 42);
+		}
+		
+		public static void connectAccountCrackCO(Pane root)
+		{
+			avatar3 = new LauncherImage(root, new Image("https://minotar.net/avatar/MHF_Steve.png"));
+			avatar3.setSize(50, 50);
+			avatar3.setPosition(theGameEngine.getWidth() / 2 - 230, theGameEngine.getHeight() / 2 - 80);
+		}
+		
+		public static void connectAccountPremiumCO(String username, Pane root) 
+		{
+			avatar3 = new LauncherImage(root, new Image("https://minotar.net/avatar/" + username + ".png"));
+			avatar3.setSize(50, 50);
+			avatar3.setPosition(theGameEngine.getWidth() / 2 - 230, theGameEngine.getHeight() / 2 - 80);
+		}
+		
 		public LauncherTextField getUsernameField() {
 			return usernameField;
 		}
@@ -961,5 +1058,7 @@ public class LauncherPanel extends IScreen{
 		public LauncherPasswordField getPasswordField() {
 			return passwordField;
 		}
+		
+
 	
 }
