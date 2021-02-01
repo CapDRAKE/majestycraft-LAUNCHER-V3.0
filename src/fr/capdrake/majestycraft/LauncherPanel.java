@@ -608,15 +608,30 @@ public class LauncherPanel extends IScreen{
 											update(engine, auth);
 										} 
 										else {
+											autoLoginLabel.setVisible(false);
+											autoLoginButton.setVisible(false);
+											autoLoginRectangle.setVisible(false);
+											autoLoginTimer.cancel();
 											//Ceci est nécessaire pour éviter de faire planter. Le LauncherAlert ne peut s'afficher lors de l'utilisation d'un "time"
 											Platform.runLater(() -> {
 											new LauncherAlert("Authentification echouée!",
 													"Impossible de se connecter, l'authentification semble etre une authentification 'en-ligne'"
 															+ " \nIl y a un probleme lors de la tentative de connexion. \n\n-Verifiez que le pseudonyme comprenne au minimum 3 caracteres. (compte non migrer)"
 															+ "\n-Faites bien attention aux majuscules et minuscules. \nAssurez-vous d'utiliser un compte Mojang. \nAssurez-vous de bien utiliser votre email dans le  cas d'une connexion avec un compte Mojang !");
-											System.out.println("test");
 											});
 										}
+									}
+									else {
+										autoLoginLabel.setVisible(false);
+										autoLoginButton.setVisible(false);
+										autoLoginRectangle.setVisible(false);
+										autoLoginTimer.cancel();
+										Platform.runLater(() -> {
+											new LauncherAlert("Authentification echouée!",
+													"Impossible de se connecter, l'authentification semble etre une authentification 'en-ligne'"
+															+ " \nIl y a un probleme lors de la tentative de connexion. \n\n-Verifiez que le mdp soit bien saisi."
+															+ "\n-Faites bien attention aux majuscules et minuscules. \nAssurez-vous d'utiliser un compte Mojang. \nAssurez-vous de bien utiliser votre email dans le  cas d'une connexion avec un compte Mojang !");
+											});
 									}
 								}
 							} 

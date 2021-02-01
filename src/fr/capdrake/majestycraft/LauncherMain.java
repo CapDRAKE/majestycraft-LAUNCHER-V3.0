@@ -146,7 +146,7 @@ public class LauncherMain extends AlternativeBase{
 		DiscordRichPresence presence = new DiscordRichPresence();
 		presence.startTimestamp = System.currentTimeMillis() / 1000;
 		presence.largeImageKey = "image";
-		presence.largeImageText = "MajestyCraft, Launcher gratuit crack/premium";
+		presence.largeImageText = "MajestyCraft, Launcher Gratuit Crack/Premium";
 		presence.details = "Launcher MajestyCraft";
 		presence.state = "Version : 1.7 => 1.16.5";
 		
