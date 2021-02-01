@@ -535,7 +535,10 @@ public class LauncherPanel extends IScreen{
 				connectAccountCrackCO(root);
 			}
 		}
-		
+		else {
+			connectAccountCrack(root);
+			connectAccountCrackCO(root);
+		}
 		
 		/** =============== LOGIN AUTOMATIQUE (CRACK ET PREMIUM) =============== **/
 		this.autoLoginRectangle = new LauncherRectangle(root, 0, theGameEngine.getHeight() - 32, 2000, theGameEngine.getHeight());

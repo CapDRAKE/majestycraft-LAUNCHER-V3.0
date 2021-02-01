@@ -97,7 +97,7 @@ public class LauncherInfo extends IScreen {
 		
 		/** ===================== TITRE SUITE remarque 1 ===================== */
 		this.REM2 = new LauncherLabel(root);
-		this.REM2.setText("supprimez les fichier 'Launcher_config.json' et '.majestycraft'");
+		this.REM2.setText("supprimez les fichiers 'Launcher_config.json' et '.majestycraft'");
 		this.REM2.setFont(Font.font("FontName", FontWeight.BOLD, 16d));
 		this.REM2.setStyle("-fx-text-fill: white;");
 		this.REM2.setPosition(engine.getWidth() / 2 - 404, engine.getHeight() / 2- 120);
@@ -117,7 +117,7 @@ public class LauncherInfo extends IScreen {
 		
 		/** ===================== TITRE SUITE remarque 2 ===================== */
 		this.REM2 = new LauncherLabel(root);
-		this.REM2.setText("serra également bientôt disponible dans d'autres versions");
+		this.REM2.setText("sera également bientôt disponible dans d'autres versions");
 		this.REM2.setFont(Font.font("FontName", FontWeight.BOLD, 16d));
 		this.REM2.setStyle("-fx-text-fill: white;");
 		this.REM2.setPosition(engine.getWidth() / 2 - 404, engine.getHeight() / 2- 70);

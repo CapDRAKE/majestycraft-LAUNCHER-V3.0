@@ -14,5 +14,6 @@
 	<classpathentry kind="lib" path="lib/jfxrt.jar"/>
 	<classpathentry kind="lib" path="lib/MinecraftServerPing-2.0.0 (1).jar"/>
 	<classpathentry kind="lib" path="lib/Alternative Api Reloaded (3).jar"/>
+	<classpathentry kind="lib" path="A:/Downloads/java-discord-rpc-2.0.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

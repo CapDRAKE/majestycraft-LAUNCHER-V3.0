@@ -2,6 +2,9 @@ package fr.capdrake.majestycraft;
 
 import java.io.IOException;
 
+import club.minnced.discord.rpc.DiscordEventHandlers;
+import club.minnced.discord.rpc.DiscordRPC;
+import club.minnced.discord.rpc.DiscordRichPresence;
 import fr.trxyy.alternative.alternative_api.GameEngine;
 import fr.trxyy.alternative.alternative_api.GameFolder;
 import fr.trxyy.alternative.alternative_api.GameForge;
@@ -38,6 +41,7 @@ public class LauncherMain extends AlternativeBase{
 	public static void main(String[] args){
 		// TODO Auto-generated method stub
 		launch(args);
+		
 	}
 
 	@Override
@@ -47,6 +51,7 @@ public class LauncherMain extends AlternativeBase{
 		this.gameEngine.reg(primaryStage);  
 		this.gameEngine.reg(this.gameMaintenance);
 		playMusic(media, "Minecraft.mp3");
+		this.discordRPC();
 		//this.gameEngine.reg(this.gameLinks);
 		//this.gameEngine.reg(this.gameConnect);
 		//this.gameEngine.reg(this.newForge);
@@ -128,5 +133,24 @@ public class LauncherMain extends AlternativeBase{
 	public static Media getMedia() {return media;}
 	public static MediaPlayer getMediaPlayer() {return mediaPlayer;}
 	
+	
+	//Permet l'affichage sur discord
+	private void discordRPC() {
+		DiscordRPC discord = DiscordRPC.INSTANCE;
+		String applicationId = "805862518567469077";
+		String steamId = "";
+		
+		DiscordEventHandlers handlers = new DiscordEventHandlers();
+		discord.Discord_Initialize(applicationId, handlers, true, steamId);
+		
+		DiscordRichPresence presence = new DiscordRichPresence();
+		presence.startTimestamp = System.currentTimeMillis() / 1000;
+		presence.largeImageKey = "image";
+		presence.largeImageText = "MajestyCraft, Launcher gratuit crack/premium";
+		presence.details = "Launcher MajestyCraft";
+		presence.state = "Version : 1.7 => 1.16.5";
+		
+		discord.Discord_UpdatePresence(presence);
+	}
 	
 }
