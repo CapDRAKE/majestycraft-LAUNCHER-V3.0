@@ -512,34 +512,6 @@ public class LauncherPanel extends IScreen{
 			}
 		});
 		
-		
-		
-		
-		/** =============== AFFICHAGE DE LA TETE DU JOUEUR =============== **/
-		if (usernameField.getText().length() > 3) {
-			GameAuth auth = new GameAuth(usernameField.getText(), passwordField.getText(),
-					AccountType.MOJANG);
-			if (auth.isLogged()) {
-				this.usernameField2.setText("");
-				connectAccountPremium(auth.getSession().getUsername(), root);
-				connectAccountPremiumCO(auth.getSession().getUsername(), root);
-			}
-			else if(usernameField.getText().contains("@")) {
-				this.usernameField2.setText("");
-				connectAccountCrack(root);
-				connectAccountCrackCO(root);
-			}
-			else {
-				this.usernameField.setText("");
-				connectAccountCrack(root);
-				connectAccountCrackCO(root);
-			}
-		}
-		else {
-			connectAccountCrack(root);
-			connectAccountCrackCO(root);
-		}
-		
 		/** =============== LOGIN AUTOMATIQUE (CRACK ET PREMIUM) =============== **/
 		this.autoLoginRectangle = new LauncherRectangle(root, 0, theGameEngine.getHeight() - 32, 2000, theGameEngine.getHeight());
 		this.autoLoginRectangle.setFill(Color.rgb(0, 0, 0, 0.70));
@@ -914,6 +886,32 @@ public class LauncherPanel extends IScreen{
 		this.bar.setSize(250, 20);
 		this.bar.setVisible(false);
 		
+		/** =============== AFFICHAGE DE LA TETE DU JOUEUR =============== **/		
+		if (usernameField.getText().length() > 3 && usernameField.getText().contains("@") && !passwordField.getText().isEmpty()) {
+			GameAuth auth = new GameAuth(usernameField.getText(), passwordField.getText(),
+					AccountType.MOJANG);
+			if (auth.isLogged()) {
+				this.usernameField2.setText("");
+				connectAccountPremium(auth.getSession().getUsername(), root);
+				connectAccountPremiumCO(auth.getSession().getUsername(), root);
+			}
+			else {
+				this.usernameField2.setText("");
+				connectAccountCrack(root);
+				connectAccountCrackCO(root);
+			}
+		}
+		else if(usernameField.getText().length() > 3 && usernameField.getText().contains("@")) {
+			this.usernameField2.setText("");
+			connectAccountCrack(root);
+			connectAccountCrackCO(root);
+		}
+		else {
+			this.usernameField.setText("");
+			this.rememberMe.setSelected(false);
+			connectAccountCrack(root);
+			connectAccountCrackCO(root);
+		}
 		
 		//Sert à éviter que la tête de connexion s'affichent lors de la connexion
 		avatar3.setVisible(false);
