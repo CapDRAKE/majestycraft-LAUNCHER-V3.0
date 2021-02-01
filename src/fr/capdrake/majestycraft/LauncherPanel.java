@@ -887,24 +887,26 @@ public class LauncherPanel extends IScreen{
 		this.bar.setVisible(false);
 		
 		/** =============== AFFICHAGE DE LA TETE DU JOUEUR =============== **/		
-		if (usernameField.getText().length() > 3 && usernameField.getText().contains("@") && !passwordField.getText().isEmpty()) {
-			GameAuth auth = new GameAuth(usernameField.getText(), passwordField.getText(),
-					AccountType.MOJANG);
-			if (auth.isLogged()) {
-				this.usernameField2.setText("");
-				connectAccountPremium(auth.getSession().getUsername(), root);
-				connectAccountPremiumCO(auth.getSession().getUsername(), root);
+		if (usernameField.getText().length() > 3 && usernameField.getText().contains("@")) {
+			if (!passwordField.getText().isEmpty()) {
+				GameAuth auth = new GameAuth(usernameField.getText(), passwordField.getText(),
+						AccountType.MOJANG);
+				if (auth.isLogged()) {
+					this.usernameField2.setText("");
+					connectAccountPremium(auth.getSession().getUsername(), root);
+					connectAccountPremiumCO(auth.getSession().getUsername(), root);
+				}
+				else {
+					this.usernameField2.setText("");
+					connectAccountCrack(root);
+					connectAccountCrackCO(root);
+				}
 			}
 			else {
 				this.usernameField2.setText("");
 				connectAccountCrack(root);
 				connectAccountCrackCO(root);
 			}
-		}
-		else if(usernameField.getText().length() > 3 && usernameField.getText().contains("@")) {
-			this.usernameField2.setText("");
-			connectAccountCrack(root);
-			connectAccountCrackCO(root);
 		}
 		else {
 			this.usernameField.setText("");
