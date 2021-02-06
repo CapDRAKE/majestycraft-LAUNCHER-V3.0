@@ -159,9 +159,6 @@ public class LauncherInfo extends IScreen {
 				Stage stage = (Stage)((LauncherButton)event.getSource()).getScene().getWindow();
 				stage.close();
 			}
-		});
-		
+		});		
 	}
-	
-
 }
