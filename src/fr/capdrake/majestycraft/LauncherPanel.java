@@ -370,6 +370,14 @@ public class LauncherPanel extends IScreen{
 						engine.setGameStyle(GameStyle.OPTIFINE);
 						LauncherMain.gameForge = new GameForge("fmlclient", "33.0.61", "1.16.2", "net.minecraft.launchwrapper.Launch", "20200812.004259");
 						break;
+					case "1.16.3.json":
+						engine.setGameStyle(GameStyle.OPTIFINE);
+						LauncherMain.gameForge = new GameForge("fmlclient", "34.1.42", "1.16.3", "net.minecraft.launchwrapper.Launch", "20200812.004259");
+						break;
+					case "1.16.4.json":
+						engine.setGameStyle(GameStyle.OPTIFINE);
+						LauncherMain.gameForge = new GameForge("fmlclient", "35.0.1", "1.16.4", "net.minecraft.launchwrapper.Launch", "20200812.004259");
+						break;
 				}
 			} else {
 				engine.setGameStyle(GameStyle.VANILLA);
@@ -479,6 +487,15 @@ public class LauncherPanel extends IScreen{
 						engine.setGameStyle(GameStyle.OPTIFINE);
 						LauncherMain.gameForge = new GameForge("fmlclient", "33.0.61", "1.16.2", "net.minecraft.launchwrapper.Launch", "20200812.004259");
 						break;
+					case "1.16.3.json":
+						engine.setGameStyle(GameStyle.OPTIFINE);
+						LauncherMain.gameForge = new GameForge("fmlclient", "34.1.42", "1.16.3", "net.minecraft.launchwrapper.Launch", "20200812.004259");
+						break;
+					case "1.16.4.json":
+						engine.setGameStyle(GameStyle.OPTIFINE);
+						LauncherMain.gameForge = new GameForge("fmlclient", "35.0.1", "1.16.4", "net.minecraft.launchwrapper.Launch", "20200812.004259");
+						break;
+				
 				}
 			} else {
 				engine.setGameStyle(GameStyle.VANILLA);
@@ -566,6 +583,14 @@ public class LauncherPanel extends IScreen{
 									case "1.16.2.json":
 										engine.setGameStyle(GameStyle.OPTIFINE);
 										LauncherMain.gameForge = new GameForge("fmlclient", "33.0.61", "1.16.2", "net.minecraft.launchwrapper.Launch", "20200812.004259");
+										break;
+									case "1.16.3.json":
+										engine.setGameStyle(GameStyle.OPTIFINE);
+										LauncherMain.gameForge = new GameForge("fmlclient", "34.1.42", "1.16.3", "net.minecraft.launchwrapper.Launch", "20200812.004259");
+										break;
+									case "1.16.4.json":
+										engine.setGameStyle(GameStyle.OPTIFINE);
+										LauncherMain.gameForge = new GameForge("fmlclient", "35.0.1", "1.16.4", "net.minecraft.launchwrapper.Launch", "20200812.004259");
 										break;
 								}
 							} else {

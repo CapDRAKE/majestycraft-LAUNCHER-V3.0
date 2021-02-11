@@ -67,6 +67,7 @@ public class LauncherMain extends AlternativeBase{
 		readVersion(panel);
 		this.gameEngine.reg(this.gameLinks);
 		
+		
 		rectangle.setArcWidth(15.0);
 		rectangle.setArcWidth(15.0);
 		contentPane.setClip(rectangle);
