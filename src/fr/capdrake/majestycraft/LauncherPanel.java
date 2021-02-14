@@ -364,20 +364,25 @@ public class LauncherPanel extends IScreen{
 
 			if((boolean) config.getValue("useforge"))
 			{
+				LauncherMain.getGameLinks().JSON_NAME = config.getValue("version") + ".json";
 				switch(engine.getGameLinks().JSON_NAME)
 				{
-					case "1.16.2.json":
-						engine.setGameStyle(GameStyle.OPTIFINE);
-						LauncherMain.gameForge = new GameForge("fmlclient", "33.0.61", "1.16.2", "net.minecraft.launchwrapper.Launch", "20200812.004259");
-						break;
-					case "1.16.3.json":
-						engine.setGameStyle(GameStyle.OPTIFINE);
-						LauncherMain.gameForge = new GameForge("fmlclient", "34.1.42", "1.16.3", "net.minecraft.launchwrapper.Launch", "20200812.004259");
-						break;
-					case "1.16.4.json":
-						engine.setGameStyle(GameStyle.OPTIFINE);
-						LauncherMain.gameForge = new GameForge("fmlclient", "35.0.1", "1.16.4", "net.minecraft.launchwrapper.Launch", "20200812.004259");
-						break;
+				case "1.16.2.json":
+					engine.setGameStyle(GameStyle.OPTIFINE);
+					LauncherMain.gameForge = new GameForge("fmlclient", "33.0.61", "1.16.2", "net.minecraft.launchwrapper.Launch", "20200812.004259");
+					break;
+				case "1.16.3.json":
+					engine.setGameStyle(GameStyle.OPTIFINE);
+					LauncherMain.gameForge = new GameForge("fmlclient", "34.1.42", "1.16.3", "net.minecraft.launchwrapper.Launch", "20201025.185957");
+					break;
+				case "1.16.4.json":
+					engine.setGameStyle(GameStyle.OPTIFINE);
+					LauncherMain.gameForge = new GameForge("fmlclient", "35.0.1", "1.16.4", "net.minecraft.launchwrapper.Launch", "20200812.004259");
+					break;
+				case "1.15.2.json":
+					engine.setGameStyle(GameStyle.OPTIFINE);
+					LauncherMain.gameForge = new GameForge("fmlclient", "31.2.45", "1.15.2", "net.minecraft.launchwrapper.Launch", "20200515.085601");
+					break;
 				}
 			} else {
 				engine.setGameStyle(GameStyle.VANILLA);
@@ -479,8 +484,10 @@ public class LauncherPanel extends IScreen{
 			/**
 			 * ===================== VERIFICATION USEFORGE =====================
 			 */
+			
 			if((boolean) config.getValue("useforge"))
 			{
+				LauncherMain.getGameLinks().JSON_NAME = config.getValue("version") + ".json";
 				switch(engine.getGameLinks().JSON_NAME)
 				{
 					case "1.16.2.json":
@@ -489,11 +496,15 @@ public class LauncherPanel extends IScreen{
 						break;
 					case "1.16.3.json":
 						engine.setGameStyle(GameStyle.OPTIFINE);
-						LauncherMain.gameForge = new GameForge("fmlclient", "34.1.42", "1.16.3", "net.minecraft.launchwrapper.Launch", "20200812.004259");
+						LauncherMain.gameForge = new GameForge("fmlclient", "34.1.42", "1.16.3", "net.minecraft.launchwrapper.Launch", "20201025.185957");
 						break;
 					case "1.16.4.json":
 						engine.setGameStyle(GameStyle.OPTIFINE);
 						LauncherMain.gameForge = new GameForge("fmlclient", "35.0.1", "1.16.4", "net.minecraft.launchwrapper.Launch", "20200812.004259");
+						break;
+					case "1.15.2.json":
+						engine.setGameStyle(GameStyle.OPTIFINE);
+						LauncherMain.gameForge = new GameForge("fmlclient", "31.2.45", "1.15.2", "net.minecraft.launchwrapper.Launch", "20200515.085601");
 						break;
 				
 				}
@@ -510,6 +521,12 @@ public class LauncherPanel extends IScreen{
 				config.updateValue("password", "");
 			} 
 			/** ===================== AUTHENTIFICATION OFFICIELLE ===================== */
+			System.out.println(theGameEngine.getGameStyle());
+			System.out.println(LauncherMain.gameForge.getForgeGroup());
+			System.out.println(LauncherMain.gameForge.getForgeVersion());
+			System.out.println(LauncherMain.gameForge.getLaunchTarget());
+			System.out.println(LauncherMain.gameForge.getMcVersion());
+			System.out.println(LauncherMain.gameForge.getMcpVersion());
 			if (usernameField.getText().length() > 3 && !passwordField.getText().isEmpty()) {
 				GameAuth auth = new GameAuth(usernameField.getText(), passwordField.getText(),
 						AccountType.MOJANG);
@@ -578,6 +595,7 @@ public class LauncherPanel extends IScreen{
 							 */
 							if((boolean) config.getValue("useforge"))
 							{
+								LauncherMain.getGameLinks().JSON_NAME = config.getValue("version") + ".json";
 								switch(engine.getGameLinks().JSON_NAME)
 								{
 									case "1.16.2.json":
@@ -586,11 +604,15 @@ public class LauncherPanel extends IScreen{
 										break;
 									case "1.16.3.json":
 										engine.setGameStyle(GameStyle.OPTIFINE);
-										LauncherMain.gameForge = new GameForge("fmlclient", "34.1.42", "1.16.3", "net.minecraft.launchwrapper.Launch", "20200812.004259");
+										LauncherMain.gameForge = new GameForge("fmlclient", "34.1.42", "1.16.3", "net.minecraft.launchwrapper.Launch", "20201025.185957");
 										break;
 									case "1.16.4.json":
 										engine.setGameStyle(GameStyle.OPTIFINE);
 										LauncherMain.gameForge = new GameForge("fmlclient", "35.0.1", "1.16.4", "net.minecraft.launchwrapper.Launch", "20200812.004259");
+										break;
+									case "1.15.2.json":
+										engine.setGameStyle(GameStyle.OPTIFINE);
+										LauncherMain.gameForge = new GameForge("fmlclient", "31.2.45", "1.15.2", "net.minecraft.launchwrapper.Launch", "20200515.085601");
 										break;
 								}
 							} else {

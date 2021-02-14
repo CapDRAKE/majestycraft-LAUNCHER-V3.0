@@ -29,7 +29,7 @@ public class LauncherMain extends AlternativeBase{
 		
 	private GameFolder gameFolder = new GameFolder("majestycraft");
 	private LauncherPreferences launcherPreferences = new LauncherPreferences("Launcher MajestyCraft 1.16.2 Optifine + Forge", 1050, 750, true);
-	private GameLinks gameLinks = new GameLinks("https://majestycraft.com/minecraft/", "1.16.2.json");
+	public static GameLinks gameLinks = new GameLinks("https://majestycraft.com/minecraft/", "1.16.2.json");
 	private GameEngine gameEngine = new GameEngine(this.gameFolder, this.gameLinks, this.launcherPreferences, GameStyle.VANILLA);
 	public static GameForge gameForge;
 	private GameMaintenance gameMaintenance = new GameMaintenance(Maintenance.USE, gameEngine);
@@ -44,12 +44,15 @@ public class LauncherMain extends AlternativeBase{
 		
 	}
 
+
+
+
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		// TODO Auto-generated method stub
 		Scene scene = new Scene(createContent());
 		this.gameEngine.reg(primaryStage);  
-		this.gameEngine.reg(this.gameMaintenance);
+		//this.gameEngine.reg(this.gameMaintenance);
 		playMusic(media, "Minecraft.mp3");
 		this.discordRPC();
 		//this.gameEngine.reg(this.gameLinks);
@@ -66,8 +69,6 @@ public class LauncherMain extends AlternativeBase{
 		LauncherPanel panel = new LauncherPanel(contentPane, gameEngine);
 		readVersion(panel);
 		this.gameEngine.reg(this.gameLinks);
-		
-		
 		rectangle.setArcWidth(15.0);
 		rectangle.setArcWidth(15.0);
 		contentPane.setClip(rectangle);
@@ -152,6 +153,10 @@ public class LauncherMain extends AlternativeBase{
 		presence.state = "Version : 1.7 => 1.16.5";
 		
 		discord.Discord_UpdatePresence(presence);
+	}
+	
+	public static GameLinks getGameLinks() {
+		return gameLinks;
 	}
 	
 }
