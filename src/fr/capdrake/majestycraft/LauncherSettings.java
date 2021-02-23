@@ -39,9 +39,30 @@ public class LauncherSettings extends IScreen {
 	private CheckBox useForge;
 	private CheckBox useVMArguments;
 	private LauncherTextField vmArguments;
+	private double xOffSet; // Position x à l'instant du clic
+	private double yOffSet; // Position y à l'instant du clic
+	Stage stage; // Le stage qu'on voudra faire bouger (ici notre menu des paramètres)
 	
 	
 	public LauncherSettings(final Pane root, final GameEngine engine, final LauncherPanel pane) {
+		
+		/** ===================== BOUGER LE MENU PARAMETRE ===================== */
+		//Cet évent nous permet de récupérer les valeurs en x et en y initiales.
+		root.setOnMousePressed(event -> 
+        {
+            xOffSet = event.getSceneX();
+            yOffSet = event.getSceneY();
+        });
+		//Cet évent s'occupe de faire bouger le menu
+		root.setOnMouseDragged(event -> 
+        {
+            stage = (Stage) memorySlider.getScene().getWindow(); // On get le stage du menu des paramètres
+            stage.setX(event.getScreenX() - xOffSet); // On donne la nouvelle position en x
+            stage.setY(event.getScreenY() - yOffSet); // On donne la nouvelle postion en y      
+        });
+		
+		
+		
 		this.drawBackgroundImage(engine, root, "background.png");
 		pane.config.loadConfiguration();
 		/** ===================== RECTANGLE NOIR EN HAUT ===================== */
@@ -178,7 +199,7 @@ public class LauncherSettings extends IScreen {
 		
 		/** ===================== CHECKBOX USE Forge ===================== */
 		this.useForge = new CheckBox();
-		this.useForge.setText("Optifine ( 1.16.2 ONLY )");
+		this.useForge.setText("Optifine + Forge");
 		this.useForge.setSelected((boolean) pane.config.getValue("useforge"));
 		this.useForge.setOpacity(1.0);
 		this.useForge.setFont(FontLoader.loadFont("Comfortaa-Regular.ttf", "Comfortaa", 14F));
@@ -275,7 +296,7 @@ public class LauncherSettings extends IScreen {
 			}
 			else if(i == 7) 
 			{
-				this.versionList.getItems().add("1.14.2");
+				this.versionList.getItems().add("1.14.4");
 			}
 			else if(i == 8) 
 			{

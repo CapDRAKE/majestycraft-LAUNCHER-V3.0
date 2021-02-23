@@ -137,7 +137,7 @@ public class LauncherInfo extends IScreen {
 		
 		/** ===================== TITRE Version actuelle ===================== */
 		this.version = new LauncherLabel(root);
-		this.version.setText("Version : 1.4");
+		this.version.setText("Version : 1.5");
 		this.version.setFont(Font.font("FontName", FontWeight.BOLD, 20d));
 		this.version.setStyle("-fx-text-fill: white;");
 		this.version.setPosition(engine.getWidth() / 2 - 449, engine.getHeight() / 2 + 10);
