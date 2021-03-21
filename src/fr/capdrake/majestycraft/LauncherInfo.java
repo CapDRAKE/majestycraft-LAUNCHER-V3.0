@@ -6,8 +6,12 @@ import fr.trxyy.alternative.alternative_api_ui.base.IScreen;
 import fr.trxyy.alternative.alternative_api_ui.components.LauncherButton;
 import fr.trxyy.alternative.alternative_api_ui.components.LauncherLabel;
 import fr.trxyy.alternative.alternative_api_ui.components.LauncherRectangle;
+import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.control.Slider;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
@@ -24,6 +28,7 @@ public class LauncherInfo extends IScreen {
 	private LauncherLabel REM;
 	private LauncherLabel REM2;
 	private LauncherLabel version;
+	private Slider volume;
 	
 	private LauncherRectangle topRectangle;
 	
@@ -105,42 +110,22 @@ public class LauncherInfo extends IScreen {
 		this.REM2.setSize(1000,  40);
 		this.REM2.setVisible(true);
 		
-		/** ===================== TITRE remarque 2 ===================== */
-		this.REM = new LauncherLabel(root);
-		this.REM.setText("2 => L'option Optifine + Forge n'est disponible qu'en 1.16.2 mais");
-		this.REM.setFont(Font.font("FontName", FontWeight.BOLD, 16d));
-		this.REM.setStyle("-fx-text-fill: white;");
-		this.REM.setPosition(engine.getWidth() / 2 - 449, engine.getHeight() / 2- 90);
-		this.REM.setOpacity(0.7);
-		this.REM.setSize(1000,  40);
-		this.REM.setVisible(true);
-		
-		/** ===================== TITRE SUITE remarque 2 ===================== */
-		this.REM2 = new LauncherLabel(root);
-		this.REM2.setText("sera également bientôt disponible dans d'autres versions");
-		this.REM2.setFont(Font.font("FontName", FontWeight.BOLD, 16d));
-		this.REM2.setStyle("-fx-text-fill: white;");
-		this.REM2.setPosition(engine.getWidth() / 2 - 404, engine.getHeight() / 2- 70);
-		this.REM2.setOpacity(0.7);
-		this.REM2.setSize(1000,  40);
-		this.REM2.setVisible(true);
-		
 		/** ===================== TITRE VERSION ===================== */
 		this.remarque = new LauncherLabel(root);
 		this.remarque.setText("Version");
 		this.remarque.setFont(Font.font("FontName", FontWeight.BOLD, 24d));
 		this.remarque.setStyle("-fx-background-color: transparent; -fx-text-fill: orange");
-		this.remarque.setPosition(engine.getWidth() / 2 - 479, engine.getHeight() / 2- 30);
+		this.remarque.setPosition(engine.getWidth() / 2 - 479, engine.getHeight() / 2- 60);
 		this.remarque.setOpacity(0.7);
 		this.remarque.setSize(500,  40);
 		this.remarque.setVisible(true);
 		
 		/** ===================== TITRE Version actuelle ===================== */
 		this.version = new LauncherLabel(root);
-		this.version.setText("Version : 1.5");
+		this.version.setText("Version : 1.5.1");
 		this.version.setFont(Font.font("FontName", FontWeight.BOLD, 20d));
 		this.version.setStyle("-fx-text-fill: white;");
-		this.version.setPosition(engine.getWidth() / 2 - 449, engine.getHeight() / 2 + 10);
+		this.version.setPosition(engine.getWidth() / 2 - 449, engine.getHeight() / 2 - 20);
 		this.version.setOpacity(0.7);
 		this.version.setSize(1000,  40);
 		this.version.setVisible(true);
@@ -160,5 +145,23 @@ public class LauncherInfo extends IScreen {
 				stage.close();
 			}
 		});		
+		
+		this.volume = new Slider();
+		this.volume.setStyle("-fx-control-inner-background: rgba(46, 47, 48, 0.5);");
+		this.volume.setMin(0.0);
+		this.volume.setMax(10.0);
+		this.volume.setValue(LauncherMain.getMediaPlayer().getVolume());
+		this.volume.setLayoutX(50);
+		this.volume.setLayoutY(210);
+		this.volume.setPrefWidth(395);
+		this.volume.setBlockIncrement(1);
+
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+            	 root.getChildren().add(volume);
+            }
+        });
+        this.volume.setVisible(false);
 	}
 }

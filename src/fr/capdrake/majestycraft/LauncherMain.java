@@ -17,6 +17,7 @@ import fr.trxyy.alternative.alternative_api_ui.LauncherBackground;
 import fr.trxyy.alternative.alternative_api_ui.LauncherPane;
 import fr.trxyy.alternative.alternative_api_ui.base.AlternativeBase;
 import fr.trxyy.alternative.alternative_api_ui.base.LauncherBase;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.shape.Rectangle;
@@ -28,7 +29,7 @@ import javafx.scene.media.MediaPlayer;
 public class LauncherMain extends AlternativeBase{
 		
 	private GameFolder gameFolder = new GameFolder("majestycraft");
-	private LauncherPreferences launcherPreferences = new LauncherPreferences("Launcher MajestyCraft 1.16.2 Optifine + Forge", 1050, 750, true);
+	private LauncherPreferences launcherPreferences = new LauncherPreferences("Launcher MajestyCraft Optifine + Forge", 1050, 750, true);
 	public static GameLinks gameLinks = new GameLinks("https://majestycraft.com/minecraft/", "1.16.2.json");
 	private GameEngine gameEngine = new GameEngine(this.gameFolder, this.gameLinks, this.launcherPreferences, GameStyle.VANILLA);
 	public static GameForge gameForge;
@@ -44,16 +45,13 @@ public class LauncherMain extends AlternativeBase{
 		
 	}
 
-
-
-
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		// TODO Auto-generated method stub
 		Scene scene = new Scene(createContent());
 		this.gameEngine.reg(primaryStage);  
-		//this.gameEngine.reg(this.gameMaintenance);
-		playMusic(media, "Minecraft.mp3");
+		this.gameEngine.reg(this.gameMaintenance);
+		playMusic(media, "anniv.mp3");
 		this.discordRPC();
 		//this.gameEngine.reg(this.gameLinks);
 		//this.gameEngine.reg(this.gameConnect);
@@ -64,7 +62,7 @@ public class LauncherMain extends AlternativeBase{
 	
 	private Parent createContent() throws IOException {
 		LauncherPane contentPane = new LauncherPane(gameEngine);
-		new LauncherBackground(this.gameEngine, getResourceLocation().getMedia(gameEngine, "background.mp4"), contentPane);
+		new LauncherBackground(this.gameEngine, getResourceLocation().getMedia(gameEngine, "anniv2.mp4"), contentPane);
 		Rectangle rectangle = new Rectangle(gameEngine.getLauncherPreferences().getWidth(), gameEngine.getLauncherPreferences().getHeight());
 		LauncherPanel panel = new LauncherPanel(contentPane, gameEngine);
 		readVersion(panel);
@@ -82,6 +80,7 @@ public class LauncherMain extends AlternativeBase{
 		media = getResourceLocation().getMedia(this.gameEngine, path);
 		mediaPlayer = new MediaPlayer(media);
 		mediaPlayer.play();
+	    mediaPlayer.setVolume(0.05);
 	}
 	
 	private void readVersion(LauncherPanel panel)

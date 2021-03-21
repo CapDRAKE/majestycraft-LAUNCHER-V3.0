@@ -5,6 +5,8 @@ import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.Vector;
+
 
 import fr.trxyy.alternative.alternative_api.GameEngine;
 import fr.trxyy.alternative.alternative_api.GameForge;
@@ -17,6 +19,7 @@ import fr.trxyy.alternative.alternative_api.utils.FontLoader;
 import fr.trxyy.alternative.alternative_api.utils.Mover;
 import fr.trxyy.alternative.alternative_api.utils.config.LauncherConfig;
 import fr.trxyy.alternative.alternative_api_ui.LauncherAlert;
+import fr.trxyy.alternative.alternative_api_ui.LauncherBackground;
 import fr.trxyy.alternative.alternative_api_ui.LauncherPane;
 import fr.trxyy.alternative.alternative_api_ui.base.IScreen;
 import fr.trxyy.alternative.alternative_api_ui.components.LauncherButton;
@@ -28,6 +31,7 @@ import fr.trxyy.alternative.alternative_api_ui.components.LauncherRectangle;
 import fr.trxyy.alternative.alternative_api_ui.components.LauncherTextField;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
+import javafx.animation.PauseTransition;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -44,7 +48,9 @@ import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.util.Duration;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import re.alwyn974.minecraftserverping.MinecraftServerPing;
 import re.alwyn974.minecraftserverping.MinecraftServerPingInfos;
 import re.alwyn974.minecraftserverping.MinecraftServerPingOptions;
@@ -118,11 +124,12 @@ public class LauncherPanel extends IScreen{
 
 	public LauncherProgressBar bar;
 	
-	// Image
+	// Image avatar
 		public static LauncherImage avatar;
 		public static LauncherImage avatar2;
 		public static LauncherImage avatar3;
 	
+	private ImageView imageanniv;
 
 	
 	private String FACEBOOK_URL = "http://facebook.com/";
@@ -200,6 +207,7 @@ public class LauncherPanel extends IScreen{
 		
 		this.drawLogo(engine, getResourceLocation().loadImage(engine, "logo.png"), engine.getWidth() / 2 - 95, 40, 200, 200, root, Mover.DONT_MOVE);
 		
+		this.drawLogo(engine, getResourceLocation().loadImage(engine, "anniv.gif"), engine.getWidth() / 2 - 95, 250, 200, 100, root, Mover.DONT_MOVE);
 		//this.drawLogo(engine, getResourceLocation().loadImage(engine, "NEWlogo.jpg"), engine.getWidth() / 2 - 386, 260, 130, 130, root, Mover.DONT_MOVE);
 		
 		//this.drawLogo(engine, getResourceLocation().loadImage(engine, "tropicolands.png"), engine.getWidth() / 2 + 266, 260, 130, 130, root, Mover.DONT_MOVE);
@@ -262,6 +270,9 @@ public class LauncherPanel extends IScreen{
 		this.titleImage.setImage(getResourceLocation().loadImage(engine, "favicon.png"));
 		this.titleImage.setSize(25, 25);
 		this.titleImage.setPosition(engine.getWidth() / 3 - 50, 3);
+		
+		
+		//root.getChildren().addAll(imageanniv);
 		
 		/** ===================== BOUTON info ===================== */
 		this.infoButton = new LauncherButton(root);
@@ -336,7 +347,7 @@ public class LauncherPanel extends IScreen{
 		this.titleCrack = new LauncherLabel(root);
 		this.titleCrack.setText("Connexion crack");
 		this.titleCrack.setFont(Font.font("FontName", FontWeight.BOLD, 25d));
-		this.titleCrack.setStyle("-fx-background-color: transparent; -fx-text-fill: orange");
+		this.titleCrack.setStyle("-fx-background-color: transparent; -fx-text-fill: red");
 		this.titleCrack.setPosition(engine.getWidth() / 2 + 222, engine.getHeight() / 2- 130);
 		this.titleCrack.setOpacity(0.7);
 		this.titleCrack.setSize(500,  40);
@@ -348,7 +359,7 @@ public class LauncherPanel extends IScreen{
 		this.usernameField2.setPosition(engine.getWidth() / 2 + 176, engine.getHeight() / 2- 12);
 		this.usernameField2.setSize(270, 50);
 		this.usernameField2.setFont(FontLoader.loadFont("Roboto-Light.ttf", "Roboto Light", 14F));
-		this.usernameField2.setStyle("-fx-background-color: rgba(0 ,0 ,0 , 0.2); -fx-text-fill: orange");
+		this.usernameField2.setStyle("-fx-background-color: rgba(0 ,0 ,0 , 0.2); -fx-text-fill: red");
 		this.usernameField2.setVoidText("Pseudo ");
 		
 		/** ===================== BOUTON DE CONNEXION ===================== */
@@ -357,7 +368,7 @@ public class LauncherPanel extends IScreen{
 		this.loginButton2.setFont(FontLoader.loadFont("Roboto-Light.ttf", "Roboto Light", 22F));
 		this.loginButton2.setPosition(engine.getWidth() / 2 + 244,  engine.getHeight() / 2 + 100);
 		this.loginButton2.setSize(200,  45);
-		this.loginButton2.setStyle("-fx-background-color: rgba(0 ,0 ,0 , 0.4); -fx-text-fill: orange");
+		this.loginButton2.setStyle("-fx-background-color: rgba(0 ,0 ,0 , 0.4); -fx-text-fill: red");
 		this.loginButton2.setAction(event -> {
 			/**
 			 * ===================== VERIFICATION USEFORGE =====================
@@ -478,7 +489,7 @@ public class LauncherPanel extends IScreen{
 		this.titlePremium = new LauncherLabel(root);
 		this.titlePremium.setText("Connexion premium");
 		this.titlePremium.setFont(Font.font("FontName", FontWeight.BOLD, 25d));
-		this.titlePremium.setStyle("-fx-background-color: transparent; -fx-text-fill: orange");
+		this.titlePremium.setStyle("-fx-background-color: transparent; -fx-text-fill: red");
 		this.titlePremium.setPosition(engine.getWidth() / 2 - 422, engine.getHeight() / 2- 130);
 		this.titlePremium.setOpacity(0.7);
 		this.titlePremium.setSize(500,  40);
@@ -490,7 +501,7 @@ public class LauncherPanel extends IScreen{
 		this.usernameField.setText((String)this.config.getValue("username"));
 		this.usernameField.setSize(270, 50);
 		this.usernameField.setFont(FontLoader.loadFont("Roboto-Light.ttf", "Roboto Light", 14F));
-		this.usernameField.setStyle("-fx-background-color: rgba(0 ,0 ,0 , 0.2); -fx-text-fill: orange");
+		this.usernameField.setStyle("-fx-background-color: rgba(0 ,0 ,0 , 0.2); -fx-text-fill: red");
 		this.usernameField.setVoidText("Votre email");
 		
 		/** ===================== MOT DE PASSE ===================== */
@@ -498,7 +509,7 @@ public class LauncherPanel extends IScreen{
 		this.passwordField.setPosition(engine.getWidth() / 2 - 435, engine.getHeight() / 2 + 15);
 		this.passwordField.setSize(270, 50);
 		this.passwordField.setFont(FontLoader.loadFont("Roboto-Light.ttf", "Roboto Light", 14F));
-		this.passwordField.setStyle("-fx-background-color: rgba(0 ,0 ,0 , 0.4); -fx-text-fill: orange");
+		this.passwordField.setStyle("-fx-background-color: rgba(0 ,0 ,0 , 0.4); -fx-text-fill: red");
 		this.passwordField.setVoidText("Mot de passe (vide = compte crack)");
 		
 		//Verif si la case "se souvenir de moi" est coché
@@ -517,7 +528,7 @@ public class LauncherPanel extends IScreen{
 		this.loginButton.setFont(FontLoader.loadFont("Roboto-Light.ttf", "Roboto Light", 22F));
 		this.loginButton.setPosition(engine.getWidth() / 2 - 367,  engine.getHeight() / 2 + 100);
 		this.loginButton.setSize(200,  45);
-		this.loginButton.setStyle("-fx-background-color: rgba(0 ,0 ,0 , 0.4); -fx-text-fill: orange");
+		this.loginButton.setStyle("-fx-background-color: rgba(0 ,0 ,0 , 0.4); -fx-text-fill: red");
 		this.loginButton.setAction(event -> {
 			/**
 			 * ===================== VERIFICATION USEFORGE =====================
@@ -816,7 +827,7 @@ public class LauncherPanel extends IScreen{
 		this.rememberMe.setSelected((boolean) config.getValue("rememberme"));
 		this.rememberMe.setOpacity(1.0);
 		this.rememberMe.setFont(FontLoader.loadFont("Comfortaa-Regular.ttf", "Comfortaa", 14F));
-		this.rememberMe.setStyle("-fx-text-fill: orange;");
+		this.rememberMe.setStyle("-fx-text-fill: red;");
 		this.rememberMe.setLayoutX(91);
 		this.rememberMe.setLayoutY(447);
 		this.rememberMe.setOnAction(new EventHandler<ActionEvent>() {

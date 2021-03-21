@@ -206,7 +206,14 @@ public class LauncherSettings extends IScreen {
 		this.useForge.setStyle("-fx-text-fill: white;");
 		this.useForge.setLayoutX(300);
 		this.useForge.setLayoutY(255);		
-		root.getChildren().add(useForge);
+		this.useForge.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				pane.config.updateValue("useforge", useForge.isSelected());
+			}
+		});
+		root.getChildren().add(this.useForge);
 		
 		
 		/** ===================== AUTO LOGIN CHECK BOX ===================== */
