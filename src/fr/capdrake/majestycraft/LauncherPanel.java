@@ -41,6 +41,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.CheckBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
@@ -133,18 +135,20 @@ public class LauncherPanel extends IScreen{
 
 	
 	private String FACEBOOK_URL = "http://facebook.com/";
-	private String INSTAGRAM_URL = "http://instagram.com/";
+	private String INSTAGRAM_URL = "https://www.tiktok.com/@majestycraft?lang=fr";
 	private String TWITTER_URL = "http://twitter.com/craftsurvie";
-	private String YOUTUBE_URL = "http://youtube.com/";
+	private String YOUTUBE_URL = "https://www.youtube.com/channel/UCWtD5WQZKiHO7NLSSs-WOQg";
 	private String VOTE_URL = "https://majestycraft.com/index.php?&page=voter";
 	private String BOUTIQUE_URL = "https://majestycraft.com/index.php?&page=boutique";
 	private String SITE_URL = "https://majestycraft.com/index.php";
 	private String DISCORD_URL = "https://discord.gg/bj7mUb9";
 	//private String TROPICOLANDS_URL = "https://tropicolands.ezcraft.fr/";
 	public LauncherConfig config;
+	public static Media media;
+	private static MediaPlayer mediaPlayer;
 	
-	
-	public LauncherPanel(Pane root, GameEngine engine){
+	public LauncherPanel(Pane root, GameEngine engine, final LauncherMain launcherMain){
+
 		
 		// Déselectionne la textfield par défaut
 	    Platform.runLater( () -> root.requestFocus());
@@ -205,7 +209,7 @@ public class LauncherPanel extends IScreen{
 		this.topRectangle = new LauncherRectangle(root, 0, 0, engine.getWidth(), 31);
 		this.topRectangle.setFill(Color.rgb(0, 0, 0, 0.50));
 		
-		this.drawLogo(engine, getResourceLocation().loadImage(engine, "logo.png"), engine.getWidth() / 2 - 95, 40, 200, 200, root, Mover.DONT_MOVE);
+		this.drawLogo(engine, getResourceLocation().loadImage(engine, "logo.png"), engine.getWidth() / 2 - 70, 40, 150, 150, root, Mover.DONT_MOVE);
 		
 		this.drawLogo(engine, getResourceLocation().loadImage(engine, "anniv.gif"), engine.getWidth() / 2 - 95, 250, 200, 100, root, Mover.DONT_MOVE);
 		//this.drawLogo(engine, getResourceLocation().loadImage(engine, "NEWlogo.jpg"), engine.getWidth() / 2 - 386, 260, 130, 130, root, Mover.DONT_MOVE);
@@ -214,13 +218,25 @@ public class LauncherPanel extends IScreen{
 		
 		//Partie texte
 		this.titleLabel = new LauncherLabel(root);
-		this.titleLabel.setText("Launcher MajestyCraft 1.16.2 Optifine + Forge");
+		this.titleLabel.setText("Launcher MajestyCraft Optifine + Forge");
 		this.titleLabel.setFont(FontLoader.loadFont("Roboto-Light.ttf", "Roboto Light", 18F));
 		this.titleLabel.setStyle("-fx-background-color: transparent; -fx-text-fill: orange");
-		this.titleLabel.setPosition(engine.getWidth() / 2 - 170, -4);
+		this.titleLabel.setPosition(engine.getWidth() / 2 - 150, -4);
 		this.titleLabel.setOpacity(0.7);
 		this.titleLabel.setSize(500,  40);
 		
+		// Affiche ou non le statut discord
+		if((boolean) config.getValue("usediscord")) {
+			LauncherMain.discordRPC();
+		}
+		
+		//Music on/off
+		if((boolean) config.getValue("usemusic")) {
+			LauncherMain.muteMusic();
+		}
+		else {
+			LauncherMain.resumeMusic();
+		}
 		
 		/** ===================== TITRE 1 MAJESTYCRAFT ===================== */
 		this.titleMajestycraft = new LauncherLabel(root);
@@ -267,9 +283,9 @@ public class LauncherPanel extends IScreen{
 		
 		/** ===================== IMAGE DU LOGO EN HAUT ===================== */
 		this.titleImage = new LauncherImage(root);
-		this.titleImage.setImage(getResourceLocation().loadImage(engine, "favicon.png"));
+		this.titleImage.setImage(getResourceLocation().loadImage(engine, "server-icon.png"));
 		this.titleImage.setSize(25, 25);
-		this.titleImage.setPosition(engine.getWidth() / 3 - 50, 3);
+		this.titleImage.setPosition(engine.getWidth() / 3 - 30, 3);
 		
 		
 		//root.getChildren().addAll(imageanniv);
@@ -298,41 +314,11 @@ public class LauncherPanel extends IScreen{
 			}
 		});
 		
-		/** ===================== BOUTON MUSIQUE OFF ===================== */
-		this.muteButton = new LauncherButton(root);
-		this.muteButton.setStyle("-fx-background-color: rgba(0 ,0 ,0 , 0.4); -fx-text-fill: orange");
-		settingsImg = new LauncherImage(root, getResourceLocation().loadImage(engine, "mute.png"));
-		settingsImg.setSize(27, 27);
-		this.muteButton.setGraphic(settingsImg);
-		this.muteButton.setPosition(engine.getWidth() / 2 - 525, engine.getHeight() / 2 - 270);
-		this.muteButton.setSize(60, 46);
-		this.muteButton.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent event) {
-				LauncherMain.muteMusic();
-			}
-		});
-		
-		/** ===================== BOUTON MUSIQUE ON ===================== */
-		this.unmuteButton = new LauncherButton(root);
-		this.unmuteButton.setStyle("-fx-background-color: rgba(0 ,0 ,0 , 0.4); -fx-text-fill: orange");
-		settingsImg = new LauncherImage(root, getResourceLocation().loadImage(engine, "unmute.png"));
-		settingsImg.setSize(27, 27);
-		this.unmuteButton.setGraphic(settingsImg);
-		this.unmuteButton.setPosition(engine.getWidth() / 2 - 525, engine.getHeight() / 2 - 220);
-		this.unmuteButton.setSize(60, 46);
-		this.unmuteButton.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent event) {
-				LauncherMain.resumeMusic();
-			}
-		});
-		
 		/** ===================== RECTANGLE DES CONNEXIONS ===================== */
 		this.connexionRectangle = new LauncherRectangle(root, -10 , engine.getHeight() / 2 - 150 , 1350, 320);
 		this.connexionRectangle.setArcWidth(10.0);
 		this.connexionRectangle.setArcHeight(10.0);
-		this.connexionRectangle.setFill(Color.rgb(255, 255, 255, 0.10));
+		this.connexionRectangle.setFill(Color.rgb(255, 255, 255, 0.20));
 		this.connexionRectangle.setVisible(true);
 		
 		/** ===================== AVATAR CONSTANT CRACK ===================== */
@@ -364,7 +350,7 @@ public class LauncherPanel extends IScreen{
 		
 		/** ===================== BOUTON DE CONNEXION ===================== */
 		this.loginButton2 = new LauncherButton(root);
-		this.loginButton2.setText("Connexion");
+		this.loginButton2.setText("Se connecter");
 		this.loginButton2.setFont(FontLoader.loadFont("Roboto-Light.ttf", "Roboto Light", 22F));
 		this.loginButton2.setPosition(engine.getWidth() / 2 + 244,  engine.getHeight() / 2 + 100);
 		this.loginButton2.setSize(200,  45);
@@ -473,8 +459,8 @@ public class LauncherPanel extends IScreen{
 				stage.setResizable(false);
 				stage.initStyle(StageStyle.TRANSPARENT);
 				stage.setTitle("Parametres Launcher");
-				stage.setWidth(500);
-				stage.setHeight(400);
+				stage.setWidth(900);
+				stage.setHeight(600);
 				stage.setScene(scene);
 				stage.show();
 			}
@@ -524,7 +510,7 @@ public class LauncherPanel extends IScreen{
 		
 		/** ===================== BOUTON DE CONNEXION ===================== */
 		this.loginButton = new LauncherButton(root);
-		this.loginButton.setText("Connexion");
+		this.loginButton.setText("Se connecter");
 		this.loginButton.setFont(FontLoader.loadFont("Roboto-Light.ttf", "Roboto Light", 22F));
 		this.loginButton.setPosition(engine.getWidth() / 2 - 367,  engine.getHeight() / 2 + 100);
 		this.loginButton.setSize(200,  45);
@@ -859,8 +845,8 @@ public class LauncherPanel extends IScreen{
 				stage.setResizable(false);
 				stage.initStyle(StageStyle.TRANSPARENT);
 				stage.setTitle("Parametres Launcher");
-				stage.setWidth(500);
-				stage.setHeight(400);
+				stage.setWidth(900);
+				stage.setHeight(600);
 				stage.setScene(scene);
 				stage.show();
 			}
@@ -984,7 +970,7 @@ public class LauncherPanel extends IScreen{
 		this.instagramButton = new LauncherButton(root);
 		this.instagramButton.setInvisible();
 		this.instagramButton.setPosition(engine.getWidth() / 2 - 125 - 150, engine.getHeight() - 130);
-		LauncherImage instagramImg = new LauncherImage(root, getResourceLocation().loadImage(engine, "insta_icon.png"));
+		LauncherImage instagramImg = new LauncherImage(root, getResourceLocation().loadImage(engine, "tiktok.png"));
 		instagramImg.setSize(80, 80);
 		this.instagramButton.setGraphic(instagramImg);
 		this.instagramButton.setSize((int) instagramImg.getFitWidth(), (int) instagramImg.getFitHeight());
@@ -1180,7 +1166,7 @@ public class LauncherPanel extends IScreen{
 		
 		private Parent createSettingsPanel() {
 			LauncherPane contentPane = new LauncherPane(theGameEngine);
-			Rectangle rect = new Rectangle(800, 500);
+			Rectangle rect = new Rectangle(1000, 750);
 			rect.setArcHeight(15.0);
 			rect.setArcWidth(15.0);
 			contentPane.setClip(rect);
@@ -1240,8 +1226,5 @@ public class LauncherPanel extends IScreen{
 
 		public LauncherPasswordField getPasswordField() {
 			return passwordField;
-		}
-		
-
-	
+		}	
 }

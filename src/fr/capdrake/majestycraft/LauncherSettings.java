@@ -37,6 +37,9 @@ public class LauncherSettings extends IScreen {
 	private LauncherLabel versionListLabel;
 	private CheckBox autoLogin;
 	private CheckBox useForge;
+	private CheckBox useDiscord;
+	private CheckBox useMusic;
+	//private CheckBox useDiscord;
 	private CheckBox useVMArguments;
 	private LauncherTextField vmArguments;
 	private double xOffSet; // Position x à l'instant du clic
@@ -66,14 +69,14 @@ public class LauncherSettings extends IScreen {
 		this.drawBackgroundImage(engine, root, "background.png");
 		pane.config.loadConfiguration();
 		/** ===================== RECTANGLE NOIR EN HAUT ===================== */
-		this.topRectangle = new LauncherRectangle(root, 0, 0, 500, 15);
+		this.topRectangle = new LauncherRectangle(root, 0, 0, 1500, 15);
 		this.topRectangle.setOpacity(0.7);
 		/** ===================== LABEL TITRE ===================== */
 		this.titleLabel = new LauncherLabel(root);
 		this.titleLabel.setText("PARAMETRES");
 		this.titleLabel.setStyle("-fx-text-fill: white;");
 		this.titleLabel.setFont(FontLoader.loadFont("Comfortaa-Regular.ttf", "Comfortaa", 28F));
-		this.titleLabel.setPosition(150, 20);
+		this.titleLabel.setPosition(350, 20);
 		this.titleLabel.setSize(230, 35);
 		/** ===================== MC SIZE LABEL ===================== */
 		this.windowsSizeLabel = new LauncherLabel(root);
@@ -82,16 +85,16 @@ public class LauncherSettings extends IScreen {
 		this.windowsSizeLabel.setFont(FontLoader.loadFont("Comfortaa-Regular.ttf", "Comfortaa", 16F));
 		this.windowsSizeLabel.setStyle("-fx-text-fill: white;");
 		this.windowsSizeLabel.setSize(370, 30);
-		this.windowsSizeLabel.setPosition(50, 60);
+		this.windowsSizeLabel.setPosition(250, 110);
 		/** ===================== MC SIZE LIST ===================== */
 		this.windowsSizeList = new ComboBox<String>();
 		this.populateSizeList();
 		if (pane.config.getValue("gamesize") != null) {
 			this.windowsSizeList.setValue(GameSize.getWindowSize(Integer.parseInt((String) pane.config.getValue("gamesize"))).getDesc());
 		}
-		this.windowsSizeList.setPrefSize(100, 20);
-		this.windowsSizeList.setLayoutX(340);
-		this.windowsSizeList.setLayoutY(65);
+		this.windowsSizeList.setPrefSize(150, 20);
+		this.windowsSizeList.setLayoutX(490);
+		this.windowsSizeList.setLayoutY(115);
 		this.windowsSizeList.setVisibleRowCount(5);
 		root.getChildren().add(this.windowsSizeList);
 		/** ===================== SLIDER RAM LABEL ===================== */
@@ -101,14 +104,14 @@ public class LauncherSettings extends IScreen {
 		this.sliderLabel.setFont(FontLoader.loadFont("Comfortaa-Regular.ttf", "Comfortaa", 16F));
 		this.sliderLabel.setStyle("-fx-text-fill: white;");
 		this.sliderLabel.setSize(370, 30);
-		this.sliderLabel.setPosition(50, 170);
+		this.sliderLabel.setPosition(250, 220);
 		/** ===================== SLIDER RAM LABEL SELECTIONNED ===================== */
 		this.memorySliderLabel = new LauncherLabel(root);
 		this.memorySliderLabel.setOpacity(1.0);
 		this.memorySliderLabel.setFont(FontLoader.loadFont("Comfortaa-Regular.ttf", "Comfortaa", 16F));
 		this.memorySliderLabel.setStyle("-fx-text-fill: white;");
 		this.memorySliderLabel.setSize(370, 30);
-		this.memorySliderLabel.setPosition(380, 170);
+		this.memorySliderLabel.setPosition(540, 220);
 		/** ===================== SLIDER RAM ===================== */
 		this.memorySlider = new Slider();
 		this.memorySlider.setStyle("-fx-control-inner-background: rgba(46, 47, 48, 0.5);");
@@ -118,8 +121,8 @@ public class LauncherSettings extends IScreen {
 			double d = Double.parseDouble((String) pane.config.getValue("allocatedram"));
 			this.memorySlider.setValue(d);
 		}
-		this.memorySlider.setLayoutX(50);
-		this.memorySlider.setLayoutY(210);
+		this.memorySlider.setLayoutX(250);
+		this.memorySlider.setLayoutY(260);
 		this.memorySlider.setPrefWidth(395);
 		this.memorySlider.setBlockIncrement(1);
 		memorySlider.valueProperty().addListener(new ChangeListener<Number>() {
@@ -150,16 +153,16 @@ public class LauncherSettings extends IScreen {
 		this.versionListLabel.setFont(FontLoader.loadFont("Comfortaa-Regular.ttf", "Comfortaa", 16F));
 		this.versionListLabel.setStyle("-fx-text-fill: white;");
 		this.versionListLabel.setSize(370, 30);
-		this.versionListLabel.setPosition(50, 110);
+		this.versionListLabel.setPosition(250, 160);
 		/** ===================== MC VERSION LIST ===================== */
 		this.versionList = new ComboBox<String>();
 		this.populateVersionList();
 		if (pane.config.getValue("version") != null) {
 			this.versionList.setValue((String) pane.config.getValue("version"));
 		}
-		this.versionList.setPrefSize(100, 20);
-		this.versionList.setLayoutX(340);
-		this.versionList.setLayoutY(115);
+		this.versionList.setPrefSize(150, 20);
+		this.versionList.setLayoutX(490);
+		this.versionList.setLayoutY(165);
 		this.versionList.setVisibleRowCount(10);
 		this.versionList.setOnAction(new EventHandler<ActionEvent>() {
 
@@ -174,7 +177,7 @@ public class LauncherSettings extends IScreen {
 		this.vmArguments = new LauncherTextField(root);
 		this.vmArguments.setText((String) pane.config.getValue("vmarguments"));
 		this.vmArguments.setSize(390, 20);
-		this.vmArguments.setPosition(50, 285);
+		this.vmArguments.setPosition(250, 335);
 		/** ===================== CHECKBOX USE VM ARGUMENTS ===================== */
 		this.useVMArguments = new CheckBox();
 		this.useVMArguments.setText("Utiliser les Arguments JVM");
@@ -182,8 +185,8 @@ public class LauncherSettings extends IScreen {
 		this.useVMArguments.setOpacity(1.0);
 		this.useVMArguments.setFont(FontLoader.loadFont("Comfortaa-Regular.ttf", "Comfortaa", 14F));
 		this.useVMArguments.setStyle("-fx-text-fill: white;");
-		this.useVMArguments.setLayoutX(50);
-		this.useVMArguments.setLayoutY(255);
+		this.useVMArguments.setLayoutX(250);
+		this.useVMArguments.setLayoutY(305);
 		this.useVMArguments.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent event) {
 				if (useVMArguments.isSelected()) {
@@ -204,8 +207,8 @@ public class LauncherSettings extends IScreen {
 		this.useForge.setOpacity(1.0);
 		this.useForge.setFont(FontLoader.loadFont("Comfortaa-Regular.ttf", "Comfortaa", 14F));
 		this.useForge.setStyle("-fx-text-fill: white;");
-		this.useForge.setLayoutX(300);
-		this.useForge.setLayoutY(255);		
+		this.useForge.setLayoutX(500);
+		this.useForge.setLayoutY(305);		
 		this.useForge.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
@@ -216,22 +219,62 @@ public class LauncherSettings extends IScreen {
 		root.getChildren().add(this.useForge);
 		
 		
+		/** ===================== CHECKBOX Discord statut ===================== */
+		this.useDiscord = new CheckBox();
+		this.useDiscord.setText("Status discord");
+		this.useDiscord.setSelected((Boolean)pane.config.getValue("usediscord"));
+		this.useDiscord.setOpacity(1.0);
+		this.useDiscord.setFont(FontLoader.loadFont("Comfortaa-Regular.ttf", "Comfortaa", 14F));
+		this.useDiscord.setStyle("-fx-text-fill: white;");
+		this.useDiscord.setLayoutX(500);
+		this.useDiscord.setLayoutY(380);
+		this.useDiscord.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				pane.config.updateValue("usediscord", useDiscord.isSelected());
+			}
+		});
+		root.getChildren().add(this.useDiscord);
+		
+		
 		/** ===================== AUTO LOGIN CHECK BOX ===================== */
 		this.autoLogin = new CheckBox();
 		this.autoLogin.setText("Connexion automatique");
 		this.autoLogin.setSelected((Boolean)pane.config.getValue("autologin"));
 		this.autoLogin.setFont(FontLoader.loadFont("Comfortaa-Regular.ttf", "Comfortaa", 14F));
 		this.autoLogin.setStyle("-fx-text-fill: white;");
-		this.autoLogin.setLayoutX(50);
-		this.autoLogin.setLayoutY(330);
+		this.autoLogin.setLayoutX(250);
+		this.autoLogin.setLayoutY(380);
 		root.getChildren().add(autoLogin);
+		
+		/** ===================== AUTO LOGIN CHECK BOX ===================== */
+		this.useMusic = new CheckBox();
+		this.useMusic.setText("Couper la musique");
+		this.useMusic.setSelected((Boolean)pane.config.getValue("usemusic"));
+		this.useMusic.setFont(FontLoader.loadFont("Comfortaa-Regular.ttf", "Comfortaa", 14F));
+		this.useMusic.setStyle("-fx-text-fill: white;");
+		this.useMusic.setLayoutX(250);
+		this.useMusic.setLayoutY(410);
+		this.useMusic.setOnAction(new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent event) {
+				pane.config.updateValue("usemusic", useMusic.isSelected());
+				if (useMusic.isSelected()) {
+					LauncherMain.muteMusic();
+				}
+				else {
+					LauncherMain.resumeMusic();
+				}
+			}
+		});
+		root.getChildren().add(useMusic);
 		
 		/** ===================== BOUTON DE VALIDATION ===================== */
 		this.saveButton = new LauncherButton(root);
 		this.saveButton.setText("Valider");
 		this.saveButton.setStyle("-fx-background-color: rgba(53, 89, 119, 0.4); -fx-text-fill: white;");
 		this.saveButton.setFont(FontLoader.loadFont("Comfortaa-Regular.ttf", "Comfortaa", 16F));
-		this.saveButton.setPosition(310, 350);
+		this.saveButton.setPosition(700, 550);
 		this.saveButton.setSize(130, 35);
 		this.saveButton.setOnAction(new EventHandler<ActionEvent>() {
 			
@@ -245,6 +288,8 @@ public class LauncherSettings extends IScreen {
 				configMap.put("vmarguments", "" + vmArguments.getText());
 				configMap.put("version", "" + versionList.getValue());
 				configMap.put("useforge", "" + useForge.isSelected());
+				configMap.put("usemusic", "" + useMusic.isSelected());
+				configMap.put("usediscord", ""+ useDiscord.isSelected());
 				pane.config.updateValues(configMap);
 				engine.reg(GameMemory.getMemory(Double.parseDouble((String) pane.config.getValue("allocatedram"))));
 				engine.reg(GameSize.getWindowSize(Integer.parseInt((String) pane.config.getValue("gamesize"))));
@@ -275,7 +320,7 @@ public class LauncherSettings extends IScreen {
 	
 	private void populateVersionList() 
 	{
-		for(int i = 1; i < 13; i++) 
+		for(int i = 1; i < 14; i++) 
 		{
 			if(i == 1) 
 			{
@@ -324,6 +369,10 @@ public class LauncherSettings extends IScreen {
 			else if(i == 12) 
 			{
 				this.versionList.getItems().add("1.16.5");
+			}
+			else if(i == 13) 
+			{
+				this.versionList.getItems().add("21w14a");
 			}
 		}
 	}

@@ -13,6 +13,7 @@ import fr.trxyy.alternative.alternative_api.GameStyle;
 import fr.trxyy.alternative.alternative_api.LauncherPreferences;
 import fr.trxyy.alternative.alternative_api.maintenance.GameMaintenance;
 import fr.trxyy.alternative.alternative_api.maintenance.Maintenance;
+import fr.trxyy.alternative.alternative_api.utils.config.LauncherConfig;
 import fr.trxyy.alternative.alternative_api_ui.LauncherBackground;
 import fr.trxyy.alternative.alternative_api_ui.LauncherPane;
 import fr.trxyy.alternative.alternative_api_ui.base.AlternativeBase;
@@ -35,8 +36,9 @@ public class LauncherMain extends AlternativeBase{
 	public static GameForge gameForge;
 	private GameMaintenance gameMaintenance = new GameMaintenance(Maintenance.USE, gameEngine);
 	//private GameConnect gameConnect = new GameConnect("play.majestycraft.com", "25565");
-	private static Media media;
+	public static Media media;
 	private static MediaPlayer mediaPlayer;
+	public LauncherConfig config;
 
 	
 	public static void main(String[] args){
@@ -48,23 +50,22 @@ public class LauncherMain extends AlternativeBase{
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		// TODO Auto-generated method stub
+		playMusic(media, "anniv.mp3");
 		Scene scene = new Scene(createContent());
 		this.gameEngine.reg(primaryStage);  
 		this.gameEngine.reg(this.gameMaintenance);
-		playMusic(media, "anniv.mp3");
-		this.discordRPC();
 		//this.gameEngine.reg(this.gameLinks);
 		//this.gameEngine.reg(this.gameConnect);
 		//this.gameEngine.reg(this.newForge);
 		LauncherBase launcherBase = new LauncherBase(primaryStage, scene, StageStyle.TRANSPARENT, gameEngine);
-		launcherBase.setIconImage(primaryStage,  getResourceLocation().loadImage(gameEngine, "favicon.png"));
+		launcherBase.setIconImage(primaryStage,  getResourceLocation().loadImage(gameEngine, "server-icon.png"));
 	}
 	
 	private Parent createContent() throws IOException {
 		LauncherPane contentPane = new LauncherPane(gameEngine);
 		new LauncherBackground(this.gameEngine, getResourceLocation().getMedia(gameEngine, "anniv2.mp4"), contentPane);
 		Rectangle rectangle = new Rectangle(gameEngine.getLauncherPreferences().getWidth(), gameEngine.getLauncherPreferences().getHeight());
-		LauncherPanel panel = new LauncherPanel(contentPane, gameEngine);
+		LauncherPanel panel = new LauncherPanel(contentPane, gameEngine, this);
 		readVersion(panel);
 		this.gameEngine.reg(this.gameLinks);
 		rectangle.setArcWidth(15.0);
@@ -123,6 +124,9 @@ public class LauncherMain extends AlternativeBase{
 			case "1.16.5":
 				gameLinks.JSON_URL = gameLinks.BASE_URL + "1.16.5.json";
 				break;
+			case "21w14a":
+				gameLinks.JSON_URL = gameLinks.BASE_URL + "21w14a.json";
+				break;
 			default :
                 panel.config.updateValue("version", gameLinks.getJsonName().replace(".json",""));
                 break;
@@ -136,7 +140,7 @@ public class LauncherMain extends AlternativeBase{
 	
 	
 	//Permet l'affichage sur discord
-	private void discordRPC() {
+	static void discordRPC() {
 		DiscordRPC discord = DiscordRPC.INSTANCE;
 		String applicationId = "805862518567469077";
 		String steamId = "";
