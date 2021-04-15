@@ -5,6 +5,7 @@ import java.io.IOException;
 import club.minnced.discord.rpc.DiscordEventHandlers;
 import club.minnced.discord.rpc.DiscordRPC;
 import club.minnced.discord.rpc.DiscordRichPresence;
+import fr.trxyy.alternative.alternative_api.GameConnect;
 import fr.trxyy.alternative.alternative_api.GameEngine;
 import fr.trxyy.alternative.alternative_api.GameFolder;
 import fr.trxyy.alternative.alternative_api.GameForge;
@@ -35,7 +36,7 @@ public class LauncherMain extends AlternativeBase{
 	private GameEngine gameEngine = new GameEngine(this.gameFolder, this.gameLinks, this.launcherPreferences, GameStyle.VANILLA);
 	public static GameForge gameForge;
 	private GameMaintenance gameMaintenance = new GameMaintenance(Maintenance.USE, gameEngine);
-	//private GameConnect gameConnect = new GameConnect("play.majestycraft.com", "25565");
+	//private GameConnect gameConnect = new GameConnect("51.38.13.50", "25764");
 	public static Media media;
 	private static MediaPlayer mediaPlayer;
 	public LauncherConfig config;
@@ -126,6 +127,9 @@ public class LauncherMain extends AlternativeBase{
 				break;
 			case "21w14a":
 				gameLinks.JSON_URL = gameLinks.BASE_URL + "21w14a.json";
+				break;
+			case "21w15a":
+				gameLinks.JSON_URL = gameLinks.BASE_URL + "21w15a.json";
 				break;
 			default :
                 panel.config.updateValue("version", gameLinks.getJsonName().replace(".json",""));
