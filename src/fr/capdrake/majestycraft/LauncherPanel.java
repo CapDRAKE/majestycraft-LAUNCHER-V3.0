@@ -77,7 +77,7 @@ public class LauncherPanel extends IScreen{
 	private LauncherButton settingsButton2;
 	private LauncherButton closeButton;
 	private LauncherButton reduceButton;
-	private LauncherButton facebookButton;
+	private LauncherButton minestratorButton;
 	private LauncherButton twitterButton;
 	private LauncherButton instagramButton;
 	private LauncherButton youtubeButton;
@@ -134,7 +134,7 @@ public class LauncherPanel extends IScreen{
 	private ImageView imageanniv;
 
 	
-	private String FACEBOOK_URL = "http://facebook.com/";
+	private String MINESTRATOR_URL = "https://minestrator.com/?partner=eus561rkso";
 	private String INSTAGRAM_URL = "https://www.tiktok.com/@majestycraft?lang=fr";
 	private String TWITTER_URL = "http://twitter.com/craftsurvie";
 	private String YOUTUBE_URL = "https://www.youtube.com/channel/UCWtD5WQZKiHO7NLSSs-WOQg";
@@ -936,19 +936,19 @@ public class LauncherPanel extends IScreen{
 			}
 		});
 		
-		/** ===================== BOUTON URL FACEBOOK ===================== */
-		this.facebookButton = new LauncherButton(root);
-		this.facebookButton.setInvisible();
-		this.facebookButton.setPosition(engine.getWidth() / 2 - 125, engine.getHeight() - 130);
-		LauncherImage facebookImg = new LauncherImage(root, getResourceLocation().loadImage(engine, "fb_icon.png"));
+		/** ===================== BOUTON URL MINESTRATOR ===================== */
+		this.minestratorButton = new LauncherButton(root);
+		this.minestratorButton.setInvisible();
+		this.minestratorButton.setPosition(engine.getWidth() / 2 - 125, engine.getHeight() - 130);
+		LauncherImage facebookImg = new LauncherImage(root, getResourceLocation().loadImage(engine, "minestrator.png"));
 		facebookImg.setSize(80, 80);
-		this.facebookButton.setGraphic(facebookImg);
-		this.facebookButton.setSize((int) facebookImg.getFitWidth(), (int) facebookImg.getFitHeight());
-		this.facebookButton.setBackground(null);
-		this.facebookButton.setOnAction(new EventHandler<ActionEvent>() {
+		this.minestratorButton.setGraphic(facebookImg);
+		this.minestratorButton.setSize((int) facebookImg.getFitWidth(), (int) facebookImg.getFitHeight());
+		this.minestratorButton.setBackground(null);
+		this.minestratorButton.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				openLink(FACEBOOK_URL);
+				openLink(MINESTRATOR_URL);
 			}
 		});
 		/** ===================== BOUTON URL TWITTER ===================== */
