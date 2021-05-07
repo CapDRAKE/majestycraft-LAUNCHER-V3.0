@@ -211,7 +211,6 @@ public class LauncherPanel extends IScreen{
 		
 		this.drawLogo(engine, getResourceLocation().loadImage(engine, "logo.png"), engine.getWidth() / 2 - 70, 40, 150, 150, root, Mover.DONT_MOVE);
 		
-		this.drawLogo(engine, getResourceLocation().loadImage(engine, "anniv.gif"), engine.getWidth() / 2 - 95, 250, 200, 100, root, Mover.DONT_MOVE);
 		//this.drawLogo(engine, getResourceLocation().loadImage(engine, "NEWlogo.jpg"), engine.getWidth() / 2 - 386, 260, 130, 130, root, Mover.DONT_MOVE);
 		
 		//this.drawLogo(engine, getResourceLocation().loadImage(engine, "tropicolands.png"), engine.getWidth() / 2 + 266, 260, 130, 130, root, Mover.DONT_MOVE);

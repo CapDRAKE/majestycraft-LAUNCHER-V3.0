@@ -51,7 +51,7 @@ public class LauncherMain extends AlternativeBase{
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		// TODO Auto-generated method stub
-		playMusic(media, "anniv.mp3");
+		playMusic(media, "Minecraft.mp3");
 		Scene scene = new Scene(createContent());
 		this.gameEngine.reg(primaryStage);  
 		this.gameEngine.reg(this.gameMaintenance);
@@ -64,7 +64,7 @@ public class LauncherMain extends AlternativeBase{
 	
 	private Parent createContent() throws IOException {
 		LauncherPane contentPane = new LauncherPane(gameEngine);
-		new LauncherBackground(this.gameEngine, getResourceLocation().getMedia(gameEngine, "anniv2.mp4"), contentPane);
+		new LauncherBackground(this.gameEngine, getResourceLocation().getMedia(gameEngine, "background.mp4"), contentPane);
 		Rectangle rectangle = new Rectangle(gameEngine.getLauncherPreferences().getWidth(), gameEngine.getLauncherPreferences().getHeight());
 		LauncherPanel panel = new LauncherPanel(contentPane, gameEngine, this);
 		readVersion(panel);
