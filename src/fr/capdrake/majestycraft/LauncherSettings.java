@@ -320,7 +320,7 @@ public class LauncherSettings extends IScreen {
 	
 	private void populateVersionList() 
 	{
-		for(int i = 1; i < 15; i++) 
+		for(int i = 1; i < 16; i++) 
 		{
 			if(i == 1) 
 			{
@@ -377,6 +377,10 @@ public class LauncherSettings extends IScreen {
 			else if(i == 14)
 			{
 				this.versionList.getItems().add("21w15a");
+			}
+			else if(i == 15)
+			{
+				this.versionList.getItems().add("1.17");
 			}
 		}
 	}

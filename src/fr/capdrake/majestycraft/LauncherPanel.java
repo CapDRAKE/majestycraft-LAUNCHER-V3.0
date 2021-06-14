@@ -95,8 +95,6 @@ public class LauncherPanel extends IScreen{
 	private LauncherLabel titleMajestycraft2;
 	private LauncherLabel titleTropicolands;
 	private LauncherLabel titleTropicolands2;
-	private LauncherLabel infoServeur;
-	private LauncherLabel infoJoueur;
 	private LauncherLabel titleLabel;
 	private LauncherLabel titlePremium;
 	private LauncherLabel titleCrack;
@@ -105,8 +103,6 @@ public class LauncherPanel extends IScreen{
 	private LauncherRectangle autoLoginRectangle;
 	private LauncherRectangle topRectangle;
 	private LauncherRectangle updateRectangle;
-	private LauncherRectangle serveurRectangle;
-	private LauncherRectangle joueursRectangle;
 	private LauncherRectangle connexionRectangle;
 	
 	/** GAMEENGINE REQUIRED */
@@ -130,8 +126,6 @@ public class LauncherPanel extends IScreen{
 		public static LauncherImage avatar;
 		public static LauncherImage avatar2;
 		public static LauncherImage avatar3;
-	
-	private ImageView imageanniv;
 
 	
 	private String MINESTRATOR_URL = "https://minestrator.com/?partner=eus561rkso";
@@ -151,55 +145,7 @@ public class LauncherPanel extends IScreen{
 
 		
 		// Déselectionne la textfield par défaut
-	    Platform.runLater( () -> root.requestFocus());
-	    
-	    
-		
-		/** ===================== RECTANGLE INFO SERVEUR ===================== */
-		this.serveurRectangle = new LauncherRectangle(root, engine.getWidth() / 2 - 460, engine.getHeight() / 2 - 255, 250, 90);
-		this.serveurRectangle.setArcWidth(10.0);
-		this.serveurRectangle.setArcHeight(10.0);
-		this.serveurRectangle.setFill(Color.rgb(0, 0, 0, 0.40));
-		this.serveurRectangle.setVisible(false);
-		
-		
-		/** ===================== INFO SERVEUR ===================== */
-		this.infoServeur = new LauncherLabel(root);
-		try {
-			MinecraftServerPingInfos data = new MinecraftServerPing().getPing(new MinecraftServerPingOptions().setHostname("51.38.13.50").setPort(25764));
-			this.infoServeur.setText("MajestyCraft - Information\n" + data.getVersion().getName() + "\n" + data.getLatency() + " ms\n");
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		this.infoServeur.setPosition(engine.getWidth() / 2 - 450, engine.getHeight() / 2 - 250);
-		this.infoServeur.setFont(Font.font("FontName", FontWeight.BOLD, 18d));
-		this.infoServeur.setStyle("-fx-background-color: transparent; -fx-text-fill: red");
-		this.infoServeur.setOpacity(0.7);
-		this.infoServeur.setVisible(false);
-		
-		/** ===================== RECTANGLE INFO NB JOUEURS ===================== */
-		this.joueursRectangle = new LauncherRectangle(root, engine.getWidth() / 2 + 205, engine.getHeight() / 2 - 255, 250, 90);
-		this.joueursRectangle.setArcWidth(10.0);
-		this.joueursRectangle.setArcHeight(10.0);
-		this.joueursRectangle.setFill(Color.rgb(0, 0, 0, 0.40));
-		this.joueursRectangle.setVisible(false);
-		
-		/** ===================== INFO NB JOUEURS ===================== */
-		this.infoJoueur = new LauncherLabel(root);
-		try {
-			MinecraftServerPingInfos data = new MinecraftServerPing().getPing(new MinecraftServerPingOptions().setHostname("51.38.13.50").setPort(25764));
-			this.infoJoueur.setText("MajestyCraft - Joueurs\n" + data.getPlayers().getOnline() + " / " + data.getPlayers().getMax() + " joueurs");
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		this.infoJoueur.setPosition(engine.getWidth() / 2 + 235, engine.getHeight() / 2 - 250);
-		this.infoJoueur.setFont(Font.font("FontName", FontWeight.BOLD, 18d));
-		this.infoJoueur.setStyle("-fx-background-color: transparent; -fx-text-fill: red");
-		this.infoJoueur.setOpacity(0.7);
-		this.infoJoueur.setVisible(false);
-		
+	    Platform.runLater( () -> root.requestFocus());	
 		
 		theGameEngine = engine;
 		
@@ -417,6 +363,11 @@ public class LauncherPanel extends IScreen{
 						engine.setGameStyle(GameStyle.OPTIFINE);
 						LauncherMain.gameForge = new GameForge("fmlclient", "36.0.42", "1.16.5", "net.minecraft.launchwrapper.Launch", "20200812.004259");
 						break;
+					case "1.17.json":
+						LauncherMain.gameLinks = new GameLinks("https://majestycraft.com/minecraft/1.17/", "1.17.json");
+						engine.setGameStyle(GameStyle.OPTIFINE);
+						LauncherMain.gameForge = new GameForge("fmlclient", "36.0.42", "1.17", "net.minecraft.launchwrapper.Launch", "20200812.004259");
+						break;
 				}
 			} else {
 				engine.setGameStyle(GameStyle.VANILLA);
@@ -577,6 +528,11 @@ public class LauncherPanel extends IScreen{
 						engine.setGameStyle(GameStyle.OPTIFINE);
 						LauncherMain.gameForge = new GameForge("fmlclient", "36.0.42", "1.16.5", "net.minecraft.launchwrapper.Launch", "20200812.004259");
 						break;
+					case "1.17.json":
+						LauncherMain.gameLinks = new GameLinks("https://majestycraft.com/minecraft/1.17/", "1.17.json");
+						engine.setGameStyle(GameStyle.OPTIFINE);
+						LauncherMain.gameForge = new GameForge("fmlclient", "36.0.42", "1.17", "net.minecraft.launchwrapper.Launch", "20200812.004259");
+						break;
 				
 				}
 			} else {
@@ -715,6 +671,11 @@ public class LauncherPanel extends IScreen{
 										LauncherMain.gameLinks = new GameLinks("https://majestycraft.com/minecraft/1.16.5/", "1.16.5.json");
 										engine.setGameStyle(GameStyle.OPTIFINE);
 										LauncherMain.gameForge = new GameForge("fmlclient", "36.0.42", "1.16.5", "net.minecraft.launchwrapper.Launch", "20200812.004259");
+										break;
+									case "1.17.json":
+										LauncherMain.gameLinks = new GameLinks("https://majestycraft.com/minecraft/1.17/", "1.17.json");
+										engine.setGameStyle(GameStyle.OPTIFINE);
+										LauncherMain.gameForge = new GameForge("fmlclient", "36.0.42", "1.17", "net.minecraft.launchwrapper.Launch", "20200812.004259");
 										break;
 								}
 							} else {
