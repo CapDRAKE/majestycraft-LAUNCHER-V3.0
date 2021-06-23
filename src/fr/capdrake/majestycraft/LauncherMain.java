@@ -36,7 +36,7 @@ public class LauncherMain extends AlternativeBase{
 	private GameEngine gameEngine = new GameEngine(this.gameFolder, this.gameLinks, this.launcherPreferences, GameStyle.VANILLA);
 	public static GameForge gameForge;
 	private GameMaintenance gameMaintenance = new GameMaintenance(Maintenance.USE, gameEngine);
-	//private GameConnect gameConnect = new GameConnect("51.38.13.50", "25764");
+	//private GameConnect gameConnect = new GameConnect("46.105.32.110", "25662");
 	public static Media media;
 	private static MediaPlayer mediaPlayer;
 	public LauncherConfig config;
@@ -64,7 +64,7 @@ public class LauncherMain extends AlternativeBase{
 	
 	private Parent createContent() throws IOException {
 		LauncherPane contentPane = new LauncherPane(gameEngine);
-		new LauncherBackground(this.gameEngine, getResourceLocation().getMedia(gameEngine, "background.mp4"), contentPane);
+		//new LauncherBackground(this.gameEngine, getResourceLocation().getMedia(gameEngine, "background.png"), contentPane);
 		Rectangle rectangle = new Rectangle(gameEngine.getLauncherPreferences().getWidth(), gameEngine.getLauncherPreferences().getHeight());
 		LauncherPanel panel = new LauncherPanel(contentPane, gameEngine, this);
 		readVersion(panel);
@@ -160,7 +160,7 @@ public class LauncherMain extends AlternativeBase{
 		presence.largeImageKey = "image";
 		presence.largeImageText = "MajestyCraft, Launcher Gratuit Crack/Premium";
 		presence.details = "Launcher MajestyCraft";
-		presence.state = "Version : 1.7 => 1.16.5";
+		presence.state = "Version : 1.7 => 1.17";
 		
 		discord.Discord_UpdatePresence(presence);
 	}

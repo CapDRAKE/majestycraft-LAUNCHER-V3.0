@@ -80,7 +80,7 @@ public class LauncherSettings extends IScreen {
 		this.titleLabel.setSize(230, 35);
 		/** ===================== MC SIZE LABEL ===================== */
 		this.windowsSizeLabel = new LauncherLabel(root);
-		this.windowsSizeLabel.setText("Taille de la fenetre:");
+		this.windowsSizeLabel.setText("Taille de la fenêtre:");
 		this.windowsSizeLabel.setOpacity(1.0);
 		this.windowsSizeLabel.setFont(FontLoader.loadFont("Comfortaa-Regular.ttf", "Comfortaa", 16F));
 		this.windowsSizeLabel.setStyle("-fx-text-fill: white;");
@@ -99,7 +99,7 @@ public class LauncherSettings extends IScreen {
 		root.getChildren().add(this.windowsSizeList);
 		/** ===================== SLIDER RAM LABEL ===================== */
 		this.sliderLabel = new LauncherLabel(root);
-		this.sliderLabel.setText("RAM Allouee:");
+		this.sliderLabel.setText("RAM Allouée:");
 		this.sliderLabel.setOpacity(1.0);
 		this.sliderLabel.setFont(FontLoader.loadFont("Comfortaa-Regular.ttf", "Comfortaa", 16F));
 		this.sliderLabel.setStyle("-fx-text-fill: white;");
@@ -221,7 +221,7 @@ public class LauncherSettings extends IScreen {
 		
 		/** ===================== CHECKBOX Discord statut ===================== */
 		this.useDiscord = new CheckBox();
-		this.useDiscord.setText("Status discord");
+		this.useDiscord.setText("Statut discord");
 		this.useDiscord.setSelected((Boolean)pane.config.getValue("usediscord"));
 		this.useDiscord.setOpacity(1.0);
 		this.useDiscord.setFont(FontLoader.loadFont("Comfortaa-Regular.ttf", "Comfortaa", 14F));
