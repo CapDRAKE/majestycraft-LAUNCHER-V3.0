@@ -19,6 +19,6 @@
 	<classpathentry kind="lib" path="libFX/javafx.media.jar"/>
 	<classpathentry kind="lib" path="libFX/javafx.fxml.jar"/>
 	<classpathentry kind="lib" path="libFX/javafx.swing.jar"/>
-	<classpathentry kind="lib" path="lib/Alternative Api Reloaded.jar"/>
+	<classpathentry kind="lib" path="lib/Alternative Api.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
