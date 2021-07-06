@@ -1,12 +1,15 @@
 package fr.capdrake.majestycraft;
 
-import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.Vector;
+import java.util.function.Consumer;
 
+import fr.flowarg.mcmsal.AuthInfo;
+import fr.flowarg.mcmsal.JFXAuth;
+import fr.flowarg.mcmsal.JFXAuth.JFXAuthCallback;
+import fr.flowarg.mcmsal.MCMSALException;
 import fr.trxyy.alternative.alternative_api.GameEngine;
 import fr.trxyy.alternative.alternative_api.GameForge;
 import fr.trxyy.alternative.alternative_api.GameLinks;
@@ -18,7 +21,6 @@ import fr.trxyy.alternative.alternative_api.utils.FontLoader;
 import fr.trxyy.alternative.alternative_api.utils.Mover;
 import fr.trxyy.alternative.alternative_api.utils.config.LauncherConfig;
 import fr.trxyy.alternative.alternative_api_ui.LauncherAlert;
-import fr.trxyy.alternative.alternative_api_ui.LauncherBackground;
 import fr.trxyy.alternative.alternative_api_ui.LauncherPane;
 import fr.trxyy.alternative.alternative_api_ui.base.IScreen;
 import fr.trxyy.alternative.alternative_api_ui.components.LauncherButton;
@@ -30,7 +32,6 @@ import fr.trxyy.alternative.alternative_api_ui.components.LauncherRectangle;
 import fr.trxyy.alternative.alternative_api_ui.components.LauncherTextField;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
-import javafx.animation.PauseTransition;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -39,25 +40,17 @@ import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.CheckBox;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import javafx.scene.web.WebView;
-import javafx.scene.control.ToggleButton;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import javafx.util.Duration;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import re.alwyn974.minecraftserverping.MinecraftServerPing;
-import re.alwyn974.minecraftserverping.MinecraftServerPingInfos;
-import re.alwyn974.minecraftserverping.MinecraftServerPingOptions;
 
 public class LauncherPanel extends IScreen{
 
@@ -84,8 +77,6 @@ public class LauncherPanel extends IScreen{
 	private LauncherButton instagramButton;
 	private LauncherButton youtubeButton;
 	private LauncherButton infoButton;
-	private LauncherButton muteButton;
-	private LauncherButton unmuteButton;
 	private LauncherButton lolButton;
 	private LauncherButton deadButton;
 	private LauncherButton microsoftButton;
@@ -139,14 +130,11 @@ public class LauncherPanel extends IScreen{
 	private String INSTAGRAM_URL = "https://www.tiktok.com/@majestycraft?lang=fr";
 	private String TWITTER_URL = "http://twitter.com/craftsurvie";
 	private String YOUTUBE_URL = "https://www.youtube.com/channel/UCWtD5WQZKiHO7NLSSs-WOQg";
-	private String VOTE_URL = "https://majestycraft.com/index.php?&page=voter";
-	private String BOUTIQUE_URL = "https://majestycraft.com/index.php?&page=boutique";
 	private String SITE_URL = "https://majestycraft.com/index.php";
 	private String DISCORD_URL = "https://discord.gg/bj7mUb9";
 	//private String TROPICOLANDS_URL = "https://tropicolands.ezcraft.fr/";
 	public LauncherConfig config;
 	public static Media media;
-	private static MediaPlayer mediaPlayer;
 	
 	public LauncherPanel(Pane root, GameEngine engine, final LauncherMain launcherMain){
 
@@ -265,6 +253,57 @@ public class LauncherPanel extends IScreen{
 				stage.setScene(scene);
 				stage.show();
 			}
+		});
+		
+		/** ===================== BOUTON microsoft ===================== */
+		this.microsoftButton = new LauncherButton(root);
+		this.microsoftButton.setStyle("-fx-background-color: rgba(0 ,0 ,0 , 0); -fx-text-fill: orange");
+		LauncherImage microsoftImg = new LauncherImage(root, getResourceLocation().loadImage(engine, "microsoft.png"));
+		microsoftImg.setSize(27, 27);
+		this.microsoftButton.setGraphic(microsoftImg);
+		this.microsoftButton.setPosition(engine.getWidth() / 2 - 522, engine.getHeight() / 2 - 100);
+		this.microsoftButton.setSize(60, 46);
+		this.microsoftButton.setOnAction(event -> {
+		    JFXAuth.authenticateWithWebView(new JFXAuthCallback() {
+		    	
+		        @Override
+		        public void beforeAuth(WebView webView)
+		        {
+		            root.getChildren().add(webView);
+		        }
+
+		        @Override
+		        public void webViewCanBeClosed(WebView webView)
+		        {
+		        	root.getChildren().remove(webView);
+		        }
+
+		        @Override
+		        public Consumer<AuthInfo> onAuthFinished()
+		        {
+		            return (authInfo) -> {
+		                System.out.println(authInfo);
+		            };
+		        }
+
+		        @Override
+		        public void exceptionCaught(MCMSALException e)
+		        {
+		            e.printStackTrace();
+		        }
+
+		        @Override
+		        public double prefWidth()
+		        {
+		            return 405;
+		        }
+
+		        @Override
+		        public double prefHeight()
+		        {
+		            return 405;
+		        }
+		    });
 		});
 		
 		/** ===================== RECTANGLE DES CONNEXIONS ===================== */

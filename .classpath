@@ -20,5 +20,7 @@
 	<classpathentry kind="lib" path="libFX/javafx.fxml.jar"/>
 	<classpathentry kind="lib" path="libFX/javafx.swing.jar"/>
 	<classpathentry kind="lib" path="lib/Alternative Api.jar"/>
+	<classpathentry kind="lib" path="lib/mcmsal-1.0.0.jar"/>
+	<classpathentry kind="lib" path="lib/flowmultitools-1.3.3.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
