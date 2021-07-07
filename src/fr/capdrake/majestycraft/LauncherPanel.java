@@ -269,6 +269,9 @@ public class LauncherPanel extends IScreen{
 		        @Override
 		        public void beforeAuth(WebView webView)
 		        {
+		        	webView.nodeOrientationProperty();
+		        	webView.resizeRelocate(330, 200, 300, 300);
+		        	webView.isResizable();
 		            root.getChildren().add(webView);
 		        }
 
@@ -281,15 +284,97 @@ public class LauncherPanel extends IScreen{
 		        @Override
 		        public Consumer<AuthInfo> onAuthFinished()
 		        {
+		        	if((boolean) config.getValue("useforge"))
+					{
+						LauncherMain.getGameLinks().JSON_NAME = config.getValue("version") + ".json";
+						switch(engine.getGameLinks().JSON_NAME)
+						{
+							case "1.9.json":
+								LauncherMain.gameLinks = new GameLinks("https://majestycraft.com/minecraft/1.9/", "1.9.json");
+								engine.setGameStyle(GameStyle.OPTIFINE);
+								LauncherMain.gameForge = new GameForge("fmlclient", "#1938", "1.9", "net.minecraft.launchwrapper.Launch", "20200515.085601");
+								break;
+							case "1.10.2.json":
+								LauncherMain.gameLinks = new GameLinks("https://majestycraft.com/minecraft/1.10.2/", "1.10.2.json");
+								engine.setGameStyle(GameStyle.OPTIFINE);
+								LauncherMain.gameForge = new GameForge("fmlclient", "#2511", "1.10.2", "net.minecraft.launchwrapper.Launch", "20200515.085601");
+								break;
+							case "1.11.2.json":
+								LauncherMain.gameLinks = new GameLinks("https://majestycraft.com/minecraft/1.11.2/", "1.11.2.json");
+								engine.setGameStyle(GameStyle.OPTIFINE);
+								LauncherMain.gameForge = new GameForge("fmlclient", "#2588", "1.11.2", "net.minecraft.launchwrapper.Launch", "20200515.085601");
+								break;
+							case "1.12.2.json":
+								LauncherMain.gameLinks = new GameLinks("https://majestycraft.com/minecraft/1.12.2/", "1.12.2.json");
+								engine.setGameStyle(GameStyle.OPTIFINE);
+								LauncherMain.gameForge = new GameForge("fmlclient", "#2847", "1.12.2", "net.minecraft.launchwrapper.Launch", "20200515.085601");
+								break;
+							case "1.13.2.json":
+								LauncherMain.gameLinks = new GameLinks("https://majestycraft.com/minecraft/1.13.2/", "1.13.2.json");
+								engine.setGameStyle(GameStyle.OPTIFINE);
+								LauncherMain.gameForge = new GameForge("fmlclient", "28.2.23", "1.13.2", "net.minecraft.launchwrapper.Launch", "20200515.085601");
+								break;
+							case "1.14.4.json":
+								LauncherMain.gameLinks = new GameLinks("https://majestycraft.com/minecraft/1.14.4/", "1.14.4.json");
+								engine.setGameStyle(GameStyle.OPTIFINE);
+								LauncherMain.gameForge = new GameForge("fmlclient", "28.2.23", "1.14.4", "net.minecraft.launchwrapper.Launch", "20200515.085601");
+								break;
+							case "1.15.2.json":
+								LauncherMain.gameLinks = new GameLinks("https://majestycraft.com/minecraft/1.15.2/", "1.15.2.json");
+								engine.setGameStyle(GameStyle.OPTIFINE);
+								LauncherMain.gameForge = new GameForge("fmlclient", "31.2.45", "1.15.2", "net.minecraft.launchwrapper.Launch", "20200515.085601");
+								break;
+							case "1.16.2.json":
+								engine.setGameStyle(GameStyle.OPTIFINE);
+								LauncherMain.gameForge = new GameForge("fmlclient", "33.0.61", "1.16.2", "net.minecraft.launchwrapper.Launch", "20200812.004259");
+								break;
+							case "1.16.3.json":
+								engine.setGameStyle(GameStyle.OPTIFINE);
+								LauncherMain.gameForge = new GameForge("fmlclient", "34.1.42", "1.16.3", "net.minecraft.launchwrapper.Launch", "20201025.185957");
+								break;
+							case "1.16.4.json":
+								LauncherMain.gameLinks = new GameLinks("https://majestycraft.com/minecraft/1.16.4/", "1.16.4.json");
+								engine.setGameStyle(GameStyle.OPTIFINE);
+								LauncherMain.gameForge = new GameForge("fmlclient", "35.0.1", "1.16.4", "net.minecraft.launchwrapper.Launch", "20200812.004259");
+								break;
+							case "1.16.5.json":
+								LauncherMain.gameLinks = new GameLinks("https://majestycraft.com/minecraft/1.16.5/", "1.16.5.json");
+								engine.setGameStyle(GameStyle.OPTIFINE);
+								LauncherMain.gameForge = new GameForge("fmlclient", "36.0.42", "1.16.5", "net.minecraft.launchwrapper.Launch", "20200812.004259");
+								break;
+							case "1.17.json":
+								LauncherMain.gameLinks = new GameLinks("https://majestycraft.com/minecraft/1.17/", "1.17.json");
+								engine.setGameStyle(GameStyle.OPTIFINE);
+								LauncherMain.gameForge = new GameForge("fmlclient", "36.0.42", "1.17", "net.minecraft.launchwrapper.Launch", "20200812.004259");
+								break;
+						}
+					} else {
+						engine.setGameStyle(GameStyle.VANILLA);
+					}
 		            return (authInfo) -> {
 		                System.out.println(authInfo);
+		                System.out.println(authInfo.getUsername());
+		                System.out.println(authInfo.getUUID());
+		                GameAuth auth = new GameAuth(authInfo.getUsername(), passwordField.getText(),
+								AccountType.MOJANG);
+						if (auth.isLogged()) {
+							update(engine, auth);
+							if((boolean) config.getValue("usePremium") == true) {
+								connectAccountPremiumCO(auth.getSession().getUsername(), root);
+								//connectAccountPremium(auth.getSession().getUsername(), root);
+							}
+						} else {
+							new LauncherAlert("Problème interne", "Merci de contacter le support");
+						}
 		            };
 		        }
 
 		        @Override
 		        public void exceptionCaught(MCMSALException e)
 		        {
-		            e.printStackTrace();
+		        	new LauncherAlert("Authentification echouée!",
+							"Impossible de se connecter, l'authentification semble etre une authentification 'en-ligne'"
+									+ "\nAssurez-vous d'utiliser un compte Microsoft.");
 		        }
 
 		        @Override
