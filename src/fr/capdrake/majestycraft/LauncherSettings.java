@@ -309,18 +309,10 @@ public class LauncherSettings extends IScreen {
 		}
 	}
 	
-	//private String isAutoLogin() {
-	//	 if (autoLogin.isSelected()) {
-	//	 return "true";
-	//	 } else {
-	//	 return "false";
-	///	/ }
-	//	 }
-	
 	
 	private void populateVersionList() 
 	{
-		for(int i = 1; i < 16; i++) 
+		for(int i = 1; i < 17; i++) 
 		{
 			if(i == 1) 
 			{
@@ -381,6 +373,10 @@ public class LauncherSettings extends IScreen {
 			else if(i == 15)
 			{
 				this.versionList.getItems().add("1.17");
+			}
+			else if(i == 16)
+			{
+				this.versionList.getItems().add("1.17.1");
 			}
 		}
 	}

@@ -347,6 +347,11 @@ public class LauncherPanel extends IScreen{
 								engine.setGameStyle(GameStyle.OPTIFINE);
 								LauncherMain.gameForge = new GameForge("fmlclient", "36.0.42", "1.17", "net.minecraft.launchwrapper.Launch", "20200812.004259");
 								break;
+							case "1.17.1.json":
+								LauncherMain.gameLinks = new GameLinks("https://majestycraft.com/minecraft/1.17.1/", "1.17.1.json");
+								engine.setGameStyle(GameStyle.OPTIFINE);
+								LauncherMain.gameForge = new GameForge("fmlclient", "36.0.42", "1.17.1", "net.minecraft.launchwrapper.Launch", "20200812.004259");
+								break;
 						}
 					} else {
 						engine.setGameStyle(GameStyle.VANILLA);
@@ -499,6 +504,11 @@ public class LauncherPanel extends IScreen{
 						LauncherMain.gameLinks = new GameLinks("https://majestycraft.com/minecraft/1.17/", "1.17.json");
 						engine.setGameStyle(GameStyle.OPTIFINE);
 						LauncherMain.gameForge = new GameForge("fmlclient", "36.0.42", "1.17", "net.minecraft.launchwrapper.Launch", "20200812.004259");
+						break;
+					case "1.17.1.json":
+						LauncherMain.gameLinks = new GameLinks("https://majestycraft.com/minecraft/1.17.1/", "1.17.1.json");
+						engine.setGameStyle(GameStyle.OPTIFINE);
+						LauncherMain.gameForge = new GameForge("fmlclient", "36.0.42", "1.17.1", "net.minecraft.launchwrapper.Launch", "20200812.004259");
 						break;
 				}
 			} else {
@@ -685,6 +695,11 @@ public class LauncherPanel extends IScreen{
 						LauncherMain.gameLinks = new GameLinks("https://majestycraft.com/minecraft/1.17/", "1.17.json");
 						engine.setGameStyle(GameStyle.OPTIFINE);
 						LauncherMain.gameForge = new GameForge("fmlclient", "36.0.42", "1.17", "net.minecraft.launchwrapper.Launch", "20200812.004259");
+						break;
+					case "1.17.1.json":
+						LauncherMain.gameLinks = new GameLinks("https://majestycraft.com/minecraft/1.17.1/", "1.17.1.json");
+						engine.setGameStyle(GameStyle.OPTIFINE);
+						LauncherMain.gameForge = new GameForge("fmlclient", "36.0.42", "1.17.1", "net.minecraft.launchwrapper.Launch", "20200812.004259");
 						break;
 				
 				}
@@ -913,6 +928,11 @@ public class LauncherPanel extends IScreen{
 										LauncherMain.gameLinks = new GameLinks("https://majestycraft.com/minecraft/1.17/", "1.17.json");
 										engine.setGameStyle(GameStyle.OPTIFINE);
 										LauncherMain.gameForge = new GameForge("fmlclient", "36.0.42", "1.17", "net.minecraft.launchwrapper.Launch", "20200812.004259");
+										break;
+									case "1.17.1.json":
+										LauncherMain.gameLinks = new GameLinks("https://majestycraft.com/minecraft/1.17.1/", "1.17.1.json");
+										engine.setGameStyle(GameStyle.OPTIFINE);
+										LauncherMain.gameForge = new GameForge("fmlclient", "36.0.42", "1.17.1", "net.minecraft.launchwrapper.Launch", "20200812.004259");
 										break;
 								}
 							} else {
