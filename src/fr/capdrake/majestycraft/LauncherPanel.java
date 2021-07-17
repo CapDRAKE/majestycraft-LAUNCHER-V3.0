@@ -6,6 +6,13 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.function.Consumer;
 
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXRippler;
+import com.jfoenix.controls.JFXSlider;
+import com.jfoenix.controls.JFXSlider.IndicatorPosition;
+import com.jfoenix.controls.JFXToggleButton;
+import com.jfoenix.controls.JFXToggleNode;
+
 import fr.flowarg.mcmsal.AuthInfo;
 import fr.flowarg.mcmsal.JFXAuth;
 import fr.flowarg.mcmsal.JFXAuth.JFXAuthCallback;
@@ -36,10 +43,12 @@ import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.scene.media.Media;
 import javafx.scene.paint.Color;
@@ -60,6 +69,8 @@ public class LauncherPanel extends IScreen{
 	private LauncherPasswordField passwordField;
 	
 	private LauncherTextField usernameField2;
+	
+	private JFXToggleButton test;
 	
 	//Les bouttons 
 	private LauncherButton siteButton;
@@ -178,6 +189,57 @@ public class LauncherPanel extends IScreen{
 		else {
 			LauncherMain.resumeMusic();
 		}
+		
+		
+		
+		
+		
+		
+		// A REVOIR
+		this.test = new JFXToggleButton();
+		//root.getChildren().add(test);
+		
+		//JFXToggleNode node = new JFXToggleNode(); 
+		//Icon value = new Icon("HEART");
+		//value.setPadding(new Insets(10));
+		//node.setGraphic(value);
+		//this.test.setVisible(true);
+		
+		
+		// A REVOIR
+		JFXSlider hor_left = new JFXSlider();
+		hor_left.setMinWidth(500);
+		JFXSlider hor_right = new JFXSlider();
+		hor_left.setMinWidth(500);
+		hor_left.setIndicatorPosition(IndicatorPosition.RIGHT);
+		JFXSlider ver_left = new JFXSlider();
+		ver_left.setMinHeight(500);
+		ver_left.setOrientation(Orientation.VERTICAL);
+		JFXSlider ver_right = new JFXSlider();
+		ver_right.setMinHeight(500);
+		ver_right.setOrientation(Orientation.VERTICAL);
+		ver_right.setIndicatorPosition(IndicatorPosition.RIGHT);
+		
+		
+		// A REVOIR
+		Label label = new Label("TEST");
+		label.setStyle("-fx-background-color:WHITE;-fx-padding:20");
+		JFXRippler rippler = new JFXRippler(label);
+		//root.getChildren().add(rippler);
+		
+		// S'AFFICHE. REVOIR CSSs
+		JFXButton jfoenixButton = new JFXButton("JFoenix Button");
+		JFXButton button = new JFXButton("Raised Button".toUpperCase());
+		button.getStyleClass().add("../ressources/css/button-raised");
+		root.getChildren().add(jfoenixButton);
+		
+		
+		
+		
+		
+		
+		
+		
 		
 		/** ===================== TITRE 1 MAJESTYCRAFT ===================== */
 		this.titleMajestycraft = new LauncherLabel(root);
