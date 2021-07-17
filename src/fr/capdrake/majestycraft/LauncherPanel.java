@@ -231,6 +231,8 @@ public class LauncherPanel extends IScreen{
 		JFXButton jfoenixButton = new JFXButton("JFoenix Button");
 		JFXButton button = new JFXButton("Raised Button".toUpperCase());
 		button.getStyleClass().add("../ressources/css/button-raised");
+		
+		/** === CETTE METHODE SERT A AFFICHER LE BUTTON === **/
 		root.getChildren().add(jfoenixButton);
 		
 		
