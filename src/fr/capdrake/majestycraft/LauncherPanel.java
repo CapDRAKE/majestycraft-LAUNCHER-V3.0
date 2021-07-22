@@ -6,12 +6,14 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.function.Consumer;
 
+import com.jfoenix.controls.JFXToggleButton;
+import javafx.scene.Scene;
+import javafx.scene.paint.Color;
+import javafx.stage.Stage;
+
 import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXRippler;
 import com.jfoenix.controls.JFXSlider;
 import com.jfoenix.controls.JFXSlider.IndicatorPosition;
-import com.jfoenix.controls.JFXToggleButton;
-import com.jfoenix.controls.JFXToggleNode;
 
 import fr.flowarg.mcmsal.AuthInfo;
 import fr.flowarg.mcmsal.JFXAuth;
@@ -46,18 +48,14 @@ import javafx.event.EventHandler;
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.scene.media.Media;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import javafx.scene.web.WebView;
-import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.scene.image.Image;
 
@@ -70,17 +68,18 @@ public class LauncherPanel extends IScreen{
 	
 	private LauncherTextField usernameField2;
 	
-	private JFXToggleButton test;
-	
 	//Les bouttons 
 	private LauncherButton siteButton;
 	private LauncherButton forumButton;
 	private LauncherButton voteButton;
 	private LauncherButton boutiqueButton;
-	private LauncherButton loginButton;
-	private LauncherButton loginButton2;
+	
+	//Nouveaux buttons
+	private JFXButton loginButton;
+	private JFXButton loginButton2;
+	
+	
 	private LauncherButton settingsButton;
-	private LauncherButton settingsButton2;
 	private LauncherButton closeButton;
 	private LauncherButton reduceButton;
 	private LauncherButton minestratorButton;
@@ -92,6 +91,10 @@ public class LauncherPanel extends IScreen{
 	private LauncherButton deadButton;
 	private LauncherButton microsoftButton;
 	
+	//ToggleButton du premium/crack
+	private JFXToggleButton toggleButton;
+	//ToggleButton du remmeberme
+	private JFXToggleButton rememberMe;
 	
 	//Les labels
 	private LauncherLabel autoLoginLabel;
@@ -117,8 +120,6 @@ public class LauncherPanel extends IScreen{
 	private static GameEngine theGameEngine;	
 	
 	// Se souvenir de moi
-	private CheckBox rememberMe;
-	private CheckBox premium;
 
 	private Timer autoLoginTimer;
 
@@ -191,27 +192,16 @@ public class LauncherPanel extends IScreen{
 		}
 		
 		
-		
-		
-		
-		
-		// A REVOIR
-		this.test = new JFXToggleButton();
-		//root.getChildren().add(test);
-		
-		//JFXToggleNode node = new JFXToggleNode(); 
-		//Icon value = new Icon("HEART");
-		//value.setPadding(new Insets(10));
-		//node.setGraphic(value);
-		//this.test.setVisible(true);
-		
+		//Est censé me donner le CSS mais bon c'est experimental hein 
+		LauncherMain.getContentPane().getScene().getStylesheets().add("css/design.css");
+		//System.out.println(LauncherMain.contentPane.getScene());
 		
 		// A REVOIR
 		JFXSlider hor_left = new JFXSlider();
 		hor_left.setMinWidth(500);
 		JFXSlider hor_right = new JFXSlider();
-		hor_left.setMinWidth(500);
-		hor_left.setIndicatorPosition(IndicatorPosition.RIGHT);
+		hor_right.setMinWidth(500);
+		hor_right.setIndicatorPosition(IndicatorPosition.RIGHT);
 		JFXSlider ver_left = new JFXSlider();
 		ver_left.setMinHeight(500);
 		ver_left.setOrientation(Orientation.VERTICAL);
@@ -224,17 +214,18 @@ public class LauncherPanel extends IScreen{
 		// A REVOIR
 		Label label = new Label("TEST");
 		label.setStyle("-fx-background-color:WHITE;-fx-padding:20");
-		JFXRippler rippler = new JFXRippler(label);
+		//JFXRippler rippler = new JFXRippler(label);
 		//root.getChildren().add(rippler);
 		
 		// S'AFFICHE. REVOIR CSSs
-		JFXButton jfoenixButton = new JFXButton("JFoenix Button");
+		//JFXButton jfoenixButton = new JFXButton("JFoenix Button");
 		JFXButton button = new JFXButton("Raised Button".toUpperCase());
-		button.getStyleClass().add("../ressources/css/button-raised");
+		button.getStyleClass().add("button-raised");
 		
 		/** === CETTE METHODE SERT A AFFICHER LE BUTTON === **/
-		root.getChildren().add(jfoenixButton);
+		//root.getChildren().add(jfoenixButton);
 		
+
 		
 		
 		
@@ -336,13 +327,13 @@ public class LauncherPanel extends IScreen{
 		        	webView.nodeOrientationProperty();
 		        	webView.resizeRelocate(330, 200, 300, 300);
 		        	webView.isResizable();
-		            root.getChildren().add(webView);
+		        	LauncherMain.getContentPane().getChildren().add(webView);
 		        }
 
 		        @Override
 		        public void webViewCanBeClosed(WebView webView)
 		        {
-		        	root.getChildren().remove(webView);
+		        	LauncherMain.getContentPane().getChildren().remove(webView);
 		        }
 
 		        @Override
@@ -495,13 +486,12 @@ public class LauncherPanel extends IScreen{
 		this.usernameField2.setVoidText("Pseudo ");
 		
 		/** ===================== BOUTON DE CONNEXION ===================== */
-		this.loginButton2 = new LauncherButton(root);
-		this.loginButton2.setText("Se connecter");
+		this.loginButton2 = new JFXButton("Se connecter");
+		this.loginButton2.getStyleClass().add("button-raised");
+		this.loginButton2.setLayoutX(400);
+		this.loginButton2.setLayoutY(480);
 		this.loginButton2.setFont(FontLoader.loadFont("../resources/leadcoat.ttf", "leadcoat", 22F));
-		this.loginButton2.setPosition(engine.getWidth() / 2 - 126,  engine.getHeight() / 2 + 100);
-		this.loginButton2.setSize(270,  45);
-		this.loginButton2.setStyle("-fx-background-color: rgba(0 ,0 ,0 , 0.4); -fx-text-fill: orange");
-		this.loginButton2.setAction(event -> {
+		this.loginButton2.setOnAction(event -> {
 			/**
 			 * ===================== VERIFICATION USEFORGE =====================
 			 */
@@ -598,43 +588,20 @@ public class LauncherPanel extends IScreen{
 				}
 			}
 		});
-		
-		/** ===================== BOUTON PARAMETRE ===================== */
-		this.settingsButton2 = new LauncherButton(root);
-		this.settingsButton2.setStyle("-fx-background-color: rgba(0 ,0 ,0 , 0.4); -fx-text-fill: orange");
-		settingsImg = new LauncherImage(root, getResourceLocation().loadImage(engine, "settings.png"));
-		settingsImg.setSize(27, 27);
-		this.settingsButton2.setGraphic(settingsImg);
-		this.settingsButton2.setPosition(engine.getWidth() / 2 +176, engine.getHeight() / 2 + 100);
-		this.settingsButton2.setSize(60, 46);
-		this.settingsButton2.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent event) {
-				Scene scene = new Scene(createSettingsPanel());
-				Stage stage = new Stage();
-				scene.setFill(Color.TRANSPARENT);
-				stage.setResizable(false);
-				stage.initStyle(StageStyle.TRANSPARENT);
-				stage.setTitle("Parametres Launcher");
-				stage.setWidth(900);
-				stage.setHeight(600);
-				stage.setScene(scene);
-				stage.show();
-			}
-		});
-		this.settingsButton2.setVisible(false);
+		root.getChildren().add(this.loginButton2);
+
 		
 		/** ================================ PARTIE PREMIUM ================================== */
 		
 		/** ===================== CHECKBOX SE SOUVENIR ===================== */
-		this.rememberMe = new CheckBox();
+
+		
+		this.rememberMe = new JFXToggleButton();;
 		this.rememberMe.setText("Se souvenir de moi");
 		this.rememberMe.setSelected((boolean) config.getValue("rememberme"));
-		this.rememberMe.setOpacity(1.0);
-		this.rememberMe.setFont(FontLoader.loadFont("Comfortaa-Regular.ttf", "Comfortaa", 14F));
-		this.rememberMe.setStyle("-fx-text-fill: orange;");
-		this.rememberMe.setLayoutX(400);
-		this.rememberMe.setLayoutY(447);
+		this.rememberMe.getStyleClass().add("jfx-toggle-button");
+		this.rememberMe.setLayoutX(385);
+		this.rememberMe.setLayoutY(427);
 		this.rememberMe.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
@@ -645,7 +612,7 @@ public class LauncherPanel extends IScreen{
 			}
 		});
 		
-		root.getChildren().add(rememberMe);
+		root.getChildren().add(this.rememberMe);
 
 		
 		/** ===================== TITRE 1 PREMIUM ===================== */
@@ -686,13 +653,13 @@ public class LauncherPanel extends IScreen{
 		} 
 		
 		/** ===================== BOUTON DE CONNEXION ===================== */
-		this.loginButton = new LauncherButton(root);
-		this.loginButton.setText("Se connecter");
-		this.loginButton.setFont(FontLoader.loadFont("Roboto-Light.ttf", "Roboto Light", 22F));
-		this.loginButton.setPosition(engine.getWidth() / 2 - 126,  engine.getHeight() / 2 + 100);
-		this.loginButton.setSize(270,  45);
-		this.loginButton.setStyle("-fx-background-color: rgba(0 ,0 ,0 , 0.4); -fx-text-fill: orange");
-		this.loginButton.setAction(event -> {
+		this.loginButton = new JFXButton("Se connecter");
+		this.loginButton.getStyleClass().add("button-raised");
+		this.loginButton.setLayoutX(400);
+		this.loginButton.setLayoutY(480);
+		this.loginButton.setFont(FontLoader.loadFont("../resources/leadcoat.ttf", "leadcoat", 22F));
+		//this.loginButton.setStyle("-fx-background-color: rgba(0 ,0 ,0 , 0.4); -fx-text-fill: orange");
+		this.loginButton.setOnAction(event -> {
 			/**
 			 * ===================== VERIFICATION USEFORGE =====================
 			 */
@@ -802,6 +769,8 @@ public class LauncherPanel extends IScreen{
 			}
 		});
 		
+		root.getChildren().add(this.loginButton);
+		
 		if((boolean) config.getValue("rememberme") == true) 
 		{
 			config.updateValue("password", passwordField.getText());
@@ -811,22 +780,21 @@ public class LauncherPanel extends IScreen{
 			config.updateValue("password", "");
 		} 
 		/** ===================== CHECKBOX SE SOUVENIR ===================== */
-		this.premium = new CheckBox();
-		this.premium.setText("Connexion PREMIUM");
-		this.premium.setSelected((boolean) config.getValue("usePremium"));
-		this.premium.setOpacity(1.0);
-		this.premium.setFont(FontLoader.loadFont("Comfortaa-Regular.ttf", "Comfortaa", 14F));
-		this.premium.setStyle("-fx-text-fill: orange;");
-		this.premium.setLayoutX(400);
-		this.premium.setLayoutY(297);
-		this.premium.setOnAction(new EventHandler<ActionEvent>() {
+
+        toggleButton = new JFXToggleButton();
+        toggleButton.setText("Connexion premium");
+        toggleButton.getStyleClass().add("jfx-toggle-button");
+        toggleButton.setLayoutX(385);
+        toggleButton.setLayoutY(277);
+        toggleButton.setSelected((boolean) config.getValue("usePremium"));
+        toggleButton.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
 			public void handle(ActionEvent event) {
 				HashMap<String, String> configMap = new HashMap<String, String>();
-				configMap.put("usePremium", "" + premium.isSelected());
+				configMap.put("usePremium", "" + toggleButton.isSelected());
 				config.updateValues(configMap);
-				if(premium.isSelected()) {
+				if(toggleButton.isSelected()) {
 					loginButton2.setVisible(false);
 					usernameField2.setVisible(false);
 					titleCrack.setVisible(false);
@@ -864,8 +832,7 @@ public class LauncherPanel extends IScreen{
 				}
 			}
 		});
-		
-		root.getChildren().add(premium);
+		root.getChildren().add(toggleButton);
 		
 		
 		if((boolean) config.getValue("usePremium") == true) 
@@ -1397,7 +1364,6 @@ public class LauncherPanel extends IScreen{
 			this.loginButton.setDisable(true);
 			this.loginButton2.setDisable(true);
 			this.settingsButton.setDisable(true);
-			this.settingsButton2.setDisable(true);
 			this.usernameField.setVisible(false);
 			this.usernameField2.setVisible(false);
 			this.connexionRectangle.setVisible(false);
@@ -1411,14 +1377,19 @@ public class LauncherPanel extends IScreen{
 			this.lolButton.setVisible(false);
 			this.deadButton.setVisible(false);
 			this.infoButton.setVisible(false);
-			this.settingsButton2.setVisible(false);
+			
+			//Desactiver le toggleButton
+			this.toggleButton.setVisible(false);
+			
+			//Desactiver le bouton microsoft
+			this.microsoftButton.setVisible(false);
+			
 			this.updateRectangle.setVisible(true);
 			this.updateLabel.setVisible(true);
 			this.currentStep.setVisible(true);
 			this.currentFileLabel.setVisible(true);
 			this.percentageLabel.setVisible(true);
 			this.bar.setVisible(true);
-			this.premium.setVisible(false);
 			avatar.setVisible(false);
 			avatar3.setVisible(true);
 			theGameEngine.reg(LauncherMain.gameLinks);
@@ -1466,25 +1437,25 @@ public class LauncherPanel extends IScreen{
 	}
 		
 		private Parent createSettingsPanel() {
-			LauncherPane contentPane = new LauncherPane(theGameEngine);
+			LauncherMain.contentPane = new LauncherPane(theGameEngine);
 			Rectangle rect = new Rectangle(1000, 750);
 			rect.setArcHeight(15.0);
 			rect.setArcWidth(15.0);
-			contentPane.setClip(rect);
-			contentPane.setStyle("-fx-background-color: transparent;");
-			new LauncherSettings(contentPane, theGameEngine, this);
-			return contentPane;
+			LauncherMain.getContentPane().setClip(rect);
+			LauncherMain.getContentPane().setStyle("-fx-background-color: transparent;");
+			new LauncherSettings(LauncherMain.getContentPane(), theGameEngine, this);
+			return LauncherMain.getContentPane();
 		}
 		
 		private Parent createInfoPanel() {
-			LauncherPane contentPane2 = new LauncherPane(theGameEngine);
+			LauncherMain.contentPane = new LauncherPane(theGameEngine);
 			Rectangle rect = new Rectangle(1500, 900);
 			rect.setArcHeight(15.0);
 			rect.setArcWidth(15.0);
-			contentPane2.setClip(rect);
-			contentPane2.setStyle("-fx-background-color: transparent;");
-			new LauncherInfo(contentPane2, theGameEngine, this);
-			return contentPane2;
+			LauncherMain.getContentPane().setClip(rect);
+			LauncherMain.getContentPane().setStyle("-fx-background-color: transparent;");
+			new LauncherInfo(LauncherMain.getContentPane(), theGameEngine, this);
+			return LauncherMain.getContentPane();
 		}
 		
 		public void update2(GameAuth auth) {

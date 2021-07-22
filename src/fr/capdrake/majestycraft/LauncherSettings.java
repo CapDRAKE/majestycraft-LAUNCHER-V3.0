@@ -3,12 +3,16 @@ package fr.capdrake.majestycraft;
 
 import java.util.HashMap;
 
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXCheckBox;
+import com.jfoenix.controls.JFXComboBox;
+import com.jfoenix.controls.JFXSlider;
+
 import fr.trxyy.alternative.alternative_api.GameEngine;
 import fr.trxyy.alternative.alternative_api.GameMemory;
 import fr.trxyy.alternative.alternative_api.GameSize;
 import fr.trxyy.alternative.alternative_api.utils.FontLoader;
 import fr.trxyy.alternative.alternative_api_ui.base.IScreen;
-import fr.trxyy.alternative.alternative_api_ui.components.LauncherButton;
 import fr.trxyy.alternative.alternative_api_ui.components.LauncherLabel;
 import fr.trxyy.alternative.alternative_api_ui.components.LauncherRectangle;
 import fr.trxyy.alternative.alternative_api_ui.components.LauncherTextField;
@@ -17,9 +21,6 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Slider;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
@@ -27,20 +28,19 @@ public class LauncherSettings extends IScreen {
 	
 	private LauncherLabel titleLabel;
 	private LauncherRectangle topRectangle;
-	private LauncherButton saveButton;
+	private JFXButton saveButton;
 	private LauncherLabel memorySliderLabel;
 	private LauncherLabel sliderLabel;
-	private Slider memorySlider;
+	private JFXSlider memorySlider;
 	private LauncherLabel windowsSizeLabel;
-	private ComboBox<String> windowsSizeList;
-	private ComboBox<String> versionList;
+	private JFXComboBox<String> windowsSizeList;
+	private JFXComboBox<String> versionList;
 	private LauncherLabel versionListLabel;
-	private CheckBox autoLogin;
-	private CheckBox useForge;
-	private CheckBox useDiscord;
-	private CheckBox useMusic;
-	//private CheckBox useDiscord;
-	private CheckBox useVMArguments;
+	private JFXCheckBox autoLogin;
+	private JFXCheckBox useForge;
+	private JFXCheckBox useDiscord;
+	private JFXCheckBox useMusic;
+	private JFXCheckBox useVMArguments;
 	private LauncherTextField vmArguments;
 	private double xOffSet; // Position x à l'instant du clic
 	private double yOffSet; // Position y à l'instant du clic
@@ -49,6 +49,7 @@ public class LauncherSettings extends IScreen {
 	
 	public LauncherSettings(final Pane root, final GameEngine engine, final LauncherPanel pane) {
 		
+		LauncherMain.getContentPane().getScene().getStylesheets().add("css/design.css");
 		/** ===================== BOUGER LE MENU PARAMETRE ===================== */
 		//Cet évent nous permet de récupérer les valeurs en x et en y initiales.
 		root.setOnMousePressed(event -> 
@@ -87,7 +88,7 @@ public class LauncherSettings extends IScreen {
 		this.windowsSizeLabel.setSize(370, 30);
 		this.windowsSizeLabel.setPosition(250, 110);
 		/** ===================== MC SIZE LIST ===================== */
-		this.windowsSizeList = new ComboBox<String>();
+		this.windowsSizeList = new JFXComboBox<String>();
 		this.populateSizeList();
 		if (pane.config.getValue("gamesize") != null) {
 			this.windowsSizeList.setValue(GameSize.getWindowSize(Integer.parseInt((String) pane.config.getValue("gamesize"))).getDesc());
@@ -113,8 +114,9 @@ public class LauncherSettings extends IScreen {
 		this.memorySliderLabel.setSize(370, 30);
 		this.memorySliderLabel.setPosition(540, 220);
 		/** ===================== SLIDER RAM ===================== */
-		this.memorySlider = new Slider();
-		this.memorySlider.setStyle("-fx-control-inner-background: rgba(46, 47, 48, 0.5);");
+		this.memorySlider = new JFXSlider();
+		this.memorySlider.getStyleClass().add("jfx-slider");
+		//this.memorySlider.setStyle("-fx-control-inner-background: rgba(46, 47, 48, 0.5);");
 		this.memorySlider.setMin(1);
 		this.memorySlider.setMax(10);
 		if (pane.config.getValue("allocatedram") != null) {
@@ -155,7 +157,7 @@ public class LauncherSettings extends IScreen {
 		this.versionListLabel.setSize(370, 30);
 		this.versionListLabel.setPosition(250, 160);
 		/** ===================== MC VERSION LIST ===================== */
-		this.versionList = new ComboBox<String>();
+		this.versionList = new JFXComboBox<String>();
 		this.populateVersionList();
 		if (pane.config.getValue("version") != null) {
 			this.versionList.setValue((String) pane.config.getValue("version"));
@@ -179,7 +181,7 @@ public class LauncherSettings extends IScreen {
 		this.vmArguments.setSize(390, 20);
 		this.vmArguments.setPosition(250, 335);
 		/** ===================== CHECKBOX USE VM ARGUMENTS ===================== */
-		this.useVMArguments = new CheckBox();
+		this.useVMArguments = new JFXCheckBox();
 		this.useVMArguments.setText("Utiliser les Arguments JVM");
 		this.useVMArguments.setSelected((Boolean)pane.config.getValue("usevmarguments"));
 		this.useVMArguments.setOpacity(1.0);
@@ -201,7 +203,7 @@ public class LauncherSettings extends IScreen {
 		this.vmArguments.setDisable(!this.useVMArguments.isSelected());
 		
 		/** ===================== CHECKBOX USE Forge ===================== */
-		this.useForge = new CheckBox();
+		this.useForge = new JFXCheckBox();
 		this.useForge.setText("Optifine + Forge");
 		this.useForge.setSelected((boolean) pane.config.getValue("useforge"));
 		this.useForge.setOpacity(1.0);
@@ -220,7 +222,7 @@ public class LauncherSettings extends IScreen {
 		
 		
 		/** ===================== CHECKBOX Discord statut ===================== */
-		this.useDiscord = new CheckBox();
+		this.useDiscord = new JFXCheckBox();
 		this.useDiscord.setText("Statut discord");
 		this.useDiscord.setSelected((Boolean)pane.config.getValue("usediscord"));
 		this.useDiscord.setOpacity(1.0);
@@ -239,7 +241,7 @@ public class LauncherSettings extends IScreen {
 		
 		
 		/** ===================== AUTO LOGIN CHECK BOX ===================== */
-		this.autoLogin = new CheckBox();
+		this.autoLogin = new JFXCheckBox();
 		this.autoLogin.setText("Connexion automatique");
 		this.autoLogin.setSelected((Boolean)pane.config.getValue("autologin"));
 		this.autoLogin.setFont(FontLoader.loadFont("Comfortaa-Regular.ttf", "Comfortaa", 14F));
@@ -249,7 +251,7 @@ public class LauncherSettings extends IScreen {
 		root.getChildren().add(autoLogin);
 		
 		/** ===================== AUTO LOGIN CHECK BOX ===================== */
-		this.useMusic = new CheckBox();
+		this.useMusic = new JFXCheckBox();
 		this.useMusic.setText("Couper la musique");
 		this.useMusic.setSelected((Boolean)pane.config.getValue("usemusic"));
 		this.useMusic.setFont(FontLoader.loadFont("Comfortaa-Regular.ttf", "Comfortaa", 14F));
@@ -267,15 +269,14 @@ public class LauncherSettings extends IScreen {
 				}
 			}
 		});
-		root.getChildren().add(useMusic);
+		root.getChildren().add(this.useMusic);
 		
 		/** ===================== BOUTON DE VALIDATION ===================== */
-		this.saveButton = new LauncherButton(root);
-		this.saveButton.setText("Valider");
+		this.saveButton = new JFXButton("Valider");
 		this.saveButton.setStyle("-fx-background-color: rgba(53, 89, 119, 0.4); -fx-text-fill: white;");
 		this.saveButton.setFont(FontLoader.loadFont("Comfortaa-Regular.ttf", "Comfortaa", 16F));
-		this.saveButton.setPosition(700, 550);
-		this.saveButton.setSize(130, 35);
+		this.saveButton.setLayoutX(740);
+		this.saveButton.setLayoutY(550);
 		this.saveButton.setOnAction(new EventHandler<ActionEvent>() {
 			
 			@Override
@@ -297,10 +298,11 @@ public class LauncherSettings extends IScreen {
 				engine.getGameLinks().JSON_URL = engine.getGameLinks().BASE_URL + engine.getGameLinks().JSON_NAME;	
 				engine.reg(engine.getGameLinks());
 				engine.reg(engine.getGameStyle());
-				Stage stage = (Stage)((LauncherButton)event.getSource()).getScene().getWindow();
+				Stage stage = (Stage)((JFXButton)event.getSource()).getScene().getWindow();
 				stage.close();
 			}
 		});
+		root.getChildren().add(this.saveButton);
 	}
 
 	private void populateSizeList() {

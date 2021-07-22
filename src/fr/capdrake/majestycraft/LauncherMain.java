@@ -5,7 +5,6 @@ import java.io.IOException;
 import club.minnced.discord.rpc.DiscordEventHandlers;
 import club.minnced.discord.rpc.DiscordRPC;
 import club.minnced.discord.rpc.DiscordRichPresence;
-import fr.trxyy.alternative.alternative_api.GameConnect;
 import fr.trxyy.alternative.alternative_api.GameEngine;
 import fr.trxyy.alternative.alternative_api.GameFolder;
 import fr.trxyy.alternative.alternative_api.GameForge;
@@ -15,11 +14,9 @@ import fr.trxyy.alternative.alternative_api.LauncherPreferences;
 import fr.trxyy.alternative.alternative_api.maintenance.GameMaintenance;
 import fr.trxyy.alternative.alternative_api.maintenance.Maintenance;
 import fr.trxyy.alternative.alternative_api.utils.config.LauncherConfig;
-import fr.trxyy.alternative.alternative_api_ui.LauncherBackground;
 import fr.trxyy.alternative.alternative_api_ui.LauncherPane;
 import fr.trxyy.alternative.alternative_api_ui.base.AlternativeBase;
 import fr.trxyy.alternative.alternative_api_ui.base.LauncherBase;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.shape.Rectangle;
@@ -29,7 +26,9 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 
 public class LauncherMain extends AlternativeBase{
-		
+	
+	public static LauncherPane contentPane;
+	private Scene scene;
 	private GameFolder gameFolder = new GameFolder("majestycraft");
 	private LauncherPreferences launcherPreferences = new LauncherPreferences("Launcher MajestyCraft Optifine + Forge", 1050, 750, true);
 	public static GameLinks gameLinks = new GameLinks("https://majestycraft.com/minecraft/", "1.16.2.json");
@@ -47,35 +46,35 @@ public class LauncherMain extends AlternativeBase{
 		launch(args);
 		
 	}
-
+	
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		// TODO Auto-generated method stub
 		playMusic(media, "Minecraft.mp3");
-		Scene scene = new Scene(createContent());
+		createContent();
 		this.gameEngine.reg(primaryStage);  
 		this.gameEngine.reg(this.gameMaintenance);
-		//this.gameEngine.reg(this.gameLinks);
-		//this.gameEngine.reg(this.gameConnect);
-		//this.gameEngine.reg(this.newForge);
-		LauncherBase launcherBase = new LauncherBase(primaryStage, scene, StageStyle.TRANSPARENT, gameEngine);
-		launcherBase.setIconImage(primaryStage,  getResourceLocation().loadImage(gameEngine, "server-icon.png"));
+		LauncherBase launcherBase = new LauncherBase(primaryStage, scene, StageStyle.TRANSPARENT, this.gameEngine);
+		launcherBase.setIconImage(primaryStage,  getResourceLocation().loadImage(this.gameEngine, "server-icon.png"));
 	}
 	
+
 	private Parent createContent() throws IOException {
-		LauncherPane contentPane = new LauncherPane(gameEngine);
+		LauncherMain.contentPane = new LauncherPane(this.gameEngine);
+		scene = new Scene(LauncherMain.getContentPane());
 		//new LauncherBackground(this.gameEngine, getResourceLocation().getMedia(gameEngine, "background.png"), contentPane);
-		Rectangle rectangle = new Rectangle(gameEngine.getLauncherPreferences().getWidth(), gameEngine.getLauncherPreferences().getHeight());
-		LauncherPanel panel = new LauncherPanel(contentPane, gameEngine, this);
-		readVersion(panel);
+		Rectangle rectangle = new Rectangle(this.gameEngine.getLauncherPreferences().getWidth(), this.gameEngine.getLauncherPreferences().getHeight());
 		this.gameEngine.reg(this.gameLinks);
 		rectangle.setArcWidth(15.0);
 		rectangle.setArcWidth(15.0);
-		contentPane.setClip(rectangle);
-		contentPane.setStyle("-fx-background-color: transparent;");
+		LauncherMain.getContentPane().setClip(rectangle);
+		LauncherMain.getContentPane().setStyle("-fx-background-color: transparent;");
+		LauncherPanel panel = new LauncherPanel(LauncherMain.getContentPane(), this.gameEngine, this);
+		readVersion(panel);
 		
-		return contentPane;
+		return LauncherMain.getContentPane();
 	}
+	
 	
 	private void playMusic(Media media, String path) 
 	{
@@ -163,13 +162,17 @@ public class LauncherMain extends AlternativeBase{
 		presence.largeImageKey = "image";
 		presence.largeImageText = "MajestyCraft, Launcher Gratuit Crack/Premium";
 		presence.details = "Launcher MajestyCraft";
-		presence.state = "Version : 1.7 => 1.17";
+		presence.state = "Version : 1.7 => 1.17.1";
 		
 		discord.Discord_UpdatePresence(presence);
 	}
 	
 	public static GameLinks getGameLinks() {
 		return gameLinks;
+	}
+	
+	public static LauncherPane getContentPane() {
+		return LauncherMain.contentPane;
 	}
 	
 }

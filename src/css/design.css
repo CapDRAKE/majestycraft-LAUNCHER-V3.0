@@ -1,0 +1,44 @@
+.jfx-toggle-button {
+	 -fx-text-fill: orange;
+     -jfx-toggle-color: #FF9F2B;
+     -jfx-untoggle-color: #FAFAFA;
+     -jfx-toggle-line-color: #FF0000;
+     -jfx-untoggle-line-color: #999999;
+     -jfx-size: 10.0;
+     -jfx-disable-visual-focus: false;
+}
+
+.button-raised{
+    -fx-font-size: 20px;
+    -jfx-button-type: RAISED;
+    -fx-background-color: rgb(255,0,0,0.3);
+    -fx-pref-width: 269;
+    -fx-pref-height: 30;
+    -fx-text-fill: orange;
+}
+
+/* Styling the slider track */
+.jfx-slider > .track {
+     -fx-background-color: yellow;
+}
+
+/* Styling the slider thumb */
+.jfx-slider > .thumb {
+     -fx-background-color: red;
+}
+
+/* Styling the filled track */
+.jfx-slider > .colored-track {
+     -fx-background-color: red;
+}
+
+/* Styling the animated thumb */
+.jfx-slider > .animated-thumb {
+     -fx-background-color: red;
+}
+
+/* Styling the slider value text inside animated thumb */
+.jfx-slider .slider-value {
+     -fx-fill: white;
+     -fx-stroke: white;
+}
