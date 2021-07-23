@@ -32,7 +32,7 @@ public class LauncherMain extends AlternativeBase{
 	private GameFolder gameFolder = new GameFolder("majestycraft");
 	private LauncherPreferences launcherPreferences = new LauncherPreferences("Launcher MajestyCraft Optifine + Forge", 1050, 750, true);
 	public static GameLinks gameLinks = new GameLinks("https://majestycraft.com/minecraft/", "1.16.2.json");
-	private GameEngine gameEngine = new GameEngine(this.gameFolder, this.gameLinks, this.launcherPreferences, GameStyle.VANILLA);
+	private GameEngine gameEngine = new GameEngine(this.gameFolder, LauncherMain.gameLinks, this.launcherPreferences, GameStyle.VANILLA);
 	public static GameForge gameForge;
 	private GameMaintenance gameMaintenance = new GameMaintenance(Maintenance.USE, gameEngine);
 	//private GameConnect gameConnect = new GameConnect("46.105.32.110", "25662");
@@ -64,7 +64,7 @@ public class LauncherMain extends AlternativeBase{
 		scene = new Scene(LauncherMain.getContentPane());
 		//new LauncherBackground(this.gameEngine, getResourceLocation().getMedia(gameEngine, "background.png"), contentPane);
 		Rectangle rectangle = new Rectangle(this.gameEngine.getLauncherPreferences().getWidth(), this.gameEngine.getLauncherPreferences().getHeight());
-		this.gameEngine.reg(this.gameLinks);
+		this.gameEngine.reg(LauncherMain.gameLinks);
 		rectangle.setArcWidth(15.0);
 		rectangle.setArcWidth(15.0);
 		LauncherMain.getContentPane().setClip(rectangle);

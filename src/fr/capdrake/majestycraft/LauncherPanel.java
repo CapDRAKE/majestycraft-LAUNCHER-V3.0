@@ -12,8 +12,9 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXSlider;
-import com.jfoenix.controls.JFXSlider.IndicatorPosition;
+import com.jfoenix.controls.JFXPasswordField;
+import com.jfoenix.controls.JFXRippler;
+import com.jfoenix.controls.JFXTextField;
 
 import fr.flowarg.mcmsal.AuthInfo;
 import fr.flowarg.mcmsal.JFXAuth;
@@ -35,20 +36,16 @@ import fr.trxyy.alternative.alternative_api_ui.base.IScreen;
 import fr.trxyy.alternative.alternative_api_ui.components.LauncherButton;
 import fr.trxyy.alternative.alternative_api_ui.components.LauncherImage;
 import fr.trxyy.alternative.alternative_api_ui.components.LauncherLabel;
-import fr.trxyy.alternative.alternative_api_ui.components.LauncherPasswordField;
 import fr.trxyy.alternative.alternative_api_ui.components.LauncherProgressBar;
 import fr.trxyy.alternative.alternative_api_ui.components.LauncherRectangle;
-import fr.trxyy.alternative.alternative_api_ui.components.LauncherTextField;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
-import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.scene.media.Media;
 import javafx.scene.shape.Rectangle;
@@ -63,10 +60,10 @@ public class LauncherPanel extends IScreen{
 
 	private LauncherImage titleImage;
 
-	private LauncherTextField usernameField;
-	private LauncherPasswordField passwordField;
+	private JFXTextField usernameField;
+	private JFXPasswordField passwordField;
 	
-	private LauncherTextField usernameField2;
+	private JFXTextField usernameField2;
 	
 	//Les bouttons 
 	private LauncherButton siteButton;
@@ -102,10 +99,6 @@ public class LauncherPanel extends IScreen{
 	private LauncherLabel currentFileLabel;
 	private LauncherLabel percentageLabel;
 	private LauncherLabel currentStep;
-	private LauncherLabel titleMajestycraft;
-	private LauncherLabel titleMajestycraft2;
-	private LauncherLabel titleTropicolands;
-	private LauncherLabel titleTropicolands2;
 	private LauncherLabel titleLabel;
 	private LauncherLabel titlePremium;
 	private LauncherLabel titleCrack;
@@ -164,10 +157,6 @@ public class LauncherPanel extends IScreen{
 		
 		this.drawLogo(engine, getResourceLocation().loadImage(engine, "logo.png"), engine.getWidth() / 2 - 70, 40, 150, 150, root, Mover.DONT_MOVE);
 		
-		//this.drawLogo(engine, getResourceLocation().loadImage(engine, "NEWlogo.jpg"), engine.getWidth() / 2 - 386, 260, 130, 130, root, Mover.DONT_MOVE);
-		
-		//this.drawLogo(engine, getResourceLocation().loadImage(engine, "tropicolands.png"), engine.getWidth() / 2 + 266, 260, 130, 130, root, Mover.DONT_MOVE);
-		
 		//Partie texte
 		this.titleLabel = new LauncherLabel(root);
 		this.titleLabel.setText("Launcher MajestyCraft Optifine + Forge");
@@ -191,90 +180,9 @@ public class LauncherPanel extends IScreen{
 			LauncherMain.resumeMusic();
 		}
 		
-		
 		//Est censé me donner le CSS mais bon c'est experimental hein 
 		LauncherMain.getContentPane().getScene().getStylesheets().add("css/design.css");
 		//System.out.println(LauncherMain.contentPane.getScene());
-		
-		// A REVOIR
-		JFXSlider hor_left = new JFXSlider();
-		hor_left.setMinWidth(500);
-		JFXSlider hor_right = new JFXSlider();
-		hor_right.setMinWidth(500);
-		hor_right.setIndicatorPosition(IndicatorPosition.RIGHT);
-		JFXSlider ver_left = new JFXSlider();
-		ver_left.setMinHeight(500);
-		ver_left.setOrientation(Orientation.VERTICAL);
-		JFXSlider ver_right = new JFXSlider();
-		ver_right.setMinHeight(500);
-		ver_right.setOrientation(Orientation.VERTICAL);
-		ver_right.setIndicatorPosition(IndicatorPosition.RIGHT);
-		
-		
-		// A REVOIR
-		Label label = new Label("TEST");
-		label.setStyle("-fx-background-color:WHITE;-fx-padding:20");
-		//JFXRippler rippler = new JFXRippler(label);
-		//root.getChildren().add(rippler);
-		
-		// S'AFFICHE. REVOIR CSSs
-		//JFXButton jfoenixButton = new JFXButton("JFoenix Button");
-		JFXButton button = new JFXButton("Raised Button".toUpperCase());
-		button.getStyleClass().add("button-raised");
-		
-		/** === CETTE METHODE SERT A AFFICHER LE BUTTON === **/
-		//root.getChildren().add(jfoenixButton);
-		
-
-		
-		
-		
-		
-		
-		
-		
-		
-		/** ===================== TITRE 1 MAJESTYCRAFT ===================== */
-		this.titleMajestycraft = new LauncherLabel(root);
-		this.titleMajestycraft.setText("Bienvenue sur");
-		this.titleMajestycraft.setFont(Font.font("FontName", FontWeight.BOLD, 22d));
-		this.titleMajestycraft.setStyle("-fx-background-color: transparent; -fx-text-fill: orange");
-		this.titleMajestycraft.setPosition(engine.getWidth() / 2 - 395, engine.getHeight() / 2- 130);
-		this.titleMajestycraft.setOpacity(0.7);
-		this.titleMajestycraft.setSize(500,  40);
-		this.titleMajestycraft.setVisible(false);
-		
-		/** ===================== TITRE 2 MAJESTYCRAFT ===================== */
-		this.titleMajestycraft2 = new LauncherLabel(root);
-		this.titleMajestycraft2.setText("MajestyCraft");
-		this.titleMajestycraft2.setFont(Font.font("FontName", FontWeight.BOLD, 22d));
-		this.titleMajestycraft2.setStyle("-fx-background-color: transparent; -fx-text-fill: orange");
-		this.titleMajestycraft2.setPosition(engine.getWidth() / 2 - 389, engine.getHeight() / 2- 90);
-		this.titleMajestycraft2.setOpacity(0.7);
-		this.titleMajestycraft2.setSize(500,  40);
-		this.titleMajestycraft2.setVisible(false);
-		
-		/** ===================== TITRE 1 TROPICOLANDS ===================== */
-		this.titleTropicolands = new LauncherLabel(root);
-		this.titleTropicolands.setText("Partenaire : ");
-		this.titleTropicolands.setFont(Font.font("FontName", FontWeight.BOLD, 22d));
-		this.titleTropicolands.setStyle("-fx-background-color: transparent; -fx-text-fill: orange");
-		this.titleTropicolands.setPosition(engine.getWidth() / 2 + 268, engine.getHeight() / 2- 130);
-		this.titleTropicolands.setOpacity(0.7);
-		this.titleTropicolands.setSize(500,  40);
-		this.titleTropicolands.setVisible(false);
-		
-		
-		/** ===================== TITRE 2 TROPICOLANDS ===================== */
-		this.titleTropicolands2 = new LauncherLabel(root);
-		this.titleTropicolands2.setText("TropicoLands");
-		this.titleTropicolands2.setFont(Font.font("FontName", FontWeight.BOLD, 22d));
-		this.titleTropicolands2.setStyle("-fx-background-color: transparent; -fx-text-fill: green");
-		this.titleTropicolands2.setPosition(engine.getWidth() / 2 + 257, engine.getHeight() / 2- 90);
-		this.titleTropicolands2.setOpacity(0.7);
-		this.titleTropicolands2.setSize(500,  40);
-		this.titleTropicolands2.setVisible(false);
-
 
 		
 		/** ===================== IMAGE DU LOGO EN HAUT ===================== */
@@ -309,6 +217,12 @@ public class LauncherPanel extends IScreen{
 				stage.show();
 			}
 		});
+		
+		JFXRippler rippler3 = new JFXRippler(this.infoButton);
+		rippler3.setLayoutX(engine.getWidth() / 2 - 515);
+		rippler3.setLayoutY(engine.getHeight() / 2 - 50);
+		rippler3.getStyleClass().add("rippler2");
+		root.getChildren().add(rippler3);
 		
 		/** ===================== BOUTON microsoft ===================== */
 		this.microsoftButton = new LauncherButton(root);
@@ -458,12 +372,6 @@ public class LauncherPanel extends IScreen{
 		this.connexionRectangle.setFill(Color.rgb(0, 0, 0, 0.30));
 		this.connexionRectangle.setVisible(true);
 		
-		/** ===================== AVATAR CONSTANT CRACK ===================== */
-		//avatar2 = new LauncherImage(root, new Image("https://minotar.net/avatar/MHF_Steve.png"));
-		//avatar2.setSize(50, 50);
-		//avatar2.setPosition(theGameEngine.getWidth() / 2 + 121, theGameEngine.getHeight() / 2-12);
-		//avatar2.setVisible(false);
-		
 		/** ================================ PARTIE CRACK ================================== */
 		
 		
@@ -473,17 +381,24 @@ public class LauncherPanel extends IScreen{
 		this.titleCrack.setFont(Font.font("leadcoat.ttf", FontWeight.BOLD, 25d));
 		this.titleCrack.setStyle("-fx-background-color: transparent; -fx-text-fill: orange");
 		this.titleCrack.setPosition(engine.getWidth() / 2 - 116, engine.getHeight() / 2- 130);
-		this.titleCrack.setOpacity(0.7);
 		this.titleCrack.setSize(500,  40);
 		
+		JFXRippler rippler2 = new JFXRippler(this.titleCrack);
+		rippler2.setLayoutX(engine.getWidth() / 2 - 116);
+		rippler2.setLayoutY(engine.getHeight() / 2- 130);
+		rippler2.getStyleClass().add("rippler");
+		root.getChildren().add(rippler2);
+		
 		/** ===================== NOM D'UTILISATEUR ===================== */
-		this.usernameField2 = new LauncherTextField(root);
+		this.usernameField2 = new JFXTextField();
 		this.usernameField2.setText((String)this.config.getValue("username"));
-		this.usernameField2.setPosition(engine.getWidth() / 2 - 126, engine.getHeight() / 2- 12);
-		this.usernameField2.setSize(270, 50);
+		this.usernameField2.getStyleClass().add("input");
+		this.usernameField2.setLayoutX(engine.getWidth() / 2 - 126);
+		this.usernameField2.setLayoutY(engine.getHeight() / 2- 12);
 		this.usernameField2.setFont(FontLoader.loadFont("leadcoat.ttf", "Lead Coat", 14F));
 		this.usernameField2.setStyle("-fx-background-color: rgba(0 ,0 ,0 , 0.2); -fx-text-fill: orange; -fx-font-family: leadcoat");
-		this.usernameField2.setVoidText("Pseudo ");
+		this.usernameField2.setPromptText("Pseudo ");
+		root.getChildren().add(this.usernameField2);
 		
 		/** ===================== BOUTON DE CONNEXION ===================== */
 		this.loginButton2 = new JFXButton("Se connecter");
@@ -621,26 +536,35 @@ public class LauncherPanel extends IScreen{
 		this.titlePremium.setFont(Font.font("FontName", FontWeight.BOLD, 25d));
 		this.titlePremium.setStyle("-fx-background-color: transparent; -fx-text-fill: orange");
 		this.titlePremium.setPosition(engine.getWidth() / 2 - 116, engine.getHeight() / 2- 130);
-		this.titlePremium.setOpacity(0.7);
+		//this.titlePremium.setOpacity(0.7);
 		this.titlePremium.setSize(500,  40);
 		this.titlePremium.setVisible(true);
 		
+		JFXRippler rippler = new JFXRippler(this.titlePremium);
+		rippler.setLayoutX(engine.getWidth() / 2 - 116);
+		rippler.setLayoutY(engine.getHeight() / 2- 130);
+		rippler.getStyleClass().add("rippler");
+		root.getChildren().add(rippler);
+		
 		/** ===================== NOM D'UTILISATEUR ===================== */
-		this.usernameField = new LauncherTextField(root);
-		this.usernameField.setPosition(engine.getWidth() / 2 - 126, engine.getHeight() / 2- 42);
+		this.usernameField = new JFXTextField("Votre email");
+		this.usernameField.setPromptText("Votre email");
+		this.usernameField.getStyleClass().add("input");
+		this.usernameField.setLayoutX(engine.getWidth() / 2 - 126);
+		this.usernameField.setLayoutY(engine.getHeight() / 2- 42);
 		this.usernameField.setText((String)this.config.getValue("username"));
-		this.usernameField.setSize(270, 50);
 		this.usernameField.setFont(FontLoader.loadFont("Roboto-Light.ttf", "Roboto Light", 14F));
 		this.usernameField.setStyle("-fx-background-color: rgba(0 ,0 ,0 , 0.2); -fx-text-fill: orange");
-		this.usernameField.setVoidText("Votre email");
+		root.getChildren().add(this.usernameField);
 		
 		/** ===================== MOT DE PASSE ===================== */
-		this.passwordField = new LauncherPasswordField(root);
-		this.passwordField.setPosition(engine.getWidth() / 2 - 126, engine.getHeight() / 2 + 15);
-		this.passwordField.setSize(270, 50);
+		this.passwordField = new JFXPasswordField();
+		this.passwordField.setLayoutX(engine.getWidth() / 2 - 126);
+		this.passwordField.setLayoutY(engine.getHeight() / 2 + 15);
+		this.passwordField.getStyleClass().add("input");
 		this.passwordField.setFont(FontLoader.loadFont("Roboto-Light.ttf", "Roboto Light", 14F));
 		this.passwordField.setStyle("-fx-background-color: rgba(0 ,0 ,0 , 0.4); -fx-text-fill: orange");
-		this.passwordField.setVoidText("Mot de passe (vide = compte crack)");
+		this.passwordField.setPromptText("Mot de passe");
 		
 		//Verif si la case "se souvenir de moi" est coché
 		if((boolean) config.getValue("rememberme") == true) 
@@ -651,6 +575,8 @@ public class LauncherPanel extends IScreen{
 		{
 			passwordField.setText("");
 		} 
+		
+		root.getChildren().add(this.passwordField);
 		
 		/** ===================== BOUTON DE CONNEXION ===================== */
 		this.loginButton = new JFXButton("Se connecter");
@@ -1079,6 +1005,12 @@ public class LauncherPanel extends IScreen{
 			}
 		});
 		
+		JFXRippler rippler4 = new JFXRippler(this.settingsButton);
+		rippler4.setLayoutX(engine.getWidth() / 2 - 515);
+		rippler4.setLayoutY( engine.getHeight() / 2 );
+		rippler4.getStyleClass().add("rippler2");
+		root.getChildren().add(rippler4);
+		
 		/** ===================== BOUTON easter egg 1 ===================== */
 		this.lolButton = new LauncherButton(root);
 		this.lolButton.setStyle("-fx-background-color: rgba(0 ,0 ,0 , 0); -fx-text-fill: orange");
@@ -1499,11 +1431,11 @@ public class LauncherPanel extends IScreen{
 			avatar3.setPosition(theGameEngine.getWidth() / 2 - 280, theGameEngine.getHeight() / 2 - 90);
 		}
 		
-		public LauncherTextField getUsernameField() {
+		public JFXTextField getUsernameField() {
 			return usernameField;
 		}
 
-		public LauncherPasswordField getPasswordField() {
+		public JFXPasswordField getPasswordField() {
 			return passwordField;
 		}	
 }

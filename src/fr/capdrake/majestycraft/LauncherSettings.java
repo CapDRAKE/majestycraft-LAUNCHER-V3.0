@@ -49,7 +49,6 @@ public class LauncherSettings extends IScreen {
 	
 	public LauncherSettings(final Pane root, final GameEngine engine, final LauncherPanel pane) {
 		
-		LauncherMain.getContentPane().getScene().getStylesheets().add("css/design.css");
 		/** ===================== BOUGER LE MENU PARAMETRE ===================== */
 		//Cet évent nous permet de récupérer les valeurs en x et en y initiales.
 		root.setOnMousePressed(event -> 

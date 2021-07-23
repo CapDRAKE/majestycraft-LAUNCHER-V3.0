@@ -8,6 +8,7 @@
      -jfx-disable-visual-focus: false;
 }
 
+/*Design button*/
 .button-raised{
     -fx-font-size: 20px;
     -jfx-button-type: RAISED;
@@ -15,6 +16,31 @@
     -fx-pref-width: 269;
     -fx-pref-height: 30;
     -fx-text-fill: orange;
+}
+
+/*Design textfield*/
+.input{
+    -fx-pref-width: 269;
+    -fx-pref-height: 50;
+    -jfx-focus-color: red;
+    -jfx-unfocus-color: orange;
+}
+
+/*Design rippler*/
+.rippler{
+	-fx-pref-width: 240;
+	-jfx-rippler-radius : 50;
+	-jfx-rippler-fill: orange;
+	-jfx-rippler-recenter: true;
+	-jfc-mask-type: CIRCLE;
+}
+
+.rippler2{
+	-fx-pref-width: 50;
+	-jfx-rippler-radius : 50;
+	-jfx-rippler-fill: red;
+	-jfx-rippler-recenter: true;
+	-jfc-mask-type: CIRCLE;
 }
 
 /* Styling the slider track */
