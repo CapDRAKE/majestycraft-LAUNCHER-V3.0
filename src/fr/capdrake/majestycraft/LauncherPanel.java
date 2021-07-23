@@ -13,6 +13,7 @@ import javafx.stage.Stage;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
+import com.jfoenix.controls.JFXProgressBar;
 import com.jfoenix.controls.JFXRippler;
 import com.jfoenix.controls.JFXTextField;
 
@@ -36,7 +37,6 @@ import fr.trxyy.alternative.alternative_api_ui.base.IScreen;
 import fr.trxyy.alternative.alternative_api_ui.components.LauncherButton;
 import fr.trxyy.alternative.alternative_api_ui.components.LauncherImage;
 import fr.trxyy.alternative.alternative_api_ui.components.LauncherLabel;
-import fr.trxyy.alternative.alternative_api_ui.components.LauncherProgressBar;
 import fr.trxyy.alternative.alternative_api_ui.components.LauncherRectangle;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
@@ -123,7 +123,7 @@ public class LauncherPanel extends IScreen{
 	private Thread updateThread;
 	private GameUpdater gameUpdater = new GameUpdater();
 
-	public LauncherProgressBar bar;
+	public JFXProgressBar bar;
 	
 	// Image avatar
 		public static LauncherImage avatar;
@@ -1237,11 +1237,13 @@ public class LauncherPanel extends IScreen{
 		this.percentageLabel.setVisible(false);
 		
 		/** ===================== BARRE DE CHARGEMENT ===================== */
-		this.bar = new LauncherProgressBar(root);
-		this.bar.setPosition(engine.getWidth() / 2 - 125, engine.getHeight() / 2 + 40);
-		this.bar.setSize(250, 20);
+		this.bar = new JFXProgressBar();
+		this.bar.setLayoutX(engine.getWidth() / 2 - 125);
+		this.bar.setLayoutY(engine.getHeight() / 2 + 40);
+		this.bar.getStyleClass().add("jfx-progress-bar");
+		//this.bar.setSize(250, 20);
 		this.bar.setVisible(false);
-		
+		root.getChildren().add(this.bar);
 		/** =============== AFFICHAGE DE LA TETE DU JOUEUR =============== **/
 			if((boolean) config.getValue("usePremium") == false) {
 				if(usernameField.getText().contains("@")) {

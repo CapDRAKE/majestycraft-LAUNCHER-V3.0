@@ -26,6 +26,27 @@
     -jfx-unfocus-color: orange;
 }
 
+/*Design progress bar*/
+.jfx-progress-bar{
+	-fx-pref-width: 252;
+	-fx-pref-height: 20;
+	-fx-accent: orange;
+}
+
+.jfx-progress-bar > .track {
+    -fx-background-color: #E0E0E0;
+}
+
+.jfx-progress-bar > .bar {
+    -fx-background-color: #FF0000;
+}
+
+/*Design checkBox*/
+.custom-jfx-check-box {
+    -jfx-checked-color: RED;
+    -jfx-unchecked-color: BLACK;
+}
+
 /*Design rippler*/
 .rippler{
 	-fx-pref-width: 240;

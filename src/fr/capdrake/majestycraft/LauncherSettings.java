@@ -64,8 +64,6 @@ public class LauncherSettings extends IScreen {
             stage.setY(event.getScreenY() - yOffSet); // On donne la nouvelle postion en y      
         });
 		
-		
-		
 		this.drawBackgroundImage(engine, root, "background.png");
 		pane.config.loadConfiguration();
 		/** ===================== RECTANGLE NOIR EN HAUT ===================== */
@@ -114,8 +112,8 @@ public class LauncherSettings extends IScreen {
 		this.memorySliderLabel.setPosition(540, 220);
 		/** ===================== SLIDER RAM ===================== */
 		this.memorySlider = new JFXSlider();
-		this.memorySlider.getStyleClass().add("jfx-slider");
-		//this.memorySlider.setStyle("-fx-control-inner-background: rgba(46, 47, 48, 0.5);");
+		this.memorySlider.setStyle("    -jfx-default-thumb: #FF0000;\r\n" + 
+				"    -jfx-default-track: #212121; -fx-pref-height: 10px;");
 		this.memorySlider.setMin(1);
 		this.memorySlider.setMax(10);
 		if (pane.config.getValue("allocatedram") != null) {
@@ -185,7 +183,7 @@ public class LauncherSettings extends IScreen {
 		this.useVMArguments.setSelected((Boolean)pane.config.getValue("usevmarguments"));
 		this.useVMArguments.setOpacity(1.0);
 		this.useVMArguments.setFont(FontLoader.loadFont("Comfortaa-Regular.ttf", "Comfortaa", 14F));
-		this.useVMArguments.setStyle("-fx-text-fill: white;");
+		this.useVMArguments.setStyle("-fx-text-fill: white; -jfx-checked-color: RED; -jfx-unchecked-color: BLACK");
 		this.useVMArguments.setLayoutX(250);
 		this.useVMArguments.setLayoutY(305);
 		this.useVMArguments.setOnAction(new EventHandler<ActionEvent>() {
@@ -207,7 +205,7 @@ public class LauncherSettings extends IScreen {
 		this.useForge.setSelected((boolean) pane.config.getValue("useforge"));
 		this.useForge.setOpacity(1.0);
 		this.useForge.setFont(FontLoader.loadFont("Comfortaa-Regular.ttf", "Comfortaa", 14F));
-		this.useForge.setStyle("-fx-text-fill: white;");
+		this.useForge.setStyle("-fx-text-fill: white; -jfx-checked-color: RED; -jfx-unchecked-color: BLACK");
 		this.useForge.setLayoutX(500);
 		this.useForge.setLayoutY(305);		
 		this.useForge.setOnAction(new EventHandler<ActionEvent>() {
@@ -226,7 +224,7 @@ public class LauncherSettings extends IScreen {
 		this.useDiscord.setSelected((Boolean)pane.config.getValue("usediscord"));
 		this.useDiscord.setOpacity(1.0);
 		this.useDiscord.setFont(FontLoader.loadFont("Comfortaa-Regular.ttf", "Comfortaa", 14F));
-		this.useDiscord.setStyle("-fx-text-fill: white;");
+		this.useDiscord.setStyle("-fx-text-fill: white; -jfx-checked-color: RED; -jfx-unchecked-color: BLACK");
 		this.useDiscord.setLayoutX(500);
 		this.useDiscord.setLayoutY(380);
 		this.useDiscord.setOnAction(new EventHandler<ActionEvent>() {
@@ -244,7 +242,7 @@ public class LauncherSettings extends IScreen {
 		this.autoLogin.setText("Connexion automatique");
 		this.autoLogin.setSelected((Boolean)pane.config.getValue("autologin"));
 		this.autoLogin.setFont(FontLoader.loadFont("Comfortaa-Regular.ttf", "Comfortaa", 14F));
-		this.autoLogin.setStyle("-fx-text-fill: white;");
+		this.autoLogin.setStyle("-fx-text-fill: white; -jfx-checked-color: RED; -jfx-unchecked-color: BLACK");
 		this.autoLogin.setLayoutX(250);
 		this.autoLogin.setLayoutY(380);
 		root.getChildren().add(autoLogin);
@@ -252,9 +250,10 @@ public class LauncherSettings extends IScreen {
 		/** ===================== AUTO LOGIN CHECK BOX ===================== */
 		this.useMusic = new JFXCheckBox();
 		this.useMusic.setText("Couper la musique");
+		System.out.println(this.useMusic.getStyleClass().add("custom-jfx-check-box"));
 		this.useMusic.setSelected((Boolean)pane.config.getValue("usemusic"));
 		this.useMusic.setFont(FontLoader.loadFont("Comfortaa-Regular.ttf", "Comfortaa", 14F));
-		this.useMusic.setStyle("-fx-text-fill: white;");
+		this.useMusic.setStyle("-fx-text-fill: white; -jfx-checked-color: RED; -jfx-unchecked-color: BLACK");
 		this.useMusic.setLayoutX(250);
 		this.useMusic.setLayoutY(410);
 		this.useMusic.setOnAction(new EventHandler<ActionEvent>() {
