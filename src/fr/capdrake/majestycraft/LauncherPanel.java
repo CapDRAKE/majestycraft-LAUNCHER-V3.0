@@ -56,6 +56,10 @@ import javafx.scene.web.WebView;
 import javafx.stage.StageStyle;
 import javafx.scene.image.Image;
 
+import animatefx.animation.*;
+import animatefx.util.ParallelAnimationFX;
+import animatefx.util.SequentialAnimationFX;
+
 public class LauncherPanel extends IScreen{
 
 	private LauncherImage titleImage;
@@ -85,6 +89,7 @@ public class LauncherPanel extends IScreen{
 	private LauncherButton youtubeButton;
 	private LauncherButton infoButton;
 	private LauncherButton lolButton;
+	private LauncherButton lolButton2;
 	private LauncherButton deadButton;
 	private LauncherButton microsoftButton;
 	
@@ -388,6 +393,7 @@ public class LauncherPanel extends IScreen{
 		rippler2.setLayoutY(engine.getHeight() / 2- 130);
 		rippler2.getStyleClass().add("rippler");
 		root.getChildren().add(rippler2);
+		
 		
 		/** ===================== NOM D'UTILISATEUR ===================== */
 		this.usernameField2 = new JFXTextField();
@@ -721,15 +727,22 @@ public class LauncherPanel extends IScreen{
 				configMap.put("usePremium", "" + toggleButton.isSelected());
 				config.updateValues(configMap);
 				if(toggleButton.isSelected()) {
+					usernameField.setDisable(false);
+					passwordField.setDisable(false);
+					rememberMe.setDisable(false);
+					new BounceInUp(titlePremium).play();
 					loginButton2.setVisible(false);
-					usernameField2.setVisible(false);
-					titleCrack.setVisible(false);
-					avatar.setVisible(false);
+					new FadeOut(usernameField2).setResetOnFinished(false).play();
+					new FadeOutDown(titleCrack).setResetOnFinished(false).play();
+					new RotateOut(avatar).setResetOnFinished(false).play();
+					usernameField2.setDisable(true);
 					
 					loginButton.setVisible(true);
 					usernameField.setVisible(true);
 					titlePremium.setVisible(true);
 					passwordField.setVisible(true);
+					new BounceInLeft(usernameField).play();
+					new BounceInLeft(passwordField).play();
 					
 					GameAuth auth = new GameAuth(usernameField.getText(), passwordField.getText(),
 							AccountType.MOJANG);
@@ -739,22 +752,31 @@ public class LauncherPanel extends IScreen{
 					else {
 						connectAccountPremiumOFF(root);
 					}
-					avatar.setVisible(true);
+					new RotateIn(avatar).play();
 					rememberMe.setVisible(true);
+					new ZoomInLeft(rememberMe).play();
 				}
 				else {
+					new BounceInUp(titleCrack).play();
 					loginButton.setVisible(false);
-					usernameField.setVisible(false);
-					titlePremium.setVisible(false);
-					passwordField.setVisible(false);
-					avatar.setVisible(false);
-					rememberMe.setVisible(false);
+					new FadeOut(usernameField).setResetOnFinished(false).play();
+					new FadeOutDown(titlePremium).setResetOnFinished(false).play();
+					//titlePremium.setVisible(false);
+					new FadeOut(passwordField).setResetOnFinished(false).play();
+					new RotateOut(avatar).play();
+					new FadeOut(rememberMe).setResetOnFinished(false).play();
+					usernameField.setDisable(true);
+					passwordField.setDisable(true);
+					rememberMe.setDisable(true);
+					
 					connectAccountCrack(root);
 					
-					avatar.setVisible(true);					
+					new RotateIn(avatar).play();					
 					loginButton2.setVisible(true);
 					usernameField2.setVisible(true);
+					new BounceInLeft(usernameField2).play();
 					titleCrack.setVisible(true);
+					usernameField2.setDisable(false);
 				}
 			}
 		});
@@ -763,12 +785,14 @@ public class LauncherPanel extends IScreen{
 		
 		if((boolean) config.getValue("usePremium") == true) 
 		{
+			new BounceInUp(this.titlePremium).play();
 			this.loginButton2.setVisible(false);
 			this.usernameField2.setVisible(false);
 			this.titleCrack.setVisible(false);
 		} 
 		else 
 		{
+			new BounceInUp(this.titleCrack).play();
 			this.loginButton.setVisible(false);
 			this.usernameField.setVisible(false);
 			this.titlePremium.setVisible(false);
@@ -1041,6 +1065,44 @@ public class LauncherPanel extends IScreen{
 			}
 		});
 		
+		/** ===================== BOUTON easter egg 1 ===================== */
+		this.lolButton2 = new LauncherButton(root);
+		this.lolButton2.setStyle("-fx-background-color: rgba(0 ,0 ,0 , 0); -fx-text-fill: orange");
+		settingsImg = new LauncherImage(root, getResourceLocation().loadImage(engine, "lol2.png"));
+		settingsImg.setSize(27, 27);
+		this.lolButton2.setGraphic(settingsImg);
+		this.lolButton2.setPosition(engine.getWidth() / 2 - 522, engine.getHeight() / 2 +300);
+		this.lolButton2.setSize(60, 60);
+		this.lolButton2.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				new Hinge(microsoftButton).setResetOnFinished(true).play();
+				new Hinge(infoButton).setResetOnFinished(true).play();
+				new Hinge(settingsButton).setResetOnFinished(true).play();
+				new Hinge(lolButton).setResetOnFinished(true).play();
+				new Hinge(usernameField2).setResetOnFinished(true).play();
+				new Hinge(usernameField).setResetOnFinished(true).play();
+				new Hinge(passwordField).setResetOnFinished(true).play();
+				new Hinge(boutiqueButton).setResetOnFinished(true).play();
+				new Hinge(avatar).setResetOnFinished(true).play();
+				new Hinge(titlePremium).setResetOnFinished(true).play();
+				new Hinge(titleCrack).setResetOnFinished(true).play();
+				new Hinge(minestratorButton).setResetOnFinished(true).play();
+				new Hinge(twitterButton).setResetOnFinished(true).play();
+				new Hinge(instagramButton).setResetOnFinished(true).play();
+				new Hinge(youtubeButton).setResetOnFinished(true).play();
+				new Hinge(deadButton).setResetOnFinished(true).play();
+				new Hinge(titleImage).setResetOnFinished(true).play();
+				new Hinge(rememberMe).setResetOnFinished(true).play();
+				new Hinge(loginButton).setResetOnFinished(true).play();
+				new Hinge(loginButton2).setResetOnFinished(true).play();
+				new Hinge(toggleButton).setResetOnFinished(true).play();
+				new Hinge(siteButton).setResetOnFinished(true).play();
+				new Hinge(voteButton).setResetOnFinished(true).play();
+				new Hinge(connexionRectangle).setResetOnFinished(true).play();
+			}
+		});
+		
 		/** ===================== BOUTON FERMETURE ===================== */
 		this.closeButton = new LauncherButton(root);
 		//this.closeButton.setInvisible();
@@ -1288,6 +1350,31 @@ public class LauncherPanel extends IScreen{
 
 		
 	public void update(GameEngine engine, GameAuth auth) {
+			new ZoomOutDown(microsoftButton).setResetOnFinished(false).play();
+			new ZoomOutDown(infoButton).setResetOnFinished(false).play();
+			new ZoomOutDown(settingsButton).setResetOnFinished(false).play();
+			new ZoomOutDown(lolButton).setResetOnFinished(false).play();
+			new ZoomOutDown(usernameField2).setResetOnFinished(false).play();
+			new ZoomOutDown(usernameField).setResetOnFinished(false).play();
+			new ZoomOutDown(passwordField).setResetOnFinished(false).play();
+			new ZoomOutDown(boutiqueButton).setResetOnFinished(false).play();
+			new ZoomOutDown(avatar).setResetOnFinished(false).play();
+			new ZoomOutDown(titlePremium).setResetOnFinished(false).play();
+			new ZoomOutDown(titleCrack).setResetOnFinished(false).play();
+			new ZoomOutDown(minestratorButton).setResetOnFinished(false).play();
+			new ZoomOutDown(twitterButton).setResetOnFinished(false).play();
+			new ZoomOutDown(instagramButton).setResetOnFinished(false).play();
+			new ZoomOutDown(youtubeButton).setResetOnFinished(false).play();
+			new ZoomOutDown(deadButton).setResetOnFinished(false).play();
+			new ZoomOutDown(rememberMe).setResetOnFinished(false).play();
+			new ZoomOutDown(loginButton).setResetOnFinished(false).play();
+			new ZoomOutDown(loginButton2).setResetOnFinished(false).play();
+			new ZoomOutDown(toggleButton).setResetOnFinished(false).play();
+			new ZoomOutDown(siteButton).setResetOnFinished(false).play();
+			new ZoomOutDown(voteButton).setResetOnFinished(false).play();
+			new ZoomOutDown(connexionRectangle).setResetOnFinished(false).play();
+			new ZoomOutDown(lolButton2).setResetOnFinished(false).play();
+		 
 			this.usernameField.setDisable(true);
 			this.connexionRectangle.setDisable(true);
 			this.usernameField2.setDisable(true);
@@ -1298,25 +1385,6 @@ public class LauncherPanel extends IScreen{
 			this.loginButton.setDisable(true);
 			this.loginButton2.setDisable(true);
 			this.settingsButton.setDisable(true);
-			this.usernameField.setVisible(false);
-			this.usernameField2.setVisible(false);
-			this.connexionRectangle.setVisible(false);
-			this.titlePremium.setVisible(false);
-			this.titleCrack.setVisible(false);
-			this.rememberMe.setVisible(false);
-			this.passwordField.setVisible(false);
-			this.loginButton.setVisible(false);
-			this.loginButton2.setVisible(false);
-			this.settingsButton.setVisible(false);
-			this.lolButton.setVisible(false);
-			this.deadButton.setVisible(false);
-			this.infoButton.setVisible(false);
-			
-			//Desactiver le toggleButton
-			this.toggleButton.setVisible(false);
-			
-			//Desactiver le bouton microsoft
-			this.microsoftButton.setVisible(false);
 			
 			this.updateRectangle.setVisible(true);
 			this.updateLabel.setVisible(true);
@@ -1326,6 +1394,13 @@ public class LauncherPanel extends IScreen{
 			this.bar.setVisible(true);
 			avatar.setVisible(false);
 			avatar3.setVisible(true);
+			new ZoomInDown(updateRectangle).play();
+			new ZoomInDown(updateLabel).play();
+			new ZoomInDown(currentStep).play();
+			new ZoomInDown(currentFileLabel).play();
+			new ZoomInDown(percentageLabel).play();
+			new ZoomInDown(bar).play();
+			new ZoomInDown(avatar3).play();
 			theGameEngine.reg(LauncherMain.gameLinks);
 			theGameEngine.getGameLinks().JSON_URL = theGameEngine.getGameLinks().BASE_URL + this.config.getValue("version") + ".json";
 			gameUpdater.reg(engine);
