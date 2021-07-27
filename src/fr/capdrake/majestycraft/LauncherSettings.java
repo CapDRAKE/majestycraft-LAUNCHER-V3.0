@@ -8,6 +8,7 @@ import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXSlider;
 
+import animatefx.animation.ZoomOutDown;
 import fr.trxyy.alternative.alternative_api.GameEngine;
 import fr.trxyy.alternative.alternative_api.GameMemory;
 import fr.trxyy.alternative.alternative_api.GameSize;
@@ -133,7 +134,7 @@ public class LauncherSettings extends IScreen {
 	         @Override
 	         public void changed(ObservableValue<? extends Number> observable,
 	               Number oldValue, Number newValue) {
-	        	 memorySliderLabel.setText(newValue + "Gb");
+	        	 memorySliderLabel.setText(newValue + "GB");
 	         }
 	      });
         Platform.runLater(new Runnable() {
@@ -250,7 +251,6 @@ public class LauncherSettings extends IScreen {
 		/** ===================== AUTO LOGIN CHECK BOX ===================== */
 		this.useMusic = new JFXCheckBox();
 		this.useMusic.setText("Couper la musique");
-		System.out.println(this.useMusic.getStyleClass().add("custom-jfx-check-box"));
 		this.useMusic.setSelected((Boolean)pane.config.getValue("usemusic"));
 		this.useMusic.setFont(FontLoader.loadFont("Comfortaa-Regular.ttf", "Comfortaa", 14F));
 		this.useMusic.setStyle("-fx-text-fill: white; -jfx-checked-color: RED; -jfx-unchecked-color: BLACK");
@@ -296,8 +296,16 @@ public class LauncherSettings extends IScreen {
 				engine.getGameLinks().JSON_URL = engine.getGameLinks().BASE_URL + engine.getGameLinks().JSON_NAME;	
 				engine.reg(engine.getGameLinks());
 				engine.reg(engine.getGameStyle());
-				Stage stage = (Stage)((JFXButton)event.getSource()).getScene().getWindow();
-				stage.close();
+				final ZoomOutDown animation = new ZoomOutDown(LauncherMain.getContentPane());
+				animation.setOnFinished(new EventHandler<ActionEvent>() {
+		            @Override
+		            public void handle(final ActionEvent actionEvent) {
+						Stage stage = (Stage)((JFXButton)event.getSource()).getScene().getWindow();
+						stage.close();
+		            }
+		        });
+				animation.setResetOnFinished(true);
+				animation.play();
 			}
 		});
 		root.getChildren().add(this.saveButton);

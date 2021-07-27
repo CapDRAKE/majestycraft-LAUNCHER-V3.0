@@ -17,6 +17,8 @@ import fr.trxyy.alternative.alternative_api.utils.config.LauncherConfig;
 import fr.trxyy.alternative.alternative_api_ui.LauncherPane;
 import fr.trxyy.alternative.alternative_api_ui.base.AlternativeBase;
 import fr.trxyy.alternative.alternative_api_ui.base.LauncherBase;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.shape.Rectangle;
@@ -24,6 +26,8 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+
+import animatefx.animation.*;
 
 public class LauncherMain extends AlternativeBase{
 	
@@ -71,7 +75,6 @@ public class LauncherMain extends AlternativeBase{
 		LauncherMain.getContentPane().setStyle("-fx-background-color: transparent;");
 		LauncherPanel panel = new LauncherPanel(LauncherMain.getContentPane(), this.gameEngine, this);
 		readVersion(panel);
-		
 		return LauncherMain.getContentPane();
 	}
 	

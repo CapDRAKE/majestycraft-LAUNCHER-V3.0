@@ -1,5 +1,6 @@
 package fr.capdrake.majestycraft;
 
+import animatefx.animation.ZoomOutDown;
 import fr.trxyy.alternative.alternative_api.GameEngine;
 import fr.trxyy.alternative.alternative_api.utils.FontLoader;
 import fr.trxyy.alternative.alternative_api_ui.base.IScreen;
@@ -139,8 +140,16 @@ public class LauncherInfo extends IScreen {
 			
 			@Override
 			public void handle(ActionEvent event) {
-				Stage stage = (Stage)((LauncherButton)event.getSource()).getScene().getWindow();
-				stage.close();
+				final ZoomOutDown animation = new ZoomOutDown(LauncherMain.getContentPane());
+				animation.setOnFinished(new EventHandler<ActionEvent>() {
+		            @Override
+		            public void handle(final ActionEvent actionEvent) {
+						Stage stage = (Stage)((LauncherButton)event.getSource()).getScene().getWindow();
+						stage.close();
+		            }
+		        });
+				animation.setResetOnFinished(true);
+				animation.play();
 			}
 		});		
 		

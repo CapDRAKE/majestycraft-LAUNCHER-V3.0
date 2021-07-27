@@ -57,8 +57,6 @@ import javafx.stage.StageStyle;
 import javafx.scene.image.Image;
 
 import animatefx.animation.*;
-import animatefx.util.ParallelAnimationFX;
-import animatefx.util.SequentialAnimationFX;
 
 public class LauncherPanel extends IScreen{
 
@@ -83,10 +81,10 @@ public class LauncherPanel extends IScreen{
 	private LauncherButton settingsButton;
 	private LauncherButton closeButton;
 	private LauncherButton reduceButton;
-	private LauncherButton minestratorButton;
-	private LauncherButton twitterButton;
-	private LauncherButton instagramButton;
-	private LauncherButton youtubeButton;
+	private static LauncherButton minestratorButton;
+	private static LauncherButton twitterButton;
+	private static LauncherButton tiktokButton;
+	private static LauncherButton youtubeButton;
 	private LauncherButton infoButton;
 	private LauncherButton lolButton;
 	private LauncherButton lolButton2;
@@ -131,9 +129,9 @@ public class LauncherPanel extends IScreen{
 	public JFXProgressBar bar;
 	
 	// Image avatar
-		public static LauncherImage avatar;
-		public static LauncherImage avatar2;
-		public static LauncherImage avatar3;
+	public static LauncherImage avatar;
+	public static LauncherImage avatar2;
+	public static LauncherImage avatar3;
 
 	
 	private String MINESTRATOR_URL = "https://minestrator.com/?partner=eus561rkso";
@@ -141,8 +139,7 @@ public class LauncherPanel extends IScreen{
 	private String TWITTER_URL = "http://twitter.com/craftsurvie";
 	private String YOUTUBE_URL = "https://www.youtube.com/channel/UCWtD5WQZKiHO7NLSSs-WOQg";
 	private String SITE_URL = "https://majestycraft.com/index.php";
-	private String DISCORD_URL = "https://discord.gg/bj7mUb9";
-	//private String TROPICOLANDS_URL = "https://tropicolands.ezcraft.fr/";
+	private String DISCORD_URL = "https://discord.gg/qyuuHk4udD";
 	public LauncherConfig config;
 	public static Media media;
 	
@@ -246,12 +243,14 @@ public class LauncherPanel extends IScreen{
 		        	webView.nodeOrientationProperty();
 		        	webView.resizeRelocate(330, 200, 300, 300);
 		        	webView.isResizable();
+		        	new ZoomInDown(webView).play();
 		        	LauncherMain.getContentPane().getChildren().add(webView);
 		        }
 
 		        @Override
 		        public void webViewCanBeClosed(WebView webView)
 		        {
+		        	new ZoomOutLeft(webView).play();
 		        	LauncherMain.getContentPane().getChildren().remove(webView);
 		        }
 
@@ -761,7 +760,6 @@ public class LauncherPanel extends IScreen{
 					loginButton.setVisible(false);
 					new FadeOut(usernameField).setResetOnFinished(false).play();
 					new FadeOutDown(titlePremium).setResetOnFinished(false).play();
-					//titlePremium.setVisible(false);
 					new FadeOut(passwordField).setResetOnFinished(false).play();
 					new RotateOut(avatar).play();
 					new FadeOut(rememberMe).setResetOnFinished(false).play();
@@ -1076,30 +1074,35 @@ public class LauncherPanel extends IScreen{
 		this.lolButton2.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
+				//Les animations de l'easter egg
 				new Hinge(microsoftButton).setResetOnFinished(true).play();
 				new Hinge(infoButton).setResetOnFinished(true).play();
 				new Hinge(settingsButton).setResetOnFinished(true).play();
 				new Hinge(lolButton).setResetOnFinished(true).play();
-				new Hinge(usernameField2).setResetOnFinished(true).play();
-				new Hinge(usernameField).setResetOnFinished(true).play();
-				new Hinge(passwordField).setResetOnFinished(true).play();
 				new Hinge(boutiqueButton).setResetOnFinished(true).play();
 				new Hinge(avatar).setResetOnFinished(true).play();
-				new Hinge(titlePremium).setResetOnFinished(true).play();
-				new Hinge(titleCrack).setResetOnFinished(true).play();
-				new Hinge(minestratorButton).setResetOnFinished(true).play();
-				new Hinge(twitterButton).setResetOnFinished(true).play();
-				new Hinge(instagramButton).setResetOnFinished(true).play();
-				new Hinge(youtubeButton).setResetOnFinished(true).play();
+				new Hinge(getMinestratorButton()).setResetOnFinished(true).play();
+				new Hinge(getTwitterButton()).setResetOnFinished(true).play();
+				new Hinge(getTiktokButton()).setResetOnFinished(true).play();
+				new Hinge(getYoutubeButton()).setResetOnFinished(true).play();
 				new Hinge(deadButton).setResetOnFinished(true).play();
 				new Hinge(titleImage).setResetOnFinished(true).play();
-				new Hinge(rememberMe).setResetOnFinished(true).play();
-				new Hinge(loginButton).setResetOnFinished(true).play();
-				new Hinge(loginButton2).setResetOnFinished(true).play();
 				new Hinge(toggleButton).setResetOnFinished(true).play();
 				new Hinge(siteButton).setResetOnFinished(true).play();
 				new Hinge(voteButton).setResetOnFinished(true).play();
 				new Hinge(connexionRectangle).setResetOnFinished(true).play();
+				
+				if(toggleButton.isSelected()) {
+					new Hinge(rememberMe).setResetOnFinished(true).play();
+					new Hinge(titlePremium).setResetOnFinished(true).play();
+					new Hinge(usernameField).setResetOnFinished(true).play();
+					new Hinge(passwordField).setResetOnFinished(true).play();
+					new Hinge(loginButton).setResetOnFinished(true).play();
+				}else {
+					new Hinge(usernameField2).setResetOnFinished(true).play();
+					new Hinge(loginButton2).setResetOnFinished(true).play();
+					new Hinge(titleCrack).setResetOnFinished(true).play();
+				}
 			}
 		});
 		
@@ -1113,7 +1116,14 @@ public class LauncherPanel extends IScreen{
 		this.closeButton.setPosition(engine.getWidth() - 35, 2);
 		this.closeButton.setSize(15, 15);
 		this.closeButton.setOnAction(event -> {
-			System.exit(0);
+			final BounceOutDown animation = new BounceOutDown(LauncherMain.getContentPane());
+			animation.setOnFinished(new EventHandler<ActionEvent>() {
+	            @Override
+	            public void handle(final ActionEvent actionEvent) {
+	    			System.exit(0);
+	            }
+	        });
+			animation.play();
 		});
 		
 		/** ===================== BOUTON REDUIRE ===================== */
@@ -1126,8 +1136,16 @@ public class LauncherPanel extends IScreen{
 		this.reduceButton.setPosition(engine.getWidth() - 65, 2);
 		this.reduceButton.setSize(15, 15);
 		this.reduceButton.setOnAction(event -> {
-			Stage stage = (Stage) ((LauncherButton) event.getSource()).getScene().getWindow();
-			stage.setIconified(true);
+			final ZoomOutDown animation2 = new ZoomOutDown(LauncherMain.getContentPane());
+			animation2.setOnFinished(new EventHandler<ActionEvent>() {
+	            @Override
+	            public void handle(final ActionEvent actionEvent) {
+	    			Stage stage = (Stage) ((LauncherButton) event.getSource()).getScene().getWindow();
+	    			stage.setIconified(true);
+	            }
+	        });
+			animation2.setResetOnFinished(true);
+			animation2.play();
 		});
 		
 		/** ===================== BOUTON URL VOTE ===================== */
@@ -1190,60 +1208,60 @@ public class LauncherPanel extends IScreen{
 		this.forumButton.setVisible(false);
 		
 		/** ===================== BOUTON URL MINESTRATOR ===================== */
-		this.minestratorButton = new LauncherButton(root);
-		this.minestratorButton.setInvisible();
-		this.minestratorButton.setPosition(engine.getWidth() / 2 - 125, engine.getHeight() - 130);
+		setMinestratorButton(new LauncherButton(root));
+		getMinestratorButton().setInvisible();
+		getMinestratorButton().setPosition(engine.getWidth() / 2 - 125, engine.getHeight() - 130);
 		LauncherImage facebookImg = new LauncherImage(root, getResourceLocation().loadImage(engine, "minestrator.png"));
 		facebookImg.setSize(80, 80);
-		this.minestratorButton.setGraphic(facebookImg);
-		this.minestratorButton.setSize((int) facebookImg.getFitWidth(), (int) facebookImg.getFitHeight());
-		this.minestratorButton.setBackground(null);
-		this.minestratorButton.setOnAction(new EventHandler<ActionEvent>() {
+		getMinestratorButton().setGraphic(facebookImg);
+		getMinestratorButton().setSize((int) facebookImg.getFitWidth(), (int) facebookImg.getFitHeight());
+		getMinestratorButton().setBackground(null);
+		getMinestratorButton().setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
 				openLink(MINESTRATOR_URL);
 			}
 		});
 		/** ===================== BOUTON URL TWITTER ===================== */
-		this.twitterButton = new LauncherButton(root);
-		this.twitterButton.setInvisible();
-		this.twitterButton.setPosition(engine.getWidth() / 2 + 25, engine.getHeight() - 130);
+		setTwitterButton(new LauncherButton(root));
+		getTwitterButton().setInvisible();
+		getTwitterButton().setPosition(engine.getWidth() / 2 + 25, engine.getHeight() - 130);
 		LauncherImage twitterImg = new LauncherImage(root, getResourceLocation().loadImage(engine, "twitter_icon.png"));
 		twitterImg.setSize(80, 80);
-		this.twitterButton.setGraphic(twitterImg);
-		this.twitterButton.setSize((int) twitterImg.getFitWidth(), (int) twitterImg.getFitHeight());
-		this.twitterButton.setBackground(null);
-		this.twitterButton.setOnAction(new EventHandler<ActionEvent>() {
+		getTwitterButton().setGraphic(twitterImg);
+		getTwitterButton().setSize((int) twitterImg.getFitWidth(), (int) twitterImg.getFitHeight());
+		getTwitterButton().setBackground(null);
+		getTwitterButton().setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
 				openLink(TWITTER_URL);
 			}
 		});
-		/** ===================== BOUTON URL INSTAGRAM ===================== */
-		this.instagramButton = new LauncherButton(root);
-		this.instagramButton.setInvisible();
-		this.instagramButton.setPosition(engine.getWidth() / 2 - 125 - 150, engine.getHeight() - 130);
-		LauncherImage instagramImg = new LauncherImage(root, getResourceLocation().loadImage(engine, "tiktok.png"));
-		instagramImg.setSize(80, 80);
-		this.instagramButton.setGraphic(instagramImg);
-		this.instagramButton.setSize((int) instagramImg.getFitWidth(), (int) instagramImg.getFitHeight());
-		this.instagramButton.setBackground(null);
-		this.instagramButton.setOnAction(new EventHandler<ActionEvent>() {
+		/** ===================== BOUTON URL TIKTOK ===================== */
+		setTiktokButton(new LauncherButton(root));
+		getTiktokButton().setInvisible();
+		getTiktokButton().setPosition(engine.getWidth() / 2 - 125 - 150, engine.getHeight() - 130);
+		LauncherImage tiktokImg = new LauncherImage(root, getResourceLocation().loadImage(engine, "tiktok.png"));
+		tiktokImg.setSize(80, 80);
+		getTiktokButton().setGraphic(tiktokImg);
+		getTiktokButton().setSize((int) tiktokImg.getFitWidth(), (int) tiktokImg.getFitHeight());
+		getTiktokButton().setBackground(null);
+		getTiktokButton().setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
 				openLink(INSTAGRAM_URL);
 			}
 		});
 		/** ===================== BOUTON URL YOUTUBE ===================== */
-		this.youtubeButton = new LauncherButton(root);
-		this.youtubeButton.setInvisible();
-		this.youtubeButton.setPosition(engine.getWidth() / 2 - 125 + 300, engine.getHeight() - 130);
+		setYoutubeButton(new LauncherButton(root));
+		getYoutubeButton().setInvisible();
+		getYoutubeButton().setPosition(engine.getWidth() / 2 - 125 + 300, engine.getHeight() - 130);
 		LauncherImage youtubeImg = new LauncherImage(root, getResourceLocation().loadImage(engine, "yt_icon.png"));
 		youtubeImg.setSize(80, 80);
-		this.youtubeButton.setGraphic(youtubeImg);
-		this.youtubeButton.setSize((int) youtubeImg.getFitWidth(), (int) youtubeImg.getFitHeight());
-		this.youtubeButton.setBackground(null);
-		this.youtubeButton.setOnAction(new EventHandler<ActionEvent>() {
+		getYoutubeButton().setGraphic(youtubeImg);
+		getYoutubeButton().setSize((int) youtubeImg.getFitWidth(), (int) youtubeImg.getFitHeight());
+		getYoutubeButton().setBackground(null);
+		getYoutubeButton().setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
 				openLink(YOUTUBE_URL);
@@ -1344,36 +1362,34 @@ public class LauncherPanel extends IScreen{
 				connectAccountCrack(root);
 				connectAccountCrackCO(root);
 			}
-			//Sert à éviter que la tête de connexion s'affichent lors de la connexion
-			avatar3.setVisible(false);
 		}
 
 		
 	public void update(GameEngine engine, GameAuth auth) {
-			new ZoomOutDown(microsoftButton).setResetOnFinished(false).play();
-			new ZoomOutDown(infoButton).setResetOnFinished(false).play();
-			new ZoomOutDown(settingsButton).setResetOnFinished(false).play();
-			new ZoomOutDown(lolButton).setResetOnFinished(false).play();
-			new ZoomOutDown(usernameField2).setResetOnFinished(false).play();
-			new ZoomOutDown(usernameField).setResetOnFinished(false).play();
-			new ZoomOutDown(passwordField).setResetOnFinished(false).play();
-			new ZoomOutDown(boutiqueButton).setResetOnFinished(false).play();
+			new ZoomOutDown(this.microsoftButton).setResetOnFinished(false).play();
+			new ZoomOutDown(this.infoButton).setResetOnFinished(false).play();
+			new ZoomOutDown(this.settingsButton).setResetOnFinished(false).play();
+			new ZoomOutDown(this.lolButton).setResetOnFinished(false).play();
+			new ZoomOutDown(this.usernameField2).setResetOnFinished(false).play();
+			new ZoomOutDown(this.usernameField).setResetOnFinished(false).play();
+			new ZoomOutDown(this.passwordField).setResetOnFinished(false).play();
+			new ZoomOutDown(this.boutiqueButton).setResetOnFinished(false).play();
 			new ZoomOutDown(avatar).setResetOnFinished(false).play();
-			new ZoomOutDown(titlePremium).setResetOnFinished(false).play();
-			new ZoomOutDown(titleCrack).setResetOnFinished(false).play();
-			new ZoomOutDown(minestratorButton).setResetOnFinished(false).play();
-			new ZoomOutDown(twitterButton).setResetOnFinished(false).play();
-			new ZoomOutDown(instagramButton).setResetOnFinished(false).play();
-			new ZoomOutDown(youtubeButton).setResetOnFinished(false).play();
-			new ZoomOutDown(deadButton).setResetOnFinished(false).play();
-			new ZoomOutDown(rememberMe).setResetOnFinished(false).play();
-			new ZoomOutDown(loginButton).setResetOnFinished(false).play();
-			new ZoomOutDown(loginButton2).setResetOnFinished(false).play();
-			new ZoomOutDown(toggleButton).setResetOnFinished(false).play();
-			new ZoomOutDown(siteButton).setResetOnFinished(false).play();
-			new ZoomOutDown(voteButton).setResetOnFinished(false).play();
-			new ZoomOutDown(connexionRectangle).setResetOnFinished(false).play();
-			new ZoomOutDown(lolButton2).setResetOnFinished(false).play();
+			new ZoomOutDown(this.titlePremium).setResetOnFinished(false).play();
+			new ZoomOutDown(this.titleCrack).setResetOnFinished(false).play();
+			new ZoomOutDown(getMinestratorButton()).setResetOnFinished(false).play();
+			new ZoomOutDown(getTwitterButton()).setResetOnFinished(false).play();
+			new ZoomOutDown(getTiktokButton()).setResetOnFinished(false).play();
+			new ZoomOutDown(getYoutubeButton()).setResetOnFinished(false).play();
+			new ZoomOutDown(this.deadButton).setResetOnFinished(false).play();
+			new ZoomOutDown(this.rememberMe).setResetOnFinished(false).play();
+			new ZoomOutDown(this.loginButton).setResetOnFinished(false).play();
+			new ZoomOutDown(this.loginButton2).setResetOnFinished(false).play();
+			new ZoomOutDown(this.toggleButton).setResetOnFinished(false).play();
+			new ZoomOutDown(this.siteButton).setResetOnFinished(false).play();
+			new ZoomOutDown(this.voteButton).setResetOnFinished(false).play();
+			new ZoomOutDown(this.connexionRectangle).setResetOnFinished(false).play();
+			new ZoomOutDown(this.lolButton2).setResetOnFinished(false).play();
 		 
 			this.usernameField.setDisable(true);
 			this.connexionRectangle.setDisable(true);
@@ -1393,18 +1409,18 @@ public class LauncherPanel extends IScreen{
 			this.percentageLabel.setVisible(true);
 			this.bar.setVisible(true);
 			avatar.setVisible(false);
-			avatar3.setVisible(true);
-			new ZoomInDown(updateRectangle).play();
-			new ZoomInDown(updateLabel).play();
-			new ZoomInDown(currentStep).play();
-			new ZoomInDown(currentFileLabel).play();
-			new ZoomInDown(percentageLabel).play();
-			new ZoomInDown(bar).play();
+			new ZoomInDown(this.updateRectangle).play();
+			new ZoomInDown(this.updateLabel).play();
+			new ZoomInDown(this.currentStep).play();
+			new ZoomInDown(this.currentFileLabel).play();
+			new ZoomInDown(this.percentageLabel).play();
+			new ZoomInDown(this.bar).play();
 			new ZoomInDown(avatar3).play();
+			avatar3.setVisible(true);
 			theGameEngine.reg(LauncherMain.gameLinks);
 			theGameEngine.getGameLinks().JSON_URL = theGameEngine.getGameLinks().BASE_URL + this.config.getValue("version") + ".json";
-			gameUpdater.reg(engine);
-			gameUpdater.reg(auth.getSession());
+			this.gameUpdater.reg(engine);
+			this.gameUpdater.reg(auth.getSession());
 			
 			
 			
@@ -1453,6 +1469,7 @@ public class LauncherPanel extends IScreen{
 			LauncherMain.getContentPane().setClip(rect);
 			LauncherMain.getContentPane().setStyle("-fx-background-color: transparent;");
 			new LauncherSettings(LauncherMain.getContentPane(), theGameEngine, this);
+			new ZoomInLeft(rect).play();
 			return LauncherMain.getContentPane();
 		}
 		
@@ -1464,6 +1481,7 @@ public class LauncherPanel extends IScreen{
 			LauncherMain.getContentPane().setClip(rect);
 			LauncherMain.getContentPane().setStyle("-fx-background-color: transparent;");
 			new LauncherInfo(LauncherMain.getContentPane(), theGameEngine, this);
+			new ZoomInLeft(rect).setResetOnFinished(true).play();
 			return LauncherMain.getContentPane();
 		}
 		
@@ -1499,6 +1517,7 @@ public class LauncherPanel extends IScreen{
 			avatar3 = new LauncherImage(root, new Image("https://minotar.net/body/MHF_Steve.png"));
 			avatar3.setSize(100, 200);
 			avatar3.setPosition(theGameEngine.getWidth() / 2 - 280, theGameEngine.getHeight() / 2 - 90);
+			avatar3.setVisible(false);
 		}
 		
 		public static void connectAccountPremiumCO(String username, Pane root) 
@@ -1506,6 +1525,7 @@ public class LauncherPanel extends IScreen{
 			avatar3 = new LauncherImage(root, new Image("https://minotar.net/body/" + username + ".png"));
 			avatar3.setSize(100, 200);
 			avatar3.setPosition(theGameEngine.getWidth() / 2 - 280, theGameEngine.getHeight() / 2 - 90);
+			avatar3.setVisible(false);
 		}
 		
 		public JFXTextField getUsernameField() {
@@ -1514,5 +1534,45 @@ public class LauncherPanel extends IScreen{
 
 		public JFXPasswordField getPasswordField() {
 			return passwordField;
+		}
+
+
+		public static LauncherButton getTiktokButton() {
+			return tiktokButton;
+		}
+
+
+		public static void setTiktokButton(LauncherButton tiktokButton) {
+			LauncherPanel.tiktokButton = tiktokButton;
+		}
+
+
+		public static LauncherButton getMinestratorButton() {
+			return minestratorButton;
+		}
+
+
+		public static void setMinestratorButton(LauncherButton minestratorButton) {
+			LauncherPanel.minestratorButton = minestratorButton;
+		}
+
+
+		public static LauncherButton getTwitterButton() {
+			return twitterButton;
+		}
+
+
+		public static void setTwitterButton(LauncherButton twitterButton) {
+			LauncherPanel.twitterButton = twitterButton;
+		}
+
+
+		public static LauncherButton getYoutubeButton() {
+			return youtubeButton;
+		}
+
+
+		public static void setYoutubeButton(LauncherButton youtubeButton) {
+			LauncherPanel.youtubeButton = youtubeButton;
 		}	
 }
