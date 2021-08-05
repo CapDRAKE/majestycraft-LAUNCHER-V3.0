@@ -12,7 +12,7 @@
 .button-raised{
     -fx-font-size: 20px;
     -jfx-button-type: RAISED;
-    -fx-background-color: rgb(255,0,0,0.3);
+        -fx-background-color: rgb(255,0,0,0.3);
     -fx-pref-width: 269;
     -fx-pref-height: 30;
     -fx-text-fill: orange;

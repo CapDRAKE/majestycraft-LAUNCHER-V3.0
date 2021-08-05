@@ -1066,7 +1066,7 @@ public class LauncherPanel extends IScreen{
 		/** ===================== BOUTON easter egg 1 ===================== */
 		this.lolButton2 = new LauncherButton(root);
 		this.lolButton2.setStyle("-fx-background-color: rgba(0 ,0 ,0 , 0); -fx-text-fill: orange");
-		settingsImg = new LauncherImage(root, getResourceLocation().loadImage(engine, "lol2.png"));
+		settingsImg = new LauncherImage(root, getResourceLocation().loadImage(engine, "lol2.PNG"));
 		settingsImg.setSize(27, 27);
 		this.lolButton2.setGraphic(settingsImg);
 		this.lolButton2.setPosition(engine.getWidth() / 2 - 522, engine.getHeight() / 2 +300);

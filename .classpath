@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER">
+		<accessrules>
+			<accessrule kind="accessible" pattern="javafx/**"/>
+		</accessrules>
+	</classpathentry>
 	<classpathentry kind="lib" path="lib/commons-codec-1.10.jar"/>
 	<classpathentry kind="lib" path="lib/commons-io-2.8.0.jar"/>
 	<classpathentry kind="lib" path="lib/commons-lang3-3.11.jar"/>
@@ -14,11 +18,6 @@
 	<classpathentry kind="lib" path="lib/jfxrt.jar"/>
 	<classpathentry kind="lib" path="lib/MinecraftServerPing-2.0.0 (1).jar"/>
 	<classpathentry kind="lib" path="A:/Downloads/java-discord-rpc-2.0.1.jar"/>
-	<classpathentry kind="lib" path="libFX/javafx.base.jar"/>
-	<classpathentry kind="lib" path="libFX/javafx.graphics.jar"/>
-	<classpathentry kind="lib" path="libFX/javafx.media.jar"/>
-	<classpathentry kind="lib" path="libFX/javafx.fxml.jar"/>
-	<classpathentry kind="lib" path="libFX/javafx.swing.jar"/>
 	<classpathentry kind="lib" path="lib/Alternative Api.jar"/>
 	<classpathentry kind="lib" path="lib/mcmsal-1.0.0.jar"/>
 	<classpathentry kind="lib" path="lib/flowmultitools-1.3.3.jar"/>

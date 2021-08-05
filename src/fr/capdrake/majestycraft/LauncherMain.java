@@ -75,6 +75,18 @@ public class LauncherMain extends AlternativeBase{
 		LauncherMain.getContentPane().setStyle("-fx-background-color: transparent;");
 		LauncherPanel panel = new LauncherPanel(LauncherMain.getContentPane(), this.gameEngine, this);
 		readVersion(panel);
+		final JackInTheBox animationOUVERTURE = new JackInTheBox(LauncherMain.getContentPane());
+		animationOUVERTURE.setSpeed(0.5);
+		animationOUVERTURE.setOnFinished(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(final ActionEvent actionEvent) {
+    			new Tada(LauncherPanel.getTiktokButton()).play();
+    			new Tada(LauncherPanel.getMinestratorButton()).play();
+    			new Tada(LauncherPanel.getTwitterButton()).play();
+    			new Tada(LauncherPanel.getYoutubeButton()).play();
+            }
+        });
+		animationOUVERTURE.play();
 		return LauncherMain.getContentPane();
 	}
 	
