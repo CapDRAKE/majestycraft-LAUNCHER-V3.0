@@ -13,6 +13,7 @@ import fr.trxyy.alternative.alternative_api.GameStyle;
 import fr.trxyy.alternative.alternative_api.LauncherPreferences;
 import fr.trxyy.alternative.alternative_api.maintenance.GameMaintenance;
 import fr.trxyy.alternative.alternative_api.maintenance.Maintenance;
+import fr.trxyy.alternative.alternative_api.utils.Mover;
 import fr.trxyy.alternative.alternative_api.utils.config.LauncherConfig;
 import fr.trxyy.alternative.alternative_api_ui.LauncherPane;
 import fr.trxyy.alternative.alternative_api_ui.base.AlternativeBase;
@@ -34,7 +35,7 @@ public class LauncherMain extends AlternativeBase{
 	public static LauncherPane contentPane;
 	private Scene scene;
 	private GameFolder gameFolder = new GameFolder("majestycraft");
-	private LauncherPreferences launcherPreferences = new LauncherPreferences("Launcher MajestyCraft Optifine + Forge", 1050, 750, true);
+	private LauncherPreferences launcherPreferences = new LauncherPreferences("Launcher MajestyCraft Optifine + Forge", 1050, 750, Mover.MOVE);
 	public static GameLinks gameLinks = new GameLinks("https://majestycraft.com/minecraft/", "1.16.2.json");
 	private GameEngine gameEngine = new GameEngine(this.gameFolder, LauncherMain.gameLinks, this.launcherPreferences, GameStyle.VANILLA);
 	public static GameForge gameForge;
@@ -59,7 +60,7 @@ public class LauncherMain extends AlternativeBase{
 		this.gameEngine.reg(primaryStage);  
 		this.gameEngine.reg(this.gameMaintenance);
 		LauncherBase launcherBase = new LauncherBase(primaryStage, scene, StageStyle.TRANSPARENT, this.gameEngine);
-		launcherBase.setIconImage(primaryStage,  getResourceLocation().loadImage(this.gameEngine, "server-icon.png"));
+		launcherBase.setIconImage(primaryStage,  "server-icon.png");
 	}
 	
 
