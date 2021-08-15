@@ -1,13 +1,2 @@
-arguments=
-auto.sync=false
-build.scans.enabled=false
-connection.gradle.distribution=GRADLE_DISTRIBUTION(WRAPPER)
 connection.project.dir=
 eclipse.preferences.version=1
-gradle.user.home=
-java.home=
-jvm.arguments=jvmArg --module-path "libFX" --add-modules\=javafx.controls,javafx.fxml,javafx.swing,javafx.media
-offline.mode=false
-override.workspace.settings=true
-show.console.view=true
-show.executions.view=true
