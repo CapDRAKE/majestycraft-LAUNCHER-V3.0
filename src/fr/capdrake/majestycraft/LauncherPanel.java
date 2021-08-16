@@ -236,7 +236,84 @@ public class LauncherPanel extends IScreen{
 		this.microsoftButton.setPosition(engine.getWidth() / 2 - 522, engine.getHeight() / 2 - 100);
 		this.microsoftButton.setSize(60, 46);
 		this.microsoftButton.setOnAction(new EventHandler<ActionEvent>() {
+			
 			 public void handle(ActionEvent event) {
+				 /**
+					 * ===================== VERIFICATION USEFORGE =====================
+					 */
+
+					if((boolean) config.getValue("useforge"))
+					{
+						LauncherMain.getGameLinks().JSON_NAME = config.getValue("version") + ".json";
+						switch(engine.getGameLinks().JSON_NAME)
+						{
+							case "1.9.json":
+								LauncherMain.gameLinks = new GameLinks("https://majestycraft.com/minecraft/1.9/", "1.9.json");
+								engine.setGameStyle(GameStyle.OPTIFINE);
+								LauncherMain.gameForge = new GameForge(Forge.DEFAULT, "1.9", "#1938", "20200515.085601");
+								break;
+							case "1.10.2.json":
+								LauncherMain.gameLinks = new GameLinks("https://majestycraft.com/minecraft/1.10.2/", "1.10.2.json");
+								engine.setGameStyle(GameStyle.OPTIFINE);
+								LauncherMain.gameForge = new GameForge(Forge.DEFAULT, "1.10.2", "#2511", "20200515.085601");
+								break;
+							case "1.11.2.json":
+								LauncherMain.gameLinks = new GameLinks("https://majestycraft.com/minecraft/1.11.2/", "1.11.2.json");
+								engine.setGameStyle(GameStyle.OPTIFINE);
+								LauncherMain.gameForge = new GameForge(Forge.DEFAULT, "1.11.2", "#2588", "20200515.085601");
+								break;
+							case "1.12.2.json":
+								LauncherMain.gameLinks = new GameLinks("https://majestycraft.com/minecraft/1.12.2/", "1.12.2.json");
+								engine.setGameStyle(GameStyle.OPTIFINE);
+								LauncherMain.gameForge = new GameForge(Forge.DEFAULT, "1.12.2", "#2847", "20200515.085601");
+								break;
+							case "1.13.2.json":
+								LauncherMain.gameLinks = new GameLinks("https://majestycraft.com/minecraft/1.13.2/", "1.13.2.json");
+								engine.setGameStyle(GameStyle.OPTIFINE);
+								LauncherMain.gameForge = new GameForge(Forge.DEFAULT, "1.13.2", "28.2.23", "20200515.085601");
+								break;
+							case "1.14.4.json":
+								LauncherMain.gameLinks = new GameLinks("https://majestycraft.com/minecraft/1.14.4/", "1.14.4.json");
+								engine.setGameStyle(GameStyle.OPTIFINE);
+								LauncherMain.gameForge = new GameForge(Forge.DEFAULT, "1.14.4", "28.2.23", "20200515.085601");
+								break;
+							case "1.15.2.json":
+								LauncherMain.gameLinks = new GameLinks("https://majestycraft.com/minecraft/1.15.2/", "1.15.2.json");
+								engine.setGameStyle(GameStyle.OPTIFINE);
+								LauncherMain.gameForge = new GameForge(Forge.DEFAULT, "1.15.2", "31.2.45", "20200515.085601");
+								break;
+							case "1.16.2.json":
+								engine.setGameStyle(GameStyle.OPTIFINE);
+								LauncherMain.gameForge = new GameForge(Forge.DEFAULT, "1.16.2", "33.0.61", "20200812.004259");
+								break;
+							case "1.16.3.json":
+								engine.setGameStyle(GameStyle.OPTIFINE);
+								LauncherMain.gameForge = new GameForge(Forge.DEFAULT, "1.16.3", "34.1.42", "20201025.185957");
+								break;
+							case "1.16.4.json":
+								LauncherMain.gameLinks = new GameLinks("https://majestycraft.com/minecraft/1.16.4/", "1.16.4.json");
+								engine.setGameStyle(GameStyle.OPTIFINE);
+								LauncherMain.gameForge = new GameForge(Forge.DEFAULT, "1.16.4", "35.0.1", "20200812.004259");
+								break;
+							case "1.16.5.json":
+								LauncherMain.gameLinks = new GameLinks("https://majestycraft.com/minecraft/1.16.5/", "1.16.5.json");
+								engine.setGameStyle(GameStyle.OPTIFINE);
+								LauncherMain.gameForge = new GameForge(Forge.DEFAULT, "1.16.5", "36.0.42", "20200812.004259");
+								break;
+							case "1.17.json":
+								LauncherMain.gameLinks = new GameLinks("https://majestycraft.com/minecraft/1.17/", "1.17.json");
+								engine.setGameStyle(GameStyle.OPTIFINE);
+								LauncherMain.gameForge = new GameForge(Forge.DEFAULT, "1.17", "36.0.42", "20200812.004259");
+								break;
+							case "1.17.1.json":
+								LauncherMain.gameLinks = new GameLinks("https://majestycraft.com/minecraft/1.17.1/", "1.17.1.json");
+								engine.setGameStyle(GameStyle.OPTIFINE);
+								LauncherMain.gameForge = new GameForge(Forge.DEFAULT, "1.17.1", "36.0.42", "20200812.004259");
+								break;
+						}
+					} else {
+						engine.setGameStyle(GameStyle.VANILLA);
+					}
 				 gameAuthentication = new GameAuth(AccountType.MICROSOFT);
 				 showMicrosoftAuth(gameAuthentication);
 				 if (gameAuthentication.isLogged()) {
@@ -1451,12 +1528,12 @@ public class LauncherPanel extends IScreen{
 			 stage.setScene(scene);
 			 stage.initModality(Modality.APPLICATION_MODAL);
 			 stage.showAndWait();
-			 }
+		}
 			 
-			 private Parent createMicrosoftPanel(GameAuth auth) {
+		private Parent createMicrosoftPanel(GameAuth auth) {
 			 LauncherPane contentPane = new LauncherPane(theGameEngine);
 			 auth.connectMicrosoft(contentPane);
 			 return contentPane;
-			 }
+		}
 
 }
