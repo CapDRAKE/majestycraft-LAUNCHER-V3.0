@@ -4,20 +4,25 @@ import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.function.Consumer;
-
-import com.jfoenix.controls.JFXToggleButton;
-import javafx.scene.Scene;
-import javafx.scene.paint.Color;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXProgressBar;
 import com.jfoenix.controls.JFXRippler;
 import com.jfoenix.controls.JFXTextField;
+import com.jfoenix.controls.JFXToggleButton;
 
+import animatefx.animation.BounceInLeft;
+import animatefx.animation.BounceInUp;
+import animatefx.animation.BounceOutDown;
+import animatefx.animation.FadeOut;
+import animatefx.animation.FadeOutDown;
+import animatefx.animation.Hinge;
+import animatefx.animation.RotateIn;
+import animatefx.animation.RotateOut;
+import animatefx.animation.ZoomInDown;
+import animatefx.animation.ZoomInLeft;
+import animatefx.animation.ZoomOutDown;
 import fr.trxyy.alternative.alternative_api.GameEngine;
 import fr.trxyy.alternative.alternative_api.GameForge;
 import fr.trxyy.alternative.alternative_api.GameLinks;
@@ -44,17 +49,18 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.scene.media.Media;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
-import javafx.scene.web.WebView;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import javafx.scene.image.Image;
-
-import animatefx.animation.*;
 
 public class LauncherPanel extends IScreen{
 	
@@ -1429,6 +1435,8 @@ public class LauncherPanel extends IScreen{
 			new ZoomInLeft(rect).setResetOnFinished(true).play();
 			return LauncherMain.getContentPane();
 		}
+		
+		
 		
 		public void update2(GameAuth auth) {
 			gameUpdater.reg(auth.getSession());
