@@ -41,6 +41,7 @@ public class LauncherInfo extends IScreen {
 		/** ===================== RECTANGLE NOIR EN HAUT ===================== */
 		this.topRectangle = new LauncherRectangle(root, 0, 0, 1500, 15);
 		this.topRectangle.setOpacity(0.7);
+		this.topRectangle.setVisible(false);
 		/** ===================== LABEL TITRE ===================== */
 		this.titleLabel = new LauncherLabel(root);
 		this.titleLabel.setText("INFORMATIONS");
