@@ -24,9 +24,12 @@ import animatefx.animation.ZoomInDown;
 import animatefx.animation.ZoomInLeft;
 import animatefx.animation.ZoomOutDown;
 import fr.trxyy.alternative.alternative_api.GameEngine;
+import fr.trxyy.alternative.alternative_api.GameMemory;
+import fr.trxyy.alternative.alternative_api.GameSize;
 import fr.trxyy.alternative.alternative_api.GameForge;
 import fr.trxyy.alternative.alternative_api.GameLinks;
 import fr.trxyy.alternative.alternative_api.GameStyle;
+import fr.trxyy.alternative.alternative_api.JVMArguments;
 import fr.trxyy.alternative.alternative_api.updater.GameUpdater;
 import fr.trxyy.alternative.alternative_api.utils.FontLoader;
 import fr.trxyy.alternative.alternative_api.utils.Forge;
@@ -1373,7 +1376,22 @@ public class LauncherPanel extends IScreen{
 			this.gameUpdater.reg(theGameEngine);
 			this.gameUpdater.reg(auth.getSession());
 			
-			
+			/**
+			 * Change settings in GameEngine from launcher_config.json
+			 */
+			theGameEngine.reg(GameMemory.getMemory(Double.parseDouble((String) this.config.getValue("allocatedram"))));
+			theGameEngine.reg(GameSize.getWindowSize(Integer.parseInt((String) this.config.getValue("gamesize"))));
+			boolean useVmArgs = (Boolean)config.getValue("usevmarguments");
+			String vmArgs = (String) config.getValue("vmarguments");
+			String[] s = null;
+			if (useVmArgs) {
+				if (vmArgs.length() > 3) {
+					s = vmArgs.split(" ");
+				}
+				JVMArguments arguments = new JVMArguments(s);
+				theGameEngine.reg(arguments);
+			}
+			/** END */
 			
 			theGameEngine.reg(this.gameUpdater);
 
