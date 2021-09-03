@@ -4,31 +4,35 @@ import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.function.Consumer;
-
-import com.jfoenix.controls.JFXToggleButton;
-import javafx.scene.Scene;
-import javafx.scene.paint.Color;
-import javafx.stage.Stage;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXProgressBar;
 import com.jfoenix.controls.JFXRippler;
 import com.jfoenix.controls.JFXTextField;
+import com.jfoenix.controls.JFXToggleButton;
 
-import fr.flowarg.mcmsal.AuthInfo;
-import fr.flowarg.mcmsal.JFXAuth;
-import fr.flowarg.mcmsal.JFXAuth.JFXAuthCallback;
-import fr.flowarg.mcmsal.MCMSALException;
+import animatefx.animation.BounceInLeft;
+import animatefx.animation.BounceInUp;
+import animatefx.animation.BounceOutDown;
+import animatefx.animation.FadeOut;
+import animatefx.animation.FadeOutDown;
+import animatefx.animation.Hinge;
+import animatefx.animation.RotateIn;
+import animatefx.animation.RotateOut;
+import animatefx.animation.ZoomInDown;
+import animatefx.animation.ZoomInLeft;
+import animatefx.animation.ZoomOutDown;
 import fr.trxyy.alternative.alternative_api.GameEngine;
+import fr.trxyy.alternative.alternative_api.GameMemory;
+import fr.trxyy.alternative.alternative_api.GameSize;
 import fr.trxyy.alternative.alternative_api.GameForge;
 import fr.trxyy.alternative.alternative_api.GameLinks;
 import fr.trxyy.alternative.alternative_api.GameStyle;
-import fr.trxyy.alternative.alternative_api.account.AccountType;
-import fr.trxyy.alternative.alternative_api.auth.GameAuth;
+import fr.trxyy.alternative.alternative_api.JVMArguments;
 import fr.trxyy.alternative.alternative_api.updater.GameUpdater;
 import fr.trxyy.alternative.alternative_api.utils.FontLoader;
+import fr.trxyy.alternative.alternative_api.utils.Forge;
 import fr.trxyy.alternative.alternative_api.utils.Mover;
 import fr.trxyy.alternative.alternative_api.utils.config.LauncherConfig;
 import fr.trxyy.alternative.alternative_api_ui.LauncherAlert;
@@ -38,6 +42,8 @@ import fr.trxyy.alternative.alternative_api_ui.components.LauncherButton;
 import fr.trxyy.alternative.alternative_api_ui.components.LauncherImage;
 import fr.trxyy.alternative.alternative_api_ui.components.LauncherLabel;
 import fr.trxyy.alternative.alternative_api_ui.components.LauncherRectangle;
+import fr.trxyy.alternative.alternative_auth.account.AccountType;
+import fr.trxyy.alternative.alternative_auth.base.GameAuth;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -46,20 +52,24 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.scene.media.Media;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
-import javafx.scene.web.WebView;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import javafx.scene.image.Image;
-
-import animatefx.animation.*;
 
 public class LauncherPanel extends IScreen{
-
+	
+	//Auth de Microsoft
+	private GameAuth gameAuthentication;
+	
 	private LauncherImage titleImage;
 
 	private JFXTextField usernameField;
@@ -153,11 +163,11 @@ public class LauncherPanel extends IScreen{
 		
 		this.config = new LauncherConfig(engine);
 		this.config.loadConfiguration();
-		
+		/** ===================== RECTANGLE NOIR EN HAUT ===================== */
 		this.topRectangle = new LauncherRectangle(root, 0, 0, 70, engine.getHeight());
 		this.topRectangle.setFill(Color.rgb(255,255,255, 0.10));
-		
-		this.drawLogo(engine, getResourceLocation().loadImage(engine, "logo.png"), engine.getWidth() / 2 - 70, 40, 150, 150, root, Mover.DONT_MOVE);
+		/** ===================== AFFICHER UN LOGO ===================== */
+		this.drawImage(engine, getResourceLocation().loadImage(engine, "logo.png"), engine.getWidth() / 2 - 70, 40, 150, 150, root, Mover.DONT_MOVE);
 		
 		//Partie texte
 		this.titleLabel = new LauncherLabel(root);
@@ -191,7 +201,7 @@ public class LauncherPanel extends IScreen{
 		this.titleImage = new LauncherImage(root);
 		this.titleImage.setImage(getResourceLocation().loadImage(engine, "server-icon.png"));
 		this.titleImage.setSize(50, 50);
-		this.titleImage.setPosition(12, 5);
+		this.titleImage.setBounds(12, 5, 50, 50);
 		
 		
 		//root.getChildren().addAll(imageanniv);
@@ -234,30 +244,14 @@ public class LauncherPanel extends IScreen{
 		this.microsoftButton.setGraphic(microsoftImg);
 		this.microsoftButton.setPosition(engine.getWidth() / 2 - 522, engine.getHeight() / 2 - 100);
 		this.microsoftButton.setSize(60, 46);
-		this.microsoftButton.setOnAction(event -> {
-		    JFXAuth.authenticateWithWebView(new JFXAuthCallback() {
-		    	
-		        @Override
-		        public void beforeAuth(WebView webView)
-		        {
-		        	webView.nodeOrientationProperty();
-		        	webView.resizeRelocate(330, 200, 300, 300);
-		        	webView.isResizable();
-		        	new ZoomInDown(webView).play();
-		        	LauncherMain.getContentPane().getChildren().add(webView);
-		        }
+		this.microsoftButton.setOnAction(new EventHandler<ActionEvent>() {
+			
+			 public void handle(ActionEvent event) {
+				 /**
+					 * ===================== VERIFICATION USEFORGE =====================
+					 */
 
-		        @Override
-		        public void webViewCanBeClosed(WebView webView)
-		        {
-		        	new ZoomOutLeft(webView).play();
-		        	LauncherMain.getContentPane().getChildren().remove(webView);
-		        }
-
-		        @Override
-		        public Consumer<AuthInfo> onAuthFinished()
-		        {
-		        	if((boolean) config.getValue("useforge"))
+					if((boolean) config.getValue("useforge"))
 					{
 						LauncherMain.getGameLinks().JSON_NAME = config.getValue("version") + ".json";
 						switch(engine.getGameLinks().JSON_NAME)
@@ -265,108 +259,76 @@ public class LauncherPanel extends IScreen{
 							case "1.9.json":
 								LauncherMain.gameLinks = new GameLinks("https://majestycraft.com/minecraft/1.9/", "1.9.json");
 								engine.setGameStyle(GameStyle.OPTIFINE);
-								LauncherMain.gameForge = new GameForge("fmlclient", "#1938", "1.9", "net.minecraft.launchwrapper.Launch", "20200515.085601");
+								LauncherMain.gameForge = new GameForge(Forge.DEFAULT, "1.9", "#1938", "20200515.085601");
 								break;
 							case "1.10.2.json":
 								LauncherMain.gameLinks = new GameLinks("https://majestycraft.com/minecraft/1.10.2/", "1.10.2.json");
 								engine.setGameStyle(GameStyle.OPTIFINE);
-								LauncherMain.gameForge = new GameForge("fmlclient", "#2511", "1.10.2", "net.minecraft.launchwrapper.Launch", "20200515.085601");
+								LauncherMain.gameForge = new GameForge(Forge.DEFAULT, "1.10.2", "#2511", "20200515.085601");
 								break;
 							case "1.11.2.json":
 								LauncherMain.gameLinks = new GameLinks("https://majestycraft.com/minecraft/1.11.2/", "1.11.2.json");
 								engine.setGameStyle(GameStyle.OPTIFINE);
-								LauncherMain.gameForge = new GameForge("fmlclient", "#2588", "1.11.2", "net.minecraft.launchwrapper.Launch", "20200515.085601");
+								LauncherMain.gameForge = new GameForge(Forge.DEFAULT, "1.11.2", "#2588", "20200515.085601");
 								break;
 							case "1.12.2.json":
 								LauncherMain.gameLinks = new GameLinks("https://majestycraft.com/minecraft/1.12.2/", "1.12.2.json");
 								engine.setGameStyle(GameStyle.OPTIFINE);
-								LauncherMain.gameForge = new GameForge("fmlclient", "#2847", "1.12.2", "net.minecraft.launchwrapper.Launch", "20200515.085601");
+								LauncherMain.gameForge = new GameForge(Forge.DEFAULT, "1.12.2", "#2847", "20200515.085601");
 								break;
 							case "1.13.2.json":
 								LauncherMain.gameLinks = new GameLinks("https://majestycraft.com/minecraft/1.13.2/", "1.13.2.json");
 								engine.setGameStyle(GameStyle.OPTIFINE);
-								LauncherMain.gameForge = new GameForge("fmlclient", "28.2.23", "1.13.2", "net.minecraft.launchwrapper.Launch", "20200515.085601");
+								LauncherMain.gameForge = new GameForge(Forge.DEFAULT, "1.13.2", "28.2.23", "20200515.085601");
 								break;
 							case "1.14.4.json":
 								LauncherMain.gameLinks = new GameLinks("https://majestycraft.com/minecraft/1.14.4/", "1.14.4.json");
 								engine.setGameStyle(GameStyle.OPTIFINE);
-								LauncherMain.gameForge = new GameForge("fmlclient", "28.2.23", "1.14.4", "net.minecraft.launchwrapper.Launch", "20200515.085601");
+								LauncherMain.gameForge = new GameForge(Forge.DEFAULT, "1.14.4", "28.2.23", "20200515.085601");
 								break;
 							case "1.15.2.json":
 								LauncherMain.gameLinks = new GameLinks("https://majestycraft.com/minecraft/1.15.2/", "1.15.2.json");
 								engine.setGameStyle(GameStyle.OPTIFINE);
-								LauncherMain.gameForge = new GameForge("fmlclient", "31.2.45", "1.15.2", "net.minecraft.launchwrapper.Launch", "20200515.085601");
+								LauncherMain.gameForge = new GameForge(Forge.DEFAULT, "1.15.2", "31.2.45", "20200515.085601");
 								break;
 							case "1.16.2.json":
 								engine.setGameStyle(GameStyle.OPTIFINE);
-								LauncherMain.gameForge = new GameForge("fmlclient", "33.0.61", "1.16.2", "net.minecraft.launchwrapper.Launch", "20200812.004259");
+								LauncherMain.gameForge = new GameForge(Forge.DEFAULT, "1.16.2", "33.0.61", "20200812.004259");
 								break;
 							case "1.16.3.json":
 								engine.setGameStyle(GameStyle.OPTIFINE);
-								LauncherMain.gameForge = new GameForge("fmlclient", "34.1.42", "1.16.3", "net.minecraft.launchwrapper.Launch", "20201025.185957");
+								LauncherMain.gameForge = new GameForge(Forge.DEFAULT, "1.16.3", "34.1.42", "20201025.185957");
 								break;
 							case "1.16.4.json":
 								LauncherMain.gameLinks = new GameLinks("https://majestycraft.com/minecraft/1.16.4/", "1.16.4.json");
 								engine.setGameStyle(GameStyle.OPTIFINE);
-								LauncherMain.gameForge = new GameForge("fmlclient", "35.0.1", "1.16.4", "net.minecraft.launchwrapper.Launch", "20200812.004259");
+								LauncherMain.gameForge = new GameForge(Forge.DEFAULT, "1.16.4", "35.0.1", "20200812.004259");
 								break;
 							case "1.16.5.json":
 								LauncherMain.gameLinks = new GameLinks("https://majestycraft.com/minecraft/1.16.5/", "1.16.5.json");
 								engine.setGameStyle(GameStyle.OPTIFINE);
-								LauncherMain.gameForge = new GameForge("fmlclient", "36.0.42", "1.16.5", "net.minecraft.launchwrapper.Launch", "20200812.004259");
+								LauncherMain.gameForge = new GameForge(Forge.DEFAULT, "1.16.5", "36.0.42", "20200812.004259");
 								break;
 							case "1.17.json":
 								LauncherMain.gameLinks = new GameLinks("https://majestycraft.com/minecraft/1.17/", "1.17.json");
 								engine.setGameStyle(GameStyle.OPTIFINE);
-								LauncherMain.gameForge = new GameForge("fmlclient", "36.0.42", "1.17", "net.minecraft.launchwrapper.Launch", "20200812.004259");
+								LauncherMain.gameForge = new GameForge(Forge.DEFAULT, "1.17", "36.0.42", "20200812.004259");
 								break;
 							case "1.17.1.json":
 								LauncherMain.gameLinks = new GameLinks("https://majestycraft.com/minecraft/1.17.1/", "1.17.1.json");
 								engine.setGameStyle(GameStyle.OPTIFINE);
-								LauncherMain.gameForge = new GameForge("fmlclient", "36.0.42", "1.17.1", "net.minecraft.launchwrapper.Launch", "20200812.004259");
+								LauncherMain.gameForge = new GameForge(Forge.DEFAULT, "1.17.1", "36.0.42", "20200812.004259");
 								break;
 						}
 					} else {
 						engine.setGameStyle(GameStyle.VANILLA);
 					}
-		            return (authInfo) -> {
-		                System.out.println(authInfo);
-		                System.out.println(authInfo.getUsername());
-		                System.out.println(authInfo.getUUID());
-		                GameAuth auth = new GameAuth(authInfo.getUsername(), passwordField.getText(),
-								AccountType.MOJANG);
-						if (auth.isLogged()) {
-							update(engine, auth);
-							if((boolean) config.getValue("usePremium") == true) {
-								connectAccountPremiumCO(auth.getSession().getUsername(), root);
-								//connectAccountPremium(auth.getSession().getUsername(), root);
-							}
-						} else {
-							new LauncherAlert("Problème interne", "Merci de contacter le support");
-						}
-		            };
-		        }
-
-		        @Override
-		        public void exceptionCaught(MCMSALException e)
-		        {
-		        	new LauncherAlert("Authentification echouée!",
-							"Impossible de se connecter, l'authentification semble etre une authentification 'en-ligne'"
-									+ "\nAssurez-vous d'utiliser un compte Microsoft.");
-		        }
-
-		        @Override
-		        public double prefWidth()
-		        {
-		            return 405;
-		        }
-
-		        @Override
-		        public double prefHeight()
-		        {
-		            return 405;
-		        }
-		    });
+				 gameAuthentication = new GameAuth(AccountType.MICROSOFT);
+				 showMicrosoftAuth(gameAuthentication);
+				 if (gameAuthentication.isLogged()) {
+					 update(gameAuthentication);
+				 }
+			}
 		});
 		
 		/** ===================== RECTANGLE DES CONNEXIONS ===================== */
@@ -424,65 +386,65 @@ public class LauncherPanel extends IScreen{
 					case "1.9.json":
 						LauncherMain.gameLinks = new GameLinks("https://majestycraft.com/minecraft/1.9/", "1.9.json");
 						engine.setGameStyle(GameStyle.OPTIFINE);
-						LauncherMain.gameForge = new GameForge("fmlclient", "#1938", "1.9", "net.minecraft.launchwrapper.Launch", "20200515.085601");
+						LauncherMain.gameForge = new GameForge(Forge.DEFAULT, "1.9", "#1938", "20200515.085601");
 						break;
 					case "1.10.2.json":
 						LauncherMain.gameLinks = new GameLinks("https://majestycraft.com/minecraft/1.10.2/", "1.10.2.json");
 						engine.setGameStyle(GameStyle.OPTIFINE);
-						LauncherMain.gameForge = new GameForge("fmlclient", "#2511", "1.10.2", "net.minecraft.launchwrapper.Launch", "20200515.085601");
+						LauncherMain.gameForge = new GameForge(Forge.DEFAULT, "1.10.2", "#2511", "20200515.085601");
 						break;
 					case "1.11.2.json":
 						LauncherMain.gameLinks = new GameLinks("https://majestycraft.com/minecraft/1.11.2/", "1.11.2.json");
 						engine.setGameStyle(GameStyle.OPTIFINE);
-						LauncherMain.gameForge = new GameForge("fmlclient", "#2588", "1.11.2", "net.minecraft.launchwrapper.Launch", "20200515.085601");
+						LauncherMain.gameForge = new GameForge(Forge.DEFAULT, "1.11.2", "#2588", "20200515.085601");
 						break;
 					case "1.12.2.json":
 						LauncherMain.gameLinks = new GameLinks("https://majestycraft.com/minecraft/1.12.2/", "1.12.2.json");
 						engine.setGameStyle(GameStyle.OPTIFINE);
-						LauncherMain.gameForge = new GameForge("fmlclient", "#2847", "1.12.2", "net.minecraft.launchwrapper.Launch", "20200515.085601");
+						LauncherMain.gameForge = new GameForge(Forge.DEFAULT, "1.12.2", "#2847", "20200515.085601");
 						break;
 					case "1.13.2.json":
 						LauncherMain.gameLinks = new GameLinks("https://majestycraft.com/minecraft/1.13.2/", "1.13.2.json");
 						engine.setGameStyle(GameStyle.OPTIFINE);
-						LauncherMain.gameForge = new GameForge("fmlclient", "28.2.23", "1.13.2", "net.minecraft.launchwrapper.Launch", "20200515.085601");
+						LauncherMain.gameForge = new GameForge(Forge.DEFAULT, "1.13.2", "28.2.23", "20200515.085601");
 						break;
 					case "1.14.4.json":
 						LauncherMain.gameLinks = new GameLinks("https://majestycraft.com/minecraft/1.14.4/", "1.14.4.json");
 						engine.setGameStyle(GameStyle.OPTIFINE);
-						LauncherMain.gameForge = new GameForge("fmlclient", "28.2.23", "1.14.4", "net.minecraft.launchwrapper.Launch", "20200515.085601");
+						LauncherMain.gameForge = new GameForge(Forge.DEFAULT, "1.14.4", "28.2.23", "20200515.085601");
 						break;
 					case "1.15.2.json":
 						LauncherMain.gameLinks = new GameLinks("https://majestycraft.com/minecraft/1.15.2/", "1.15.2.json");
 						engine.setGameStyle(GameStyle.OPTIFINE);
-						LauncherMain.gameForge = new GameForge("fmlclient", "31.2.45", "1.15.2", "net.minecraft.launchwrapper.Launch", "20200515.085601");
+						LauncherMain.gameForge = new GameForge(Forge.DEFAULT, "1.15.2", "31.2.45", "20200515.085601");
 						break;
 					case "1.16.2.json":
 						engine.setGameStyle(GameStyle.OPTIFINE);
-						LauncherMain.gameForge = new GameForge("fmlclient", "33.0.61", "1.16.2", "net.minecraft.launchwrapper.Launch", "20200812.004259");
+						LauncherMain.gameForge = new GameForge(Forge.DEFAULT, "1.16.2", "33.0.61", "20200812.004259");
 						break;
 					case "1.16.3.json":
 						engine.setGameStyle(GameStyle.OPTIFINE);
-						LauncherMain.gameForge = new GameForge("fmlclient", "34.1.42", "1.16.3", "net.minecraft.launchwrapper.Launch", "20201025.185957");
+						LauncherMain.gameForge = new GameForge(Forge.DEFAULT, "1.16.3", "34.1.42", "20201025.185957");
 						break;
 					case "1.16.4.json":
 						LauncherMain.gameLinks = new GameLinks("https://majestycraft.com/minecraft/1.16.4/", "1.16.4.json");
 						engine.setGameStyle(GameStyle.OPTIFINE);
-						LauncherMain.gameForge = new GameForge("fmlclient", "35.0.1", "1.16.4", "net.minecraft.launchwrapper.Launch", "20200812.004259");
+						LauncherMain.gameForge = new GameForge(Forge.DEFAULT, "1.16.4", "35.0.1", "20200812.004259");
 						break;
 					case "1.16.5.json":
 						LauncherMain.gameLinks = new GameLinks("https://majestycraft.com/minecraft/1.16.5/", "1.16.5.json");
 						engine.setGameStyle(GameStyle.OPTIFINE);
-						LauncherMain.gameForge = new GameForge("fmlclient", "36.0.42", "1.16.5", "net.minecraft.launchwrapper.Launch", "20200812.004259");
+						LauncherMain.gameForge = new GameForge(Forge.DEFAULT, "1.16.5", "36.0.42", "20200812.004259");
 						break;
 					case "1.17.json":
 						LauncherMain.gameLinks = new GameLinks("https://majestycraft.com/minecraft/1.17/", "1.17.json");
 						engine.setGameStyle(GameStyle.OPTIFINE);
-						LauncherMain.gameForge = new GameForge("fmlclient", "36.0.42", "1.17", "net.minecraft.launchwrapper.Launch", "20200812.004259");
+						LauncherMain.gameForge = new GameForge(Forge.DEFAULT, "1.17", "36.0.42", "20200812.004259");
 						break;
 					case "1.17.1.json":
 						LauncherMain.gameLinks = new GameLinks("https://majestycraft.com/minecraft/1.17.1/", "1.17.1.json");
 						engine.setGameStyle(GameStyle.OPTIFINE);
-						LauncherMain.gameForge = new GameForge("fmlclient", "36.0.42", "1.17.1", "net.minecraft.launchwrapper.Launch", "20200812.004259");
+						LauncherMain.gameForge = new GameForge(Forge.DEFAULT, "1.17.1", "36.0.42", "20200812.004259");
 						break;
 				}
 			} else {
@@ -499,13 +461,11 @@ public class LauncherPanel extends IScreen{
 				new LauncherAlert("Authentification echouee",
 						"Il y a un probleme lors de la tentative de connexion: Le pseudonyme doit comprendre au moins 3 caracteres.");
 			} else if (usernameField2.getText().length() > 3) {
-				GameAuth auth = new GameAuth(usernameField2.getText(), passwordField.getText(),
-						AccountType.OFFLINE);
-				if (auth.isLogged()) {
-					update(engine, auth);
-					connectAccountCrackCO(root);
-
+				gameAuthentication = new GameAuth(usernameField2.getText(), passwordField.getText(), AccountType.OFFLINE);
+				 if (gameAuthentication.isLogged()) {
+					 update(gameAuthentication);
 				}
+				connectAccountCrackCO(root);
 			}
 		});
 		root.getChildren().add(this.loginButton2);
@@ -603,65 +563,65 @@ public class LauncherPanel extends IScreen{
 					case "1.9.json":
 						LauncherMain.gameLinks = new GameLinks("https://majestycraft.com/minecraft/1.9/", "1.9.json");
 						engine.setGameStyle(GameStyle.OPTIFINE);
-						LauncherMain.gameForge = new GameForge("fmlclient", "#1938", "1.9", "net.minecraft.launchwrapper.Launch", "20200515.085601");
+						LauncherMain.gameForge = new GameForge(Forge.DEFAULT, "1.9", "#1938", "20200515.085601");
 						break;
 					case "1.10.2.json":
 						LauncherMain.gameLinks = new GameLinks("https://majestycraft.com/minecraft/1.10.2/", "1.10.2.json");
 						engine.setGameStyle(GameStyle.OPTIFINE);
-						LauncherMain.gameForge = new GameForge("fmlclient", "#2511", "1.10.2", "net.minecraft.launchwrapper.Launch", "20200515.085601");
+						LauncherMain.gameForge = new GameForge(Forge.DEFAULT, "1.10.2", "#2511", "20200515.085601");
 						break;
 					case "1.11.2.json":
 						LauncherMain.gameLinks = new GameLinks("https://majestycraft.com/minecraft/1.11.2/", "1.11.2.json");
 						engine.setGameStyle(GameStyle.OPTIFINE);
-						LauncherMain.gameForge = new GameForge("fmlclient", "#2588", "1.11.2", "net.minecraft.launchwrapper.Launch", "20200515.085601");
+						LauncherMain.gameForge = new GameForge(Forge.DEFAULT, "1.11.2", "#2588", "20200515.085601");
 						break;
 					case "1.12.2.json":
 						LauncherMain.gameLinks = new GameLinks("https://majestycraft.com/minecraft/1.12.2/", "1.12.2.json");
 						engine.setGameStyle(GameStyle.OPTIFINE);
-						LauncherMain.gameForge = new GameForge("fmlclient", "#2847", "1.12.2", "net.minecraft.launchwrapper.Launch", "20200515.085601");
+						LauncherMain.gameForge = new GameForge(Forge.DEFAULT, "1.12.2", "#2847", "20200515.085601");
 						break;
 					case "1.13.2.json":
 						LauncherMain.gameLinks = new GameLinks("https://majestycraft.com/minecraft/1.13.2/", "1.13.2.json");
 						engine.setGameStyle(GameStyle.OPTIFINE);
-						LauncherMain.gameForge = new GameForge("fmlclient", "28.2.23", "1.13.2", "net.minecraft.launchwrapper.Launch", "20200515.085601");
+						LauncherMain.gameForge = new GameForge(Forge.DEFAULT, "1.13.2", "28.2.23", "20200515.085601");
 						break;
 					case "1.14.4.json":
 						LauncherMain.gameLinks = new GameLinks("https://majestycraft.com/minecraft/1.14.4/", "1.14.4.json");
 						engine.setGameStyle(GameStyle.OPTIFINE);
-						LauncherMain.gameForge = new GameForge("fmlclient", "28.2.23", "1.14.4", "net.minecraft.launchwrapper.Launch", "20200515.085601");
+						LauncherMain.gameForge = new GameForge(Forge.DEFAULT, "1.14.4", "28.2.23", "20200515.085601");
 						break;
 					case "1.15.2.json":
 						LauncherMain.gameLinks = new GameLinks("https://majestycraft.com/minecraft/1.15.2/", "1.15.2.json");
 						engine.setGameStyle(GameStyle.OPTIFINE);
-						LauncherMain.gameForge = new GameForge("fmlclient", "31.2.45", "1.15.2", "net.minecraft.launchwrapper.Launch", "20200515.085601");
+						LauncherMain.gameForge = new GameForge(Forge.DEFAULT, "1.15.2", "31.2.45", "20200515.085601");
 						break;
 					case "1.16.2.json":
 						engine.setGameStyle(GameStyle.OPTIFINE);
-						LauncherMain.gameForge = new GameForge("fmlclient", "33.0.61", "1.16.2", "net.minecraft.launchwrapper.Launch", "20200812.004259");
+						LauncherMain.gameForge = new GameForge(Forge.DEFAULT, "1.16.2", "33.0.61", "20200812.004259");
 						break;
 					case "1.16.3.json":
 						engine.setGameStyle(GameStyle.OPTIFINE);
-						LauncherMain.gameForge = new GameForge("fmlclient", "34.1.42", "1.16.3", "net.minecraft.launchwrapper.Launch", "20201025.185957");
+						LauncherMain.gameForge = new GameForge(Forge.DEFAULT, "1.16.3", "34.1.42", "20201025.185957");
 						break;
 					case "1.16.4.json":
 						LauncherMain.gameLinks = new GameLinks("https://majestycraft.com/minecraft/1.16.4/", "1.16.4.json");
 						engine.setGameStyle(GameStyle.OPTIFINE);
-						LauncherMain.gameForge = new GameForge("fmlclient", "35.0.1", "1.16.4", "net.minecraft.launchwrapper.Launch", "20200812.004259");
+						LauncherMain.gameForge = new GameForge(Forge.DEFAULT, "1.16.4", "35.0.1", "20200812.004259");
 						break;
 					case "1.16.5.json":
 						LauncherMain.gameLinks = new GameLinks("https://majestycraft.com/minecraft/1.16.5/", "1.16.5.json");
 						engine.setGameStyle(GameStyle.OPTIFINE);
-						LauncherMain.gameForge = new GameForge("fmlclient", "36.0.42", "1.16.5", "net.minecraft.launchwrapper.Launch", "20200812.004259");
+						LauncherMain.gameForge = new GameForge(Forge.DEFAULT, "1.16.5", "36.0.42", "20200812.004259");
 						break;
 					case "1.17.json":
 						LauncherMain.gameLinks = new GameLinks("https://majestycraft.com/minecraft/1.17/", "1.17.json");
 						engine.setGameStyle(GameStyle.OPTIFINE);
-						LauncherMain.gameForge = new GameForge("fmlclient", "36.0.42", "1.17", "net.minecraft.launchwrapper.Launch", "20200812.004259");
+						LauncherMain.gameForge = new GameForge(Forge.DEFAULT, "1.17", "36.0.42", "20200812.004259");
 						break;
 					case "1.17.1.json":
 						LauncherMain.gameLinks = new GameLinks("https://majestycraft.com/minecraft/1.17.1/", "1.17.1.json");
 						engine.setGameStyle(GameStyle.OPTIFINE);
-						LauncherMain.gameForge = new GameForge("fmlclient", "36.0.42", "1.17.1", "net.minecraft.launchwrapper.Launch", "20200812.004259");
+						LauncherMain.gameForge = new GameForge(Forge.DEFAULT, "1.17.1", "36.0.42", "20200812.004259");
 						break;
 				
 				}
@@ -679,14 +639,10 @@ public class LauncherPanel extends IScreen{
 			} 
 			/** ===================== AUTHENTIFICATION OFFICIELLE ===================== */
 			if (usernameField.getText().length() > 3 && !passwordField.getText().isEmpty()) {
-				GameAuth auth = new GameAuth(usernameField.getText(), passwordField.getText(),
-						AccountType.MOJANG);
-				if (auth.isLogged()) {
-					update(engine, auth);
-					if((boolean) config.getValue("usePremium") == true) {
-						connectAccountPremiumCO(auth.getSession().getUsername(), root);
-						//connectAccountPremium(auth.getSession().getUsername(), root);
-					}
+				gameAuthentication = new GameAuth(usernameField.getText(), passwordField.getText(), AccountType.MOJANG);
+				if (gameAuthentication.isLogged()) {
+					update(gameAuthentication);
+					connectAccountPremiumCO(usernameField.getText(), root);
 				} else {
 					new LauncherAlert("Authentification echouée!",
 							"Impossible de se connecter, l'authentification semble etre une authentification 'en-ligne'"
@@ -853,65 +809,65 @@ public class LauncherPanel extends IScreen{
 									case "1.9.json":
 										LauncherMain.gameLinks = new GameLinks("https://majestycraft.com/minecraft/1.9/", "1.9.json");
 										engine.setGameStyle(GameStyle.OPTIFINE);
-										LauncherMain.gameForge = new GameForge("fmlclient", "#1938", "1.9", "net.minecraft.launchwrapper.Launch", "20200515.085601");
+										LauncherMain.gameForge = new GameForge(Forge.DEFAULT, "1.9", "#1938", "20200515.085601");
 										break;
 									case "1.10.2.json":
 										LauncherMain.gameLinks = new GameLinks("https://majestycraft.com/minecraft/1.10.2/", "1.10.2.json");
 										engine.setGameStyle(GameStyle.OPTIFINE);
-										LauncherMain.gameForge = new GameForge("fmlclient", "#2511", "1.10.2", "net.minecraft.launchwrapper.Launch", "20200515.085601");
+										LauncherMain.gameForge = new GameForge(Forge.DEFAULT, "1.10.2", "#2511", "20200515.085601");
 										break;
 									case "1.11.2.json":
 										LauncherMain.gameLinks = new GameLinks("https://majestycraft.com/minecraft/1.11.2/", "1.11.2.json");
 										engine.setGameStyle(GameStyle.OPTIFINE);
-										LauncherMain.gameForge = new GameForge("fmlclient", "#2588", "1.11.2", "net.minecraft.launchwrapper.Launch", "20200515.085601");
+										LauncherMain.gameForge = new GameForge(Forge.DEFAULT, "1.11.2", "#2588", "20200515.085601");
 										break;
 									case "1.12.2.json":
 										LauncherMain.gameLinks = new GameLinks("https://majestycraft.com/minecraft/1.12.2/", "1.12.2.json");
 										engine.setGameStyle(GameStyle.OPTIFINE);
-										LauncherMain.gameForge = new GameForge("fmlclient", "#2847", "1.12.2", "net.minecraft.launchwrapper.Launch", "20200515.085601");
+										LauncherMain.gameForge = new GameForge(Forge.DEFAULT, "1.12.2", "#2847", "20200515.085601");
 										break;
 									case "1.13.2.json":
 										LauncherMain.gameLinks = new GameLinks("https://majestycraft.com/minecraft/1.13.2/", "1.13.2.json");
 										engine.setGameStyle(GameStyle.OPTIFINE);
-										LauncherMain.gameForge = new GameForge("fmlclient", "28.2.23", "1.13.2", "net.minecraft.launchwrapper.Launch", "20200515.085601");
+										LauncherMain.gameForge = new GameForge(Forge.DEFAULT, "1.13.2", "28.2.23", "20200515.085601");
 										break;
 									case "1.14.4.json":
 										LauncherMain.gameLinks = new GameLinks("https://majestycraft.com/minecraft/1.14.4/", "1.14.4.json");
 										engine.setGameStyle(GameStyle.OPTIFINE);
-										LauncherMain.gameForge = new GameForge("fmlclient", "28.2.23", "1.14.4", "net.minecraft.launchwrapper.Launch", "20200515.085601");
+										LauncherMain.gameForge = new GameForge(Forge.DEFAULT, "1.14.4", "28.2.23", "20200515.085601");
 										break;
 									case "1.15.2.json":
 										LauncherMain.gameLinks = new GameLinks("https://majestycraft.com/minecraft/1.15.2/", "1.15.2.json");
 										engine.setGameStyle(GameStyle.OPTIFINE);
-										LauncherMain.gameForge = new GameForge("fmlclient", "31.2.45", "1.15.2", "net.minecraft.launchwrapper.Launch", "20200515.085601");
+										LauncherMain.gameForge = new GameForge(Forge.DEFAULT, "1.15.2", "31.2.45", "20200515.085601");
 										break;
 									case "1.16.2.json":
 										engine.setGameStyle(GameStyle.OPTIFINE);
-										LauncherMain.gameForge = new GameForge("fmlclient", "33.0.61", "1.16.2", "net.minecraft.launchwrapper.Launch", "20200812.004259");
+										LauncherMain.gameForge = new GameForge(Forge.DEFAULT, "1.16.2", "33.0.61", "20200812.004259");
 										break;
 									case "1.16.3.json":
 										engine.setGameStyle(GameStyle.OPTIFINE);
-										LauncherMain.gameForge = new GameForge("fmlclient", "34.1.42", "1.16.3", "net.minecraft.launchwrapper.Launch", "20201025.185957");
+										LauncherMain.gameForge = new GameForge(Forge.DEFAULT, "1.16.3", "34.1.42", "20201025.185957");
 										break;
 									case "1.16.4.json":
 										LauncherMain.gameLinks = new GameLinks("https://majestycraft.com/minecraft/1.16.4/", "1.16.4.json");
 										engine.setGameStyle(GameStyle.OPTIFINE);
-										LauncherMain.gameForge = new GameForge("fmlclient", "35.0.1", "1.16.4", "net.minecraft.launchwrapper.Launch", "20200812.004259");
+										LauncherMain.gameForge = new GameForge(Forge.DEFAULT, "1.16.4", "35.0.1", "20200812.004259");
 										break;
 									case "1.16.5.json":
 										LauncherMain.gameLinks = new GameLinks("https://majestycraft.com/minecraft/1.16.5/", "1.16.5.json");
 										engine.setGameStyle(GameStyle.OPTIFINE);
-										LauncherMain.gameForge = new GameForge("fmlclient", "36.0.42", "1.16.5", "net.minecraft.launchwrapper.Launch", "20200812.004259");
+										LauncherMain.gameForge = new GameForge(Forge.DEFAULT, "1.16.5", "36.0.42", "20200812.004259");
 										break;
 									case "1.17.json":
 										LauncherMain.gameLinks = new GameLinks("https://majestycraft.com/minecraft/1.17/", "1.17.json");
 										engine.setGameStyle(GameStyle.OPTIFINE);
-										LauncherMain.gameForge = new GameForge("fmlclient", "36.0.42", "1.17", "net.minecraft.launchwrapper.Launch", "20200812.004259");
+										LauncherMain.gameForge = new GameForge(Forge.DEFAULT, "1.17", "36.0.42", "20200812.004259");
 										break;
 									case "1.17.1.json":
 										LauncherMain.gameLinks = new GameLinks("https://majestycraft.com/minecraft/1.17.1/", "1.17.1.json");
 										engine.setGameStyle(GameStyle.OPTIFINE);
-										LauncherMain.gameForge = new GameForge("fmlclient", "36.0.42", "1.17.1", "net.minecraft.launchwrapper.Launch", "20200812.004259");
+										LauncherMain.gameForge = new GameForge(Forge.DEFAULT, "1.17.1", "36.0.42", "20200812.004259");
 										break;
 								}
 							} else {
@@ -928,14 +884,13 @@ public class LauncherPanel extends IScreen{
 									 * ===================== AUTHENTIFICATION OFFLINE (CRACK) =====================
 									 */
 									if (usernameField2.getText().length() > 3 && passwordField.getText().isEmpty()) {
-										loginButton.fire();
 										autoLoginTimer.cancel();
 										autoLoginLabel.setVisible(false);
 										autoLoginButton.setVisible(false);
 										autoLoginRectangle.setVisible(false);
-										GameAuth auth = new GameAuth(usernameField.getText(), passwordField.getText(),
+										gameAuthentication = new GameAuth(usernameField.getText(), passwordField.getText(),
 												AccountType.OFFLINE);
-										update(engine, auth);
+										update(gameAuthentication);
 
 										
 									}
@@ -943,15 +898,14 @@ public class LauncherPanel extends IScreen{
 									/** ===================== AUTHENTIFICATION OFFICIELLE ===================== */
 									else if (usernameField.getText().length() > 3 && !passwordField.getText().isEmpty()) {
 										autoLoginTimer.cancel();
-										loginButton.fire();
 										autoLoginLabel.setVisible(false);
 										autoLoginButton.setVisible(false);
 										autoLoginRectangle.setVisible(false);
 
-										GameAuth auth = new GameAuth(usernameField.getText(), passwordField.getText(),
+										gameAuthentication = new GameAuth(usernameField.getText(), passwordField.getText(),
 												AccountType.MOJANG);
-										if (auth.isLogged()) {
-											update(engine, auth);
+										if (gameAuthentication.isLogged()) {
+											update(gameAuthentication);
 										} 
 										else {
 											autoLoginLabel.setVisible(false);
@@ -1365,7 +1319,7 @@ public class LauncherPanel extends IScreen{
 		}
 
 		
-	public void update(GameEngine engine, GameAuth auth) {
+	public void update(GameAuth auth) {
 			new ZoomOutDown(this.microsoftButton).setResetOnFinished(false).play();
 			new ZoomOutDown(this.infoButton).setResetOnFinished(false).play();
 			new ZoomOutDown(this.settingsButton).setResetOnFinished(false).play();
@@ -1419,10 +1373,25 @@ public class LauncherPanel extends IScreen{
 			avatar3.setVisible(true);
 			theGameEngine.reg(LauncherMain.gameLinks);
 			theGameEngine.getGameLinks().JSON_URL = theGameEngine.getGameLinks().BASE_URL + this.config.getValue("version") + ".json";
-			this.gameUpdater.reg(engine);
+			this.gameUpdater.reg(theGameEngine);
 			this.gameUpdater.reg(auth.getSession());
 			
-			
+			/**
+			 * Change settings in GameEngine from launcher_config.json
+			 */
+			theGameEngine.reg(GameMemory.getMemory(Double.parseDouble((String) this.config.getValue("allocatedram"))));
+			theGameEngine.reg(GameSize.getWindowSize(Integer.parseInt((String) this.config.getValue("gamesize"))));
+			boolean useVmArgs = (Boolean)config.getValue("usevmarguments");
+			String vmArgs = (String) config.getValue("vmarguments");
+			String[] s = null;
+			if (useVmArgs) {
+				if (vmArgs.length() > 3) {
+					s = vmArgs.split(" ");
+				}
+				JVMArguments arguments = new JVMArguments(s);
+				theGameEngine.reg(arguments);
+			}
+			/** END */
 			
 			theGameEngine.reg(this.gameUpdater);
 
@@ -1485,6 +1454,8 @@ public class LauncherPanel extends IScreen{
 			return LauncherMain.getContentPane();
 		}
 		
+		
+		
 		public void update2(GameAuth auth) {
 			gameUpdater.reg(auth.getSession());
 			theGameEngine.reg(this.gameUpdater);
@@ -1494,37 +1465,33 @@ public class LauncherPanel extends IScreen{
 		public static void connectAccountCrack(Pane root)
 		{
 			avatar = new LauncherImage(root, new Image("https://minotar.net/cube/MHF_Steve.png"));
-			avatar.setSize(50, 60);
-			avatar.setPosition(theGameEngine.getWidth() / 2 - 182, theGameEngine.getHeight() / 2- 12);
+			avatar.setBounds(theGameEngine.getWidth() / 2 - 182, theGameEngine.getHeight() / 2- 12, 50, 60);
 		}
 		
 		public static void connectAccountPremium(String username, Pane root) 
 		{
 			avatar = new LauncherImage(root, new Image("https://minotar.net/cube/" + username + ".png"));
-			avatar.setSize(50, 60);
-			avatar.setPosition(theGameEngine.getWidth() / 2 - 182, theGameEngine.getHeight() / 2- 42);
+			avatar.setBounds(theGameEngine.getWidth() / 2 - 182, theGameEngine.getHeight() / 2- 42, 50, 60);
 		}
 		
 		public static void connectAccountPremiumOFF(Pane root) 
 		{
 			avatar = new LauncherImage(root, new Image("https://minotar.net/cube/MHF_Steve.png"));
-			avatar.setSize(50, 60);
-			avatar.setPosition(theGameEngine.getWidth() / 2 - 182, theGameEngine.getHeight() / 2- 42);
+			avatar.setBounds(theGameEngine.getWidth() / 2 - 182, theGameEngine.getHeight() / 2- 42, 50, 60);
 		}
 		
 		public static void connectAccountCrackCO(Pane root)
 		{
 			avatar3 = new LauncherImage(root, new Image("https://minotar.net/body/MHF_Steve.png"));
 			avatar3.setSize(100, 200);
-			avatar3.setPosition(theGameEngine.getWidth() / 2 - 280, theGameEngine.getHeight() / 2 - 90);
+			avatar3.setBounds(theGameEngine.getWidth() / 2 - 280, theGameEngine.getHeight() / 2 - 90, 100, 200);
 			avatar3.setVisible(false);
 		}
 		
 		public static void connectAccountPremiumCO(String username, Pane root) 
 		{
 			avatar3 = new LauncherImage(root, new Image("https://minotar.net/body/" + username + ".png"));
-			avatar3.setSize(100, 200);
-			avatar3.setPosition(theGameEngine.getWidth() / 2 - 280, theGameEngine.getHeight() / 2 - 90);
+			avatar3.setBounds(theGameEngine.getWidth() / 2 - 280, theGameEngine.getHeight() / 2 - 90, 100, 200);
 			avatar3.setVisible(false);
 		}
 		
@@ -1575,4 +1542,24 @@ public class LauncherPanel extends IScreen{
 		public static void setYoutubeButton(LauncherButton youtubeButton) {
 			LauncherPanel.youtubeButton = youtubeButton;
 		}	
+		
+		private void showMicrosoftAuth(GameAuth auth) {
+			 Scene scene = new Scene(createMicrosoftPanel(auth));
+			 Stage stage = new Stage();
+			 scene.setFill(Color.TRANSPARENT);
+			 stage.setResizable(false);
+			 stage.setTitle("Microsoft Authentication");
+			 stage.setWidth(500);
+			 stage.setHeight(600);
+			 stage.setScene(scene);
+			 stage.initModality(Modality.APPLICATION_MODAL);
+			 stage.showAndWait();
+		}
+			 
+		private Parent createMicrosoftPanel(GameAuth auth) {
+			 LauncherPane contentPane = new LauncherPane(theGameEngine);
+			 auth.connectMicrosoft(contentPane);
+			 return contentPane;
+		}
+
 }
