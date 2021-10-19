@@ -14,6 +14,7 @@ import fr.trxyy.alternative.alternative_api.LauncherPreferences;
 import fr.trxyy.alternative.alternative_api.maintenance.GameMaintenance;
 import fr.trxyy.alternative.alternative_api.maintenance.Maintenance;
 import fr.trxyy.alternative.alternative_api.utils.Mover;
+import fr.trxyy.alternative.alternative_api.utils.config.EnumConfig;
 import fr.trxyy.alternative.alternative_api.utils.config.LauncherConfig;
 import fr.trxyy.alternative.alternative_api_ui.LauncherPane;
 import fr.trxyy.alternative.alternative_api_ui.base.AlternativeBase;
@@ -102,7 +103,7 @@ public class LauncherMain extends AlternativeBase{
 	
 	private void readVersion(LauncherPanel panel)
 	{
-		switch((String) panel.config.getValue("version")) 
+		switch((String) panel.config.getValue(EnumConfig.VERSION)) 
 		{	
 			case "1.8":
 				gameLinks.JSON_URL = gameLinks.BASE_URL + "1.8.json";
