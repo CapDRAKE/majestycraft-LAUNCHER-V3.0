@@ -50,6 +50,7 @@ public class LauncherMain extends AlternativeBase{
 	
 	public static void main(String[] args){
 		// TODO Auto-generated method stub
+		//Démarre le launcher
 		Application.launch(args);
 		
 	}
