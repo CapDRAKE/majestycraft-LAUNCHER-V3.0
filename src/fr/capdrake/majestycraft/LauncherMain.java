@@ -24,6 +24,7 @@ import javafx.event.EventHandler;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.shape.Rectangle;
+import javafx.application.Application;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.scene.media.Media;
@@ -49,7 +50,7 @@ public class LauncherMain extends AlternativeBase{
 	
 	public static void main(String[] args){
 		// TODO Auto-generated method stub
-		launch(args);
+		Application.launch(args);
 		
 	}
 	
