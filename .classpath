@@ -18,6 +18,6 @@
 	<classpathentry kind="lib" path="lib/animateFX-1.2.2.jar"/>
 	<classpathentry kind="lib" path="lib/java-discord-rpc-2.0.1.jar"/>
 	<classpathentry kind="lib" path="lib/AlternativeAuth-1.0.2.jar"/>
-	<classpathentry kind="lib" path="lib/AlternativeAPI-1.4.2.jar"/>
+	<classpathentry kind="lib" path="lib/AlternativeAPI-1.4.5.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
