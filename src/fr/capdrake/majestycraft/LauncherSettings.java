@@ -373,19 +373,19 @@ public class LauncherSettings extends IScreen {
 			}
 			else if(i == 13) 
 			{
-				this.versionList.getItems().add("21w14a");
+				this.versionList.getItems().add("21w14a(1.17)");
 			}
 			else if(i == 14)
 			{
-				this.versionList.getItems().add("21w15a");
+				this.versionList.getItems().add("21w15a(1.17)");
 			}
 			else if(i == 15)
 			{
-				this.versionList.getItems().add("1.17");
+				this.versionList.getItems().add("1.17.1");
 			}
 			else if(i == 16)
 			{
-				this.versionList.getItems().add("1.17.1");
+				this.versionList.getItems().add("21w42a");
 			}
 		}
 	}
