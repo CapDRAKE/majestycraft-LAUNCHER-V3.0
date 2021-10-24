@@ -1,2 +1,2 @@
-# majestycraft-LAUNCHER-V1.8
-Version 1.8 du launcher MajestyCraft
+# majestycraft-LAUNCHER-V1.9
+Version 1.9du launcher MajestyCraft
