@@ -14,6 +14,7 @@ import fr.trxyy.alternative.alternative_api.LauncherPreferences;
 import fr.trxyy.alternative.alternative_api.maintenance.GameMaintenance;
 import fr.trxyy.alternative.alternative_api.maintenance.Maintenance;
 import fr.trxyy.alternative.alternative_api.utils.Mover;
+import fr.trxyy.alternative.alternative_api.utils.config.EnumConfig;
 import fr.trxyy.alternative.alternative_api.utils.config.LauncherConfig;
 import fr.trxyy.alternative.alternative_api_ui.LauncherPane;
 import fr.trxyy.alternative.alternative_api_ui.base.AlternativeBase;
@@ -23,6 +24,7 @@ import javafx.event.EventHandler;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.shape.Rectangle;
+import javafx.application.Application;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.scene.media.Media;
@@ -48,7 +50,7 @@ public class LauncherMain extends AlternativeBase{
 	
 	public static void main(String[] args){
 		// TODO Auto-generated method stub
-		launch(args);
+		Application.launch(args);
 		
 	}
 	
@@ -102,7 +104,7 @@ public class LauncherMain extends AlternativeBase{
 	
 	private void readVersion(LauncherPanel panel)
 	{
-		switch((String) panel.config.getValue("version")) 
+		switch((String) panel.config.getValue(EnumConfig.VERSION)) 
 		{	
 			case "1.8":
 				gameLinks.JSON_URL = gameLinks.BASE_URL + "1.8.json";
@@ -146,11 +148,11 @@ public class LauncherMain extends AlternativeBase{
 			case "21w15a":
 				gameLinks.JSON_URL = gameLinks.BASE_URL + "21w15a.json";
 				break;
-			case "1.17":
-				gameLinks.JSON_URL = gameLinks.BASE_URL + "1.17.json";
-				break;
 			case "1.17.1":
 				gameLinks.JSON_URL = gameLinks.BASE_URL + "1.17.1.json";
+				break;
+			case "21w42a":
+				gameLinks.JSON_URL = gameLinks.BASE_URL + "21w42a.json";
 				break;
 			default :
                 panel.config.updateValue("version", gameLinks.getJsonName().replace(".json",""));

@@ -34,6 +34,7 @@ import fr.trxyy.alternative.alternative_api.updater.GameUpdater;
 import fr.trxyy.alternative.alternative_api.utils.FontLoader;
 import fr.trxyy.alternative.alternative_api.utils.Forge;
 import fr.trxyy.alternative.alternative_api.utils.Mover;
+import fr.trxyy.alternative.alternative_api.utils.config.EnumConfig;
 import fr.trxyy.alternative.alternative_api.utils.config.LauncherConfig;
 import fr.trxyy.alternative.alternative_api_ui.LauncherAlert;
 import fr.trxyy.alternative.alternative_api_ui.LauncherPane;
@@ -180,12 +181,12 @@ public class LauncherPanel extends IScreen{
 		this.titleLabel.setVisible(false);
 		
 		// Affiche ou non le statut discord
-		if((boolean) config.getValue("usediscord")) {
+		if((boolean) config.getValue(EnumConfig.USE_DISCORD)) {
 			LauncherMain.discordRPC();
 		}
 		
 		//Music on/off
-		if((boolean) config.getValue("usemusic")) {
+		if((boolean) config.getValue(EnumConfig.USE_MUSIC)) {
 			LauncherMain.muteMusic();
 		}
 		else {
@@ -251,9 +252,9 @@ public class LauncherPanel extends IScreen{
 					 * ===================== VERIFICATION USEFORGE =====================
 					 */
 
-					if((boolean) config.getValue("useforge"))
+					if((boolean) config.getValue(EnumConfig.USE_FORGE))
 					{
-						LauncherMain.getGameLinks().JSON_NAME = config.getValue("version") + ".json";
+						LauncherMain.getGameLinks().JSON_NAME = config.getValue(EnumConfig.VERSION) + ".json";
 						switch(engine.getGameLinks().JSON_NAME)
 						{
 							case "1.9.json":
@@ -358,7 +359,7 @@ public class LauncherPanel extends IScreen{
 		
 		/** ===================== NOM D'UTILISATEUR ===================== */
 		this.usernameField2 = new JFXTextField();
-		this.usernameField2.setText((String)this.config.getValue("username"));
+		this.usernameField2.setText((String)this.config.getValue(EnumConfig.USERNAME));
 		this.usernameField2.getStyleClass().add("input");
 		this.usernameField2.setLayoutX(engine.getWidth() / 2 - 126);
 		this.usernameField2.setLayoutY(engine.getHeight() / 2- 12);
@@ -378,9 +379,9 @@ public class LauncherPanel extends IScreen{
 			 * ===================== VERIFICATION USEFORGE =====================
 			 */
 
-			if((boolean) config.getValue("useforge"))
+			if((boolean) config.getValue(EnumConfig.USE_FORGE))
 			{
-				LauncherMain.getGameLinks().JSON_NAME = config.getValue("version") + ".json";
+				LauncherMain.getGameLinks().JSON_NAME = config.getValue(EnumConfig.VERSION) + ".json";
 				switch(engine.getGameLinks().JSON_NAME)
 				{
 					case "1.9.json":
@@ -478,7 +479,7 @@ public class LauncherPanel extends IScreen{
 		
 		this.rememberMe = new JFXToggleButton();;
 		this.rememberMe.setText("Se souvenir de moi");
-		this.rememberMe.setSelected((boolean) config.getValue("rememberme"));
+		this.rememberMe.setSelected((boolean) config.getValue(EnumConfig.REMEMBER_ME));
 		this.rememberMe.getStyleClass().add("jfx-toggle-button");
 		this.rememberMe.setLayoutX(385);
 		this.rememberMe.setLayoutY(427);
@@ -517,7 +518,7 @@ public class LauncherPanel extends IScreen{
 		this.usernameField.getStyleClass().add("input");
 		this.usernameField.setLayoutX(engine.getWidth() / 2 - 126);
 		this.usernameField.setLayoutY(engine.getHeight() / 2- 42);
-		this.usernameField.setText((String)this.config.getValue("username"));
+		this.usernameField.setText((String)this.config.getValue(EnumConfig.USERNAME));
 		this.usernameField.setFont(FontLoader.loadFont("Roboto-Light.ttf", "Roboto Light", 14F));
 		this.usernameField.setStyle("-fx-background-color: rgba(0 ,0 ,0 , 0.2); -fx-text-fill: orange");
 		root.getChildren().add(this.usernameField);
@@ -532,9 +533,9 @@ public class LauncherPanel extends IScreen{
 		this.passwordField.setPromptText("Mot de passe");
 		
 		//Verif si la case "se souvenir de moi" est coché
-		if((boolean) config.getValue("rememberme") == true) 
+		if((boolean) config.getValue(EnumConfig.REMEMBER_ME) == true) 
 		{
-			passwordField.setText((String) config.getValue("password"));
+			passwordField.setText((String) config.getValue(EnumConfig.PASSWORD));
 		} 
 		else 
 		{
@@ -555,9 +556,9 @@ public class LauncherPanel extends IScreen{
 			 * ===================== VERIFICATION USEFORGE =====================
 			 */
 			
-			if((boolean) config.getValue("useforge"))
+			if((boolean) config.getValue(EnumConfig.USE_FORGE))
 			{
-				LauncherMain.getGameLinks().JSON_NAME = config.getValue("version") + ".json";
+				LauncherMain.getGameLinks().JSON_NAME = config.getValue(EnumConfig.VERSION) + ".json";
 				switch(engine.getGameLinks().JSON_NAME)
 				{
 					case "1.9.json":
@@ -629,7 +630,7 @@ public class LauncherPanel extends IScreen{
 				engine.setGameStyle(GameStyle.VANILLA);
 			}
 			config.updateValue("username", usernameField.getText());
-			if((boolean) config.getValue("rememberme") == true) 
+			if((boolean) config.getValue(EnumConfig.REMEMBER_ME) == true) 
 			{
 				config.updateValue("password", passwordField.getText());
 			} 
@@ -658,7 +659,7 @@ public class LauncherPanel extends IScreen{
 		
 		root.getChildren().add(this.loginButton);
 		
-		if((boolean) config.getValue("rememberme") == true) 
+		if((boolean) config.getValue(EnumConfig.REMEMBER_ME) == true) 
 		{
 			config.updateValue("password", passwordField.getText());
 		} 
@@ -673,7 +674,7 @@ public class LauncherPanel extends IScreen{
         toggleButton.getStyleClass().add("jfx-toggle-button");
         toggleButton.setLayoutX(385);
         toggleButton.setLayoutY(277);
-        toggleButton.setSelected((boolean) config.getValue("usePremium"));
+        toggleButton.setSelected((boolean) config.getValue(EnumConfig.USE_PREMIUM));
         toggleButton.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
@@ -737,7 +738,7 @@ public class LauncherPanel extends IScreen{
 		root.getChildren().add(toggleButton);
 		
 		
-		if((boolean) config.getValue("usePremium") == true) 
+		if((boolean) config.getValue(EnumConfig.USE_PREMIUM) == true) 
 		{
 			new BounceInUp(this.titlePremium).play();
 			this.loginButton2.setVisible(false);
@@ -786,9 +787,9 @@ public class LauncherPanel extends IScreen{
 				autoLoginRectangle.setVisible(false);
 			}
 		});
-		String userName = (String)this.config.getValue("username");
+		String userName = (String)this.config.getValue(EnumConfig.USERNAME);
 		
-		if (userName.length() > 2 && (boolean)this.config.getValue("autologin").equals(true)) {
+		if (userName.length() > 2 && (boolean)this.config.getValue(EnumConfig.AUTOLOGIN).equals(true)) {
 			Platform.runLater(new Runnable() {
 				public void run() {
 					autoLoginTimer = new Timer();
@@ -801,9 +802,9 @@ public class LauncherPanel extends IScreen{
 							/**
 							 * ===================== VERIFICATION USEFORGE =====================
 							 */
-							if((boolean) config.getValue("useforge"))
+							if((boolean) config.getValue(EnumConfig.USE_FORGE))
 							{
-								LauncherMain.getGameLinks().JSON_NAME = config.getValue("version") + ".json";
+								LauncherMain.getGameLinks().JSON_NAME = config.getValue(EnumConfig.VERSION) + ".json";
 								switch(engine.getGameLinks().JSON_NAME)
 								{
 									case "1.9.json":
@@ -1279,7 +1280,7 @@ public class LauncherPanel extends IScreen{
 		this.bar.setVisible(false);
 		root.getChildren().add(this.bar);
 		/** =============== AFFICHAGE DE LA TETE DU JOUEUR =============== **/
-			if((boolean) config.getValue("usePremium") == false) {
+			if((boolean) config.getValue(EnumConfig.USE_PREMIUM) == false) {
 				if(usernameField.getText().contains("@")) {
 					this.usernameField2.setText("");
 				}
@@ -1306,7 +1307,7 @@ public class LauncherPanel extends IScreen{
 					connectAccountCrackCO(root);
 				}
 			}
-			else if((boolean) config.getValue("usePremium") == true){
+			else if((boolean) config.getValue(EnumConfig.USE_PREMIUM) == true){
 				connectAccountPremiumOFF(root);
 				connectAccountCrackCO(root);
 			}
@@ -1372,17 +1373,17 @@ public class LauncherPanel extends IScreen{
 			new ZoomInDown(avatar3).play();
 			avatar3.setVisible(true);
 			theGameEngine.reg(LauncherMain.gameLinks);
-			theGameEngine.getGameLinks().JSON_URL = theGameEngine.getGameLinks().BASE_URL + this.config.getValue("version") + ".json";
+			theGameEngine.getGameLinks().JSON_URL = theGameEngine.getGameLinks().BASE_URL + this.config.getValue(EnumConfig.VERSION) + ".json";
 			this.gameUpdater.reg(theGameEngine);
 			this.gameUpdater.reg(auth.getSession());
 			
 			/**
 			 * Change settings in GameEngine from launcher_config.json
 			 */
-			theGameEngine.reg(GameMemory.getMemory(Double.parseDouble((String) this.config.getValue("allocatedram"))));
-			theGameEngine.reg(GameSize.getWindowSize(Integer.parseInt((String) this.config.getValue("gamesize"))));
-			boolean useVmArgs = (Boolean)config.getValue("usevmarguments");
-			String vmArgs = (String) config.getValue("vmarguments");
+			theGameEngine.reg(GameMemory.getMemory(Double.parseDouble((String) this.config.getValue(EnumConfig.RAM))));
+			theGameEngine.reg(GameSize.getWindowSize(Integer.parseInt((String) this.config.getValue(EnumConfig.GAME_SIZE))));
+			boolean useVmArgs = (Boolean)config.getValue(EnumConfig.USE_VM_ARGUMENTS);
+			String vmArgs = (String) config.getValue(EnumConfig.VM_ARGUMENTS);
 			String[] s = null;
 			if (useVmArgs) {
 				if (vmArgs.length() > 3) {

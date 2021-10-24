@@ -13,6 +13,7 @@ import fr.trxyy.alternative.alternative_api.GameEngine;
 import fr.trxyy.alternative.alternative_api.GameMemory;
 import fr.trxyy.alternative.alternative_api.GameSize;
 import fr.trxyy.alternative.alternative_api.utils.FontLoader;
+import fr.trxyy.alternative.alternative_api.utils.config.EnumConfig;
 import fr.trxyy.alternative.alternative_api_ui.base.IScreen;
 import fr.trxyy.alternative.alternative_api_ui.components.LauncherLabel;
 import fr.trxyy.alternative.alternative_api_ui.components.LauncherRectangle;
@@ -88,8 +89,8 @@ public class LauncherSettings extends IScreen {
 		/** ===================== MC SIZE LIST ===================== */
 		this.windowsSizeList = new JFXComboBox<String>();
 		this.populateSizeList();
-		if (pane.config.getValue("gamesize") != null) {
-			this.windowsSizeList.setValue(GameSize.getWindowSize(Integer.parseInt((String) pane.config.getValue("gamesize"))).getDesc());
+		if (pane.config.getValue(EnumConfig.GAME_SIZE) != null) {
+			this.windowsSizeList.setValue(GameSize.getWindowSize(Integer.parseInt((String) pane.config.getValue(EnumConfig.GAME_SIZE))).getDesc());
 		}
 		this.windowsSizeList.setPrefSize(150, 20);
 		this.windowsSizeList.setLayoutX(490);
@@ -117,8 +118,8 @@ public class LauncherSettings extends IScreen {
 				"    -jfx-default-track: #212121; -fx-pref-height: 10px;");
 		this.memorySlider.setMin(1);
 		this.memorySlider.setMax(10);
-		if (pane.config.getValue("allocatedram") != null) {
-			double d = Double.parseDouble((String) pane.config.getValue("allocatedram"));
+		if (pane.config.getValue(EnumConfig.RAM) != null) {
+			double d = Double.parseDouble((String) pane.config.getValue(EnumConfig.RAM));
 			this.memorySlider.setValue(d);
 		}
 		this.memorySlider.setLayoutX(250);
@@ -157,8 +158,8 @@ public class LauncherSettings extends IScreen {
 		/** ===================== MC VERSION LIST ===================== */
 		this.versionList = new JFXComboBox<String>();
 		this.populateVersionList();
-		if (pane.config.getValue("version") != null) {
-			this.versionList.setValue((String) pane.config.getValue("version"));
+		if (pane.config.getValue(EnumConfig.VERSION) != null) {
+			this.versionList.setValue((String) pane.config.getValue(EnumConfig.VERSION));
 		}
 		this.versionList.setPrefSize(150, 20);
 		this.versionList.setLayoutX(490);
@@ -175,13 +176,13 @@ public class LauncherSettings extends IScreen {
 		
 		/** ===================== VM ARGUMENTS TEXTFIELD ===================== */
 		this.vmArguments = new LauncherTextField(root);
-		this.vmArguments.setText((String) pane.config.getValue("vmarguments"));
+		this.vmArguments.setText((String) pane.config.getValue(EnumConfig.VM_ARGUMENTS));
 		this.vmArguments.setSize(390, 20);
 		this.vmArguments.setPosition(250, 335);
 		/** ===================== CHECKBOX USE VM ARGUMENTS ===================== */
 		this.useVMArguments = new JFXCheckBox();
 		this.useVMArguments.setText("Utiliser les Arguments JVM");
-		this.useVMArguments.setSelected((Boolean)pane.config.getValue("usevmarguments"));
+		this.useVMArguments.setSelected((Boolean)pane.config.getValue(EnumConfig.USE_VM_ARGUMENTS));
 		this.useVMArguments.setOpacity(1.0);
 		this.useVMArguments.setFont(FontLoader.loadFont("Comfortaa-Regular.ttf", "Comfortaa", 14F));
 		this.useVMArguments.setStyle("-fx-text-fill: white; -jfx-checked-color: RED; -jfx-unchecked-color: BLACK");
@@ -203,7 +204,7 @@ public class LauncherSettings extends IScreen {
 		/** ===================== CHECKBOX USE Forge ===================== */
 		this.useForge = new JFXCheckBox();
 		this.useForge.setText("Optifine + Forge");
-		this.useForge.setSelected((boolean) pane.config.getValue("useforge"));
+		this.useForge.setSelected((boolean) pane.config.getValue(EnumConfig.USE_FORGE));
 		this.useForge.setOpacity(1.0);
 		this.useForge.setFont(FontLoader.loadFont("Comfortaa-Regular.ttf", "Comfortaa", 14F));
 		this.useForge.setStyle("-fx-text-fill: white; -jfx-checked-color: RED; -jfx-unchecked-color: BLACK");
@@ -222,7 +223,7 @@ public class LauncherSettings extends IScreen {
 		/** ===================== CHECKBOX Discord statut ===================== */
 		this.useDiscord = new JFXCheckBox();
 		this.useDiscord.setText("Statut discord");
-		this.useDiscord.setSelected((Boolean)pane.config.getValue("usediscord"));
+		this.useDiscord.setSelected((Boolean)pane.config.getValue(EnumConfig.USE_DISCORD));
 		this.useDiscord.setOpacity(1.0);
 		this.useDiscord.setFont(FontLoader.loadFont("Comfortaa-Regular.ttf", "Comfortaa", 14F));
 		this.useDiscord.setStyle("-fx-text-fill: white; -jfx-checked-color: RED; -jfx-unchecked-color: BLACK");
@@ -241,7 +242,7 @@ public class LauncherSettings extends IScreen {
 		/** ===================== AUTO LOGIN CHECK BOX ===================== */
 		this.autoLogin = new JFXCheckBox();
 		this.autoLogin.setText("Connexion automatique");
-		this.autoLogin.setSelected((Boolean)pane.config.getValue("autologin"));
+		this.autoLogin.setSelected((Boolean)pane.config.getValue(EnumConfig.AUTOLOGIN));
 		this.autoLogin.setFont(FontLoader.loadFont("Comfortaa-Regular.ttf", "Comfortaa", 14F));
 		this.autoLogin.setStyle("-fx-text-fill: white; -jfx-checked-color: RED; -jfx-unchecked-color: BLACK");
 		this.autoLogin.setLayoutX(250);
@@ -251,7 +252,7 @@ public class LauncherSettings extends IScreen {
 		/** ===================== AUTO LOGIN CHECK BOX ===================== */
 		this.useMusic = new JFXCheckBox();
 		this.useMusic.setText("Couper la musique");
-		this.useMusic.setSelected((Boolean)pane.config.getValue("usemusic"));
+		this.useMusic.setSelected((Boolean)pane.config.getValue(EnumConfig.USE_MUSIC));
 		this.useMusic.setFont(FontLoader.loadFont("Comfortaa-Regular.ttf", "Comfortaa", 14F));
 		this.useMusic.setStyle("-fx-text-fill: white; -jfx-checked-color: RED; -jfx-unchecked-color: BLACK");
 		this.useMusic.setLayoutX(250);
@@ -290,9 +291,9 @@ public class LauncherSettings extends IScreen {
 				configMap.put("usemusic", "" + useMusic.isSelected());
 				configMap.put("usediscord", ""+ useDiscord.isSelected());
 				pane.config.updateValues(configMap);
-				engine.reg(GameMemory.getMemory(Double.parseDouble((String) pane.config.getValue("allocatedram"))));
-				engine.reg(GameSize.getWindowSize(Integer.parseInt((String) pane.config.getValue("gamesize"))));
-				engine.getGameLinks().JSON_NAME = (String) pane.config.getValue("version") + ".json";
+				engine.reg(GameMemory.getMemory(Double.parseDouble((String) pane.config.getValue(EnumConfig.RAM))));
+				engine.reg(GameSize.getWindowSize(Integer.parseInt((String) pane.config.getValue(EnumConfig.GAME_SIZE))));
+				engine.getGameLinks().JSON_NAME = (String) pane.config.getValue(EnumConfig.VERSION) + ".json";
 				engine.getGameLinks().JSON_URL = engine.getGameLinks().BASE_URL + engine.getGameLinks().JSON_NAME;	
 				engine.reg(engine.getGameLinks());
 				engine.reg(engine.getGameStyle());
@@ -372,19 +373,19 @@ public class LauncherSettings extends IScreen {
 			}
 			else if(i == 13) 
 			{
-				this.versionList.getItems().add("21w14a");
+				this.versionList.getItems().add("21w14a(1.17)");
 			}
 			else if(i == 14)
 			{
-				this.versionList.getItems().add("21w15a");
+				this.versionList.getItems().add("21w15a(1.17)");
 			}
 			else if(i == 15)
 			{
-				this.versionList.getItems().add("1.17");
+				this.versionList.getItems().add("1.17.1");
 			}
 			else if(i == 16)
 			{
-				this.versionList.getItems().add("1.17.1");
+				this.versionList.getItems().add("21w42a");
 			}
 		}
 	}
