@@ -321,7 +321,7 @@ public class LauncherSettings extends IScreen {
 	
 	private void populateVersionList() 
 	{
-		for(int i = 1; i < 17; i++) 
+		for(int i = 1; i < 20; i++) 
 		{
 			if(i == 1) 
 			{
@@ -371,21 +371,33 @@ public class LauncherSettings extends IScreen {
 			{
 				this.versionList.getItems().add("1.16.5");
 			}
-			else if(i == 13) 
-			{
-				this.versionList.getItems().add("21w14a(1.17)");
-			}
-			else if(i == 14)
-			{
-				this.versionList.getItems().add("21w15a(1.17)");
-			}
-			else if(i == 15)
+			else if(i == 13)
 			{
 				this.versionList.getItems().add("1.17.1");
 			}
-			else if(i == 16)
+			else if(i == 14)
 			{
 				this.versionList.getItems().add("21w42a");
+			}
+			else if(i == 15)
+			{
+				this.versionList.getItems().add("21w43a");
+			}
+			else if(i == 16)
+			{
+				this.versionList.getItems().add("21w44a");
+			}
+			else if(i == 17)
+			{
+				this.versionList.getItems().add("1.18-pre1");
+			}
+			else if(i == 18)
+			{
+				this.versionList.getItems().add("1.18-pre2");
+			}
+			else if(i == 19)
+			{
+				this.versionList.getItems().add("1.18-pre3");
 			}
 		}
 	}

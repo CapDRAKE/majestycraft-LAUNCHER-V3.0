@@ -5,6 +5,7 @@ import java.io.IOException;
 import club.minnced.discord.rpc.DiscordEventHandlers;
 import club.minnced.discord.rpc.DiscordRPC;
 import club.minnced.discord.rpc.DiscordRichPresence;
+import fr.trxyy.alternative.alternative_api.GameConnect;
 import fr.trxyy.alternative.alternative_api.GameEngine;
 import fr.trxyy.alternative.alternative_api.GameFolder;
 import fr.trxyy.alternative.alternative_api.GameForge;
@@ -38,11 +39,11 @@ public class LauncherMain extends AlternativeBase{
 	private Scene scene;
 	private GameFolder gameFolder = new GameFolder("majestycraft");
 	private LauncherPreferences launcherPreferences = new LauncherPreferences("Launcher MajestyCraft Optifine + Forge", 1050, 750, Mover.MOVE);
-	public static GameLinks gameLinks = new GameLinks("https://majestycraft.com/minecraft/", "1.16.2.json");
+	public static GameLinks gameLinks = new GameLinks("https://majestycraft.com/minecraft/", "1.17.1.json");
 	private GameEngine gameEngine = new GameEngine(this.gameFolder, LauncherMain.gameLinks, this.launcherPreferences, GameStyle.VANILLA);
 	public static GameForge gameForge;
 	private GameMaintenance gameMaintenance = new GameMaintenance(Maintenance.USE, gameEngine);
-	//private GameConnect gameConnect = new GameConnect("46.105.32.110", "25662");
+	//private GameConnect gameConnect = new GameConnect("178.32.122.178", "25566");
 	public static Media media;
 	private static MediaPlayer mediaPlayer;
 	public LauncherConfig config;
@@ -61,6 +62,7 @@ public class LauncherMain extends AlternativeBase{
 		createContent();
 		this.gameEngine.reg(primaryStage);  
 		this.gameEngine.reg(this.gameMaintenance);
+		//this.gameEngine.reg(this.gameConnect);
 		LauncherBase launcherBase = new LauncherBase(primaryStage, scene, StageStyle.TRANSPARENT, this.gameEngine);
 		launcherBase.setIconImage(primaryStage,  "server-icon.png");
 	}
@@ -142,17 +144,26 @@ public class LauncherMain extends AlternativeBase{
 			case "1.16.5":
 				gameLinks.JSON_URL = gameLinks.BASE_URL + "1.16.5.json";
 				break;
-			case "21w14a":
-				gameLinks.JSON_URL = gameLinks.BASE_URL + "21w14a.json";
-				break;
-			case "21w15a":
-				gameLinks.JSON_URL = gameLinks.BASE_URL + "21w15a.json";
-				break;
 			case "1.17.1":
 				gameLinks.JSON_URL = gameLinks.BASE_URL + "1.17.1.json";
 				break;
 			case "21w42a":
 				gameLinks.JSON_URL = gameLinks.BASE_URL + "21w42a.json";
+				break;
+			case "21w43a":
+				gameLinks.JSON_URL = gameLinks.BASE_URL + "21w43a.json";
+				break;
+			case "21w44a":
+				gameLinks.JSON_URL = gameLinks.BASE_URL + "21w44a.json";
+				break;
+			case "1.18-pre1":
+				gameLinks.JSON_URL = gameLinks.BASE_URL + "1.18-pre1.json";
+				break;
+			case "1.18-pre2":
+				gameLinks.JSON_URL = gameLinks.BASE_URL + "1.18-pre2.json";
+				break;
+			case "1.18-pre3":
+				gameLinks.JSON_URL = gameLinks.BASE_URL + "1.18-pre3.json";
 				break;
 			default :
                 panel.config.updateValue("version", gameLinks.getJsonName().replace(".json",""));
@@ -180,7 +191,7 @@ public class LauncherMain extends AlternativeBase{
 		presence.largeImageKey = "image";
 		presence.largeImageText = "MajestyCraft, Launcher Gratuit Crack/Premium";
 		presence.details = "Launcher MajestyCraft";
-		presence.state = "Version : 1.7 => 1.17.1";
+		presence.state = "Version : 1.8 => 1.17.1";
 		
 		discord.Discord_UpdatePresence(presence);
 	}
