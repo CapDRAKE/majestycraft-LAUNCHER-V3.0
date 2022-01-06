@@ -5,7 +5,6 @@ import java.io.IOException;
 import club.minnced.discord.rpc.DiscordEventHandlers;
 import club.minnced.discord.rpc.DiscordRPC;
 import club.minnced.discord.rpc.DiscordRichPresence;
-import fr.trxyy.alternative.alternative_api.GameConnect;
 import fr.trxyy.alternative.alternative_api.GameEngine;
 import fr.trxyy.alternative.alternative_api.GameFolder;
 import fr.trxyy.alternative.alternative_api.GameForge;
@@ -38,7 +37,7 @@ public class LauncherMain extends AlternativeBase{
 	public static LauncherPane contentPane;
 	private Scene scene;
 	private GameFolder gameFolder = new GameFolder("majestycraft");
-	private LauncherPreferences launcherPreferences = new LauncherPreferences("Launcher MajestyCraft Optifine + Forge", 1050, 750, Mover.MOVE);
+	private LauncherPreferences launcherPreferences = new LauncherPreferences("MajestyLauncher Optifine + Forge", 1050, 750, Mover.MOVE);
 	public static GameLinks gameLinks = new GameLinks("https://majestycraft.com/minecraft/", "1.18.1.json");
 	private GameEngine gameEngine = new GameEngine(this.gameFolder, LauncherMain.gameLinks, this.launcherPreferences, GameStyle.VANILLA);
 	public static GameForge gameForge;

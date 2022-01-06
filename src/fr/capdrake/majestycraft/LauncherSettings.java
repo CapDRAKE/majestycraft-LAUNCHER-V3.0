@@ -39,7 +39,8 @@ public class LauncherSettings extends IScreen {
 	private JFXComboBox<String> versionList;
 	private LauncherLabel versionListLabel;
 	private JFXCheckBox autoLogin;
-	private JFXCheckBox useForge;
+	public static JFXCheckBox useForge;
+	private JFXCheckBox useOptifine;
 	private JFXCheckBox useDiscord;
 	private JFXCheckBox useMusic;
 	private JFXCheckBox useVMArguments;
@@ -51,6 +52,7 @@ public class LauncherSettings extends IScreen {
 	
 	public LauncherSettings(final Pane root, final GameEngine engine, final LauncherPanel pane) {
 		
+		//String version = (String) pane.config.getValue(EnumConfig.VERSION);
 		/** ===================== BOUGER LE MENU PARAMETRE ===================== */
 		//Cet évent nous permet de récupérer les valeurs en x et en y initiales.
 		root.setOnMousePressed(event -> 
@@ -169,7 +171,16 @@ public class LauncherSettings extends IScreen {
 
 			@Override
 			public void handle(ActionEvent event) {
+				if(versionList.getValue() == "1.8" || versionList.getValue() == "1.16.2" || versionList.getValue() == "1.16.3" || versionList.getValue() == "1.16.4" || versionList.getValue() == "1.16.5" || versionList.getValue() == "1.17" || versionList.getValue() == "1.17.1"|| versionList.getValue() == "1.18"|| versionList.getValue() == "1.18.1") {
+					LauncherSettings.useForge.setDisable(true);
+					LauncherSettings.useForge.setSelected(false);
+					pane.config.updateValue("useforge", false);
+				}
+				else {
+					LauncherSettings.useForge.setDisable(false);
+				}
 				pane.config.updateValue("version", versionList.getValue());
+
 			}
 		});
 		root.getChildren().add(this.versionList);
@@ -178,7 +189,7 @@ public class LauncherSettings extends IScreen {
 		this.vmArguments = new LauncherTextField(root);
 		this.vmArguments.setText((String) pane.config.getValue(EnumConfig.VM_ARGUMENTS));
 		this.vmArguments.setSize(390, 20);
-		this.vmArguments.setPosition(250, 335);
+		this.vmArguments.setPosition(250, 425);
 		/** ===================== CHECKBOX USE VM ARGUMENTS ===================== */
 		this.useVMArguments = new JFXCheckBox();
 		this.useVMArguments.setText("Utiliser les Arguments JVM");
@@ -187,7 +198,7 @@ public class LauncherSettings extends IScreen {
 		this.useVMArguments.setFont(FontLoader.loadFont("Comfortaa-Regular.ttf", "Comfortaa", 14F));
 		this.useVMArguments.setStyle("-fx-text-fill: white; -jfx-checked-color: RED; -jfx-unchecked-color: BLACK");
 		this.useVMArguments.setLayoutX(250);
-		this.useVMArguments.setLayoutY(305);
+		this.useVMArguments.setLayoutY(395);
 		this.useVMArguments.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent event) {
 				if (useVMArguments.isSelected()) {
@@ -201,23 +212,42 @@ public class LauncherSettings extends IScreen {
 		root.getChildren().add(useVMArguments);
 		this.vmArguments.setDisable(!this.useVMArguments.isSelected());
 		
+		/** ===================== CHECKBOX USE Optifine ===================== */
+		this.useOptifine = new JFXCheckBox();
+		this.useOptifine.setText("Optifine");
+		this.useOptifine.setSelected((boolean) pane.config.getValue(EnumConfig.USE_OPTIFINE));
+		this.useOptifine.setOpacity(1.0);
+		this.useOptifine.setFont(FontLoader.loadFont("Comfortaa-Regular.ttf", "Comfortaa", 14F));
+		this.useOptifine.setStyle("-fx-text-fill: white; -jfx-checked-color: RED; -jfx-unchecked-color: BLACK");
+		this.useOptifine.setLayoutX(500);
+		this.useOptifine.setLayoutY(305);		
+		this.useOptifine.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				pane.config.updateValue("useOptifine", useOptifine.isSelected());
+			}
+		});
+		root.getChildren().add(this.useOptifine);
+		
+		
 		/** ===================== CHECKBOX USE Forge ===================== */
-		this.useForge = new JFXCheckBox();
-		this.useForge.setText("Optifine + Forge");
-		this.useForge.setSelected((boolean) pane.config.getValue(EnumConfig.USE_FORGE));
-		this.useForge.setOpacity(1.0);
-		this.useForge.setFont(FontLoader.loadFont("Comfortaa-Regular.ttf", "Comfortaa", 14F));
-		this.useForge.setStyle("-fx-text-fill: white; -jfx-checked-color: RED; -jfx-unchecked-color: BLACK");
-		this.useForge.setLayoutX(500);
-		this.useForge.setLayoutY(305);		
-		this.useForge.setOnAction(new EventHandler<ActionEvent>() {
+		useForge = new JFXCheckBox();
+		useForge.setText("Forge (BETA 1.9 -> 1.15.2)");
+		useForge.setSelected((boolean) pane.config.getValue(EnumConfig.USE_FORGE));
+		useForge.setOpacity(1.0);
+		useForge.setFont(FontLoader.loadFont("Comfortaa-Regular.ttf", "Comfortaa", 14F));
+		useForge.setStyle("-fx-text-fill: white; -jfx-checked-color: RED; -jfx-unchecked-color: BLACK");
+		useForge.setLayoutX(250);
+		useForge.setLayoutY(305);		
+		useForge.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
 			public void handle(ActionEvent event) {
 				pane.config.updateValue("useforge", useForge.isSelected());
 			}
 		});
-		root.getChildren().add(this.useForge);
+		root.getChildren().add(useForge);
 		
 		
 		/** ===================== CHECKBOX Discord statut ===================== */
@@ -228,7 +258,7 @@ public class LauncherSettings extends IScreen {
 		this.useDiscord.setFont(FontLoader.loadFont("Comfortaa-Regular.ttf", "Comfortaa", 14F));
 		this.useDiscord.setStyle("-fx-text-fill: white; -jfx-checked-color: RED; -jfx-unchecked-color: BLACK");
 		this.useDiscord.setLayoutX(500);
-		this.useDiscord.setLayoutY(380);
+		this.useDiscord.setLayoutY(335);
 		this.useDiscord.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
@@ -246,7 +276,7 @@ public class LauncherSettings extends IScreen {
 		this.autoLogin.setFont(FontLoader.loadFont("Comfortaa-Regular.ttf", "Comfortaa", 14F));
 		this.autoLogin.setStyle("-fx-text-fill: white; -jfx-checked-color: RED; -jfx-unchecked-color: BLACK");
 		this.autoLogin.setLayoutX(250);
-		this.autoLogin.setLayoutY(380);
+		this.autoLogin.setLayoutY(335);
 		root.getChildren().add(autoLogin);
 		
 		/** ===================== AUTO LOGIN CHECK BOX ===================== */
@@ -256,7 +286,7 @@ public class LauncherSettings extends IScreen {
 		this.useMusic.setFont(FontLoader.loadFont("Comfortaa-Regular.ttf", "Comfortaa", 14F));
 		this.useMusic.setStyle("-fx-text-fill: white; -jfx-checked-color: RED; -jfx-unchecked-color: BLACK");
 		this.useMusic.setLayoutX(250);
-		this.useMusic.setLayoutY(410);
+		this.useMusic.setLayoutY(365);
 		this.useMusic.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent event) {
 				pane.config.updateValue("usemusic", useMusic.isSelected());

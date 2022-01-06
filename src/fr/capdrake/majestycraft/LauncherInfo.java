@@ -27,12 +27,19 @@ public class LauncherInfo extends IScreen {
 	private LauncherLabel REM;
 	private LauncherLabel REM2;
 	private LauncherLabel version;
+	
+	private LauncherLabel CHANGE1;
+	private LauncherLabel CHANGE2;
+	private LauncherLabel CHANGE3;
+	private LauncherLabel CHANGE4;
+	//private LauncherLabel CHANGE5;
+	//private LauncherLabel CHANGE6;
+	private LauncherLabel changelogs;
 	private Slider volume;
 	
 	private LauncherRectangle topRectangle;
 	
 	private LauncherButton quitterButton;
-
 	
 	
 	public LauncherInfo(final Pane root, final GameEngine engine, final LauncherPanel pane) {
@@ -110,22 +117,72 @@ public class LauncherInfo extends IScreen {
 		this.REM2.setSize(1000,  40);
 		this.REM2.setVisible(true);
 		
+		/** ===================== TITRE CHANGELOGS ===================== */
+		this.changelogs = new LauncherLabel(root);
+		this.changelogs.setText("Changelogs");
+		this.changelogs.setFont(Font.font("FontName", FontWeight.BOLD, 24d));
+		this.changelogs.setStyle("-fx-background-color: transparent; -fx-text-fill: orange");
+		this.changelogs.setPosition(engine.getWidth() / 2 - 479, engine.getHeight() / 2-60);
+		this.changelogs.setOpacity(0.7);
+		this.changelogs.setSize(500,  40);
+		this.changelogs.setVisible(true);
+		
+		/** ===================== changelogs 1 ===================== */
+		this.CHANGE1 = new LauncherLabel(root);
+		this.CHANGE1.setText("- Ajout de FORGE en BETA (1.9 -> 1.15.2)");
+		this.CHANGE1.setFont(Font.font("FontName", FontWeight.BOLD, 20d));
+		this.CHANGE1.setStyle("-fx-text-fill: white;");
+		this.CHANGE1.setPosition(engine.getWidth() / 2 - 449, engine.getHeight() / 2 - 20);
+		this.CHANGE1.setOpacity(0.7);
+		this.CHANGE1.setSize(1000,  40);
+		this.CHANGE1.setVisible(true);
+		
+		/** ===================== changelogs 2 ===================== */
+		this.CHANGE2 = new LauncherLabel(root);
+		this.CHANGE2.setText("- Ajout des changelogs dans l'onglet informations");
+		this.CHANGE2.setFont(Font.font("FontName", FontWeight.BOLD, 20d));
+		this.CHANGE2.setStyle("-fx-text-fill: white;");
+		this.CHANGE2.setPosition(engine.getWidth() / 2 - 449, engine.getHeight() / 2 + 20);
+		this.CHANGE2.setOpacity(0.7);
+		this.CHANGE2.setSize(1000,  40);
+		this.CHANGE2.setVisible(true);
+		
+		/** ===================== changelogs 3 ===================== */
+		this.CHANGE3 = new LauncherLabel(root);
+		this.CHANGE3.setText("- Modification de la page paramètres");
+		this.CHANGE3.setFont(Font.font("FontName", FontWeight.BOLD, 20d));
+		this.CHANGE3.setStyle("-fx-text-fill: white;");
+		this.CHANGE3.setPosition(engine.getWidth() / 2 - 449, engine.getHeight() / 2 + 60);
+		this.CHANGE3.setOpacity(0.7);
+		this.CHANGE3.setSize(1000,  40);
+		this.CHANGE3.setVisible(true);
+		
+		/** ===================== changelogs 3 ===================== */
+		this.CHANGE4 = new LauncherLabel(root);
+		this.CHANGE4.setText("- Corrections de certains bugs mineurs");
+		this.CHANGE4.setFont(Font.font("FontName", FontWeight.BOLD, 20d));
+		this.CHANGE4.setStyle("-fx-text-fill: white;");
+		this.CHANGE4.setPosition(engine.getWidth() / 2 - 449, engine.getHeight() / 2 + 100);
+		this.CHANGE4.setOpacity(0.7);
+		this.CHANGE4.setSize(1000,  40);
+		this.CHANGE4.setVisible(true);
+		
 		/** ===================== TITRE VERSION ===================== */
 		this.remarque = new LauncherLabel(root);
 		this.remarque.setText("Version");
 		this.remarque.setFont(Font.font("FontName", FontWeight.BOLD, 24d));
 		this.remarque.setStyle("-fx-background-color: transparent; -fx-text-fill: orange");
-		this.remarque.setPosition(engine.getWidth() / 2 - 479, engine.getHeight() / 2- 60);
+		this.remarque.setPosition(engine.getWidth() / 2 - 479, engine.getHeight() / 2+140);
 		this.remarque.setOpacity(0.7);
 		this.remarque.setSize(500,  40);
 		this.remarque.setVisible(true);
 		
 		/** ===================== TITRE Version actuelle ===================== */
 		this.version = new LauncherLabel(root);
-		this.version.setText("Version : 1.9.1");
+		this.version.setText("Version : 2.0.0");
 		this.version.setFont(Font.font("FontName", FontWeight.BOLD, 20d));
 		this.version.setStyle("-fx-text-fill: white;");
-		this.version.setPosition(engine.getWidth() / 2 - 449, engine.getHeight() / 2 - 20);
+		this.version.setPosition(engine.getWidth() / 2 - 449, engine.getHeight() / 2 + 180);
 		this.version.setOpacity(0.7);
 		this.version.setSize(1000,  40);
 		this.version.setVisible(true);
