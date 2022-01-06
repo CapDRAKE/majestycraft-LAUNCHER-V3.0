@@ -39,7 +39,7 @@ public class LauncherSettings extends IScreen {
 	private JFXComboBox<String> versionList;
 	private LauncherLabel versionListLabel;
 	private JFXCheckBox autoLogin;
-	private JFXCheckBox useForge;
+	public static JFXCheckBox useForge;
 	private JFXCheckBox useOptifine;
 	private JFXCheckBox useDiscord;
 	private JFXCheckBox useMusic;
@@ -170,7 +170,16 @@ public class LauncherSettings extends IScreen {
 
 			@Override
 			public void handle(ActionEvent event) {
+				if(versionList.getValue() == "1.8" || versionList.getValue() == "1.16.2") {
+					LauncherSettings.useForge.setDisable(true);
+					LauncherSettings.useForge.setSelected(false);
+					pane.config.updateValue("useforge", false);
+				}
+				else {
+					LauncherSettings.useForge.setDisable(false);
+				}
 				pane.config.updateValue("version", versionList.getValue());
+
 			}
 		});
 		root.getChildren().add(this.versionList);
@@ -222,22 +231,22 @@ public class LauncherSettings extends IScreen {
 		
 		
 		/** ===================== CHECKBOX USE Forge ===================== */
-		this.useForge = new JFXCheckBox();
-		this.useForge.setText("Forge");
-		this.useForge.setSelected((boolean) pane.config.getValue(EnumConfig.USE_FORGE));
-		this.useForge.setOpacity(1.0);
-		this.useForge.setFont(FontLoader.loadFont("Comfortaa-Regular.ttf", "Comfortaa", 14F));
-		this.useForge.setStyle("-fx-text-fill: white; -jfx-checked-color: RED; -jfx-unchecked-color: BLACK");
-		this.useForge.setLayoutX(750);
-		this.useForge.setLayoutY(305);		
-		this.useForge.setOnAction(new EventHandler<ActionEvent>() {
+		useForge = new JFXCheckBox();
+		useForge.setText("Forge");
+		useForge.setSelected((boolean) pane.config.getValue(EnumConfig.USE_FORGE));
+		useForge.setOpacity(1.0);
+		useForge.setFont(FontLoader.loadFont("Comfortaa-Regular.ttf", "Comfortaa", 14F));
+		useForge.setStyle("-fx-text-fill: white; -jfx-checked-color: RED; -jfx-unchecked-color: BLACK");
+		useForge.setLayoutX(750);
+		useForge.setLayoutY(305);		
+		useForge.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
 			public void handle(ActionEvent event) {
 				pane.config.updateValue("useforge", useForge.isSelected());
 			}
 		});
-		root.getChildren().add(this.useForge);
+		root.getChildren().add(useForge);
 		
 		
 		/** ===================== CHECKBOX Discord statut ===================== */
