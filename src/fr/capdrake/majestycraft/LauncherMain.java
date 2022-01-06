@@ -37,7 +37,7 @@ public class LauncherMain extends AlternativeBase{
 	public static LauncherPane contentPane;
 	private Scene scene;
 	private GameFolder gameFolder = new GameFolder("majestycraft");
-	private LauncherPreferences launcherPreferences = new LauncherPreferences("Launcher MajestyCraft Optifine + Forge", 1050, 750, Mover.MOVE);
+	private LauncherPreferences launcherPreferences = new LauncherPreferences("MajestyLauncher Optifine + Forge", 1050, 750, Mover.MOVE);
 	public static GameLinks gameLinks = new GameLinks("https://majestycraft.com/minecraft/", "1.18.1.json");
 	private GameEngine gameEngine = new GameEngine(this.gameFolder, LauncherMain.gameLinks, this.launcherPreferences, GameStyle.VANILLA);
 	public static GameForge gameForge;
