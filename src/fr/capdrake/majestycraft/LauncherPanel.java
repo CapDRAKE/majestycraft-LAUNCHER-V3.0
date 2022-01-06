@@ -498,25 +498,26 @@ public class LauncherPanel extends IScreen{
 						engine.setGameStyle(GameStyle.FORGE_1_8_TO_1_12_2);
 						LauncherMain.gameForge = new GameForge(Forge.FML_CLIENT, "1.11.2", "#2588", "20200515.085601");
 						break;
-					case "1.12.2.json": //NOT GOOD
+					case "1.12.2.json": //GOOD
 						LauncherMain.gameLinks = new GameLinks("https://majestycraft.com/minecraft/1.12.2/forge/", "1.12.2.json");
 						engine.setGameStyle(GameStyle.FORGE_1_8_TO_1_12_2);
 						LauncherMain.gameForge = new GameForge(Forge.FML_CLIENT, "1.12.2", "#2847", "20200515.085601");
 						break;
-					case "1.13.2.json": //NOT GOOD
+					case "1.13.2.json": //GOOD
 						LauncherMain.gameLinks = new GameLinks("https://majestycraft.com/minecraft/1.13.2/forge/", "1.13.2.json");
 						engine.setGameStyle(GameStyle.FORGE_1_13_HIGHER);
-						LauncherMain.gameForge = new GameForge(Forge.FML_CLIENT, "1.13.2", "28.2.23", "20200515.085601");
+						LauncherMain.gameForge = new GameForge(Forge.FML_CLIENT, "1.13.2", "25.0.219", "20190213.203750");
 						break;
-					case "1.14.4.json": //NOT GOOD
+					case "1.14.4.json": //GOOD
 						LauncherMain.gameLinks = new GameLinks("https://majestycraft.com/minecraft/1.14.4/forge/", "1.14.4.json");
 						engine.setGameStyle(GameStyle.FORGE_1_13_HIGHER);
-						LauncherMain.gameForge = new GameForge(Forge.FML_CLIENT, "1.14.4", "28.2.23", "20200515.085601");
+						LauncherMain.gameForge = new GameForge(Forge.FML_CLIENT, "1.14.4", "28.2.0", "20190829.143755");
 						break;
-					case "1.15.2.json": //NOT GOOD
+					case "1.15.2.json": //GOOD
 						LauncherMain.gameLinks = new GameLinks("https://majestycraft.com/minecraft/1.15.2/forge/", "1.15.2.json");
 						engine.setGameStyle(GameStyle.FORGE_1_13_HIGHER);
-						LauncherMain.gameForge = new GameForge(Forge.FML_CLIENT, "1.15.2", "31.2.57", "20200515.085601");
+						LauncherMain.gameForge = new GameForge(Forge.FML_CLIENT, "1.15.2", "31.1.0", "20200122.131323");
+						//theGameEngine = new GameEngine(LauncherMain.gameFolder, LauncherMain.gameLinks, LauncherMain.launcherPreferences, GameStyle.FORGE_1_13_HIGHER, LauncherMain.gameForge );
 						break;
 					case "1.16.2.json": //NOT GOOD
 						engine.setGameStyle(GameStyle.FORGE_1_13_HIGHER);
