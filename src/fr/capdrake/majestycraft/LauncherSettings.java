@@ -39,8 +39,8 @@ public class LauncherSettings extends IScreen {
 	private JFXComboBox<String> versionList;
 	private LauncherLabel versionListLabel;
 	private JFXCheckBox autoLogin;
-	public static JFXCheckBox useForge;
-	private JFXCheckBox useOptifine;
+	private static JFXCheckBox useForge;
+	private static JFXCheckBox useOptifine;
 	private JFXCheckBox useDiscord;
 	private JFXCheckBox useMusic;
 	private JFXCheckBox useVMArguments;
@@ -171,7 +171,7 @@ public class LauncherSettings extends IScreen {
 
 			@Override
 			public void handle(ActionEvent event) {
-				if(versionList.getValue() == "1.8" || versionList.getValue() == "1.16.2" || versionList.getValue() == "1.16.3" || versionList.getValue() == "1.16.4" || versionList.getValue() == "1.16.5" || versionList.getValue() == "1.17" || versionList.getValue() == "1.17.1"|| versionList.getValue() == "1.18"|| versionList.getValue() == "1.18.1") {
+				if(versionList.getValue() == "1.8" || versionList.getValue() == "1.16.2" || versionList.getValue() == "1.16.3" || versionList.getValue() == "1.17" || versionList.getValue() == "1.17.1" || versionList.getValue() == "1.18" || versionList.getValue() == "1.18.1") {
 					LauncherSettings.useForge.setDisable(true);
 					LauncherSettings.useForge.setSelected(false);
 					pane.config.updateValue("useforge", false);
@@ -213,27 +213,29 @@ public class LauncherSettings extends IScreen {
 		this.vmArguments.setDisable(!this.useVMArguments.isSelected());
 		
 		/** ===================== CHECKBOX USE Optifine ===================== */
-		this.useOptifine = new JFXCheckBox();
-		this.useOptifine.setText("Optifine");
-		this.useOptifine.setSelected((boolean) pane.config.getValue(EnumConfig.USE_OPTIFINE));
-		this.useOptifine.setOpacity(1.0);
-		this.useOptifine.setFont(FontLoader.loadFont("Comfortaa-Regular.ttf", "Comfortaa", 14F));
-		this.useOptifine.setStyle("-fx-text-fill: white; -jfx-checked-color: RED; -jfx-unchecked-color: BLACK");
-		this.useOptifine.setLayoutX(500);
-		this.useOptifine.setLayoutY(305);		
-		this.useOptifine.setOnAction(new EventHandler<ActionEvent>() {
+		useOptifine = new JFXCheckBox();
+		useOptifine.setText("Optifine");
+		useOptifine.setSelected((boolean) pane.config.getValue(EnumConfig.USE_OPTIFINE));
+		useOptifine.setOpacity(1.0);
+		useOptifine.setFont(FontLoader.loadFont("Comfortaa-Regular.ttf", "Comfortaa", 14F));
+		useOptifine.setStyle("-fx-text-fill: white; -jfx-checked-color: RED; -jfx-unchecked-color: BLACK");
+		useOptifine.setLayoutX(500);
+		useOptifine.setLayoutY(305);		
+		useOptifine.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
 			public void handle(ActionEvent event) {
 				pane.config.updateValue("useOptifine", useOptifine.isSelected());
+				LauncherSettings.useForge.setSelected(false);
+				pane.config.updateValue("useforge", false);
 			}
 		});
-		root.getChildren().add(this.useOptifine);
+		root.getChildren().add(useOptifine);
 		
 		
 		/** ===================== CHECKBOX USE Forge ===================== */
 		useForge = new JFXCheckBox();
-		useForge.setText("Forge (BETA 1.9 -> 1.15.2)");
+		useForge.setText("Forge (BETA 1.9 -> 1.16.5)");
 		useForge.setSelected((boolean) pane.config.getValue(EnumConfig.USE_FORGE));
 		useForge.setOpacity(1.0);
 		useForge.setFont(FontLoader.loadFont("Comfortaa-Regular.ttf", "Comfortaa", 14F));
@@ -245,6 +247,8 @@ public class LauncherSettings extends IScreen {
 			@Override
 			public void handle(ActionEvent event) {
 				pane.config.updateValue("useforge", useForge.isSelected());
+				LauncherSettings.useOptifine.setSelected(false);
+				pane.config.updateValue("useOptifine", false);
 			}
 		});
 		root.getChildren().add(useForge);

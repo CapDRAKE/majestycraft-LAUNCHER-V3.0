@@ -34,12 +34,13 @@ import animatefx.animation.*;
 
 public class LauncherMain extends AlternativeBase{
 	
+	private static LauncherMain instance;
 	public static LauncherPane contentPane;
 	private Scene scene;
-	private GameFolder gameFolder = new GameFolder("majestycraft");
+	private static GameFolder gameFolder = new GameFolder("majestycraft");
 	private LauncherPreferences launcherPreferences = new LauncherPreferences("MajestyLauncher Optifine + Forge", 1050, 750, Mover.MOVE);
 	public static GameLinks gameLinks = new GameLinks("https://majestycraft.com/minecraft/", "1.18.1.json");
-	private GameEngine gameEngine = new GameEngine(this.gameFolder, LauncherMain.gameLinks, this.launcherPreferences, GameStyle.VANILLA);
+	private GameEngine gameEngine = new GameEngine(LauncherMain.gameFolder, LauncherMain.gameLinks, this.launcherPreferences, GameStyle.VANILLA);
 	public static GameForge gameForge;
 	private GameMaintenance gameMaintenance = new GameMaintenance(Maintenance.USE, gameEngine);
 	//private GameConnect gameConnect = new GameConnect("178.32.122.178", "25566");
@@ -56,6 +57,7 @@ public class LauncherMain extends AlternativeBase{
 	
 	@Override
 	public void start(Stage primaryStage) throws Exception {
+		instance = this;
 		// TODO Auto-generated method stub
 		playMusic(media, "Minecraft.mp3");
 		createContent();
@@ -192,6 +194,14 @@ public class LauncherMain extends AlternativeBase{
 	
 	public static LauncherPane getContentPane() {
 		return LauncherMain.contentPane;
+	}
+	
+	public static LauncherMain getInstance() {
+		return instance;
+	}
+	
+	public static GameFolder getGameFolder() {
+		return gameFolder;
 	}
 	
 }
