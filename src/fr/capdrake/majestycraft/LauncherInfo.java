@@ -129,7 +129,7 @@ public class LauncherInfo extends IScreen {
 		
 		/** ===================== changelogs 1 ===================== */
 		this.CHANGE1 = new LauncherLabel(root);
-		this.CHANGE1.setText("- Ajout de FORGE en BETA (1.9 -> 1.15.2)");
+		this.CHANGE1.setText("- Ajout de FORGE sur les version 1.16.5 et 1.16.4 (1.16.3 et 1.162 toujours OFF)");
 		this.CHANGE1.setFont(Font.font("FontName", FontWeight.BOLD, 20d));
 		this.CHANGE1.setStyle("-fx-text-fill: white;");
 		this.CHANGE1.setPosition(engine.getWidth() / 2 - 449, engine.getHeight() / 2 - 20);
@@ -139,7 +139,7 @@ public class LauncherInfo extends IScreen {
 		
 		/** ===================== changelogs 2 ===================== */
 		this.CHANGE2 = new LauncherLabel(root);
-		this.CHANGE2.setText("- Ajout des changelogs dans l'onglet informations");
+		this.CHANGE2.setText("- Ajout d'un nouveau moteur forge en beta pour les versions 1.16.4 et 1.16.5");
 		this.CHANGE2.setFont(Font.font("FontName", FontWeight.BOLD, 20d));
 		this.CHANGE2.setStyle("-fx-text-fill: white;");
 		this.CHANGE2.setPosition(engine.getWidth() / 2 - 449, engine.getHeight() / 2 + 20);
@@ -149,7 +149,7 @@ public class LauncherInfo extends IScreen {
 		
 		/** ===================== changelogs 3 ===================== */
 		this.CHANGE3 = new LauncherLabel(root);
-		this.CHANGE3.setText("- Modification de la page paramètres");
+		this.CHANGE3.setText("- Ajout des versions 1.15.2 -> 1.14.4 au nouveau moteur FORGE");
 		this.CHANGE3.setFont(Font.font("FontName", FontWeight.BOLD, 20d));
 		this.CHANGE3.setStyle("-fx-text-fill: white;");
 		this.CHANGE3.setPosition(engine.getWidth() / 2 - 449, engine.getHeight() / 2 + 60);
@@ -159,7 +159,7 @@ public class LauncherInfo extends IScreen {
 		
 		/** ===================== changelogs 3 ===================== */
 		this.CHANGE4 = new LauncherLabel(root);
-		this.CHANGE4.setText("- Corrections de certains bugs mineurs");
+		this.CHANGE4.setText("- Mise à jour des versions FORGE 1.15.2, 1.14.4");
 		this.CHANGE4.setFont(Font.font("FontName", FontWeight.BOLD, 20d));
 		this.CHANGE4.setStyle("-fx-text-fill: white;");
 		this.CHANGE4.setPosition(engine.getWidth() / 2 - 449, engine.getHeight() / 2 + 100);
@@ -179,7 +179,7 @@ public class LauncherInfo extends IScreen {
 		
 		/** ===================== TITRE Version actuelle ===================== */
 		this.version = new LauncherLabel(root);
-		this.version.setText("Version : 2.0.0");
+		this.version.setText("Version : 2.0.1");
 		this.version.setFont(Font.font("FontName", FontWeight.BOLD, 20d));
 		this.version.setStyle("-fx-text-fill: white;");
 		this.version.setPosition(engine.getWidth() / 2 - 449, engine.getHeight() / 2 + 180);
