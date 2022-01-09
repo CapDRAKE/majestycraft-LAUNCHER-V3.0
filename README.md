@@ -25,6 +25,5 @@ If you wish to participate in the development of this project, please contact Ca
 
 ## 📝 License
 
-Soon...
-
+Creative Commons Zero v1.0 Universal
 ---
