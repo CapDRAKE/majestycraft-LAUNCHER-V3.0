@@ -171,7 +171,7 @@ public class LauncherSettings extends IScreen {
 
 			@Override
 			public void handle(ActionEvent event) {
-				if(versionList.getValue() == "1.8" || versionList.getValue() == "1.16.2" || versionList.getValue() == "1.16.3" || versionList.getValue() == "1.17" || versionList.getValue() == "1.17.1" || versionList.getValue() == "1.18" || versionList.getValue() == "1.18.1") {
+				if(versionList.getValue() == "1.8" || versionList.getValue() == "1.16.3" || versionList.getValue() == "1.17" || versionList.getValue() == "1.18") {
 					LauncherSettings.useForge.setDisable(true);
 					LauncherSettings.useForge.setSelected(false);
 					pane.config.updateValue("useforge", false);

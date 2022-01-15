@@ -2,9 +2,12 @@ package fr.capdrake.majestycraft;
 
 import java.io.IOException;
 
+import animatefx.animation.JackInTheBox;
+import animatefx.animation.Tada;
 import club.minnced.discord.rpc.DiscordEventHandlers;
 import club.minnced.discord.rpc.DiscordRPC;
 import club.minnced.discord.rpc.DiscordRichPresence;
+import fr.trxyy.alternative.alternative_api.GameConnect;
 import fr.trxyy.alternative.alternative_api.GameEngine;
 import fr.trxyy.alternative.alternative_api.GameFolder;
 import fr.trxyy.alternative.alternative_api.GameForge;
@@ -19,18 +22,16 @@ import fr.trxyy.alternative.alternative_api.utils.config.LauncherConfig;
 import fr.trxyy.alternative.alternative_api_ui.LauncherPane;
 import fr.trxyy.alternative.alternative_api_ui.base.AlternativeBase;
 import fr.trxyy.alternative.alternative_api_ui.base.LauncherBase;
+import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.shape.Rectangle;
-import javafx.application.Application;
-import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
-
-import animatefx.animation.*;
+import javafx.scene.shape.Rectangle;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 public class LauncherMain extends AlternativeBase{
 	
@@ -43,7 +44,7 @@ public class LauncherMain extends AlternativeBase{
 	private GameEngine gameEngine = new GameEngine(LauncherMain.gameFolder, LauncherMain.gameLinks, this.launcherPreferences, GameStyle.VANILLA);
 	public static GameForge gameForge;
 	private GameMaintenance gameMaintenance = new GameMaintenance(Maintenance.USE, gameEngine);
-	//private GameConnect gameConnect = new GameConnect("178.32.122.178", "25566");
+	private GameConnect gameConnect = new GameConnect("79.137.24.67", "25565");
 	public static Media media;
 	private static MediaPlayer mediaPlayer;
 	public LauncherConfig config;
@@ -63,7 +64,7 @@ public class LauncherMain extends AlternativeBase{
 		createContent();
 		this.gameEngine.reg(primaryStage);  
 		this.gameEngine.reg(this.gameMaintenance);
-		//this.gameEngine.reg(this.gameConnect);
+		this.gameEngine.reg(this.gameConnect);
 		LauncherBase launcherBase = new LauncherBase(primaryStage, scene, StageStyle.TRANSPARENT, this.gameEngine);
 		launcherBase.setIconImage(primaryStage,  "server-icon.png");
 	}
@@ -201,7 +202,7 @@ public class LauncherMain extends AlternativeBase{
 	}
 	
 	public static GameFolder getGameFolder() {
-		return gameFolder;
+		return (GameFolder) gameFolder;
 	}
 	
 }

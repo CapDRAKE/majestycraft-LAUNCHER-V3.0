@@ -681,7 +681,7 @@ public class LauncherPanel extends IScreen{
 					case "1.16.2.json": //NOT GOOD
 						LauncherMain.gameLinks = new GameLinks("https://majestycraft.com/minecraft/1.16.2/forge/", "1.16.2.json");
 						try {
-							forgeUpdater = new CustomForgeUpdater("1.16.2", "33.0.61", "20200812.004259");
+							forgeUpdater = new CustomForgeUpdater("1.16.2", "33.0.60", "20200812.004259");
 						} catch (Exception e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
@@ -736,7 +736,7 @@ public class LauncherPanel extends IScreen{
 					case "1.18.1.json": //NOT GOOD
 						LauncherMain.gameLinks = new GameLinks("https://majestycraft.com/minecraft/1.18.1/forge/", "1.18.1.json");
 						try {
-							forgeUpdater = new CustomForgeUpdater("1.18.1", "39.0.0", "20200812.004259");
+							forgeUpdater = new CustomForgeUpdater("1.18.1", "39.0.17", "20211210.034407");
 						} catch (Exception e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
@@ -2013,6 +2013,9 @@ public class LauncherPanel extends IScreen{
 											new CustomGameRunner(gameAuthentication.getSession(), forgeUpdater.getVersionConfig(), forgeUpdater.getForgeVersionConfig(), forgeUpdater.getMcpVersion(), LauncherMain.getGameFolder(), GameType.V1_13_HIGHER_FORGE, new GameTweak[] {}, theGameEngine);
 										} catch (NoSuchFieldException | SecurityException | IllegalArgumentException
 												| IllegalAccessException e) {
+											// TODO Auto-generated catch block
+											e.printStackTrace();
+										} catch (Exception e) {
 											// TODO Auto-generated catch block
 											e.printStackTrace();
 										}
