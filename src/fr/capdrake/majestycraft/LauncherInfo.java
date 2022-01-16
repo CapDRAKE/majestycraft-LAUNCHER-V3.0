@@ -129,7 +129,7 @@ public class LauncherInfo extends IScreen {
 		
 		/** ===================== changelogs 1 ===================== */
 		this.CHANGE1 = new LauncherLabel(root);
-		this.CHANGE1.setText("- Ajout de FORGE sur les version 1.16.5 et 1.16.4 (1.16.3 et 1.162 toujours OFF)");
+		this.CHANGE1.setText("- Ajout du nouveau logo MajestyLauncher");
 		this.CHANGE1.setFont(Font.font("FontName", FontWeight.BOLD, 20d));
 		this.CHANGE1.setStyle("-fx-text-fill: white;");
 		this.CHANGE1.setPosition(engine.getWidth() / 2 - 449, engine.getHeight() / 2 - 20);
@@ -145,7 +145,7 @@ public class LauncherInfo extends IScreen {
 		this.CHANGE2.setPosition(engine.getWidth() / 2 - 449, engine.getHeight() / 2 + 20);
 		this.CHANGE2.setOpacity(0.7);
 		this.CHANGE2.setSize(1000,  40);
-		this.CHANGE2.setVisible(true);
+		this.CHANGE2.setVisible(false);
 		
 		/** ===================== changelogs 3 ===================== */
 		this.CHANGE3 = new LauncherLabel(root);
@@ -155,7 +155,7 @@ public class LauncherInfo extends IScreen {
 		this.CHANGE3.setPosition(engine.getWidth() / 2 - 449, engine.getHeight() / 2 + 60);
 		this.CHANGE3.setOpacity(0.7);
 		this.CHANGE3.setSize(1000,  40);
-		this.CHANGE3.setVisible(true);
+		this.CHANGE3.setVisible(false);
 		
 		/** ===================== changelogs 3 ===================== */
 		this.CHANGE4 = new LauncherLabel(root);
@@ -165,7 +165,7 @@ public class LauncherInfo extends IScreen {
 		this.CHANGE4.setPosition(engine.getWidth() / 2 - 449, engine.getHeight() / 2 + 100);
 		this.CHANGE4.setOpacity(0.7);
 		this.CHANGE4.setSize(1000,  40);
-		this.CHANGE4.setVisible(true);
+		this.CHANGE4.setVisible(false);
 		
 		/** ===================== TITRE VERSION ===================== */
 		this.remarque = new LauncherLabel(root);
@@ -179,7 +179,7 @@ public class LauncherInfo extends IScreen {
 		
 		/** ===================== TITRE Version actuelle ===================== */
 		this.version = new LauncherLabel(root);
-		this.version.setText("Version : 2.0.1");
+		this.version.setText("Version : 2.0.2");
 		this.version.setFont(Font.font("FontName", FontWeight.BOLD, 20d));
 		this.version.setStyle("-fx-text-fill: white;");
 		this.version.setPosition(engine.getWidth() / 2 - 449, engine.getHeight() / 2 + 180);

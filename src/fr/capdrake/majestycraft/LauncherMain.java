@@ -65,7 +65,7 @@ public class LauncherMain extends AlternativeBase{
 		this.gameEngine.reg(this.gameMaintenance);
 		//this.gameEngine.reg(this.gameConnect);
 		LauncherBase launcherBase = new LauncherBase(primaryStage, scene, StageStyle.TRANSPARENT, this.gameEngine);
-		launcherBase.setIconImage(primaryStage,  "server-icon.png");
+		launcherBase.setIconImage(primaryStage,  "launchergifpng.png");
 	}
 	
 

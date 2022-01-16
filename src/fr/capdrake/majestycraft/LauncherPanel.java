@@ -182,7 +182,7 @@ public class LauncherPanel extends IScreen{
 		this.topRectangle = new LauncherRectangle(root, 0, 0, 70, engine.getHeight());
 		this.topRectangle.setFill(Color.rgb(255,255,255, 0.10));
 		/** ===================== AFFICHER UN LOGO ===================== */
-		this.drawImage(engine, getResourceLocation().loadImage(engine, "logo.png"), engine.getWidth() / 2 - 70, 40, 150, 150, root, Mover.DONT_MOVE);
+		this.drawImage(engine, getResourceLocation().loadImage(engine, "launchergifpng.png"), engine.getWidth() / 2 - 70, 40, 150, 150, root, Mover.DONT_MOVE);
 		
 		//Partie texte
 		this.titleLabel = new LauncherLabel(root);
@@ -214,7 +214,7 @@ public class LauncherPanel extends IScreen{
 		
 		/** ===================== IMAGE DU LOGO EN HAUT ===================== */
 		this.titleImage = new LauncherImage(root);
-		this.titleImage.setImage(getResourceLocation().loadImage(engine, "server-icon.png"));
+		this.titleImage.setImage(getResourceLocation().loadImage(engine, "launchergifpng.png"));
 		this.titleImage.setSize(50, 50);
 		this.titleImage.setBounds(12, 5, 50, 50);
 		
