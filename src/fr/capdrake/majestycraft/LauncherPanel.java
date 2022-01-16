@@ -480,7 +480,11 @@ public class LauncherPanel extends IScreen{
 				 gameAuthentication = new GameAuth(AccountType.MICROSOFT);
 				 showMicrosoftAuth(gameAuthentication);
 				 if (gameAuthentication.isLogged()) {
-					 //System.out.println(gameAuthentication.getSession().getUuid());
+					 System.out.println(gameAuthentication.getSession().getUuid());
+					 config.updateValue("username", gameAuthentication.getSession().getUsername());
+					 config.updateValue("uuid", gameAuthentication.getSession().getUuid());
+					 config.updateValue("token", gameAuthentication.getSession().getToken());
+					 config.updateValue("useMicrosoft", true);
 					 connectAccountPremiumCO(gameAuthentication.getSession().getUsername(), root);
 					 if((boolean) config.getValue(EnumConfig.USE_FORGE) == true && verif == 1) {
 						 update(gameAuthentication);
@@ -1472,7 +1476,24 @@ public class LauncherPanel extends IScreen{
 									/**
 									 * ===================== AUTHENTIFICATION OFFLINE (CRACK) =====================
 									 */
-									if (usernameField2.getText().length() > 3 && passwordField.getText().isEmpty()) {
+									if((boolean) config.getValue(EnumConfig.USE_MICROSOFT) == true) {
+										autoLoginTimer.cancel();
+										autoLoginLabel.setVisible(false);
+										autoLoginButton.setVisible(false);
+										autoLoginRectangle.setVisible(false);
+										System.out.println((String) config.getValue(EnumConfig.USERNAME));
+										System.out.println((String) config.getValue(EnumConfig.TOKEN));
+										System.out.println((String) config.getValue(EnumConfig.UUID));
+										gameAuthentication = new GameAuth(AccountType.MICROSOFT);
+										gameAuthentication.setSession((String) config.getValue(EnumConfig.USERNAME), (String) config.getValue(EnumConfig.TOKEN), (String) config.getValue(EnumConfig.UUID));
+										 if((boolean) config.getValue(EnumConfig.USE_FORGE) == true && verif == 1) {
+											 update(gameAuthentication);
+										 }
+										 else {
+											 update2(gameAuthentication);
+										 }
+									}
+									else if (usernameField2.getText().length() > 3 && passwordField.getText().isEmpty()) {
 										autoLoginTimer.cancel();
 										autoLoginLabel.setVisible(false);
 										autoLoginButton.setVisible(false);
