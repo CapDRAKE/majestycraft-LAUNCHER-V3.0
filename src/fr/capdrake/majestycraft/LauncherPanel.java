@@ -477,18 +477,55 @@ public class LauncherPanel extends IScreen{
 					else {
 						engine.setGameStyle(GameStyle.VANILLA);
 					}
-				 gameAuthentication = new GameAuth(AccountType.MICROSOFT);
-				 showMicrosoftAuth(gameAuthentication);
-				 if (gameAuthentication.isLogged()) {
-					 //System.out.println(gameAuthentication.getSession().getUuid());
-					 connectAccountPremiumCO(gameAuthentication.getSession().getUsername(), root);
-					 if((boolean) config.getValue(EnumConfig.USE_FORGE) == true && verif == 1) {
-						 update(gameAuthentication);
-					 }
-					 else {
-						 update2(gameAuthentication);
-					 }
-				 }
+					if((boolean) config.getValue(EnumConfig.USE_MICROSOFT) == true) {
+						gameAuthentication = new GameAuth(AccountType.MICROSOFT);
+						gameAuthentication.setSession((String) config.getValue(EnumConfig.USERNAME), (String) config.getValue(EnumConfig.TOKEN), (String) config.getValue(EnumConfig.UUID));
+						if (gameAuthentication.isLogged()) {
+							connectAccountPremiumCO(gameAuthentication.getSession().getUsername(), root);
+							 if((boolean) config.getValue(EnumConfig.USE_FORGE) == true && verif == 1) {
+								 update(gameAuthentication);
+							 }
+							 else {
+								 update2(gameAuthentication);
+							 }
+						}
+						else {
+							 gameAuthentication = new GameAuth(AccountType.MICROSOFT);
+							 showMicrosoftAuth(gameAuthentication);
+							 if (gameAuthentication.isLogged()) {
+								 System.out.println(gameAuthentication.getSession().getUuid());
+								 config.updateValue("username", gameAuthentication.getSession().getUsername());
+								 config.updateValue("uuid", gameAuthentication.getSession().getUuid());
+								 config.updateValue("token", gameAuthentication.getSession().getToken());
+								 config.updateValue("useMicrosoft", true);
+								 connectAccountPremiumCO(gameAuthentication.getSession().getUsername(), root);
+								 if((boolean) config.getValue(EnumConfig.USE_FORGE) == true && verif == 1) {
+									 update(gameAuthentication);
+								 }
+								 else {
+									 update2(gameAuthentication);
+								 }
+							 }
+						}
+					}
+					else {
+						 gameAuthentication = new GameAuth(AccountType.MICROSOFT);
+						 showMicrosoftAuth(gameAuthentication);
+						 if (gameAuthentication.isLogged()) {
+							 System.out.println(gameAuthentication.getSession().getUuid());
+							 config.updateValue("username", gameAuthentication.getSession().getUsername());
+							 config.updateValue("uuid", gameAuthentication.getSession().getUuid());
+							 config.updateValue("token", gameAuthentication.getSession().getToken());
+							 config.updateValue("useMicrosoft", true);
+							 connectAccountPremiumCO(gameAuthentication.getSession().getUsername(), root);
+							 if((boolean) config.getValue(EnumConfig.USE_FORGE) == true && verif == 1) {
+								 update(gameAuthentication);
+							 }
+							 else {
+								 update2(gameAuthentication);
+							 }
+						 }
+					}
 			}
 		});
 		
@@ -519,7 +556,9 @@ public class LauncherPanel extends IScreen{
 		
 		/** ===================== NOM D'UTILISATEUR ===================== */
 		this.usernameField2 = new JFXTextField();
-		this.usernameField2.setText((String)this.config.getValue(EnumConfig.USERNAME));
+		if((boolean) config.getValue(EnumConfig.USE_MICROSOFT) == false) {
+			this.usernameField2.setText((String)this.config.getValue(EnumConfig.USERNAME));
+		}
 		this.usernameField2.getStyleClass().add("input");
 		this.usernameField2.setLayoutX(engine.getWidth() / 2 - 126);
 		this.usernameField2.setLayoutY(engine.getHeight() / 2- 12);
@@ -755,7 +794,7 @@ public class LauncherPanel extends IScreen{
 			/**
 			 * ===================== AUTHENTIFICATION OFFLINE (CRACK) =====================
 			 */
-
+			config.updateValue("useMicrosoft", false);
 			config.updateValue("username", usernameField2.getText());
 			config.updateValue("password", "");
 			if (usernameField2.getText().length() < 3) {
@@ -823,7 +862,9 @@ public class LauncherPanel extends IScreen{
 		this.usernameField.getStyleClass().add("input");
 		this.usernameField.setLayoutX(engine.getWidth() / 2 - 126);
 		this.usernameField.setLayoutY(engine.getHeight() / 2- 42);
-		this.usernameField.setText((String)this.config.getValue(EnumConfig.USERNAME));
+		if((boolean) config.getValue(EnumConfig.USE_MICROSOFT) == false) {
+			this.usernameField.setText((String)this.config.getValue(EnumConfig.USERNAME));
+		}
 		this.usernameField.setFont(FontLoader.loadFont("Roboto-Light.ttf", "Roboto Light", 14F));
 		this.usernameField.setStyle("-fx-background-color: rgba(0 ,0 ,0 , 0.2); -fx-text-fill: orange");
 		root.getChildren().add(this.usernameField);
@@ -1081,6 +1122,7 @@ public class LauncherPanel extends IScreen{
 			{
 				config.updateValue("password", "");
 			} 
+			config.updateValue("useMicrosoft", false);
 			/** ===================== AUTHENTIFICATION OFFICIELLE ===================== */
 			if (usernameField.getText().length() > 3 && !passwordField.getText().isEmpty()) {
 				gameAuthentication = new GameAuth(usernameField.getText(), passwordField.getText(), AccountType.MOJANG);
@@ -1472,7 +1514,31 @@ public class LauncherPanel extends IScreen{
 									/**
 									 * ===================== AUTHENTIFICATION OFFLINE (CRACK) =====================
 									 */
-									if (usernameField2.getText().length() > 3 && passwordField.getText().isEmpty()) {
+									if((boolean) config.getValue(EnumConfig.USE_MICROSOFT) == true) {
+										autoLoginTimer.cancel();
+										autoLoginLabel.setVisible(false);
+										autoLoginButton.setVisible(false);
+										autoLoginRectangle.setVisible(false);
+										gameAuthentication = new GameAuth(AccountType.MICROSOFT);
+										gameAuthentication.setSession((String) config.getValue(EnumConfig.USERNAME), (String) config.getValue(EnumConfig.TOKEN), (String) config.getValue(EnumConfig.UUID));
+										if (gameAuthentication.isLogged()) {
+											 if((boolean) config.getValue(EnumConfig.USE_FORGE) == true && verif == 1) {
+												 update(gameAuthentication);
+											 }
+											 else {
+												 update2(gameAuthentication);
+											 }
+										}
+										else {
+											Platform.runLater(() -> {
+												new LauncherAlert("Authentification echouée!",
+														"Impossible de se connecter, l'authentification semble etre une authentification 'en-ligne'"
+																+ " \nIl y a un probleme lors de la tentative de connexion. \n\n-Verifiez que le mdp soit bien saisi."
+																+ "\n-Faites bien attention aux majuscules et minuscules. \nAssurez-vous d'utiliser un compte Microsoft.");
+												});
+										}
+									}
+									else if (usernameField2.getText().length() > 3 && passwordField.getText().isEmpty()) {
 										autoLoginTimer.cancel();
 										autoLoginLabel.setVisible(false);
 										autoLoginButton.setVisible(false);
@@ -1877,6 +1943,7 @@ public class LauncherPanel extends IScreen{
 		//this.bar.setSize(250, 20);
 		this.bar.setVisible(false);
 		root.getChildren().add(this.bar);
+		
 		/** =============== AFFICHAGE DE LA TETE DU JOUEUR =============== **/
 			if((boolean) config.getValue(EnumConfig.USE_PREMIUM) == false) {
 				if(usernameField.getText().contains("@")) {
@@ -1884,7 +1951,16 @@ public class LauncherPanel extends IScreen{
 				}
 				this.usernameField.setText("");
 			}
-			if (usernameField.getText().length() > 3 && usernameField.getText().contains("@")) {
+			if((boolean) config.getValue(EnumConfig.USE_MICROSOFT) == true) {
+				if((boolean) config.getValue(EnumConfig.USE_PREMIUM) == true){
+					connectAccountPremiumOFF(root);
+				}
+				else {
+					connectAccountCrack(root);
+				}
+				connectAccountPremiumCO((String) config.getValue(EnumConfig.USERNAME), root);
+			}
+			else if (usernameField.getText().length() > 3 && usernameField.getText().contains("@")) {
 				if (!passwordField.getText().isEmpty()) {
 					GameAuth auth = new GameAuth(usernameField.getText(), passwordField.getText(),
 							AccountType.MOJANG);
