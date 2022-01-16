@@ -39,6 +39,7 @@ public class LauncherSettings extends IScreen {
 	private JFXComboBox<String> versionList;
 	private LauncherLabel versionListLabel;
 	private JFXCheckBox autoLogin;
+	private JFXCheckBox microsoft;
 	private static JFXCheckBox useForge;
 	private static JFXCheckBox useOptifine;
 	private JFXCheckBox useDiscord;
@@ -282,6 +283,25 @@ public class LauncherSettings extends IScreen {
 		this.autoLogin.setLayoutX(250);
 		this.autoLogin.setLayoutY(335);
 		root.getChildren().add(autoLogin);
+		
+		
+		/** ===================== MICROSOFT CHECK BOX ===================== */
+		this.microsoft = new JFXCheckBox();
+		this.microsoft.setText("Connexion auto MICROSOFT (desactiver si 'session invalide'");
+		this.microsoft.setSelected((Boolean)pane.config.getValue(EnumConfig.USE_MICROSOFT));
+		this.microsoft.setFont(FontLoader.loadFont("Comfortaa-Regular.ttf", "Comfortaa", 14F));
+		this.microsoft.setStyle("-fx-text-fill: white; -jfx-checked-color: RED; -jfx-unchecked-color: BLACK");
+		this.microsoft.setLayoutX(250);
+		this.microsoft.setLayoutY(465);
+		this.microsoft.setOnAction(new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent event) {
+				if (!microsoft.isSelected()) {
+					pane.config.updateValue("useMicrosoft", false);
+					pane.config.updateValue("autologin", false);
+				}
+			}
+		});
+		root.getChildren().add(microsoft);
 		
 		/** ===================== AUTO LOGIN CHECK BOX ===================== */
 		this.useMusic = new JFXCheckBox();
