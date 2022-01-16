@@ -480,6 +480,8 @@ public class LauncherPanel extends IScreen{
 				 gameAuthentication = new GameAuth(AccountType.MICROSOFT);
 				 showMicrosoftAuth(gameAuthentication);
 				 if (gameAuthentication.isLogged()) {
+					 //System.out.println(gameAuthentication.getSession().getUuid());
+					 connectAccountPremiumCO(gameAuthentication.getSession().getUsername(), root);
 					 if((boolean) config.getValue(EnumConfig.USE_FORGE) == true && verif == 1) {
 						 update(gameAuthentication);
 					 }
