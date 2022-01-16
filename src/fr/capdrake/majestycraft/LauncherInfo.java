@@ -129,7 +129,7 @@ public class LauncherInfo extends IScreen {
 		
 		/** ===================== changelogs 1 ===================== */
 		this.CHANGE1 = new LauncherLabel(root);
-		this.CHANGE1.setText("- Ajout du nouveau logo MajestyLauncher");
+		this.CHANGE1.setText("- La connexion à Microsoft est désormais automatique");
 		this.CHANGE1.setFont(Font.font("FontName", FontWeight.BOLD, 20d));
 		this.CHANGE1.setStyle("-fx-text-fill: white;");
 		this.CHANGE1.setPosition(engine.getWidth() / 2 - 449, engine.getHeight() / 2 - 20);
@@ -139,33 +139,33 @@ public class LauncherInfo extends IScreen {
 		
 		/** ===================== changelogs 2 ===================== */
 		this.CHANGE2 = new LauncherLabel(root);
-		this.CHANGE2.setText("- Ajout d'un nouveau moteur forge en beta pour les versions 1.16.4 et 1.16.5");
+		this.CHANGE2.setText("- La connexion à Microsoft fonctionne avec le système de connexion automatique");
 		this.CHANGE2.setFont(Font.font("FontName", FontWeight.BOLD, 20d));
 		this.CHANGE2.setStyle("-fx-text-fill: white;");
 		this.CHANGE2.setPosition(engine.getWidth() / 2 - 449, engine.getHeight() / 2 + 20);
 		this.CHANGE2.setOpacity(0.7);
 		this.CHANGE2.setSize(1000,  40);
-		this.CHANGE2.setVisible(false);
+		this.CHANGE2.setVisible(true);
 		
 		/** ===================== changelogs 3 ===================== */
 		this.CHANGE3 = new LauncherLabel(root);
-		this.CHANGE3.setText("- Ajout des versions 1.15.2 -> 1.14.4 au nouveau moteur FORGE");
+		this.CHANGE3.setText("- Correction du bug n'affichant pas le skin lors de la connexion (Microsoft)");
 		this.CHANGE3.setFont(Font.font("FontName", FontWeight.BOLD, 20d));
 		this.CHANGE3.setStyle("-fx-text-fill: white;");
 		this.CHANGE3.setPosition(engine.getWidth() / 2 - 449, engine.getHeight() / 2 + 60);
 		this.CHANGE3.setOpacity(0.7);
 		this.CHANGE3.setSize(1000,  40);
-		this.CHANGE3.setVisible(false);
+		this.CHANGE3.setVisible(true);
 		
 		/** ===================== changelogs 3 ===================== */
 		this.CHANGE4 = new LauncherLabel(root);
-		this.CHANGE4.setText("- Mise à jour des versions FORGE 1.15.2, 1.14.4");
+		this.CHANGE4.setText("- Amélioration de la connexion Microsoft");
 		this.CHANGE4.setFont(Font.font("FontName", FontWeight.BOLD, 20d));
 		this.CHANGE4.setStyle("-fx-text-fill: white;");
 		this.CHANGE4.setPosition(engine.getWidth() / 2 - 449, engine.getHeight() / 2 + 100);
 		this.CHANGE4.setOpacity(0.7);
 		this.CHANGE4.setSize(1000,  40);
-		this.CHANGE4.setVisible(false);
+		this.CHANGE4.setVisible(true);
 		
 		/** ===================== TITRE VERSION ===================== */
 		this.remarque = new LauncherLabel(root);
@@ -179,7 +179,7 @@ public class LauncherInfo extends IScreen {
 		
 		/** ===================== TITRE Version actuelle ===================== */
 		this.version = new LauncherLabel(root);
-		this.version.setText("Version : 2.0.2");
+		this.version.setText("Version : 2.1");
 		this.version.setFont(Font.font("FontName", FontWeight.BOLD, 20d));
 		this.version.setStyle("-fx-text-fill: white;");
 		this.version.setPosition(engine.getWidth() / 2 - 449, engine.getHeight() / 2 + 180);
