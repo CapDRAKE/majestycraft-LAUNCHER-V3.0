@@ -20,7 +20,7 @@ If you wish to participate in the development of this project, please contact Ca
 
 👤 **Capdrake**
 
-- Github: [@Capdrake](https://github.com/Capdrake)
+- Github: [@Capdrake](https://github.com/Capdrake) (Bastien LEUWERS)
 
 
 ## 📝 License
