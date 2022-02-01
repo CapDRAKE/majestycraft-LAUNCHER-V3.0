@@ -2,7 +2,7 @@
 
 ## ✨ Demo
 
-MajestyLauncher is a Minecraft launcher with Forge and Optifine
+MajestyLauncher is a Minecraft launcher with Forge and Optifine test
 
 <p align="center">
   <img width="700" align="center" src="https://majestycraft.com/theme/upload/panel/launcher1.png"/>
