@@ -23,12 +23,14 @@ import animatefx.animation.RotateOut;
 import animatefx.animation.ZoomInDown;
 import animatefx.animation.ZoomInLeft;
 import animatefx.animation.ZoomOutDown;
+
 import fr.capdrake.majestycraft.forge.CustomForgeUpdater;
 import fr.flowarg.flowlogger.ILogger;
 import fr.flowarg.flowupdater.download.IProgressCallback;
 import fr.flowarg.flowupdater.download.Step;
 import fr.theshark34.openlauncherlib.minecraft.GameTweak;
 import fr.theshark34.openlauncherlib.minecraft.GameType;
+
 import fr.trxyy.alternative.alternative_api.GameEngine;
 import fr.trxyy.alternative.alternative_api.GameForge;
 import fr.trxyy.alternative.alternative_api.GameLinks;
@@ -52,6 +54,7 @@ import fr.trxyy.alternative.alternative_api_ui.components.LauncherLabel;
 import fr.trxyy.alternative.alternative_api_ui.components.LauncherRectangle;
 import fr.trxyy.alternative.alternative_auth.account.AccountType;
 import fr.trxyy.alternative.alternative_auth.base.GameAuth;
+
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -518,7 +521,6 @@ public class LauncherPanel extends IScreen {
 						gameAuthentication = new GameAuth(AccountType.MICROSOFT);
 						showMicrosoftAuth(gameAuthentication);
 						if (gameAuthentication.isLogged()) {
-							System.out.println(gameAuthentication.getSession().getUuid());
 							config.updateValue("username", gameAuthentication.getSession().getUsername());
 							config.updateValue("uuid", gameAuthentication.getSession().getUuid());
 							config.updateValue("token", gameAuthentication.getSession().getToken());
@@ -535,7 +537,6 @@ public class LauncherPanel extends IScreen {
 					gameAuthentication = new GameAuth(AccountType.MICROSOFT);
 					showMicrosoftAuth(gameAuthentication);
 					if (gameAuthentication.isLogged()) {
-						System.out.println(gameAuthentication.getSession().getUuid());
 						config.updateValue("username", gameAuthentication.getSession().getUsername());
 						config.updateValue("uuid", gameAuthentication.getSession().getUuid());
 						config.updateValue("token", gameAuthentication.getSession().getToken());

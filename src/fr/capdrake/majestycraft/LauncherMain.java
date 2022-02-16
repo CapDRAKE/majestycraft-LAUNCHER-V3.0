@@ -54,7 +54,6 @@ public class LauncherMain extends AlternativeBase {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		Application.launch(args);
-
 	}
 
 	@Override
@@ -165,6 +164,9 @@ public class LauncherMain extends AlternativeBase {
 			break;
 		case "22w06a":
 			gameLinks.JSON_URL = gameLinks.BASE_URL + "22w06a.json";
+			break;
+		case "22w07a":
+			gameLinks.JSON_URL = gameLinks.BASE_URL + "22w07a.json";
 			break;
 		default:
 			panel.config.updateValue("version", gameLinks.getJsonName().replace(".json", ""));
