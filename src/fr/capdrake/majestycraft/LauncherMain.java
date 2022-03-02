@@ -156,17 +156,8 @@ public class LauncherMain extends AlternativeBase {
 		case "1.18.1":
 			gameLinks.JSON_URL = gameLinks.BASE_URL + "1.18.1.json";
 			break;
-		case "22w03a":
-			gameLinks.JSON_URL = gameLinks.BASE_URL + "22w03a.json";
-			break;
-		case "22w05a":
-			gameLinks.JSON_URL = gameLinks.BASE_URL + "22w05a.json";
-			break;
-		case "22w06a":
-			gameLinks.JSON_URL = gameLinks.BASE_URL + "22w06a.json";
-			break;
-		case "22w07a":
-			gameLinks.JSON_URL = gameLinks.BASE_URL + "22w07a.json";
+		case "1.18.2":
+			gameLinks.JSON_URL = gameLinks.BASE_URL + "1.18.2.json";
 			break;
 		default:
 			panel.config.updateValue("version", gameLinks.getJsonName().replace(".json", ""));

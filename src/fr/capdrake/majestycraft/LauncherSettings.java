@@ -416,13 +416,7 @@ public class LauncherSettings extends IScreen {
 			} else if (i == 16) {
 				this.versionList.getItems().add("1.18.1");
 			} else if (i == 17) {
-				this.versionList.getItems().add("22w03a");
-			} else if (i == 18) {
-				this.versionList.getItems().add("22w05a");
-			} else if (i == 19) {
-				this.versionList.getItems().add("22w06a");
-			} else if (i == 20) {
-				this.versionList.getItems().add("22w07a");
+				this.versionList.getItems().add("1.18.2");
 			}
 		}
 	}
