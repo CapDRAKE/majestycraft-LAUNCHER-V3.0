@@ -127,7 +127,7 @@ public class LauncherInfo extends IScreen {
 
 		/** ===================== changelogs 1 ===================== */
 		this.CHANGE1 = new LauncherLabel(root);
-		this.CHANGE1.setText("- Ajout de la connexion automatique à MajestyCraft (EXPERIMENTAL)");
+		this.CHANGE1.setText("- Ajout de la version 1.18.2");
 		this.CHANGE1.setFont(Font.font("FontName", FontWeight.BOLD, 20d));
 		this.CHANGE1.setStyle("-fx-text-fill: white;");
 		this.CHANGE1.setPosition(engine.getWidth() / 2 - 449, engine.getHeight() / 2 - 20);
@@ -137,7 +137,7 @@ public class LauncherInfo extends IScreen {
 
 		/** ===================== changelogs 2 ===================== */
 		this.CHANGE2 = new LauncherLabel(root);
-		this.CHANGE2.setText("- Les versions Forge 1.14.4 -> 1.15.2 sont de nouveau fonctionelles");
+		this.CHANGE2.setText("- Ajout d'Optifine sur la 1.18.2");
 		this.CHANGE2.setFont(Font.font("FontName", FontWeight.BOLD, 20d));
 		this.CHANGE2.setStyle("-fx-text-fill: white;");
 		this.CHANGE2.setPosition(engine.getWidth() / 2 - 449, engine.getHeight() / 2 + 20);
@@ -147,7 +147,7 @@ public class LauncherInfo extends IScreen {
 
 		/** ===================== changelogs 3 ===================== */
 		this.CHANGE3 = new LauncherLabel(root);
-		this.CHANGE3.setText("- Ajout de la snapshot 22w03a");
+		this.CHANGE3.setText("- Amélioration d'Optifine sur toutes les versions");
 		this.CHANGE3.setFont(Font.font("FontName", FontWeight.BOLD, 20d));
 		this.CHANGE3.setStyle("-fx-text-fill: white;");
 		this.CHANGE3.setPosition(engine.getWidth() / 2 - 449, engine.getHeight() / 2 + 60);
@@ -177,7 +177,7 @@ public class LauncherInfo extends IScreen {
 
 		/** ===================== TITRE Version actuelle ===================== */
 		this.version = new LauncherLabel(root);
-		this.version.setText("Version : 2.1.2.5 (02/03/2022)");
+		this.version.setText("Version : 2.1.2.6 (05/03/2022)");
 		this.version.setFont(Font.font("FontName", FontWeight.BOLD, 20d));
 		this.version.setStyle("-fx-text-fill: white;");
 		this.version.setPosition(engine.getWidth() / 2 - 449, engine.getHeight() / 2 + 180);
