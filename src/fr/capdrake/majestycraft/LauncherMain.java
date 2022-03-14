@@ -58,6 +58,7 @@ public class LauncherMain extends AlternativeBase {
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
+		//test
 		instance = this;
 		// TODO Auto-generated method stub
 		playMusic(media, "Minecraft.mp3");
