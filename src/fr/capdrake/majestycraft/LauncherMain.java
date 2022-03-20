@@ -58,7 +58,6 @@ public class LauncherMain extends AlternativeBase {
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		//test
 		instance = this;
 		// TODO Auto-generated method stub
 		playMusic(media, "Minecraft.mp3");
@@ -159,6 +158,9 @@ public class LauncherMain extends AlternativeBase {
 			break;
 		case "1.18.2":
 			gameLinks.JSON_URL = gameLinks.BASE_URL + "1.18.2.json";
+			break;
+		case "22w11a":
+			gameLinks.JSON_URL = gameLinks.BASE_URL + "22w11a.json";
 			break;
 		default:
 			panel.config.updateValue("version", gameLinks.getJsonName().replace(".json", ""));
