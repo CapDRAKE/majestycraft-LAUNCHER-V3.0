@@ -670,6 +670,7 @@ public class LauncherPanel extends IScreen {
 						autoLoginTimer.cancel();
 						autoLoginLabel.setVisible(false);
 						autoLoginButton.setVisible(false);
+						autoLoginButton2.setVisible(false);
 						autoLoginRectangle.setVisible(false);
 						gameAuthentication = new GameAuth(AccountType.MICROSOFT);
 						gameAuthentication.setSession((String) config.getValue(EnumConfig.USERNAME),
@@ -694,6 +695,7 @@ public class LauncherPanel extends IScreen {
 						autoLoginTimer.cancel();
 						autoLoginLabel.setVisible(false);
 						autoLoginButton.setVisible(false);
+						autoLoginButton2.setVisible(false);
 						autoLoginRectangle.setVisible(false);
 						gameAuthentication = new GameAuth(usernameField.getText(),
 								passwordField.getText(), AccountType.OFFLINE);
@@ -711,6 +713,7 @@ public class LauncherPanel extends IScreen {
 						autoLoginTimer.cancel();
 						autoLoginLabel.setVisible(false);
 						autoLoginButton.setVisible(false);
+						autoLoginButton2.setVisible(false);
 						autoLoginRectangle.setVisible(false);
 
 						gameAuthentication = new GameAuth(usernameField.getText(),
@@ -724,6 +727,7 @@ public class LauncherPanel extends IScreen {
 						} else {
 							autoLoginLabel.setVisible(false);
 							autoLoginButton.setVisible(false);
+							autoLoginButton2.setVisible(false);
 							autoLoginRectangle.setVisible(false);
 							autoLoginTimer.cancel();
 							// Ceci est nécessaire pour éviter de faire planter. Le LauncherAlert ne
@@ -738,6 +742,7 @@ public class LauncherPanel extends IScreen {
 					} else {
 						autoLoginLabel.setVisible(false);
 						autoLoginButton.setVisible(false);
+						autoLoginButton2.setVisible(false);
 						autoLoginRectangle.setVisible(false);
 						autoLoginTimer.cancel();
 						Platform.runLater(() -> {
@@ -782,6 +787,7 @@ public class LauncherPanel extends IScreen {
 										autoLoginTimer.cancel();
 										autoLoginLabel.setVisible(false);
 										autoLoginButton.setVisible(false);
+										autoLoginButton2.setVisible(false);
 										autoLoginRectangle.setVisible(false);
 										gameAuthentication = new GameAuth(AccountType.MICROSOFT);
 										gameAuthentication.setSession((String) config.getValue(EnumConfig.USERNAME),
@@ -806,6 +812,7 @@ public class LauncherPanel extends IScreen {
 										autoLoginTimer.cancel();
 										autoLoginLabel.setVisible(false);
 										autoLoginButton.setVisible(false);
+										autoLoginButton2.setVisible(false);
 										autoLoginRectangle.setVisible(false);
 										gameAuthentication = new GameAuth(usernameField.getText(),
 												passwordField.getText(), AccountType.OFFLINE);
@@ -823,6 +830,7 @@ public class LauncherPanel extends IScreen {
 										autoLoginTimer.cancel();
 										autoLoginLabel.setVisible(false);
 										autoLoginButton.setVisible(false);
+										autoLoginButton2.setVisible(false);
 										autoLoginRectangle.setVisible(false);
 
 										gameAuthentication = new GameAuth(usernameField.getText(),
@@ -836,6 +844,7 @@ public class LauncherPanel extends IScreen {
 										} else {
 											autoLoginLabel.setVisible(false);
 											autoLoginButton.setVisible(false);
+											autoLoginButton2.setVisible(false);
 											autoLoginRectangle.setVisible(false);
 											autoLoginTimer.cancel();
 											// Ceci est nécessaire pour éviter de faire planter. Le LauncherAlert ne
@@ -850,6 +859,7 @@ public class LauncherPanel extends IScreen {
 									} else {
 										autoLoginLabel.setVisible(false);
 										autoLoginButton.setVisible(false);
+										autoLoginButton2.setVisible(false);
 										autoLoginRectangle.setVisible(false);
 										autoLoginTimer.cancel();
 										Platform.runLater(() -> {
