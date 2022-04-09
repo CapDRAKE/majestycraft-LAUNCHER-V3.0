@@ -127,7 +127,7 @@ public class LauncherInfo extends IScreen {
 
 		/** ===================== changelogs 1 ===================== */
 		this.CHANGE1 = new LauncherLabel(root);
-		this.CHANGE1.setText("- Ajout de la version 1.18.2");
+		this.CHANGE1.setText("- Optimisation du launcher");
 		this.CHANGE1.setFont(Font.font("FontName", FontWeight.BOLD, 20d));
 		this.CHANGE1.setStyle("-fx-text-fill: white;");
 		this.CHANGE1.setPosition(engine.getWidth() / 2 - 449, engine.getHeight() / 2 - 20);
@@ -137,7 +137,7 @@ public class LauncherInfo extends IScreen {
 
 		/** ===================== changelogs 2 ===================== */
 		this.CHANGE2 = new LauncherLabel(root);
-		this.CHANGE2.setText("- Ajout d'Optifine sur la 1.18.2");
+		this.CHANGE2.setText("- Correction d'un bug sur la séléction des shapshots avec Microsoft");
 		this.CHANGE2.setFont(Font.font("FontName", FontWeight.BOLD, 20d));
 		this.CHANGE2.setStyle("-fx-text-fill: white;");
 		this.CHANGE2.setPosition(engine.getWidth() / 2 - 449, engine.getHeight() / 2 + 20);
@@ -147,7 +147,7 @@ public class LauncherInfo extends IScreen {
 
 		/** ===================== changelogs 3 ===================== */
 		this.CHANGE3 = new LauncherLabel(root);
-		this.CHANGE3.setText("- Amélioration d'Optifine sur toutes les versions");
+		this.CHANGE3.setText("- Le temps de connexion auto est passé de 5 à 7 secondes");
 		this.CHANGE3.setFont(Font.font("FontName", FontWeight.BOLD, 20d));
 		this.CHANGE3.setStyle("-fx-text-fill: white;");
 		this.CHANGE3.setPosition(engine.getWidth() / 2 - 449, engine.getHeight() / 2 + 60);
@@ -157,13 +157,13 @@ public class LauncherInfo extends IScreen {
 
 		/** ===================== changelogs 3 ===================== */
 		this.CHANGE4 = new LauncherLabel(root);
-		this.CHANGE4.setText("- Amélioration de la connexion Microsoft");
+		this.CHANGE4.setText("- Ajout d'un bouton démarrer lors de la connexion auto");
 		this.CHANGE4.setFont(Font.font("FontName", FontWeight.BOLD, 20d));
 		this.CHANGE4.setStyle("-fx-text-fill: white;");
 		this.CHANGE4.setPosition(engine.getWidth() / 2 - 449, engine.getHeight() / 2 + 100);
 		this.CHANGE4.setOpacity(0.7);
 		this.CHANGE4.setSize(1000, 40);
-		this.CHANGE4.setVisible(false);
+		this.CHANGE4.setVisible(true);
 
 		/** ===================== TITRE VERSION ===================== */
 		this.remarque = new LauncherLabel(root);
@@ -177,7 +177,7 @@ public class LauncherInfo extends IScreen {
 
 		/** ===================== TITRE Version actuelle ===================== */
 		this.version = new LauncherLabel(root);
-		this.version.setText("Version : 2.1.2.8 (01/04/2022)");
+		this.version.setText("Version : 2.2 (09/04/2022)");
 		this.version.setFont(Font.font("FontName", FontWeight.BOLD, 20d));
 		this.version.setStyle("-fx-text-fill: white;");
 		this.version.setPosition(engine.getWidth() / 2 - 449, engine.getHeight() / 2 + 180);

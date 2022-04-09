@@ -146,71 +146,7 @@ public class LauncherSettings extends IScreen {
 		});
 
 		this.memorySliderLabel.setText(this.memorySlider.getValue() + "Gb");
-
-		/** ===================== MC VERSION LABEL ===================== */
-		this.versionListLabel = new LauncherLabel(root);
-		this.versionListLabel.setText("Choix de la version:");
-		this.versionListLabel.setOpacity(1.0);
-		this.versionListLabel.setFont(FontLoader.loadFont("Comfortaa-Regular.ttf", "Comfortaa", 16F));
-		this.versionListLabel.setStyle("-fx-text-fill: white;");
-		this.versionListLabel.setSize(370, 30);
-		this.versionListLabel.setPosition(250, 160);
-		/** ===================== MC VERSION LIST ===================== */
-		this.versionList = new JFXComboBox<String>();
-		this.populateVersionList();
-		if (pane.config.getValue(EnumConfig.VERSION) != null) {
-			this.versionList.setValue((String) pane.config.getValue(EnumConfig.VERSION));
-		}
-		this.versionList.setPrefSize(150, 20);
-		this.versionList.setLayoutX(490);
-		this.versionList.setLayoutY(165);
-		this.versionList.setVisibleRowCount(10);
-		this.versionList.setOnAction(new EventHandler<ActionEvent>() {
-
-			@Override
-			public void handle(ActionEvent event) {
-				if (versionList.getValue() == "1.8" || versionList.getValue() == "1.16.2"
-						|| versionList.getValue() == "1.16.3" || versionList.getValue() == "1.17"
-						|| versionList.getValue() == "1.17.1" || versionList.getValue() == "1.18"
-						|| versionList.getValue() == "1.18.1") {
-					LauncherSettings.useForge.setDisable(true);
-					LauncherSettings.useForge.setSelected(false);
-					pane.config.updateValue("useforge", false);
-				} else {
-					LauncherSettings.useForge.setDisable(false);
-				}
-				pane.config.updateValue("version", versionList.getValue());
-
-			}
-		});
-		root.getChildren().add(this.versionList);
-
-		/** ===================== VM ARGUMENTS TEXTFIELD ===================== */
-		this.vmArguments = new LauncherTextField(root);
-		this.vmArguments.setText((String) pane.config.getValue(EnumConfig.VM_ARGUMENTS));
-		this.vmArguments.setSize(390, 20);
-		this.vmArguments.setPosition(250, 425);
-		/** ===================== CHECKBOX USE VM ARGUMENTS ===================== */
-		this.useVMArguments = new JFXCheckBox();
-		this.useVMArguments.setText("Utiliser les Arguments JVM");
-		this.useVMArguments.setSelected((Boolean) pane.config.getValue(EnumConfig.USE_VM_ARGUMENTS));
-		this.useVMArguments.setOpacity(1.0);
-		this.useVMArguments.setFont(FontLoader.loadFont("Comfortaa-Regular.ttf", "Comfortaa", 14F));
-		this.useVMArguments.setStyle("-fx-text-fill: white; -jfx-checked-color: RED; -jfx-unchecked-color: BLACK");
-		this.useVMArguments.setLayoutX(250);
-		this.useVMArguments.setLayoutY(395);
-		this.useVMArguments.setOnAction(new EventHandler<ActionEvent>() {
-			public void handle(ActionEvent event) {
-				if (useVMArguments.isSelected()) {
-					vmArguments.setDisable(false);
-				} else {
-					vmArguments.setDisable(true);
-				}
-			}
-		});
-		root.getChildren().add(useVMArguments);
-		this.vmArguments.setDisable(!this.useVMArguments.isSelected());
-
+		
 		/** ===================== CHECKBOX USE Optifine ===================== */
 		useOptifine = new JFXCheckBox();
 		useOptifine.setText("Optifine");
@@ -250,6 +186,111 @@ public class LauncherSettings extends IScreen {
 			}
 		});
 		root.getChildren().add(useForge);
+
+		/** ===================== MC VERSION LABEL ===================== */
+		this.versionListLabel = new LauncherLabel(root);
+		this.versionListLabel.setText("Choix de la version:");
+		this.versionListLabel.setOpacity(1.0);
+		this.versionListLabel.setFont(FontLoader.loadFont("Comfortaa-Regular.ttf", "Comfortaa", 16F));
+		this.versionListLabel.setStyle("-fx-text-fill: white;");
+		this.versionListLabel.setSize(370, 30);
+		this.versionListLabel.setPosition(250, 160);
+		/** ===================== MC VERSION LIST ===================== */
+		this.versionList = new JFXComboBox<String>();
+		this.populateVersionList();
+		if (pane.config.getValue(EnumConfig.VERSION) != null) {
+			this.versionList.setValue((String) pane.config.getValue(EnumConfig.VERSION));
+			String verif = (String) pane.config.getValue(EnumConfig.VERSION);
+			System.out.println(verif);
+			if (verif.equals("1.8") || verif.equals("1.16.2")
+					|| verif.equals("1.16.3") || verif.equals("1.17")
+					|| verif.equals("1.17.1") || verif.equals("1.18")
+					|| verif.equals("1.18.1") || verif.equals("1.18.2")
+					|| verif.equals("22w11a") || verif.equals("22w12a")
+					|| verif.equals("22w13a") || verif.equals("22w13oneblockatatime")
+					|| verif.equals("22w14a")) {
+				System.out.println("ok");
+				LauncherSettings.useForge.setDisable(true);
+				LauncherSettings.useForge.setSelected(false);
+				LauncherSettings.useForge.setOpacity(0.3);
+				pane.config.updateValue("useforge", false);
+			}
+			if (verif.equals("22w11a") || verif.equals("22w12a")
+					|| verif.equals("22w13a") || verif.equals("22w13oneblockatatime")
+					|| verif.equals("22w14a")) {
+				LauncherSettings.useOptifine.setDisable(true);
+				LauncherSettings.useOptifine.setSelected(false);
+				LauncherSettings.useOptifine.setOpacity(0.3);
+				pane.config.updateValue("useOptifine", false);					
+			}
+		}
+		this.versionList.setPrefSize(150, 20);
+		this.versionList.setLayoutX(490);
+		this.versionList.setLayoutY(165);
+		this.versionList.setVisibleRowCount(10);
+		this.versionList.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				if (versionList.getValue() == "1.8" || versionList.getValue() == "1.16.2"
+						|| versionList.getValue() == "1.16.3" || versionList.getValue() == "1.17"
+						|| versionList.getValue() == "1.17.1" || versionList.getValue() == "1.18"
+						|| versionList.getValue() == "1.18.1" || versionList.getValue() == "1.18.2"
+						|| versionList.getValue() == "22w11a" || versionList.getValue() == "22w12a"
+						|| versionList.getValue() == "22w13a" || versionList.getValue() == "22w13oneblockatatime"
+						|| versionList.getValue() == "22w14a") {
+					LauncherSettings.useForge.setDisable(true);
+					LauncherSettings.useForge.setSelected(false);
+					LauncherSettings.useForge.setOpacity(0.3);
+					pane.config.updateValue("useforge", false);
+				} else {
+					LauncherSettings.useForge.setOpacity(1);
+					LauncherSettings.useForge.setDisable(false);
+				}
+				if (versionList.getValue() == "22w11a" || versionList.getValue() == "22w12a"
+						|| versionList.getValue() == "22w13a" || versionList.getValue() == "22w13oneblockatatime"
+						|| versionList.getValue() == "22w14a") {
+					LauncherSettings.useOptifine.setDisable(true);
+					LauncherSettings.useOptifine.setSelected(false);
+					LauncherSettings.useOptifine.setOpacity(0.3);
+					pane.config.updateValue("useOptifine", false);					
+				}
+				else {
+					LauncherSettings.useOptifine.setOpacity(1);
+					LauncherSettings.useOptifine.setDisable(false);
+				}
+				pane.config.updateValue("version", versionList.getValue());
+
+			}
+		});
+		root.getChildren().add(this.versionList);
+
+		/** ===================== VM ARGUMENTS TEXTFIELD ===================== */
+		this.vmArguments = new LauncherTextField(root);
+		this.vmArguments.setText((String) pane.config.getValue(EnumConfig.VM_ARGUMENTS));
+		this.vmArguments.setSize(390, 20);
+		this.vmArguments.setPosition(250, 425);
+		/** ===================== CHECKBOX USE VM ARGUMENTS ===================== */
+		this.useVMArguments = new JFXCheckBox();
+		this.useVMArguments.setText("Utiliser les Arguments JVM");
+		this.useVMArguments.setSelected((Boolean) pane.config.getValue(EnumConfig.USE_VM_ARGUMENTS));
+		this.useVMArguments.setOpacity(1.0);
+		this.useVMArguments.setFont(FontLoader.loadFont("Comfortaa-Regular.ttf", "Comfortaa", 14F));
+		this.useVMArguments.setStyle("-fx-text-fill: white; -jfx-checked-color: RED; -jfx-unchecked-color: BLACK");
+		this.useVMArguments.setLayoutX(250);
+		this.useVMArguments.setLayoutY(395);
+		this.useVMArguments.setOnAction(new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent event) {
+				if (useVMArguments.isSelected()) {
+					vmArguments.setDisable(false);
+				} else {
+					vmArguments.setDisable(true);
+				}
+			}
+		});
+		root.getChildren().add(useVMArguments);
+		this.vmArguments.setDisable(!this.useVMArguments.isSelected());
+
 
 		/** ===================== CHECKBOX Discord statut ===================== */
 		this.useDiscord = new JFXCheckBox();
