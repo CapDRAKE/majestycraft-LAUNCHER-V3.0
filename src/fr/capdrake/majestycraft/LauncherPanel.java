@@ -1755,7 +1755,6 @@ public class LauncherPanel extends IScreen {
 				try {
 					forgeUpdater = new CustomForgeUpdater("1.14.4", "28.2.26", "20190829.143755");
 				} catch (Exception e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				engine.setGameStyle(GameStyle.FORGE_1_13_HIGHER);
