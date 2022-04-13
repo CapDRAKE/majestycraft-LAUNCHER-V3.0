@@ -208,7 +208,7 @@ public class LauncherSettings extends IScreen {
 					|| verif.equals("1.18.1") || verif.equals("1.18.2")
 					|| verif.equals("22w11a") || verif.equals("22w12a")
 					|| verif.equals("22w13a") || verif.equals("22w13oneblockatatime")
-					|| verif.equals("22w14a")) {
+					|| verif.equals("22w14a") || verif.equals("22w15a")) {
 				System.out.println("ok");
 				LauncherSettings.useForge.setDisable(true);
 				LauncherSettings.useForge.setSelected(false);
@@ -217,13 +217,14 @@ public class LauncherSettings extends IScreen {
 			}
 			if (verif.equals("22w11a") || verif.equals("22w12a")
 					|| verif.equals("22w13a") || verif.equals("22w13oneblockatatime")
-					|| verif.equals("22w14a")) {
+					|| verif.equals("22w14a") || verif.equals("22w15a")) {
 				LauncherSettings.useOptifine.setDisable(true);
 				LauncherSettings.useOptifine.setSelected(false);
 				LauncherSettings.useOptifine.setOpacity(0.3);
 				pane.config.updateValue("useOptifine", false);					
 			}
 		}
+		System.out.println("ok");
 		this.versionList.setPrefSize(150, 20);
 		this.versionList.setLayoutX(490);
 		this.versionList.setLayoutY(165);
@@ -238,7 +239,7 @@ public class LauncherSettings extends IScreen {
 						|| versionList.getValue() == "1.18.1" || versionList.getValue() == "1.18.2"
 						|| versionList.getValue() == "22w11a" || versionList.getValue() == "22w12a"
 						|| versionList.getValue() == "22w13a" || versionList.getValue() == "22w13oneblockatatime"
-						|| versionList.getValue() == "22w14a") {
+						|| versionList.getValue() == "22w14a" || versionList.getValue() == "22w15a") {
 					LauncherSettings.useForge.setDisable(true);
 					LauncherSettings.useForge.setSelected(false);
 					LauncherSettings.useForge.setOpacity(0.3);
@@ -249,7 +250,7 @@ public class LauncherSettings extends IScreen {
 				}
 				if (versionList.getValue() == "22w11a" || versionList.getValue() == "22w12a"
 						|| versionList.getValue() == "22w13a" || versionList.getValue() == "22w13oneblockatatime"
-						|| versionList.getValue() == "22w14a") {
+						|| versionList.getValue() == "22w14a" || versionList.getValue() == "22w15a") {
 					LauncherSettings.useOptifine.setDisable(true);
 					LauncherSettings.useOptifine.setSelected(false);
 					LauncherSettings.useOptifine.setOpacity(0.3);
@@ -423,7 +424,7 @@ public class LauncherSettings extends IScreen {
 	}
 
 	private void populateVersionList() {
-		for (int i = 1; i < 23; i++) {
+		for (int i = 1; i < 24; i++) {
 			if (i == 1) {
 				this.versionList.getItems().add("1.8");
 			} else if (i == 2) {
@@ -468,6 +469,8 @@ public class LauncherSettings extends IScreen {
 				this.versionList.getItems().add("22w13oneblockatatime");
 			} else if (i == 22) {
 				this.versionList.getItems().add("22w14a");
+			} else if (i == 23) {
+				this.versionList.getItems().add("22w15a");
 			}
 		}
 	}

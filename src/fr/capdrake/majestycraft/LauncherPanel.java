@@ -206,17 +206,14 @@ public class LauncherPanel extends IScreen {
 			LauncherMain.resumeMusic();
 		}
 
-		// Est censé me donner le CSS mais bon c'est experimental hein
+		//CSS
 		LauncherMain.getContentPane().getScene().getStylesheets().add("css/design.css");
-		// System.out.println(LauncherMain.contentPane.getScene());
 
 		/** ===================== IMAGE DU LOGO EN HAUT ===================== */
 		this.titleImage = new LauncherImage(root);
 		this.titleImage.setImage(getResourceLocation().loadImage(engine, "launchergifpng.png"));
 		this.titleImage.setSize(50, 50);
 		this.titleImage.setBounds(12, 5, 50, 50);
-
-		// root.getChildren().addAll(imageanniv);
 
 		/** ===================== BOUTON info ===================== */
 		this.infoButton = new LauncherButton(root);
