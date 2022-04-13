@@ -76,6 +76,10 @@ public class CustomForgeUpdater {
 			forgeVersion = new ForgeVersionBuilder(ForgeVersionBuilder.ForgeVersionType.NEW)
 					.withForgeVersion(forgeVersionConfig).withVanillaVersion(version).build();
 			break;
+		default:
+			forgeVersion = new ForgeVersionBuilder(ForgeVersionBuilder.ForgeVersionType.NEW)
+					.withForgeVersion(forgeVersionConfig).withVanillaVersion(version).build();
+			break;
 		}
 
 	}

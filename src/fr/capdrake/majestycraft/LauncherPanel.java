@@ -397,16 +397,9 @@ public class LauncherPanel extends IScreen {
 			}
 		});
 		root.getChildren().add(this.loginButton2);
-
-		/**
-		 * ================================ PARTIE PREMIUM
-		 * ==================================
-		 */
-
 		/** ===================== CHECKBOX SE SOUVENIR ===================== */
 
 		this.rememberMe = new JFXToggleButton();
-		;
 		this.rememberMe.setText("Se souvenir de moi");
 		this.rememberMe.setSelected((boolean) config.getValue(EnumConfig.REMEMBER_ME));
 		this.rememberMe.getStyleClass().add("jfx-toggle-button");
@@ -1355,7 +1348,6 @@ public class LauncherPanel extends IScreen {
 												GameType.V1_13_HIGHER_FORGE, new GameTweak[] {}, theGameEngine);
 									} catch (NoSuchFieldException | SecurityException | IllegalArgumentException
 											| IllegalAccessException e) {
-										// TODO Auto-generated catch block
 										e.printStackTrace();
 									}
 								}
@@ -1369,7 +1361,6 @@ public class LauncherPanel extends IScreen {
 					};
 					forgeUpdater.update();
 				} catch (Exception e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
@@ -1711,6 +1702,11 @@ public class LauncherPanel extends IScreen {
 						"1.18.2.json");
 				engine.setGameStyle(GameStyle.OPTIFINE);
 				break;
+			default:
+				LauncherMain.gameLinks = new GameLinks("https://majestycraft.com/minecraft/1.18.2/",
+						"1.18.2.json");
+				engine.setGameStyle(GameStyle.OPTIFINE);
+				break;
 			}
 		} else if ((boolean) config.getValue(EnumConfig.USE_OPTIFINE) == false
 				&& (boolean) config.getValue(EnumConfig.USE_FORGE) == true) {
@@ -1770,7 +1766,6 @@ public class LauncherPanel extends IScreen {
 				try {
 					forgeUpdater = new CustomForgeUpdater("1.15.2", "31.2.57", "20200515.085601");
 				} catch (Exception e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				engine.setGameStyle(GameStyle.FORGE_1_13_HIGHER);
@@ -1781,7 +1776,6 @@ public class LauncherPanel extends IScreen {
 				try {
 					forgeUpdater = new CustomForgeUpdater("1.16.2", "33.0.61", "20200812.004259");
 				} catch (Exception e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				engine.setGameStyle(GameStyle.FORGE_1_13_HIGHER);
@@ -1792,7 +1786,6 @@ public class LauncherPanel extends IScreen {
 				try {
 					forgeUpdater = new CustomForgeUpdater("1.16.3", "34.1.42", "20201025.185957");
 				} catch (Exception e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				engine.setGameStyle(GameStyle.FORGE_1_13_HIGHER);
@@ -1803,7 +1796,6 @@ public class LauncherPanel extends IScreen {
 				try {
 					forgeUpdater = new CustomForgeUpdater("1.16.4", "35.1.37", "20201102.104115");
 				} catch (Exception e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				engine.setGameStyle(GameStyle.FORGE_1_13_HIGHER);
@@ -1814,7 +1806,6 @@ public class LauncherPanel extends IScreen {
 				try {
 					forgeUpdater = new CustomForgeUpdater("1.16.5", "36.2.22", "20210115.111550");
 				} catch (Exception e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				engine.setGameStyle(GameStyle.FORGE_1_13_HIGHER);
@@ -1825,7 +1816,6 @@ public class LauncherPanel extends IScreen {
 				try {
 					forgeUpdater = new CustomForgeUpdater("1.17.1", "37.1.1", "20210706.113038");
 				} catch (Exception e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				engine.setGameStyle(GameStyle.FORGE_1_13_HIGHER);
@@ -1842,12 +1832,19 @@ public class LauncherPanel extends IScreen {
 				try {
 					forgeUpdater = new CustomForgeUpdater("1.18.1", "39.0.0", "20200812.004259");
 				} catch (Exception e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				// engine.setGameStyle(GameStyle.FORGE_1_17_HIGHER);
 				engine.setGameStyle(GameStyle.FORGE_1_13_HIGHER);
 				break;
+			default:
+				LauncherMain.gameLinks = new GameLinks("https://majestycraft.com/minecraft/1.16.5/forge/",
+						"1.16.5.json");
+				try {
+					forgeUpdater = new CustomForgeUpdater("1.16.5", "36.2.22", "20210115.111550");
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				engine.setGameStyle(GameStyle.FORGE_1_13_HIGHER);
 			}
 		} else {
 			LauncherMain.gameLinks = new GameLinks("https://majestycraft.com/minecraft/", engine.getGameLinks().JSON_NAME);
