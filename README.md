@@ -8,7 +8,7 @@ MajestyLauncher is a Minecraft launcher with Forge and Optifine
   <img width="700" align="center" src="https://majestycraft.com/theme/upload/panel/launcher1.png"/>
 </p>
 
-![image](https://user-images.githubusercontent.com/72074285/163271471-a67addd2-30a1-49c2-9e50-60e4892334aa.png)
+![image](https://user-images.githubusercontent.com/72074285/163272734-d14eaa83-6996-4996-8942-f806939a2c56.png)
 
 
 ## 🚀 Usage
