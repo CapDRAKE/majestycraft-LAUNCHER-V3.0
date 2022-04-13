@@ -52,20 +52,17 @@ public class LauncherMain extends AlternativeBase {
 	public LauncherConfig config;
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		Application.launch(args);
 	}
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		instance = this;
-		// TODO Auto-generated method stub
 		playMusic(media, "Minecraft.mp3");
 		createContent();
 		// Affiche ou non le statut discord
 		this.gameEngine.reg(primaryStage);
 		this.gameEngine.reg(this.gameMaintenance);
-		// this.gameEngine.reg(this.gameConnect);
 		LauncherBase launcherBase = new LauncherBase(primaryStage, scene, StageStyle.TRANSPARENT, this.gameEngine);
 		launcherBase.setIconImage(primaryStage, "launchergifpng.png");
 	}
@@ -73,8 +70,6 @@ public class LauncherMain extends AlternativeBase {
 	private Parent createContent() throws IOException {
 		LauncherMain.contentPane = new LauncherPane(this.gameEngine);
 		scene = new Scene(LauncherMain.getContentPane());
-		// new LauncherBackground(this.gameEngine,
-		// getResourceLocation().getMedia(gameEngine, "background.png"), contentPane);
 		Rectangle rectangle = new Rectangle(this.gameEngine.getLauncherPreferences().getWidth(),
 				this.gameEngine.getLauncherPreferences().getHeight());
 		this.gameEngine.reg(LauncherMain.gameLinks);
