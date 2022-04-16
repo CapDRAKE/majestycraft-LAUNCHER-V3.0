@@ -201,7 +201,6 @@ public class LauncherSettings extends IScreen {
 		if (pane.config.getValue(EnumConfig.VERSION) != null) {
 			this.versionList.setValue((String) pane.config.getValue(EnumConfig.VERSION));
 			String verif = (String) pane.config.getValue(EnumConfig.VERSION);
-			System.out.println(verif);
 			if (verif.equals("1.8") || verif.equals("1.16.2")
 					|| verif.equals("1.16.3") || verif.equals("1.17")
 					|| verif.equals("1.17.1") || verif.equals("1.18")
@@ -209,7 +208,6 @@ public class LauncherSettings extends IScreen {
 					|| verif.equals("22w11a") || verif.equals("22w12a")
 					|| verif.equals("22w13a") || verif.equals("22w13oneblockatatime")
 					|| verif.equals("22w14a") || verif.equals("22w15a")) {
-				System.out.println("ok");
 				LauncherSettings.useForge.setDisable(true);
 				LauncherSettings.useForge.setSelected(false);
 				LauncherSettings.useForge.setOpacity(0.3);
@@ -224,7 +222,6 @@ public class LauncherSettings extends IScreen {
 				pane.config.updateValue("useOptifine", false);					
 			}
 		}
-		System.out.println("ok");
 		this.versionList.setPrefSize(150, 20);
 		this.versionList.setLayoutX(490);
 		this.versionList.setLayoutY(165);

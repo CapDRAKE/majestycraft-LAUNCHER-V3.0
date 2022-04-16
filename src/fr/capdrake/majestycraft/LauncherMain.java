@@ -220,6 +220,10 @@ public class LauncherMain extends AlternativeBase {
 	public static LauncherPane getContentPane() {
 		return LauncherMain.contentPane;
 	}
+	
+	public static void setContentPane(LauncherPane contentPane) {
+		LauncherMain.contentPane = contentPane;
+	}
 
 	public static LauncherMain getInstance() {
 		return instance;

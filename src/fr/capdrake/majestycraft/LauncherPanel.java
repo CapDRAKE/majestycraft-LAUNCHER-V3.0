@@ -1,7 +1,11 @@
 package fr.capdrake.majestycraft;
 
 import java.text.DecimalFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -23,14 +27,12 @@ import animatefx.animation.RotateOut;
 import animatefx.animation.ZoomInDown;
 import animatefx.animation.ZoomInLeft;
 import animatefx.animation.ZoomOutDown;
-
 import fr.capdrake.majestycraft.forge.CustomForgeUpdater;
 import fr.flowarg.flowlogger.ILogger;
 import fr.flowarg.flowupdater.download.IProgressCallback;
 import fr.flowarg.flowupdater.download.Step;
 import fr.theshark34.openlauncherlib.minecraft.GameTweak;
 import fr.theshark34.openlauncherlib.minecraft.GameType;
-
 import fr.trxyy.alternative.alternative_api.GameEngine;
 import fr.trxyy.alternative.alternative_api.GameForge;
 import fr.trxyy.alternative.alternative_api.GameLinks;
@@ -54,7 +56,6 @@ import fr.trxyy.alternative.alternative_api_ui.components.LauncherLabel;
 import fr.trxyy.alternative.alternative_api_ui.components.LauncherRectangle;
 import fr.trxyy.alternative.alternative_auth.account.AccountType;
 import fr.trxyy.alternative.alternative_auth.base.GameAuth;
-
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -77,7 +78,9 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 public class LauncherPanel extends IScreen {
-
+	
+	private LauncherPane panel = LauncherMain.getContentPane();
+	
 	private IProgressCallback callback;
 	private static LauncherPanel instance;
 	private CustomForgeUpdater forgeUpdater;
@@ -238,13 +241,13 @@ public class LauncherPanel extends IScreen {
 				stage.show();
 			}
 		});
-
+		
 		JFXRippler rippler3 = new JFXRippler(this.infoButton);
 		rippler3.setLayoutX(engine.getWidth() / 2 - 515);
 		rippler3.setLayoutY(engine.getHeight() / 2 - 50);
 		rippler3.getStyleClass().add("rippler2");
 		root.getChildren().add(rippler3);
-
+		
 		/** ===================== BOUTON microsoft ===================== */
 		this.microsoftButton = new LauncherButton(root);
 		this.microsoftButton.setStyle("-fx-background-color: rgba(0 ,0 ,0 , 0); -fx-text-fill: orange");
@@ -263,25 +266,67 @@ public class LauncherPanel extends IScreen {
 				/**
 				 * ===================== VERIFICATION USEFORGE =====================
 				 */
-
+	            SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss", Locale.ENGLISH);
 
 				if ((boolean) config.getValue(EnumConfig.USE_MICROSOFT) == true) {
-					gameAuthentication = new GameAuth(AccountType.MICROSOFT);
-					gameAuthentication.setSession((String) config.getValue(EnumConfig.USERNAME),
-							(String) config.getValue(EnumConfig.TOKEN), (String) config.getValue(EnumConfig.UUID));
-					if (gameAuthentication.isLogged()) {
-						connectAccountPremiumCO(gameAuthentication.getSession().getUsername(), root);
-						if ((boolean) config.getValue(EnumConfig.USE_FORGE) == true && verif == 1) {
-							selectVersion(engine);
-							update(gameAuthentication);
+					
+				    String test = (String) config.getValue(EnumConfig.DATE);
+				    Date firstDate= null;
+				    try {
+				    	firstDate = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss").parse(test);
+					} catch (ParseException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				    
+		            Date secondDate = new Date();
+
+					
+		            long diff = secondDate.getTime() - firstDate.getTime();
+		            System.out.println(diff);
+		            
+					if(diff < 86400000) {
+						gameAuthentication = new GameAuth(AccountType.MICROSOFT);
+						gameAuthentication.setSession((String) config.getValue(EnumConfig.USERNAME),
+								(String) config.getValue(EnumConfig.TOKEN), (String) config.getValue(EnumConfig.UUID));
+						if (gameAuthentication.isLogged()) {
+							connectAccountPremiumCO(gameAuthentication.getSession().getUsername(), root);
+							if ((boolean) config.getValue(EnumConfig.USE_FORGE) == true && verif == 1) {
+								selectVersion(engine);
+								update(gameAuthentication);
+							} else {
+								selectVersion(engine);
+								update2(gameAuthentication);
+							}
 						} else {
-							selectVersion(engine);
-							update2(gameAuthentication);
-						}
-					} else {
+							gameAuthentication = new GameAuth(AccountType.MICROSOFT);
+							showMicrosoftAuth(gameAuthentication);
+							if (gameAuthentication.isLogged()) {
+						        firstDate = null;
+								firstDate = new Date();
+								config.updateValue("date", sdf.format(firstDate));
+								config.updateValue("username", gameAuthentication.getSession().getUsername());
+								config.updateValue("uuid", gameAuthentication.getSession().getUuid());
+								config.updateValue("token", gameAuthentication.getSession().getToken());
+								config.updateValue("useMicrosoft", true);
+								connectAccountPremiumCO(gameAuthentication.getSession().getUsername(), root);
+								if ((boolean) config.getValue(EnumConfig.USE_FORGE) == true && verif == 1) {
+									selectVersion(engine);
+									update(gameAuthentication);
+								} else {
+									selectVersion(engine);
+									update2(gameAuthentication);
+								}
+							}
+						}						
+					}
+					else {
 						gameAuthentication = new GameAuth(AccountType.MICROSOFT);
 						showMicrosoftAuth(gameAuthentication);
 						if (gameAuthentication.isLogged()) {
+					        firstDate = null;
+							firstDate = new Date();
+							config.updateValue("date", sdf.format(firstDate));
 							config.updateValue("username", gameAuthentication.getSession().getUsername());
 							config.updateValue("uuid", gameAuthentication.getSession().getUuid());
 							config.updateValue("token", gameAuthentication.getSession().getToken());
@@ -296,10 +341,14 @@ public class LauncherPanel extends IScreen {
 							}
 						}
 					}
+
 				} else {
 					gameAuthentication = new GameAuth(AccountType.MICROSOFT);
 					showMicrosoftAuth(gameAuthentication);
 					if (gameAuthentication.isLogged()) {
+				        Date firstDate = null;
+						firstDate = new Date();
+						config.updateValue("date", sdf.format(firstDate));
 						config.updateValue("username", gameAuthentication.getSession().getUsername());
 						config.updateValue("uuid", gameAuthentication.getSession().getUuid());
 						config.updateValue("token", gameAuthentication.getSession().getToken());
@@ -419,7 +468,7 @@ public class LauncherPanel extends IScreen {
 
 		/** ===================== TITRE 1 PREMIUM ===================== */
 		this.titlePremium = new LauncherLabel(root);
-		this.titlePremium.setText("Connexion premium");
+		this.titlePremium.setText("Connexion Mojang");
 		this.titlePremium.setFont(Font.font("FontName", FontWeight.BOLD, 25d));
 		this.titlePremium.setStyle("-fx-background-color: transparent; -fx-text-fill: orange");
 		this.titlePremium.setPosition(engine.getWidth() / 2 - 116, engine.getHeight() / 2 - 130);
@@ -520,7 +569,7 @@ public class LauncherPanel extends IScreen {
 		/** ===================== CHECKBOX SE SOUVENIR ===================== */
 
 		toggleButton = new JFXToggleButton();
-		toggleButton.setText("Connexion premium");
+		toggleButton.setText("Connexion Mojang");
 		toggleButton.getStyleClass().add("jfx-toggle-button");
 		toggleButton.setLayoutX(385);
 		toggleButton.setLayoutY(277);
@@ -657,28 +706,67 @@ public class LauncherPanel extends IScreen {
 					 * ===================== AUTHENTIFICATION OFFLINE (CRACK) =====================
 					 */
 					if ((boolean) config.getValue(EnumConfig.USE_MICROSOFT) == true) {
+			            SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss", Locale.ENGLISH);
 						autoLoginTimer.cancel();
 						autoLoginLabel.setVisible(false);
 						autoLoginButton.setVisible(false);
 						autoLoginButton2.setVisible(false);
 						autoLoginRectangle.setVisible(false);
-						gameAuthentication = new GameAuth(AccountType.MICROSOFT);
-						gameAuthentication.setSession((String) config.getValue(EnumConfig.USERNAME),
-								(String) config.getValue(EnumConfig.TOKEN),
-								(String) config.getValue(EnumConfig.UUID));
-						if (gameAuthentication.isLogged()) {
-							if ((boolean) config.getValue(EnumConfig.USE_FORGE) == true && verif == 1) {
-								update(gameAuthentication);
+					    String test = (String) config.getValue(EnumConfig.DATE);
+					    Date firstDate= null;
+					    try {
+					    	firstDate = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss").parse(test);
+						} catch (ParseException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					    
+			            Date secondDate = new Date();
+
+						
+			            long diff = secondDate.getTime() - firstDate.getTime();
+			            System.out.println(diff);
+			            
+						if(diff < 86400000) {
+							gameAuthentication = new GameAuth(AccountType.MICROSOFT);
+							gameAuthentication.setSession((String) config.getValue(EnumConfig.USERNAME),
+									(String) config.getValue(EnumConfig.TOKEN),
+									(String) config.getValue(EnumConfig.UUID));
+							if (gameAuthentication.isLogged()) {
+								if ((boolean) config.getValue(EnumConfig.USE_FORGE) == true && verif == 1) {
+									update(gameAuthentication);
+								} else {
+									update2(gameAuthentication);
+								}
 							} else {
-								update2(gameAuthentication);
+								Platform.runLater(() -> {
+									new LauncherAlert("Authentification echouée!",
+											"Impossible de se connecter, l'authentification semble etre une authentification 'en-ligne'"
+													+ " \nIl y a un probleme lors de la tentative de connexion. \n\n-Verifiez que le mdp soit bien saisi."
+													+ "\n-Faites bien attention aux majuscules et minuscules. \nAssurez-vous d'utiliser un compte Microsoft.");
+								});
+							}					
+						}
+						else {
+							gameAuthentication = new GameAuth(AccountType.MICROSOFT);
+							showMicrosoftAuth(gameAuthentication);
+							if (gameAuthentication.isLogged()) {
+						        firstDate = null;
+								firstDate = new Date();
+								config.updateValue("date", sdf.format(firstDate));
+								config.updateValue("username", gameAuthentication.getSession().getUsername());
+								config.updateValue("uuid", gameAuthentication.getSession().getUuid());
+								config.updateValue("token", gameAuthentication.getSession().getToken());
+								config.updateValue("useMicrosoft", true);
+								connectAccountPremiumCO(gameAuthentication.getSession().getUsername(), root);
+								if ((boolean) config.getValue(EnumConfig.USE_FORGE) == true && verif == 1) {
+									selectVersion(engine);
+									update(gameAuthentication);
+								} else {
+									selectVersion(engine);
+									update2(gameAuthentication);
+								}
 							}
-						} else {
-							Platform.runLater(() -> {
-								new LauncherAlert("Authentification echouée!",
-										"Impossible de se connecter, l'authentification semble etre une authentification 'en-ligne'"
-												+ " \nIl y a un probleme lors de la tentative de connexion. \n\n-Verifiez que le mdp soit bien saisi."
-												+ "\n-Faites bien attention aux majuscules et minuscules. \nAssurez-vous d'utiliser un compte Microsoft.");
-							});
 						}
 					} else if (usernameField2.getText().length() > 3
 							&& passwordField.getText().isEmpty()) {
@@ -774,28 +862,67 @@ public class LauncherPanel extends IScreen {
 									 * ===================== AUTHENTIFICATION OFFLINE (CRACK) =====================
 									 */
 									if ((boolean) config.getValue(EnumConfig.USE_MICROSOFT) == true) {
+										SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss", Locale.ENGLISH);
 										autoLoginTimer.cancel();
 										autoLoginLabel.setVisible(false);
 										autoLoginButton.setVisible(false);
 										autoLoginButton2.setVisible(false);
 										autoLoginRectangle.setVisible(false);
-										gameAuthentication = new GameAuth(AccountType.MICROSOFT);
-										gameAuthentication.setSession((String) config.getValue(EnumConfig.USERNAME),
-												(String) config.getValue(EnumConfig.TOKEN),
-												(String) config.getValue(EnumConfig.UUID));
-										if (gameAuthentication.isLogged()) {
-											if ((boolean) config.getValue(EnumConfig.USE_FORGE) == true && verif == 1) {
-												update(gameAuthentication);
+										String test = (String) config.getValue(EnumConfig.DATE);
+									    Date firstDate= null;
+									    try {
+									    	firstDate = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss").parse(test);
+										} catch (ParseException e) {
+											// TODO Auto-generated catch block
+											e.printStackTrace();
+										}
+									    
+							            Date secondDate = new Date();
+
+										
+							            long diff = secondDate.getTime() - firstDate.getTime();
+							            System.out.println(diff);
+							            
+										if(diff < 86400000) {
+											gameAuthentication = new GameAuth(AccountType.MICROSOFT);
+											gameAuthentication.setSession((String) config.getValue(EnumConfig.USERNAME),
+													(String) config.getValue(EnumConfig.TOKEN),
+													(String) config.getValue(EnumConfig.UUID));
+											if (gameAuthentication.isLogged()) {
+												if ((boolean) config.getValue(EnumConfig.USE_FORGE) == true && verif == 1) {
+													update(gameAuthentication);
+												} else {
+													update2(gameAuthentication);
+												}
 											} else {
-												update2(gameAuthentication);
+												Platform.runLater(() -> {
+													new LauncherAlert("Authentification echouée!",
+															"Impossible de se connecter, l'authentification semble etre une authentification 'en-ligne'"
+																	+ " \nIl y a un probleme lors de la tentative de connexion. \n\n-Verifiez que le mdp soit bien saisi."
+																	+ "\n-Faites bien attention aux majuscules et minuscules. \nAssurez-vous d'utiliser un compte Microsoft.");
+												});
+											}					
+										}
+										else {
+											gameAuthentication = new GameAuth(AccountType.MICROSOFT);
+											showMicrosoftAuth(gameAuthentication);
+											if (gameAuthentication.isLogged()) {
+										        firstDate = null;
+												firstDate = new Date();
+												config.updateValue("date", sdf.format(firstDate));
+												config.updateValue("username", gameAuthentication.getSession().getUsername());
+												config.updateValue("uuid", gameAuthentication.getSession().getUuid());
+												config.updateValue("token", gameAuthentication.getSession().getToken());
+												config.updateValue("useMicrosoft", true);
+												connectAccountPremiumCO(gameAuthentication.getSession().getUsername(), root);
+												if ((boolean) config.getValue(EnumConfig.USE_FORGE) == true && verif == 1) {
+													selectVersion(engine);
+													update(gameAuthentication);
+												} else {
+													selectVersion(engine);
+													update2(gameAuthentication);
+												}
 											}
-										} else {
-											Platform.runLater(() -> {
-												new LauncherAlert("Authentification echouée!",
-														"Impossible de se connecter, l'authentification semble etre une authentification 'en-ligne'"
-																+ " \nIl y a un probleme lors de la tentative de connexion. \n\n-Verifiez que le mdp soit bien saisi."
-																+ "\n-Faites bien attention aux majuscules et minuscules. \nAssurez-vous d'utiliser un compte Microsoft.");
-											});
 										}
 									} else if (usernameField2.getText().length() > 3
 											&& passwordField.getText().isEmpty()) {
@@ -996,7 +1123,7 @@ public class LauncherPanel extends IScreen {
 		this.closeButton.setPosition(engine.getWidth() - 35, 2);
 		this.closeButton.setSize(15, 15);
 		this.closeButton.setOnAction(event -> {
-			final BounceOutDown animation = new BounceOutDown(LauncherMain.getContentPane());
+			final BounceOutDown animation = new BounceOutDown(panel);
 			animation.setOnFinished(new EventHandler<ActionEvent>() {
 				@Override
 				public void handle(final ActionEvent actionEvent) {
@@ -1016,7 +1143,7 @@ public class LauncherPanel extends IScreen {
 		this.reduceButton.setPosition(engine.getWidth() - 65, 2);
 		this.reduceButton.setSize(15, 15);
 		this.reduceButton.setOnAction(event -> {
-			final ZoomOutDown animation2 = new ZoomOutDown(LauncherMain.getContentPane());
+			final ZoomOutDown animation2 = new ZoomOutDown(panel);
 			animation2.setOnFinished(new EventHandler<ActionEvent>() {
 				@Override
 				public void handle(final ActionEvent actionEvent) {
