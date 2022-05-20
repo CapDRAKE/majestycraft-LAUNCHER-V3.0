@@ -862,13 +862,13 @@ public class LauncherPanel extends IScreen {
 									 * ===================== AUTHENTIFICATION OFFLINE (CRACK) =====================
 									 */
 									if ((boolean) config.getValue(EnumConfig.USE_MICROSOFT) == true) {
-										SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss", Locale.ENGLISH);
+							            SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss", Locale.ENGLISH);
 										autoLoginTimer.cancel();
 										autoLoginLabel.setVisible(false);
 										autoLoginButton.setVisible(false);
 										autoLoginButton2.setVisible(false);
 										autoLoginRectangle.setVisible(false);
-										String test = (String) config.getValue(EnumConfig.DATE);
+									    String test = (String) config.getValue(EnumConfig.DATE);
 									    Date firstDate= null;
 									    try {
 									    	firstDate = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss").parse(test);
@@ -904,25 +904,28 @@ public class LauncherPanel extends IScreen {
 											}					
 										}
 										else {
-											gameAuthentication = new GameAuth(AccountType.MICROSOFT);
-											showMicrosoftAuth(gameAuthentication);
-											if (gameAuthentication.isLogged()) {
-										        firstDate = null;
-												firstDate = new Date();
-												config.updateValue("date", sdf.format(firstDate));
-												config.updateValue("username", gameAuthentication.getSession().getUsername());
-												config.updateValue("uuid", gameAuthentication.getSession().getUuid());
-												config.updateValue("token", gameAuthentication.getSession().getToken());
-												config.updateValue("useMicrosoft", true);
-												connectAccountPremiumCO(gameAuthentication.getSession().getUsername(), root);
-												if ((boolean) config.getValue(EnumConfig.USE_FORGE) == true && verif == 1) {
-													selectVersion(engine);
-													update(gameAuthentication);
-												} else {
-													selectVersion(engine);
-													update2(gameAuthentication);
+											Platform.runLater(() -> {
+												System.out.println("ok");
+												gameAuthentication = new GameAuth(AccountType.MICROSOFT);
+												showMicrosoftAuth(gameAuthentication);
+												if (gameAuthentication.isLogged()) {
+													Date first  = null;
+													first = new Date();
+													config.updateValue("date", sdf.format(first));
+													config.updateValue("username", gameAuthentication.getSession().getUsername());
+													config.updateValue("uuid", gameAuthentication.getSession().getUuid());
+													config.updateValue("token", gameAuthentication.getSession().getToken());
+													config.updateValue("useMicrosoft", true);
+													connectAccountPremiumCO(gameAuthentication.getSession().getUsername(), root);
+													if ((boolean) config.getValue(EnumConfig.USE_FORGE) == true && verif == 1) {
+														selectVersion(engine);
+														update(gameAuthentication);
+													} else {
+														selectVersion(engine);
+														update2(gameAuthentication);
+													}
 												}
-											}
+											});
 										}
 									} else if (usernameField2.getText().length() > 3
 											&& passwordField.getText().isEmpty()) {

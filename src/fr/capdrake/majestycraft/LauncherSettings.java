@@ -207,7 +207,9 @@ public class LauncherSettings extends IScreen {
 					|| verif.equals("1.18.1") || verif.equals("1.18.2")
 					|| verif.equals("22w11a") || verif.equals("22w12a")
 					|| verif.equals("22w13a") || verif.equals("22w13oneblockatatime")
-					|| verif.equals("22w14a") || verif.equals("22w15a")) {
+					|| verif.equals("22w14a") || verif.equals("22w15a")
+					|| verif.equals("22w16b") || verif.equals("22w17a")
+					|| verif.equals("22w18a") || verif.equals("22w19a")) {
 				LauncherSettings.useForge.setDisable(true);
 				LauncherSettings.useForge.setSelected(false);
 				LauncherSettings.useForge.setOpacity(0.3);
@@ -215,7 +217,9 @@ public class LauncherSettings extends IScreen {
 			}
 			if (verif.equals("22w11a") || verif.equals("22w12a")
 					|| verif.equals("22w13a") || verif.equals("22w13oneblockatatime")
-					|| verif.equals("22w14a") || verif.equals("22w15a")) {
+					|| verif.equals("22w14a") || verif.equals("22w15a")
+					|| verif.equals("22w16b") || verif.equals("22w17a")
+					|| verif.equals("22w18a") || verif.equals("22w19a")) {
 				LauncherSettings.useOptifine.setDisable(true);
 				LauncherSettings.useOptifine.setSelected(false);
 				LauncherSettings.useOptifine.setOpacity(0.3);
@@ -236,7 +240,9 @@ public class LauncherSettings extends IScreen {
 						|| versionList.getValue() == "1.18.1" || versionList.getValue() == "1.18.2"
 						|| versionList.getValue() == "22w11a" || versionList.getValue() == "22w12a"
 						|| versionList.getValue() == "22w13a" || versionList.getValue() == "22w13oneblockatatime"
-						|| versionList.getValue() == "22w14a" || versionList.getValue() == "22w15a") {
+						|| versionList.getValue() == "22w14a" || versionList.getValue() == "22w15a"
+						|| versionList.getValue() == "22w16b" || versionList.getValue() == "22w17a"
+						|| versionList.getValue() == "22w18a" || versionList.getValue() == "22w19a") {
 					LauncherSettings.useForge.setDisable(true);
 					LauncherSettings.useForge.setSelected(false);
 					LauncherSettings.useForge.setOpacity(0.3);
@@ -247,7 +253,9 @@ public class LauncherSettings extends IScreen {
 				}
 				if (versionList.getValue() == "22w11a" || versionList.getValue() == "22w12a"
 						|| versionList.getValue() == "22w13a" || versionList.getValue() == "22w13oneblockatatime"
-						|| versionList.getValue() == "22w14a" || versionList.getValue() == "22w15a") {
+						|| versionList.getValue() == "22w14a" || versionList.getValue() == "22w15a"
+						|| versionList.getValue() == "22w16b" || versionList.getValue() == "22w17a"
+						|| versionList.getValue() == "22w18a" || versionList.getValue() == "22w19a") {
 					LauncherSettings.useOptifine.setDisable(true);
 					LauncherSettings.useOptifine.setSelected(false);
 					LauncherSettings.useOptifine.setOpacity(0.3);
@@ -421,7 +429,7 @@ public class LauncherSettings extends IScreen {
 	}
 
 	private void populateVersionList() {
-		for (int i = 1; i < 24; i++) {
+		for (int i = 1; i < 28; i++) {
 			if (i == 1) {
 				this.versionList.getItems().add("1.8");
 			} else if (i == 2) {
@@ -468,7 +476,16 @@ public class LauncherSettings extends IScreen {
 				this.versionList.getItems().add("22w14a");
 			} else if (i == 23) {
 				this.versionList.getItems().add("22w15a");
+			} else if (i == 24) {
+				this.versionList.getItems().add("22w16b");
+			} else if (i == 25) {
+				this.versionList.getItems().add("22w17a");
+			} else if (i == 26) {
+				this.versionList.getItems().add("22w18a");
+			} else if (i == 27) {
+				this.versionList.getItems().add("22w19a");
 			}
+			
 		}
 	}
 }

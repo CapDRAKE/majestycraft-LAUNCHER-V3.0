@@ -41,7 +41,7 @@ public class LauncherMain extends AlternativeBase {
 	private static GameFolder gameFolder = new GameFolder("majestycraft");
 	private LauncherPreferences launcherPreferences = new LauncherPreferences("MajestyLauncher Optifine + Forge", 1050,
 			750, Mover.MOVE);
-	public static GameLinks gameLinks = new GameLinks("https://majestycraft.com/minecraft/", "1.18.1.json");
+	public static GameLinks gameLinks = new GameLinks("https://majestycraft.com/minecraft/", "1.18.2.json");
 	private GameEngine gameEngine = new GameEngine(LauncherMain.gameFolder, LauncherMain.gameLinks,
 			this.launcherPreferences, GameStyle.VANILLA);
 	public static GameForge gameForge;
@@ -171,6 +171,18 @@ public class LauncherMain extends AlternativeBase {
 			break;
 		case "22w15a":
 			gameLinks.JSON_URL = gameLinks.BASE_URL + "22w15a.json";
+			break;
+		case "22w16b":
+			gameLinks.JSON_URL = gameLinks.BASE_URL + "22w16b.json";
+			break;
+		case "22w17a":
+			gameLinks.JSON_URL = gameLinks.BASE_URL + "22w17a.json";
+			break;
+		case "22w18a":
+			gameLinks.JSON_URL = gameLinks.BASE_URL + "22w18a.json";
+			break;
+		case "22w19a":
+			gameLinks.JSON_URL = gameLinks.BASE_URL + "22w19a.json";
 			break;
 		default:
 			panel.config.updateValue("version", gameLinks.getJsonName().replace(".json", ""));

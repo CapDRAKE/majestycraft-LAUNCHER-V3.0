@@ -127,7 +127,7 @@ public class LauncherInfo extends IScreen {
 
 		/** ===================== changelogs 1 ===================== */
 		this.CHANGE1 = new LauncherLabel(root);
-		this.CHANGE1.setText("- Plus besoin de desactiver la connexion auto à Microsoft");
+		this.CHANGE1.setText("- Correction d'un bug de connexion auto avec Microsoft");
 		this.CHANGE1.setFont(Font.font("FontName", FontWeight.BOLD, 20d));
 		this.CHANGE1.setStyle("-fx-text-fill: white;");
 		this.CHANGE1.setPosition(engine.getWidth() / 2 - 449, engine.getHeight() / 2 - 20);
@@ -143,7 +143,7 @@ public class LauncherInfo extends IScreen {
 		this.CHANGE2.setPosition(engine.getWidth() / 2 - 449, engine.getHeight() / 2 + 20);
 		this.CHANGE2.setOpacity(0.7);
 		this.CHANGE2.setSize(1000, 40);
-		this.CHANGE2.setVisible(true);
+		this.CHANGE2.setVisible(false);
 
 		/** ===================== changelogs 3 ===================== */
 		this.CHANGE3 = new LauncherLabel(root);
@@ -177,7 +177,7 @@ public class LauncherInfo extends IScreen {
 
 		/** ===================== TITRE Version actuelle ===================== */
 		this.version = new LauncherLabel(root);
-		this.version.setText("Version : 2.2.2 (16/04/2022)");
+		this.version.setText("Version : 2.2.3 (24/04/2022)");
 		this.version.setFont(Font.font("FontName", FontWeight.BOLD, 20d));
 		this.version.setStyle("-fx-text-fill: white;");
 		this.version.setPosition(engine.getWidth() / 2 - 449, engine.getHeight() / 2 + 180);
