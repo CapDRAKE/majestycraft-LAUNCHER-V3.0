@@ -1,6 +1,9 @@
 package fr.capdrake.majestycraft;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
 
 import animatefx.animation.JackInTheBox;
 import animatefx.animation.Tada;
@@ -62,7 +65,9 @@ public class LauncherMain extends AlternativeBase {
 		createContent();
 		// Affiche ou non le statut discord
 		this.gameEngine.reg(primaryStage);
-		this.gameEngine.reg(this.gameMaintenance);
+		if(LauncherMain.netIsAvailable()) {
+			this.gameEngine.reg(this.gameMaintenance);
+		}
 		LauncherBase launcherBase = new LauncherBase(primaryStage, scene, StageStyle.TRANSPARENT, this.gameEngine);
 		launcherBase.setIconImage(primaryStage, "launchergifpng.png");
 	}
@@ -239,6 +244,22 @@ public class LauncherMain extends AlternativeBase {
 
 	public static void setGameConnect(GameConnect gameConnect) {
 		LauncherMain.gameConnect = gameConnect;
+	}
+	
+	private static boolean netIsAvailable() {
+	    try {
+	        final URL url = new URL("http://www.google.com");
+	        final URLConnection conn = url.openConnection();
+	        conn.connect();
+	        conn.getInputStream().close();
+	        System.out.println("ok");
+	        return true;
+	    } catch (MalformedURLException e) {
+	        throw new RuntimeException(e);
+	    } catch (IOException e) {
+	        System.out.println("pas ok");
+	        return false;
+	    }
 	}
 
 }
