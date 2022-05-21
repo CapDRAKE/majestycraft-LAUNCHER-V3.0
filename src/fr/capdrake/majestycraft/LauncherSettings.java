@@ -209,7 +209,8 @@ public class LauncherSettings extends IScreen {
 					|| verif.equals("22w13a") || verif.equals("22w13oneblockatatime")
 					|| verif.equals("22w14a") || verif.equals("22w15a")
 					|| verif.equals("22w16b") || verif.equals("22w17a")
-					|| verif.equals("22w18a") || verif.equals("22w19a")) {
+					|| verif.equals("22w18a") || verif.equals("22w19a")
+					|| verif.equals("1.19-pre1")) {
 				LauncherSettings.useForge.setDisable(true);
 				LauncherSettings.useForge.setSelected(false);
 				LauncherSettings.useForge.setOpacity(0.3);
@@ -219,7 +220,8 @@ public class LauncherSettings extends IScreen {
 					|| verif.equals("22w13a") || verif.equals("22w13oneblockatatime")
 					|| verif.equals("22w14a") || verif.equals("22w15a")
 					|| verif.equals("22w16b") || verif.equals("22w17a")
-					|| verif.equals("22w18a") || verif.equals("22w19a")) {
+					|| verif.equals("22w18a") || verif.equals("22w19a")
+					|| verif.equals("1.19-pre1")) {
 				LauncherSettings.useOptifine.setDisable(true);
 				LauncherSettings.useOptifine.setSelected(false);
 				LauncherSettings.useOptifine.setOpacity(0.3);
@@ -242,7 +244,8 @@ public class LauncherSettings extends IScreen {
 						|| versionList.getValue() == "22w13a" || versionList.getValue() == "22w13oneblockatatime"
 						|| versionList.getValue() == "22w14a" || versionList.getValue() == "22w15a"
 						|| versionList.getValue() == "22w16b" || versionList.getValue() == "22w17a"
-						|| versionList.getValue() == "22w18a" || versionList.getValue() == "22w19a") {
+						|| versionList.getValue() == "22w18a" || versionList.getValue() == "22w19a"
+						|| versionList.getValue() == "1.19-pre1") {
 					LauncherSettings.useForge.setDisable(true);
 					LauncherSettings.useForge.setSelected(false);
 					LauncherSettings.useForge.setOpacity(0.3);
@@ -255,7 +258,8 @@ public class LauncherSettings extends IScreen {
 						|| versionList.getValue() == "22w13a" || versionList.getValue() == "22w13oneblockatatime"
 						|| versionList.getValue() == "22w14a" || versionList.getValue() == "22w15a"
 						|| versionList.getValue() == "22w16b" || versionList.getValue() == "22w17a"
-						|| versionList.getValue() == "22w18a" || versionList.getValue() == "22w19a") {
+						|| versionList.getValue() == "22w18a" || versionList.getValue() == "22w19a"
+						|| versionList.getValue() == "1.19-pre1") {
 					LauncherSettings.useOptifine.setDisable(true);
 					LauncherSettings.useOptifine.setSelected(false);
 					LauncherSettings.useOptifine.setOpacity(0.3);
@@ -429,7 +433,7 @@ public class LauncherSettings extends IScreen {
 	}
 
 	private void populateVersionList() {
-		for (int i = 1; i < 28; i++) {
+		for (int i = 1; i < 29; i++) {
 			if (i == 1) {
 				this.versionList.getItems().add("1.8");
 			} else if (i == 2) {
@@ -484,8 +488,9 @@ public class LauncherSettings extends IScreen {
 				this.versionList.getItems().add("22w18a");
 			} else if (i == 27) {
 				this.versionList.getItems().add("22w19a");
+			} else if (i == 28) {
+				this.versionList.getItems().add("1.19-pre1");
 			}
-			
 		}
 	}
 }

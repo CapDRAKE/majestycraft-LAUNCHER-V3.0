@@ -189,6 +189,9 @@ public class LauncherMain extends AlternativeBase {
 		case "22w19a":
 			gameLinks.JSON_URL = gameLinks.BASE_URL + "22w19a.json";
 			break;
+		case "1.19-pre1":
+			gameLinks.JSON_URL = gameLinks.BASE_URL + "1.19-pre1.json";
+			break;
 		default:
 			panel.config.updateValue("version", gameLinks.getJsonName().replace(".json", ""));
 			break;
@@ -258,7 +261,7 @@ public class LauncherMain extends AlternativeBase {
 		LauncherMain.gameConnect = gameConnect;
 	}
 	
-	private static boolean netIsAvailable() {
+	public static boolean netIsAvailable() {
 	    try {
 	        final URL url = new URL("http://www.google.com");
 	        final URLConnection conn = url.openConnection();
