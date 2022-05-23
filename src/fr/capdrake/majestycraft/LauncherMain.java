@@ -267,12 +267,10 @@ public class LauncherMain extends AlternativeBase {
 	        final URLConnection conn = url.openConnection();
 	        conn.connect();
 	        conn.getInputStream().close();
-	        System.out.println("ok");
 	        return true;
 	    } catch (MalformedURLException e) {
 	        throw new RuntimeException(e);
 	    } catch (IOException e) {
-	        System.out.println("pas ok");
 	        return false;
 	    }
 	}
