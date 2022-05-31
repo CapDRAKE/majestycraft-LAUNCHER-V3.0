@@ -203,8 +203,6 @@ public class LauncherSettings extends IScreen {
 			String verif = (String) pane.config.getValue(EnumConfig.VERSION);
 			if (verif.equals("1.8") || verif.equals("1.16.2")
 					|| verif.equals("1.16.3") || verif.equals("1.17")
-					|| verif.equals("1.17.1") || verif.equals("1.18")
-					|| verif.equals("1.18.1") || verif.equals("1.18.2")
 					|| verif.equals("22w11a") || verif.equals("22w12a")
 					|| verif.equals("22w13a") || verif.equals("22w13oneblockatatime")
 					|| verif.equals("22w14a") || verif.equals("22w15a")
@@ -238,8 +236,6 @@ public class LauncherSettings extends IScreen {
 			public void handle(ActionEvent event) {
 				if (versionList.getValue() == "1.8" || versionList.getValue() == "1.16.2"
 						|| versionList.getValue() == "1.16.3" || versionList.getValue() == "1.17"
-						|| versionList.getValue() == "1.17.1" || versionList.getValue() == "1.18"
-						|| versionList.getValue() == "1.18.1" || versionList.getValue() == "1.18.2"
 						|| versionList.getValue() == "22w11a" || versionList.getValue() == "22w12a"
 						|| versionList.getValue() == "22w13a" || versionList.getValue() == "22w13oneblockatatime"
 						|| versionList.getValue() == "22w14a" || versionList.getValue() == "22w15a"

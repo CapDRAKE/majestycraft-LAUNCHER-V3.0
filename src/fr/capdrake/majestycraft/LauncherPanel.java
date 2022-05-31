@@ -1,11 +1,7 @@
 package fr.capdrake.majestycraft;
 
 import java.text.DecimalFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -34,7 +30,6 @@ import fr.flowarg.flowupdater.download.Step;
 import fr.theshark34.openlauncherlib.minecraft.GameTweak;
 import fr.theshark34.openlauncherlib.minecraft.GameType;
 import fr.trxyy.alternative.alternative_api.GameEngine;
-import fr.trxyy.alternative.alternative_api.GameForge;
 import fr.trxyy.alternative.alternative_api.GameLinks;
 import fr.trxyy.alternative.alternative_api.GameMemory;
 import fr.trxyy.alternative.alternative_api.GameSize;
@@ -43,7 +38,6 @@ import fr.trxyy.alternative.alternative_api.JVMArguments;
 import fr.trxyy.alternative.alternative_api.build.CustomGameRunner;
 import fr.trxyy.alternative.alternative_api.updater.GameUpdater;
 import fr.trxyy.alternative.alternative_api.utils.FontLoader;
-import fr.trxyy.alternative.alternative_api.utils.Forge;
 import fr.trxyy.alternative.alternative_api.utils.Mover;
 import fr.trxyy.alternative.alternative_api.utils.config.EnumConfig;
 import fr.trxyy.alternative.alternative_api.utils.config.LauncherConfig;
@@ -268,49 +262,11 @@ public class LauncherPanel extends IScreen {
 					/**
 					 * ===================== VERIFICATION USEFORGE =====================
 					 */
-					SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss", Locale.ENGLISH);
 
 					if ((boolean) config.getValue(EnumConfig.USE_MICROSOFT) == true) {
-
-						String test = (String) config.getValue(EnumConfig.DATE);
-						Date firstDate = null;
-						try {
-							firstDate = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss").parse(test);
-						} catch (ParseException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-
-						Date secondDate = new Date();
-
-						long diff = secondDate.getTime() - firstDate.getTime();
-						System.out.println(diff);
-
-						if (diff < 86400000) {
-							gameAuthentication = new GameAuth(AccountType.MICROSOFT);
-							gameAuthentication.setSession((String) config.getValue(EnumConfig.USERNAME),
-									(String) config.getValue(EnumConfig.TOKEN),
-									(String) config.getValue(EnumConfig.UUID));
-							if (gameAuthentication.isLogged()) {
-								connectAccountPremiumCO(gameAuthentication.getSession().getUsername(), root);
-								if ((boolean) config.getValue(EnumConfig.USE_FORGE) == true && verif == 1) {
-									selectVersion(engine);
-									update(gameAuthentication);
-								} else {
-									selectVersion(engine);
-									update2(gameAuthentication);
-								}
-							} else {
 								gameAuthentication = new GameAuth(AccountType.MICROSOFT);
 								showMicrosoftAuth(gameAuthentication);
 								if (gameAuthentication.isLogged()) {
-									firstDate = null;
-									firstDate = new Date();
-									config.updateValue("date", sdf.format(firstDate));
-									config.updateValue("username", gameAuthentication.getSession().getUsername());
-									config.updateValue("uuid", gameAuthentication.getSession().getUuid());
-									config.updateValue("token", gameAuthentication.getSession().getToken());
-									config.updateValue("useMicrosoft", true);
 									connectAccountPremiumCO(gameAuthentication.getSession().getUsername(), root);
 									if ((boolean) config.getValue(EnumConfig.USE_FORGE) == true && verif == 1) {
 										selectVersion(engine);
@@ -319,51 +275,8 @@ public class LauncherPanel extends IScreen {
 										selectVersion(engine);
 										update2(gameAuthentication);
 									}
-								}
-							}
-						} else {
-							gameAuthentication = new GameAuth(AccountType.MICROSOFT);
-							showMicrosoftAuth(gameAuthentication);
-							if (gameAuthentication.isLogged()) {
-								firstDate = null;
-								firstDate = new Date();
-								config.updateValue("date", sdf.format(firstDate));
-								config.updateValue("username", gameAuthentication.getSession().getUsername());
-								config.updateValue("uuid", gameAuthentication.getSession().getUuid());
-								config.updateValue("token", gameAuthentication.getSession().getToken());
-								config.updateValue("useMicrosoft", true);
-								connectAccountPremiumCO(gameAuthentication.getSession().getUsername(), root);
-								if ((boolean) config.getValue(EnumConfig.USE_FORGE) == true && verif == 1) {
-									selectVersion(engine);
-									update(gameAuthentication);
-								} else {
-									selectVersion(engine);
-									update2(gameAuthentication);
-								}
-							}
-						}
+						
 
-					} else {
-						gameAuthentication = new GameAuth(AccountType.MICROSOFT);
-						showMicrosoftAuth(gameAuthentication);
-						if (gameAuthentication.isLogged()) {
-							Date firstDate = null;
-							firstDate = new Date();
-							config.updateValue("date", sdf.format(firstDate));
-							config.updateValue("username", gameAuthentication.getSession().getUsername());
-							config.updateValue("uuid", gameAuthentication.getSession().getUuid());
-							config.updateValue("token", gameAuthentication.getSession().getToken());
-							config.updateValue("useMicrosoft", true);
-							connectAccountPremiumCO(gameAuthentication.getSession().getUsername(), root);
-							if ((boolean) config.getValue(EnumConfig.USE_FORGE) == true && verif == 1) {
-								selectVersion(engine);
-								update(gameAuthentication);
-							} else {
-								selectVersion(engine);
-								update2(gameAuthentication);
-							}
-						}
-					}
 				} else {
 					Platform.runLater(() -> {
 						new LauncherAlert("Authentification echouée!",
@@ -371,6 +284,8 @@ public class LauncherPanel extends IScreen {
 										+ " \nMerci de vous connecter en crack.");
 					});
 				}
+					}
+		}
 			}
 		});
 
@@ -725,56 +640,9 @@ public class LauncherPanel extends IScreen {
 
 					if ((boolean) config.getValue(EnumConfig.USE_MICROSOFT) == true) {
 						if (LauncherMain.netIsAvailable()) {
-							SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss", Locale.ENGLISH);
-							autoLoginTimer.cancel();
-							autoLoginLabel.setVisible(false);
-							autoLoginButton.setVisible(false);
-							autoLoginButton2.setVisible(false);
-							autoLoginRectangle.setVisible(false);
-							String test = (String) config.getValue(EnumConfig.DATE);
-							Date firstDate = null;
-							try {
-								firstDate = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss").parse(test);
-							} catch (ParseException e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							}
-
-							Date secondDate = new Date();
-
-							long diff = secondDate.getTime() - firstDate.getTime();
-							System.out.println(diff);
-
-							if (diff < 86400000) {
-								gameAuthentication = new GameAuth(AccountType.MICROSOFT);
-								gameAuthentication.setSession((String) config.getValue(EnumConfig.USERNAME),
-										(String) config.getValue(EnumConfig.TOKEN),
-										(String) config.getValue(EnumConfig.UUID));
-								if (gameAuthentication.isLogged()) {
-									if ((boolean) config.getValue(EnumConfig.USE_FORGE) == true && verif == 1) {
-										update(gameAuthentication);
-									} else {
-										update2(gameAuthentication);
-									}
-								} else {
-									Platform.runLater(() -> {
-										new LauncherAlert("Authentification echouée!",
-												"Impossible de se connecter, l'authentification semble etre une authentification 'en-ligne'"
-														+ " \nIl y a un probleme lors de la tentative de connexion. \n\n-Verifiez que le mdp soit bien saisi."
-														+ "\n-Faites bien attention aux majuscules et minuscules. \nAssurez-vous d'utiliser un compte Microsoft.");
-									});
-								}
-							} else {
 								gameAuthentication = new GameAuth(AccountType.MICROSOFT);
 								showMicrosoftAuth(gameAuthentication);
 								if (gameAuthentication.isLogged()) {
-									firstDate = null;
-									firstDate = new Date();
-									config.updateValue("date", sdf.format(firstDate));
-									config.updateValue("username", gameAuthentication.getSession().getUsername());
-									config.updateValue("uuid", gameAuthentication.getSession().getUuid());
-									config.updateValue("token", gameAuthentication.getSession().getToken());
-									config.updateValue("useMicrosoft", true);
 									connectAccountPremiumCO(gameAuthentication.getSession().getUsername(), root);
 									if ((boolean) config.getValue(EnumConfig.USE_FORGE) == true && verif == 1) {
 										selectVersion(engine);
@@ -784,7 +652,7 @@ public class LauncherPanel extends IScreen {
 										update2(gameAuthentication);
 									}
 								}
-							}
+							
 						} else {
 							autoLoginLabel.setVisible(false);
 							autoLoginButton.setVisible(false);
@@ -908,63 +776,10 @@ public class LauncherPanel extends IScreen {
 									 */
 									if ((boolean) config.getValue(EnumConfig.USE_MICROSOFT) == true) {
 										if (LauncherMain.netIsAvailable()) {
-											SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss",
-													Locale.ENGLISH);
-											autoLoginTimer.cancel();
-											autoLoginLabel.setVisible(false);
-											autoLoginButton.setVisible(false);
-											autoLoginButton2.setVisible(false);
-											autoLoginRectangle.setVisible(false);
-											String test = (String) config.getValue(EnumConfig.DATE);
-											Date firstDate = null;
-											try {
-												firstDate = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss").parse(test);
-											} catch (ParseException e) {
-												// TODO Auto-generated catch block
-												e.printStackTrace();
-											}
-
-											Date secondDate = new Date();
-
-											long diff = secondDate.getTime() - firstDate.getTime();
-											System.out.println(diff);
-
-											if (diff < 86400000) {
-												gameAuthentication = new GameAuth(AccountType.MICROSOFT);
-												gameAuthentication.setSession(
-														(String) config.getValue(EnumConfig.USERNAME),
-														(String) config.getValue(EnumConfig.TOKEN),
-														(String) config.getValue(EnumConfig.UUID));
-												if (gameAuthentication.isLogged()) {
-													if ((boolean) config.getValue(EnumConfig.USE_FORGE) == true
-															&& verif == 1) {
-														update(gameAuthentication);
-													} else {
-														update2(gameAuthentication);
-													}
-												} else {
-													Platform.runLater(() -> {
-														new LauncherAlert("Authentification echouée!",
-																"Impossible de se connecter, l'authentification semble etre une authentification 'en-ligne'"
-																		+ " \nIl y a un probleme lors de la tentative de connexion. \n\n-Verifiez que le mdp soit bien saisi."
-																		+ "\n-Faites bien attention aux majuscules et minuscules. \nAssurez-vous d'utiliser un compte Microsoft.");
-													});
-												}
-											} else {
 												Platform.runLater(() -> {
-													System.out.println("ok");
 													gameAuthentication = new GameAuth(AccountType.MICROSOFT);
 													showMicrosoftAuth(gameAuthentication);
 													if (gameAuthentication.isLogged()) {
-														Date first = null;
-														first = new Date();
-														config.updateValue("date", sdf.format(first));
-														config.updateValue("username",
-																gameAuthentication.getSession().getUsername());
-														config.updateValue("uuid",
-																gameAuthentication.getSession().getUuid());
-														config.updateValue("token",
-																gameAuthentication.getSession().getToken());
 														config.updateValue("useMicrosoft", true);
 														connectAccountPremiumCO(
 																gameAuthentication.getSession().getUsername(), root);
@@ -978,7 +793,7 @@ public class LauncherPanel extends IScreen {
 														}
 													}
 												});
-											}
+											
 										} else {
 											autoLoginLabel.setVisible(false);
 											autoLoginButton.setVisible(false);
@@ -1021,10 +836,11 @@ public class LauncherPanel extends IScreen {
 											gameAuthentication = new GameAuth(usernameField.getText(),
 													passwordField.getText(), AccountType.MOJANG);
 											if (gameAuthentication.isLogged()) {
-												if ((boolean) config.getValue(EnumConfig.USE_FORGE) == true
-														&& verif == 1) {
+												if ((boolean) config.getValue(EnumConfig.USE_FORGE) == true && verif == 1) {
+													selectVersion(engine);
 													update(gameAuthentication);
 												} else {
+													selectVersion(engine);
 													update2(gameAuthentication);
 												}
 											} else {
@@ -1815,7 +1631,7 @@ public class LauncherPanel extends IScreen {
 
 	private Parent createMicrosoftPanel(GameAuth auth) {
 		LauncherPane contentPane = new LauncherPane(theGameEngine);
-		auth.connectMicrosoft(contentPane);
+		auth.connectMicrosoft(theGameEngine, contentPane);
 		return contentPane;
 	}
 
@@ -1912,38 +1728,38 @@ public class LauncherPanel extends IScreen {
 			case "1.9.json": // GOOD
 				LauncherMain.gameLinks = new GameLinks("https://majestycraft.com/minecraft/1.9/forge/", "1.9.json");
 				engine.setGameStyle(GameStyle.FORGE_1_8_TO_1_12_2);
-				LauncherMain.gameForge = new GameForge(Forge.FML_CLIENT, "1.9", "#1938", "20200515.085601");
+				//LauncherMain.gameForge = new GameForge(Forge.FML_CLIENT, "1.9", "#1938", "20200515.085601");
 				verif = 0;
 				break;
 			case "1.10.2.json": // GOOD
 				LauncherMain.gameLinks = new GameLinks("https://majestycraft.com/minecraft/1.10.2/forge/",
 						"1.10.2.json");
 				engine.setGameStyle(GameStyle.FORGE_1_8_TO_1_12_2);
-				LauncherMain.gameForge = new GameForge(Forge.FML_CLIENT, "1.10.2", "#2185", "20200515.085601");
+				//LauncherMain.gameForge = new GameForge(Forge.FML_CLIENT, "1.10.2", "#2185", "20200515.085601");
 				verif = 0;
 				break;
 			case "1.11.2.json": // GOOD
 				LauncherMain.gameLinks = new GameLinks("https://majestycraft.com/minecraft/1.11.2/forge/",
 						"1.11.2.json");
 				engine.setGameStyle(GameStyle.FORGE_1_8_TO_1_12_2);
-				LauncherMain.gameForge = new GameForge(Forge.FML_CLIENT, "1.11.2", "#2588", "20200515.085601");
+				//LauncherMain.gameForge = new GameForge(Forge.FML_CLIENT, "1.11.2", "#2588", "20200515.085601");
 				verif = 0;
 				break;
 			case "1.12.2.json": // GOOD
 				LauncherMain.gameLinks = new GameLinks("https://majestycraft.com/minecraft/1.12.2/forge/",
 						"1.12.2.json");
 				engine.setGameStyle(GameStyle.FORGE_1_8_TO_1_12_2);
-				LauncherMain.gameForge = new GameForge(Forge.FML_CLIENT, "1.12.2", "#2847", "20200515.085601");
+				//LauncherMain.gameForge = new GameForge(Forge.FML_CLIENT, "1.12.2", "#2847", "20200515.085601");
 				verif = 0;
 				break;
-			case "1.13.2.json": // GOOD
+			case "1.13.2.json": // NOT GOOD
 				LauncherMain.gameLinks = new GameLinks("https://majestycraft.com/minecraft/1.13.2/forge/",
 						"1.13.2.json");
 				engine.setGameStyle(GameStyle.FORGE_1_13_HIGHER);
-				LauncherMain.gameForge = new GameForge(Forge.FML_CLIENT, "1.13.2", "25.0.219", "20190213.203750");
+				//LauncherMain.gameForge = new GameForge(Forge.FML_CLIENT, "1.13.2", "25.0.219", "20190213.203750");
 				verif = 0;
 				break;
-			case "1.14.4.json": // GOOD
+			case "1.14.4.json": // NOT GOOD
 				LauncherMain.gameLinks = new GameLinks("https://majestycraft.com/minecraft/1.14.4/forge/",
 						"1.14.4.json");
 				try {
@@ -1953,7 +1769,7 @@ public class LauncherPanel extends IScreen {
 				}
 				engine.setGameStyle(GameStyle.FORGE_1_13_HIGHER);
 				break;
-			case "1.15.2.json": // GOOD
+			case "1.15.2.json": // NOT GOOD
 				LauncherMain.gameLinks = new GameLinks("https://majestycraft.com/minecraft/1.15.2/forge/",
 						"1.15.2.json");
 				try {
@@ -1973,7 +1789,7 @@ public class LauncherPanel extends IScreen {
 				}
 				engine.setGameStyle(GameStyle.FORGE_1_13_HIGHER);
 				break;
-			case "1.16.3.json":
+			case "1.16.3.json": // NOT GOOD
 				LauncherMain.gameLinks = new GameLinks("https://majestycraft.com/minecraft/1.16.3/forge/",
 						"1.16.3.json");
 				try {
@@ -1983,7 +1799,7 @@ public class LauncherPanel extends IScreen {
 				}
 				engine.setGameStyle(GameStyle.FORGE_1_13_HIGHER);
 				break;
-			case "1.16.4.json":
+			case "1.16.4.json": // NOT GOOD
 				LauncherMain.gameLinks = new GameLinks("https://majestycraft.com/minecraft/1.16.4/forge/",
 						"1.16.4.json");
 				try {
@@ -1993,40 +1809,33 @@ public class LauncherPanel extends IScreen {
 				}
 				engine.setGameStyle(GameStyle.FORGE_1_13_HIGHER);
 				break;
-			case "1.16.5.json":
+			case "1.16.5.json": // NOT GOOD
 				LauncherMain.gameLinks = new GameLinks("https://majestycraft.com/minecraft/1.16.5/forge/",
 						"1.16.5.json");
-				try {
-					forgeUpdater = new CustomForgeUpdater("1.16.5", "36.2.22", "20210115.111550");
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
 				engine.setGameStyle(GameStyle.FORGE_1_13_HIGHER);
+				verif = 0;
 				break;
-			case "1.17.1.json": // NOT GOOD
-				LauncherMain.gameLinks = new GameLinks("https://majestycraft.com/minecraft/1.17.1/forge/",
-						"1.17.1.json");
-				try {
-					forgeUpdater = new CustomForgeUpdater("1.17.1", "37.1.1", "20210706.113038");
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-				engine.setGameStyle(GameStyle.FORGE_1_13_HIGHER);
+			case "1.17.1.json": // GOOD
+				LauncherMain.gameLinks = new GameLinks("https://majestycraft.com/minecraft/1.17.1/forge/", "1.17.1.json");
+				engine.setGameStyle(GameStyle.FORGE_1_17_HIGHER);
+				verif = 0;
 				break;
-			case "1.18.json": // NOT GOOD
+			case "1.18.json": // GOOD
 				LauncherMain.gameLinks = new GameLinks("https://majestycraft.com/minecraft/1.18/forge/", "1.18.json");
 				engine.setGameStyle(GameStyle.FORGE_1_17_HIGHER);
-				LauncherMain.gameForge = new GameForge(Forge.FML_CLIENT, "1.18", "38.0.14", "20200812.004259");
+				verif = 0;
 				break;
-			case "1.18.1.json": // NOT GOOD
+			case "1.18.1.json": // GOOD
 				LauncherMain.gameLinks = new GameLinks("https://majestycraft.com/minecraft/1.18.1/forge/",
 						"1.18.1.json");
-				try {
-					forgeUpdater = new CustomForgeUpdater("1.18.1", "39.0.0", "20200812.004259");
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-				engine.setGameStyle(GameStyle.FORGE_1_13_HIGHER);
+				engine.setGameStyle(GameStyle.FORGE_1_17_HIGHER);
+				verif = 0;
+				break;
+			case "1.18.2.json": // GOOD
+				LauncherMain.gameLinks = new GameLinks("https://majestycraft.com/minecraft/1.18.2/forge/",
+						"1.18.2.json");
+				engine.setGameStyle(GameStyle.FORGE_1_17_HIGHER);
+				verif = 0;
 				break;
 			default:
 				LauncherMain.gameLinks = new GameLinks("https://majestycraft.com/minecraft/1.16.5/forge/",
