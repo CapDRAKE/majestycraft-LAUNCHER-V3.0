@@ -204,26 +204,13 @@ public class LauncherSettings extends IScreen {
 			if (verif.equals("1.8") || verif.equals("1.16.2")
 					|| verif.equals("1.16.3") || verif.equals("1.17")
 					|| verif.equals("1.17.1") || verif.equals("1.18")
-					|| verif.equals("1.18.1") || verif.equals("1.18.2")
-					|| verif.equals("22w11a") || verif.equals("22w12a")
-					|| verif.equals("22w13a") || verif.equals("22w13oneblockatatime")
-					|| verif.equals("22w14a") || verif.equals("22w15a")
-					|| verif.equals("22w16b") || verif.equals("22w17a")
-					|| verif.equals("22w18a") || verif.equals("22w19a")
-					|| verif.equals("1.19-pre1")|| verif.equals("1.19-pre2")
-					|| verif.equals("1.19-pre3")) {
+					|| verif.equals("1.18.1") || verif.equals("1.18.2")){
 				LauncherSettings.useForge.setDisable(true);
 				LauncherSettings.useForge.setSelected(false);
 				LauncherSettings.useForge.setOpacity(0.3);
 				pane.config.updateValue("useforge", false);
 			}
-			if (verif.equals("22w11a") || verif.equals("22w12a")
-					|| verif.equals("22w13a") || verif.equals("22w13oneblockatatime")
-					|| verif.equals("22w14a") || verif.equals("22w15a")
-					|| verif.equals("22w16b") || verif.equals("22w17a")
-					|| verif.equals("22w18a") || verif.equals("22w19a")
-					|| verif.equals("1.19-pre1")|| verif.equals("1.19-pre2")
-					|| verif.equals("1.19-pre3")) {
+			if (verif.equals("22w11a")) {
 				LauncherSettings.useOptifine.setDisable(true);
 				LauncherSettings.useOptifine.setSelected(false);
 				LauncherSettings.useOptifine.setOpacity(0.3);
@@ -241,14 +228,7 @@ public class LauncherSettings extends IScreen {
 				if (versionList.getValue() == "1.8" || versionList.getValue() == "1.16.2"
 						|| versionList.getValue() == "1.16.3" || versionList.getValue() == "1.17"
 						|| versionList.getValue() == "1.17.1" || versionList.getValue() == "1.18"
-						|| versionList.getValue() == "1.18.1" || versionList.getValue() == "1.18.2"
-						|| versionList.getValue() == "22w11a" || versionList.getValue() == "22w12a"
-						|| versionList.getValue() == "22w13a" || versionList.getValue() == "22w13oneblockatatime"
-						|| versionList.getValue() == "22w14a" || versionList.getValue() == "22w15a"
-						|| versionList.getValue() == "22w16b" || versionList.getValue() == "22w17a"
-						|| versionList.getValue() == "22w18a" || versionList.getValue() == "22w19a"
-						|| versionList.getValue() == "1.19-pre1" || versionList.getValue() == "1.19-pre2"
-						|| versionList.getValue() == "1.19-pre3") {
+						|| versionList.getValue() == "1.18.1" || versionList.getValue() == "1.18.2") {
 					LauncherSettings.useForge.setDisable(true);
 					LauncherSettings.useForge.setSelected(false);
 					LauncherSettings.useForge.setOpacity(0.3);
@@ -257,13 +237,7 @@ public class LauncherSettings extends IScreen {
 					LauncherSettings.useForge.setOpacity(1);
 					LauncherSettings.useForge.setDisable(false);
 				}
-				if (versionList.getValue() == "22w11a" || versionList.getValue() == "22w12a"
-						|| versionList.getValue() == "22w13a" || versionList.getValue() == "22w13oneblockatatime"
-						|| versionList.getValue() == "22w14a" || versionList.getValue() == "22w15a"
-						|| versionList.getValue() == "22w16b" || versionList.getValue() == "22w17a"
-						|| versionList.getValue() == "22w18a" || versionList.getValue() == "22w19a"
-						|| versionList.getValue() == "1.19-pre1" || versionList.getValue() == "1.19-pre2"
-						|| versionList.getValue() == "1.19-pre3"){
+				if (versionList.getValue() == "22w11a") {
 					LauncherSettings.useOptifine.setDisable(true);
 					LauncherSettings.useOptifine.setSelected(false);
 					LauncherSettings.useOptifine.setOpacity(0.3);
@@ -473,31 +447,7 @@ public class LauncherSettings extends IScreen {
 			} else if (i == 17) {
 				this.versionList.getItems().add("1.18.2");
 			} else if (i == 18) {
-				this.versionList.getItems().add("22w11a");
-			} else if (i == 19) {
-				this.versionList.getItems().add("22w12a");
-			} else if (i == 20) {
-				this.versionList.getItems().add("22w13a");
-			} else if (i == 21) {
-				this.versionList.getItems().add("22w13oneblockatatime");
-			} else if (i == 22) {
-				this.versionList.getItems().add("22w14a");
-			} else if (i == 23) {
-				this.versionList.getItems().add("22w15a");
-			} else if (i == 24) {
-				this.versionList.getItems().add("22w16b");
-			} else if (i == 25) {
-				this.versionList.getItems().add("22w17a");
-			} else if (i == 26) {
-				this.versionList.getItems().add("22w18a");
-			} else if (i == 27) {
-				this.versionList.getItems().add("22w19a");
-			} else if (i == 28) {
-				this.versionList.getItems().add("1.19-pre1");
-			} else if (i == 29) {
-				this.versionList.getItems().add("1.19-pre2");
-			} else if (i == 30) {
-				this.versionList.getItems().add("1.19-pre3");
+				this.versionList.getItems().add("1.19");
 			}
 		}
 	}

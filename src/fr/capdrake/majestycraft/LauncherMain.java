@@ -44,7 +44,7 @@ public class LauncherMain extends AlternativeBase {
 	private static GameFolder gameFolder = new GameFolder("majestycraft");
 	private LauncherPreferences launcherPreferences = new LauncherPreferences("MajestyLauncher Optifine + Forge", 1050,
 			750, Mover.MOVE);
-	public static GameLinks gameLinks = new GameLinks("https://majestycraft.com/minecraft/", "1.18.2.json");
+	public static GameLinks gameLinks = new GameLinks("https://majestycraft.com/minecraft/", "1.19.json");
 	private GameEngine gameEngine = new GameEngine(LauncherMain.gameFolder, LauncherMain.gameLinks,
 			this.launcherPreferences, GameStyle.VANILLA);
 	public static GameForge gameForge;
@@ -159,44 +159,8 @@ public class LauncherMain extends AlternativeBase {
 		case "1.18.2":
 			gameLinks.JSON_URL = gameLinks.BASE_URL + "1.18.2.json";
 			break;
-		case "22w11a":
-			gameLinks.JSON_URL = gameLinks.BASE_URL + "22w11a.json";
-			break;
-		case "22w12a":
-			gameLinks.JSON_URL = gameLinks.BASE_URL + "22w12a.json";
-			break;
-		case "22w13a":
-			gameLinks.JSON_URL = gameLinks.BASE_URL + "22w13a.json";
-			break;
-		case "22w13oneblockatatime":
-			gameLinks.JSON_URL = gameLinks.BASE_URL + "22w13oneblockatatime.json";
-			break;
-		case "22w14a":
-			gameLinks.JSON_URL = gameLinks.BASE_URL + "22w14a.json";
-			break;
-		case "22w15a":
-			gameLinks.JSON_URL = gameLinks.BASE_URL + "22w15a.json";
-			break;
-		case "22w16b":
-			gameLinks.JSON_URL = gameLinks.BASE_URL + "22w16b.json";
-			break;
-		case "22w17a":
-			gameLinks.JSON_URL = gameLinks.BASE_URL + "22w17a.json";
-			break;
-		case "22w18a":
-			gameLinks.JSON_URL = gameLinks.BASE_URL + "22w18a.json";
-			break;
-		case "22w19a":
-			gameLinks.JSON_URL = gameLinks.BASE_URL + "22w19a.json";
-			break;
-		case "1.19-pre1":
-			gameLinks.JSON_URL = gameLinks.BASE_URL + "1.19-pre1.json";
-			break;
-		case "1.19-pre2":
-			gameLinks.JSON_URL = gameLinks.BASE_URL + "1.19-pre2.json";
-			break;
-		case "1.19-pre3":
-			gameLinks.JSON_URL = gameLinks.BASE_URL + "1.19-pre3.json";
+		case "1.19":
+			gameLinks.JSON_URL = gameLinks.BASE_URL + "1.19.json";
 			break;
 		default:
 			panel.config.updateValue("version", gameLinks.getJsonName().replace(".json", ""));
@@ -234,7 +198,7 @@ public class LauncherMain extends AlternativeBase {
 		presence.largeImageKey = "image";
 		presence.largeImageText = "MajestyCraft, Launcher Gratuit Crack/Premium";
 		presence.details = "Launcher MajestyCraft";
-		presence.state = "Version : 1.8 => 1.18.2";
+		presence.state = "Version : 1.8 => 1.19";
 
 		discord.Discord_UpdatePresence(presence);
 	}
