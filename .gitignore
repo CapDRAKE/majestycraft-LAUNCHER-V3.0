@@ -1,2 +1,8 @@
 /bin/
 /.gradle/
+/.idea/
+/.settings/
+.classpath
+.project
+majestycraft-LAUNCHER-V1.5.iml
+forge-installer-patched.jar.log

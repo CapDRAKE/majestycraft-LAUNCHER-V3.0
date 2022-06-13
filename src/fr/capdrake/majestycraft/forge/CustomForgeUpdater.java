@@ -33,50 +33,12 @@ public class CustomForgeUpdater {
 
 		switch (versionConfig) {
 		case "1.9":
-			forgeVersion = new ForgeVersionBuilder(ForgeVersionBuilder.ForgeVersionType.OLD)
+			case "1.10.2":
+			case "1.11.2":
+				forgeVersion = new ForgeVersionBuilder(ForgeVersionBuilder.ForgeVersionType.OLD)
 					.withForgeVersion(forgeVersionConfig).withVanillaVersion(version).build();
 			break;
-		case "1.10.2":
-			forgeVersion = new ForgeVersionBuilder(ForgeVersionBuilder.ForgeVersionType.OLD)
-					.withForgeVersion(forgeVersionConfig).withVanillaVersion(version).build();
-			break;
-		case "1.11.2":
-			forgeVersion = new ForgeVersionBuilder(ForgeVersionBuilder.ForgeVersionType.OLD)
-					.withForgeVersion(forgeVersionConfig).withVanillaVersion(version).build();
-			break;
-		case "1.12.2":
-			forgeVersion = new ForgeVersionBuilder(ForgeVersionBuilder.ForgeVersionType.NEW)
-					.withForgeVersion(forgeVersionConfig).withVanillaVersion(version).build();
-			break;
-		case "1.13.2":
-			forgeVersion = new ForgeVersionBuilder(ForgeVersionBuilder.ForgeVersionType.NEW)
-					.withForgeVersion(forgeVersionConfig).withVanillaVersion(version).build();
-			break;
-		case "1.14.4":
-			forgeVersion = new ForgeVersionBuilder(ForgeVersionBuilder.ForgeVersionType.NEW)
-					.withForgeVersion(forgeVersionConfig).withVanillaVersion(version).build();
-			break;
-		case "1.15.2":
-			forgeVersion = new ForgeVersionBuilder(ForgeVersionBuilder.ForgeVersionType.NEW)
-					.withForgeVersion(forgeVersionConfig).withVanillaVersion(version).build();
-			break;
-		case "1.16.2":
-			forgeVersion = new ForgeVersionBuilder(ForgeVersionBuilder.ForgeVersionType.NEW)
-					.withForgeVersion(forgeVersionConfig).withVanillaVersion(version).build();
-			break;
-		case "1.16.3":
-			forgeVersion = new ForgeVersionBuilder(ForgeVersionBuilder.ForgeVersionType.NEW)
-					.withForgeVersion(forgeVersionConfig).withVanillaVersion(version).build();
-			break;
-		case "1.16.4":
-			forgeVersion = new ForgeVersionBuilder(ForgeVersionBuilder.ForgeVersionType.NEW)
-					.withForgeVersion(forgeVersionConfig).withVanillaVersion(version).build();
-			break;
-		case "1.16.5":
-			forgeVersion = new ForgeVersionBuilder(ForgeVersionBuilder.ForgeVersionType.NEW)
-					.withForgeVersion(forgeVersionConfig).withVanillaVersion(version).build();
-			break;
-		default:
+			default:
 			forgeVersion = new ForgeVersionBuilder(ForgeVersionBuilder.ForgeVersionType.NEW)
 					.withForgeVersion(forgeVersionConfig).withVanillaVersion(version).build();
 			break;
