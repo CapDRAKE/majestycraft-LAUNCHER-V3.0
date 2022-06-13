@@ -169,9 +169,11 @@ public class LauncherSettings extends IScreen {
 
 		/** ===================== CHECKBOX USE Forge ===================== */
 		useForge = new JFXCheckBox();
-		useForge.setText("Forge (BETA 1.9 -> 1.16.5)");
+		useForge.setDisable(true);
+		useForge.setText("Forge (EN MAINTENANCE)");
 		useForge.setSelected((boolean) pane.config.getValue(EnumConfig.USE_FORGE));
 		useForge.setOpacity(1.0);
+		useForge.setOpacity(0.3);
 		useForge.setFont(FontLoader.loadFont("Comfortaa-Regular.ttf", "Comfortaa", 14F));
 		useForge.setStyle("-fx-text-fill: white; -jfx-checked-color: RED; -jfx-unchecked-color: BLACK");
 		useForge.setLayoutX(250);
@@ -210,7 +212,7 @@ public class LauncherSettings extends IScreen {
 				LauncherSettings.useForge.setOpacity(0.3);
 				pane.config.updateValue("useforge", false);
 			}
-			if (verif.equals("22w11a")) {
+			if (verif.equals("1.19")) {
 				LauncherSettings.useOptifine.setDisable(true);
 				LauncherSettings.useOptifine.setSelected(false);
 				LauncherSettings.useOptifine.setOpacity(0.3);
@@ -234,10 +236,10 @@ public class LauncherSettings extends IScreen {
 					LauncherSettings.useForge.setOpacity(0.3);
 					pane.config.updateValue("useforge", false);
 				} else {
-					LauncherSettings.useForge.setOpacity(1);
-					LauncherSettings.useForge.setDisable(false);
+					//LauncherSettings.useForge.setOpacity(1);
+					//LauncherSettings.useForge.setDisable(false);
 				}
-				if (versionList.getValue() == "22w11a") {
+				if (versionList.getValue() == "1.19") {
 					LauncherSettings.useOptifine.setDisable(true);
 					LauncherSettings.useOptifine.setSelected(false);
 					LauncherSettings.useOptifine.setOpacity(0.3);

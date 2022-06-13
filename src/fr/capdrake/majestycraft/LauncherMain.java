@@ -46,7 +46,7 @@ public class LauncherMain extends AlternativeBase {
 			750, Mover.MOVE);
 	public static GameLinks gameLinks = new GameLinks("https://majestycraft.com/minecraft/", "1.19.json");
 	private GameEngine gameEngine = new GameEngine(LauncherMain.gameFolder, LauncherMain.gameLinks,
-			this.launcherPreferences, GameStyle.VANILLA);
+			this.launcherPreferences, GameStyle.VANILLA_1_19_HIGHER);
 	public static GameForge gameForge;
 	private GameMaintenance gameMaintenance = new GameMaintenance(Maintenance.USE, gameEngine);
 	private static GameConnect gameConnect = new GameConnect("play.majestycraft.com", "25565");
@@ -109,57 +109,75 @@ public class LauncherMain extends AlternativeBase {
 	private void readVersion(LauncherPanel panel) {
 		switch ((String) panel.config.getValue(EnumConfig.VERSION)) {
 		case "1.8":
+			this.gameEngine.setGameStyle(GameStyle.VANILLA);
 			gameLinks.JSON_URL = gameLinks.BASE_URL + "1.8.json";
 			break;
 		case "1.9":
+			this.gameEngine.setGameStyle(GameStyle.VANILLA);
 			gameLinks.JSON_URL = gameLinks.BASE_URL + "1.9.json";
 			break;
 		case "1.10.2":
+			this.gameEngine.setGameStyle(GameStyle.VANILLA);
 			gameLinks.JSON_URL = gameLinks.BASE_URL + "1.10.2.json";
 			break;
 		case "1.11.2":
+			this.gameEngine.setGameStyle(GameStyle.VANILLA);
 			gameLinks.JSON_URL = gameLinks.BASE_URL + "1.11.2.json";
 			break;
 		case "1.12.2":
+			this.gameEngine.setGameStyle(GameStyle.VANILLA);
 			gameLinks.JSON_URL = gameLinks.BASE_URL + "1.12.2.json";
 			break;
 		case "1.16.2":
+			this.gameEngine.setGameStyle(GameStyle.VANILLA);
 			gameLinks.JSON_URL = gameLinks.BASE_URL + "1.16.2.json";
 			break;
 		case "1.15.2":
+			this.gameEngine.setGameStyle(GameStyle.VANILLA);
 			gameLinks.JSON_URL = gameLinks.BASE_URL + "1.15.2.json";
 			break;
 		case "1.16.4":
+			this.gameEngine.setGameStyle(GameStyle.VANILLA);
 			gameLinks.JSON_URL = gameLinks.BASE_URL + "1.16.4.json";
 			break;
 		case "1.14.4":
+			this.gameEngine.setGameStyle(GameStyle.VANILLA);
 			gameLinks.JSON_URL = gameLinks.BASE_URL + "1.14.4.json";
 			break;
 		case "1.13.2":
+			this.gameEngine.setGameStyle(GameStyle.VANILLA);
 			gameLinks.JSON_URL = gameLinks.BASE_URL + "1.13.2.json";
 			break;
 		case "1.16.3":
+			this.gameEngine.setGameStyle(GameStyle.VANILLA);
 			gameLinks.JSON_URL = gameLinks.BASE_URL + "1.16.3.json";
 			break;
 		case "1.16.5":
+			this.gameEngine.setGameStyle(GameStyle.VANILLA);
 			gameLinks.JSON_URL = gameLinks.BASE_URL + "1.16.5.json";
 			break;
 		case "1.17":
+			this.gameEngine.setGameStyle(GameStyle.VANILLA);
 			gameLinks.JSON_URL = gameLinks.BASE_URL + "1.17.json";
 			break;
 		case "1.17.1":
+			this.gameEngine.setGameStyle(GameStyle.VANILLA);
 			gameLinks.JSON_URL = gameLinks.BASE_URL + "1.17.1.json";
 			break;
 		case "1.18":
+			this.gameEngine.setGameStyle(GameStyle.VANILLA);
 			gameLinks.JSON_URL = gameLinks.BASE_URL + "1.18.json";
 			break;
 		case "1.18.1":
+			this.gameEngine.setGameStyle(GameStyle.VANILLA);
 			gameLinks.JSON_URL = gameLinks.BASE_URL + "1.18.1.json";
 			break;
 		case "1.18.2":
+			this.gameEngine.setGameStyle(GameStyle.VANILLA);
 			gameLinks.JSON_URL = gameLinks.BASE_URL + "1.18.2.json";
 			break;
 		case "1.19":
+			this.gameEngine.setGameStyle(GameStyle.VANILLA_1_19_HIGHER);
 			gameLinks.JSON_URL = gameLinks.BASE_URL + "1.19.json";
 			break;
 		default:
