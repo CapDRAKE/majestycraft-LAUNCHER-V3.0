@@ -1808,7 +1808,7 @@ public class LauncherPanel extends IScreen {
 				}
 				engine.setGameStyle(GameStyle.FORGE_1_13_HIGHER);
 				break;
-			case "1.16.5.json": // NOT GOOD
+			case "1.16.5.json": //GOOD
 				LauncherMain.gameLinks = new GameLinks("https://majestycraft.com/minecraft/1.16.5/forge/",
 						"1.16.5.json");
 				engine.setGameStyle(GameStyle.FORGE_1_13_HIGHER);
