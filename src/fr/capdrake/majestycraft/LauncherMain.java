@@ -44,9 +44,9 @@ public class LauncherMain extends AlternativeBase {
 	private static GameFolder gameFolder = new GameFolder("majestycraft");
 	private LauncherPreferences launcherPreferences = new LauncherPreferences("MajestyLauncher Optifine + Forge", 1050,
 			750, Mover.MOVE);
-	public static GameLinks gameLinks = new GameLinks("https://majestycraft.com/minecraft/", "1.19.json");
+	public static GameLinks gameLinks = new GameLinks("https://majestycraft.com/minecraft/", "1.18.json");
 	private GameEngine gameEngine = new GameEngine(LauncherMain.gameFolder, LauncherMain.gameLinks,
-			this.launcherPreferences, GameStyle.VANILLA_1_19_HIGHER);
+			this.launcherPreferences, GameStyle.VANILLA);
 	public static GameForge gameForge;
 	private GameMaintenance gameMaintenance = new GameMaintenance(Maintenance.USE, gameEngine);
 	private static GameConnect gameConnect = new GameConnect("play.majestycraft.com", "25565");
