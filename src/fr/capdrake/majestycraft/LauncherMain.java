@@ -177,7 +177,7 @@ public class LauncherMain extends AlternativeBase {
 			gameLinks.JSON_URL = gameLinks.BASE_URL + "1.18.2.json";
 			break;
 		case "1.19":
-			this.gameEngine.setGameStyle(GameStyle.VANILLA_1_19_HIGHER);
+			//this.gameEngine.setGameStyle(GameStyle.VANILLA_1_19_HIGHER);
 			gameLinks.JSON_URL = gameLinks.BASE_URL + "1.19.json";
 			break;
 		default:

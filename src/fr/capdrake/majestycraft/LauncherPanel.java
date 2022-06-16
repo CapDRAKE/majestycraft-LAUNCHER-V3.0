@@ -1850,7 +1850,7 @@ public class LauncherPanel extends IScreen {
 		} else {
 			if (engine.getGameLinks().JSON_NAME.equals("1.19.json")) {
 
-				engine.setGameStyle(GameStyle.VANILLA_1_19_HIGHER);
+				//engine.setGameStyle(GameStyle.VANILLA_1_19_HIGHER);
 			}else{
 
 				engine.setGameStyle(GameStyle.VANILLA);
