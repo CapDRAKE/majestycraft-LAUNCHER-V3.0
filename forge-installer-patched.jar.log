@@ -150,7 +150,7 @@ Considering library org.ow2.asm:asm:6.1.1
 Considering library trove:trove:1.0.2
   Downloading library from https://maven.minecraftforge.net/trove/trove/1.0.2/trove-1.0.2.jar
     Download completed: Checksum validated.
-Created Temporary Directory: C:\Users\ramse\AppData\Local\Temp\forge_installer4455013846235316269
+Created Temporary Directory: C:\Users\ramse\AppData\Local\Temp\forge_installer8919970842146362803
   Extracting: /data/client.lzma
 Building Processors
 ===============================================================================
@@ -13554,14 +13554,14 @@ Remapping jar... 100%
     C:\Users\ramse\AppData\Roaming\.majestycraft\libraries\com\google\j2objc\j2objc-annotations\1.1\j2objc-annotations-1.1.jar
     C:\Users\ramse\AppData\Roaming\.majestycraft\libraries\org\codehaus\mojo\animal-sniffer-annotations\1.14\animal-sniffer-annotations-1.14.jar
     C:\Users\ramse\AppData\Roaming\.majestycraft\libraries\trove\trove\1.0.2\trove-1.0.2.jar
-  Args: --clean, C:\Users\ramse\AppData\Roaming\.majestycraft\libraries\net\minecraft\client\1.15.2-20200515.085601\client-1.15.2-20200515.085601-srg.jar, --output, C:\Users\ramse\AppData\Roaming\.majestycraft\libraries\net\minecraftforge\forge\1.15.2-31.2.57\forge-1.15.2-31.2.57-client.jar, --apply, C:\Users\ramse\AppData\Local\Temp\forge_installer4455013846235316269\data\client.lzma
+  Args: --clean, C:\Users\ramse\AppData\Roaming\.majestycraft\libraries\net\minecraft\client\1.15.2-20200515.085601\client-1.15.2-20200515.085601-srg.jar, --output, C:\Users\ramse\AppData\Roaming\.majestycraft\libraries\net\minecraftforge\forge\1.15.2-31.2.57\forge-1.15.2-31.2.57-client.jar, --apply, C:\Users\ramse\AppData\Local\Temp\forge_installer8919970842146362803\data\client.lzma
 Applying: 
   Clean:     C:\Users\ramse\AppData\Roaming\.majestycraft\libraries\net\minecraft\client\1.15.2-20200515.085601\client-1.15.2-20200515.085601-srg.jar
   Output:    C:\Users\ramse\AppData\Roaming\.majestycraft\libraries\net\minecraftforge\forge\1.15.2-31.2.57\forge-1.15.2-31.2.57-client.jar
   KeepData:  false
   Unpatched: false
-  Patches:   C:\Users\ramse\AppData\Local\Temp\forge_installer4455013846235316269\data\client.lzma
-Loading patches file: C:\Users\ramse\AppData\Local\Temp\forge_installer4455013846235316269\data\client.lzma
+  Patches:   C:\Users\ramse\AppData\Local\Temp\forge_installer8919970842146362803\data\client.lzma
+Loading patches file: C:\Users\ramse\AppData\Local\Temp\forge_installer8919970842146362803\data\client.lzma
   Reading patch com.mojang.blaze3d.platform.GlStateManager$1.binpatch
     Checksum: 97762f33 Exists: true
   Reading patch com.mojang.blaze3d.platform.GlStateManager$AlphaState.binpatch

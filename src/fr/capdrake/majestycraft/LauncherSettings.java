@@ -46,22 +46,22 @@ public class LauncherSettings extends IScreen {
 	private JFXCheckBox useMusic;
 	private JFXCheckBox useVMArguments;
 	private LauncherTextField vmArguments;
-	private double xOffSet; // Position x à l'instant du clic
-	private double yOffSet; // Position y à l'instant du clic
-	Stage stage; // Le stage qu'on voudra faire bouger (ici notre menu des paramètres)
+	private double xOffSet; // Position x Ã  l'instant du clic
+	private double yOffSet; // Position y Ã  l'instant du clic
+	Stage stage; // Le stage qu'on voudra faire bouger (ici notre menu des paramÃ¨tres)
 
 	public LauncherSettings(final Pane root, final GameEngine engine, final LauncherPanel pane) {
 
 		// String version = (String) pane.config.getValue(EnumConfig.VERSION);
 		/** ===================== BOUGER LE MENU PARAMETRE ===================== */
-		// Cet évent nous permet de récupérer les valeurs en x et en y initiales.
+		// Cet Ã©vent nous permet de rÃ©cupÃ©rer les valeurs en x et en y initiales.
 		root.setOnMousePressed(event -> {
 			xOffSet = event.getSceneX();
 			yOffSet = event.getSceneY();
 		});
-		// Cet évent s'occupe de faire bouger le menu
+		// Cet Ã©vent s'occupe de faire bouger le menu
 		root.setOnMouseDragged(event -> {
-			stage = (Stage) memorySlider.getScene().getWindow(); // On get le stage du menu des paramètres
+			stage = (Stage) memorySlider.getScene().getWindow(); // On get le stage du menu des paramÃ¨tres
 			stage.setX(event.getScreenX() - xOffSet); // On donne la nouvelle position en x
 			stage.setY(event.getScreenY() - yOffSet); // On donne la nouvelle postion en y
 		});
@@ -80,7 +80,7 @@ public class LauncherSettings extends IScreen {
 		this.titleLabel.setSize(230, 35);
 		/** ===================== MC SIZE LABEL ===================== */
 		this.windowsSizeLabel = new LauncherLabel(root);
-		this.windowsSizeLabel.setText("Taille de la fenêtre:");
+		this.windowsSizeLabel.setText("Taille de la fenÃªtre:");
 		this.windowsSizeLabel.setOpacity(1.0);
 		this.windowsSizeLabel.setFont(FontLoader.loadFont("Comfortaa-Regular.ttf", "Comfortaa", 16F));
 		this.windowsSizeLabel.setStyle("-fx-text-fill: white;");
@@ -100,7 +100,7 @@ public class LauncherSettings extends IScreen {
 		root.getChildren().add(this.windowsSizeList);
 		/** ===================== SLIDER RAM LABEL ===================== */
 		this.sliderLabel = new LauncherLabel(root);
-		this.sliderLabel.setText("RAM Allouée:");
+		this.sliderLabel.setText("RAM AllouÃ©e:");
 		this.sliderLabel.setOpacity(1.0);
 		this.sliderLabel.setFont(FontLoader.loadFont("Comfortaa-Regular.ttf", "Comfortaa", 16F));
 		this.sliderLabel.setStyle("-fx-text-fill: white;");
