@@ -44,9 +44,9 @@ public class LauncherMain extends AlternativeBase {
 	private static GameFolder gameFolder = new GameFolder("majestycraft");
 	private LauncherPreferences launcherPreferences = new LauncherPreferences("MajestyLauncher Optifine + Forge", 1050,
 			750, Mover.MOVE);
-	public static GameLinks gameLinks = new GameLinks("https://majestycraft.com/minecraft/", "1.18.2.json");
+	public static GameLinks gameLinks = new GameLinks("https://majestycraft.com/minecraft/", "1.19.json");
 	private GameEngine gameEngine = new GameEngine(LauncherMain.gameFolder, LauncherMain.gameLinks,
-			this.launcherPreferences, GameStyle.VANILLA);
+			this.launcherPreferences, GameStyle.VANILLA_1_19_HIGHER);
 	public static GameForge gameForge;
 	private GameMaintenance gameMaintenance = new GameMaintenance(Maintenance.USE, gameEngine);
 	private static GameConnect gameConnect = new GameConnect("play.majestycraft.com", "25565");
@@ -109,88 +109,76 @@ public class LauncherMain extends AlternativeBase {
 	private void readVersion(LauncherPanel panel) {
 		switch ((String) panel.config.getValue(EnumConfig.VERSION)) {
 		case "1.8":
+			this.gameEngine.setGameStyle(GameStyle.VANILLA);
 			gameLinks.JSON_URL = gameLinks.BASE_URL + "1.8.json";
 			break;
 		case "1.9":
+			this.gameEngine.setGameStyle(GameStyle.VANILLA);
 			gameLinks.JSON_URL = gameLinks.BASE_URL + "1.9.json";
 			break;
 		case "1.10.2":
+			this.gameEngine.setGameStyle(GameStyle.VANILLA);
 			gameLinks.JSON_URL = gameLinks.BASE_URL + "1.10.2.json";
 			break;
 		case "1.11.2":
+			this.gameEngine.setGameStyle(GameStyle.VANILLA);
 			gameLinks.JSON_URL = gameLinks.BASE_URL + "1.11.2.json";
 			break;
 		case "1.12.2":
+			this.gameEngine.setGameStyle(GameStyle.VANILLA);
 			gameLinks.JSON_URL = gameLinks.BASE_URL + "1.12.2.json";
 			break;
 		case "1.16.2":
+			this.gameEngine.setGameStyle(GameStyle.VANILLA);
 			gameLinks.JSON_URL = gameLinks.BASE_URL + "1.16.2.json";
 			break;
 		case "1.15.2":
+			this.gameEngine.setGameStyle(GameStyle.VANILLA);
 			gameLinks.JSON_URL = gameLinks.BASE_URL + "1.15.2.json";
 			break;
 		case "1.16.4":
+			this.gameEngine.setGameStyle(GameStyle.VANILLA);
 			gameLinks.JSON_URL = gameLinks.BASE_URL + "1.16.4.json";
 			break;
 		case "1.14.4":
+			this.gameEngine.setGameStyle(GameStyle.VANILLA);
 			gameLinks.JSON_URL = gameLinks.BASE_URL + "1.14.4.json";
 			break;
 		case "1.13.2":
+			this.gameEngine.setGameStyle(GameStyle.VANILLA);
 			gameLinks.JSON_URL = gameLinks.BASE_URL + "1.13.2.json";
 			break;
 		case "1.16.3":
+			this.gameEngine.setGameStyle(GameStyle.VANILLA);
 			gameLinks.JSON_URL = gameLinks.BASE_URL + "1.16.3.json";
 			break;
 		case "1.16.5":
+			this.gameEngine.setGameStyle(GameStyle.VANILLA);
 			gameLinks.JSON_URL = gameLinks.BASE_URL + "1.16.5.json";
 			break;
 		case "1.17":
+			this.gameEngine.setGameStyle(GameStyle.VANILLA);
 			gameLinks.JSON_URL = gameLinks.BASE_URL + "1.17.json";
 			break;
 		case "1.17.1":
+			this.gameEngine.setGameStyle(GameStyle.VANILLA);
 			gameLinks.JSON_URL = gameLinks.BASE_URL + "1.17.1.json";
 			break;
 		case "1.18":
+			this.gameEngine.setGameStyle(GameStyle.VANILLA);
 			gameLinks.JSON_URL = gameLinks.BASE_URL + "1.18.json";
 			break;
 		case "1.18.1":
+			this.gameEngine.setGameStyle(GameStyle.VANILLA);
 			gameLinks.JSON_URL = gameLinks.BASE_URL + "1.18.1.json";
 			break;
 		case "1.18.2":
+			this.gameEngine.setGameStyle(GameStyle.VANILLA);
 			gameLinks.JSON_URL = gameLinks.BASE_URL + "1.18.2.json";
 			break;
-		case "22w11a":
-			gameLinks.JSON_URL = gameLinks.BASE_URL + "22w11a.json";
-			break;
-		case "22w12a":
-			gameLinks.JSON_URL = gameLinks.BASE_URL + "22w12a.json";
-			break;
-		case "22w13a":
-			gameLinks.JSON_URL = gameLinks.BASE_URL + "22w13a.json";
-			break;
-		case "22w13oneblockatatime":
-			gameLinks.JSON_URL = gameLinks.BASE_URL + "22w13oneblockatatime.json";
-			break;
-		case "22w14a":
-			gameLinks.JSON_URL = gameLinks.BASE_URL + "22w14a.json";
-			break;
-		case "22w15a":
-			gameLinks.JSON_URL = gameLinks.BASE_URL + "22w15a.json";
-			break;
-		case "22w16b":
-			gameLinks.JSON_URL = gameLinks.BASE_URL + "22w16b.json";
-			break;
-		case "22w17a":
-			gameLinks.JSON_URL = gameLinks.BASE_URL + "22w17a.json";
-			break;
-		case "22w18a":
-			gameLinks.JSON_URL = gameLinks.BASE_URL + "22w18a.json";
-			break;
-		case "22w19a":
-			gameLinks.JSON_URL = gameLinks.BASE_URL + "22w19a.json";
-			break;
-		case "1.19-pre1":
-			gameLinks.JSON_URL = gameLinks.BASE_URL + "1.19-pre1.json";
+		case "1.19":
+			this.gameEngine.setGameStyle(GameStyle.VANILLA_1_19_HIGHER);
+			gameLinks.JSON_URL = gameLinks.BASE_URL + "1.19.json";
 			break;
 		default:
 			panel.config.updateValue("version", gameLinks.getJsonName().replace(".json", ""));
@@ -228,7 +216,7 @@ public class LauncherMain extends AlternativeBase {
 		presence.largeImageKey = "image";
 		presence.largeImageText = "MajestyCraft, Launcher Gratuit Crack/Premium";
 		presence.details = "Launcher MajestyCraft";
-		presence.state = "Version : 1.8 => 1.18.2";
+		presence.state = "Version : 1.8 => 1.19";
 
 		discord.Discord_UpdatePresence(presence);
 	}

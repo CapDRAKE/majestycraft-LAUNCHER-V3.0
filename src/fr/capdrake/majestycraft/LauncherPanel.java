@@ -167,7 +167,7 @@ public class LauncherPanel extends IScreen {
 	public LauncherPanel(Pane root, GameEngine engine, final LauncherMain launcherMain) {
 		instance = this;
 		this.drawBackgroundImage(engine, root, "heading.jpg");
-		// Déselectionne la textfield par défaut
+		// Dï¿½selectionne la textfield par dï¿½faut
 		Platform.runLater(() -> root.requestFocus());
 
 		theGameEngine = engine;
@@ -279,8 +279,8 @@ public class LauncherPanel extends IScreen {
 
 				} else {
 					Platform.runLater(() -> {
-						new LauncherAlert("Authentification echouée!",
-								"Impossible de se connecter, vous êtes en mode offline"
+						new LauncherAlert("Authentification echouï¿½e!",
+								"Impossible de se connecter, vous ï¿½tes en mode offline"
 										+ " \nMerci de vous connecter en crack.");
 					});
 				}
@@ -427,7 +427,7 @@ public class LauncherPanel extends IScreen {
 		this.passwordField.setStyle("-fx-background-color: rgba(0 ,0 ,0 , 0.4); -fx-text-fill: orange");
 		this.passwordField.setPromptText("Mot de passe");
 
-		// Verif si la case "se souvenir de moi" est coché
+		// Verif si la case "se souvenir de moi" est cochï¿½
 		if ((boolean) config.getValue(EnumConfig.REMEMBER_ME) == true) {
 			passwordField.setText((String) config.getValue(EnumConfig.PASSWORD));
 		} else {
@@ -472,20 +472,20 @@ public class LauncherPanel extends IScreen {
 						}
 						connectAccountPremiumCO(usernameField.getText(), root);
 					} else {
-						new LauncherAlert("Authentification echouée!",
+						new LauncherAlert("Authentification echouï¿½e!",
 								"Impossible de se connecter, l'authentification semble etre une authentification 'en-ligne'"
 										+ " \nIl y a un probleme lors de la tentative de connexion. \n\n-Verifiez que le pseudonyme comprenne au minimum 3 caracteres. (compte non migrer)"
 										+ "\n-Faites bien attention aux majuscules et minuscules. \nAssurez-vous d'utiliser un compte Mojang. \nAssurez-vous de bien utiliser votre email dans le  cas d'une connexion avec un compte Mojang !");
 					}
 				} else {
-					new LauncherAlert("Authentification echouée!",
+					new LauncherAlert("Authentification echouï¿½e!",
 							"Impossible de se connecter, l'authentification semble etre une authentification 'hors-ligne'"
 									+ " \nIl y a un probleme lors de la tentative de connexion. \n\n-Verifiez que le pseudonyme comprenne au minimum 3 caracteres.");
 				}
 			} else {
 				Platform.runLater(() -> {
-					new LauncherAlert("Authentification echouée!",
-							"Impossible de se connecter, vous êtes en mode offline"
+					new LauncherAlert("Authentification echouï¿½e!",
+							"Impossible de se connecter, vous ï¿½tes en mode offline"
 									+ " \nMerci de vous connecter en crack.");
 				});
 			}
@@ -616,7 +616,7 @@ public class LauncherPanel extends IScreen {
 
 		/** ===================== ANNULER AUTOLOGIN ===================== */
 		this.autoLoginButton2 = new LauncherButton(root);
-		this.autoLoginButton2.setText("Démarrer");
+		this.autoLoginButton2.setText("Dï¿½marrer");
 		this.autoLoginButton2.setFont(FontLoader.loadFont("Comfortaa-Regular.ttf", "Comfortaa", 14F));
 		this.autoLoginButton2.setPosition(theGameEngine.getWidth() / 2 + 170, theGameEngine.getHeight() - 30);
 		this.autoLoginButton2.setSize(100, 20);
@@ -660,8 +660,8 @@ public class LauncherPanel extends IScreen {
 							autoLoginRectangle.setVisible(false);
 							autoLoginTimer.cancel();
 							Platform.runLater(() -> {
-								new LauncherAlert("Authentification echouée!",
-										"Impossible de se connecter, vous êtes en mode offline"
+								new LauncherAlert("Authentification echouï¿½e!",
+										"Impossible de se connecter, vous ï¿½tes en mode offline"
 												+ " \nMerci de vous connecter en crack.");
 							});
 						}
@@ -707,10 +707,10 @@ public class LauncherPanel extends IScreen {
 									autoLoginButton2.setVisible(false);
 									autoLoginRectangle.setVisible(false);
 									autoLoginTimer.cancel();
-									// Ceci est nécessaire pour éviter de faire planter. Le LauncherAlert ne
+									// Ceci est nï¿½cessaire pour ï¿½viter de faire planter. Le LauncherAlert ne
 									// peut s'afficher lors de l'utilisation d'un "time"
 									Platform.runLater(() -> {
-										new LauncherAlert("Authentification echouée!",
+										new LauncherAlert("Authentification echouï¿½e!",
 												"Impossible de se connecter, l'authentification semble etre une authentification 'en-ligne'"
 														+ " \nIl y a un probleme lors de la tentative de connexion. \n\n-Verifiez que le pseudonyme comprenne au minimum 3 caracteres. (compte non migrer)"
 														+ "\n-Faites bien attention aux majuscules et minuscules. \nAssurez-vous d'utiliser un compte Mojang. \nAssurez-vous de bien utiliser votre email dans le  cas d'une connexion avec un compte Mojang !");
@@ -723,7 +723,7 @@ public class LauncherPanel extends IScreen {
 								autoLoginRectangle.setVisible(false);
 								autoLoginTimer.cancel();
 								Platform.runLater(() -> {
-									new LauncherAlert("Authentification echouée!",
+									new LauncherAlert("Authentification echouï¿½e!",
 											"Impossible de se connecter, l'authentification semble etre une authentification 'en-ligne'"
 													+ " \nIl y a un probleme lors de la tentative de connexion. \n\n-Verifiez que le mdp soit bien saisi."
 													+ "\n-Faites bien attention aux majuscules et minuscules. \nAssurez-vous d'utiliser un compte Mojang. \nAssurez-vous de bien utiliser votre email dans le  cas d'une connexion avec un compte Mojang !");
@@ -737,8 +737,8 @@ public class LauncherPanel extends IScreen {
 								autoLoginRectangle.setVisible(false);
 								autoLoginTimer.cancel();
 								Platform.runLater(() -> {
-									new LauncherAlert("Authentification echouée!",
-											"Impossible de se connecter, vous êtes en mode offline"
+									new LauncherAlert("Authentification echouï¿½e!",
+											"Impossible de se connecter, vous ï¿½tes en mode offline"
 													+ " \nMerci de vous connecter en crack.");
 								});
 							}
@@ -768,7 +768,7 @@ public class LauncherPanel extends IScreen {
 							selectVersion(engine);
 
 							elapsed++;
-							// S'execute à la fin du compte à rebours
+							// S'execute ï¿½ la fin du compte ï¿½ rebours
 							if (elapsed % waitTime == 0) {
 								if (!theGameEngine.getGameMaintenance().isAccessBlocked()) {
 									/**
@@ -801,8 +801,8 @@ public class LauncherPanel extends IScreen {
 											autoLoginRectangle.setVisible(false);
 											autoLoginTimer.cancel();
 											Platform.runLater(() -> {
-												new LauncherAlert("Authentification echouée!",
-														"Impossible de se connecter, vous êtes en mode offline"
+												new LauncherAlert("Authentification echouï¿½e!",
+														"Impossible de se connecter, vous ï¿½tes en mode offline"
 																+ " \nMerci de vous connecter en crack.");
 											});
 										}
@@ -849,10 +849,10 @@ public class LauncherPanel extends IScreen {
 												autoLoginButton2.setVisible(false);
 												autoLoginRectangle.setVisible(false);
 												autoLoginTimer.cancel();
-												// Ceci est nécessaire pour éviter de faire planter. Le LauncherAlert ne
+												// Ceci est nï¿½cessaire pour ï¿½viter de faire planter. Le LauncherAlert ne
 												// peut s'afficher lors de l'utilisation d'un "time"
 												Platform.runLater(() -> {
-													new LauncherAlert("Authentification echouée!",
+													new LauncherAlert("Authentification echouï¿½e!",
 															"Impossible de se connecter, l'authentification semble etre une authentification 'en-ligne'"
 																	+ " \nIl y a un probleme lors de la tentative de connexion. \n\n-Verifiez que le pseudonyme comprenne au minimum 3 caracteres. (compte non migrer)"
 																	+ "\n-Faites bien attention aux majuscules et minuscules. \nAssurez-vous d'utiliser un compte Mojang. \nAssurez-vous de bien utiliser votre email dans le  cas d'une connexion avec un compte Mojang !");
@@ -865,7 +865,7 @@ public class LauncherPanel extends IScreen {
 											autoLoginRectangle.setVisible(false);
 											autoLoginTimer.cancel();
 											Platform.runLater(() -> {
-												new LauncherAlert("Authentification echouée!",
+												new LauncherAlert("Authentification echouï¿½e!",
 														"Impossible de se connecter, l'authentification semble etre une authentification 'en-ligne'"
 																+ " \nIl y a un probleme lors de la tentative de connexion. \n\n-Verifiez que le mdp soit bien saisi."
 																+ "\n-Faites bien attention aux majuscules et minuscules. \nAssurez-vous d'utiliser un compte Mojang. \nAssurez-vous de bien utiliser votre email dans le  cas d'une connexion avec un compte Mojang !");
@@ -878,8 +878,8 @@ public class LauncherPanel extends IScreen {
 										autoLoginRectangle.setVisible(false);
 										autoLoginTimer.cancel();
 										Platform.runLater(() -> {
-											new LauncherAlert("Authentification echouée!",
-													"Impossible de se connecter, vous êtes en mode offline"
+											new LauncherAlert("Authentification echouï¿½e!",
+													"Impossible de se connecter, vous ï¿½tes en mode offline"
 															+ " \nMerci de vous connecter en crack.");
 										});
 									}
@@ -1646,8 +1646,8 @@ public class LauncherPanel extends IScreen {
 	public void selectVersion(GameEngine engine) {
 		if ((boolean) config.getValue(EnumConfig.USE_OPTIFINE) == true
 				&& (boolean) config.getValue(EnumConfig.USE_FORGE) == true) {
-			new LauncherAlert("Echec du démarrage d'optifine/forge. ",
-					"Impossible de démarrer le jeu avec optifine et forge d'activé."
+			new LauncherAlert("Echec du dï¿½marrage d'optifine/forge. ",
+					"Impossible de dï¿½marrer le jeu avec optifine et forge d'activï¿½."
 							+ " \nMerci de ne choisir que l'une des deux options ");
 		} else if ((boolean) config.getValue(EnumConfig.USE_OPTIFINE) == true
 				&& (boolean) config.getValue(EnumConfig.USE_FORGE) == false) {
@@ -1756,6 +1756,7 @@ public class LauncherPanel extends IScreen {
 				LauncherMain.gameLinks = new GameLinks("https://majestycraft.com/minecraft/1.13.2/forge/",
 						"1.13.2.json");
 				engine.setGameStyle(GameStyle.FORGE_1_13_HIGHER);
+				//LauncherMain.gameForge = new GameForge(Forge.FML_CLIENT, "1.13.2", "25.0.219", "20190213.203750");
 				verif = 0;
 				break;
 			case "1.14.4.json": // NOT GOOD
@@ -1847,9 +1848,16 @@ public class LauncherPanel extends IScreen {
 				engine.setGameStyle(GameStyle.FORGE_1_13_HIGHER);
 			}
 		} else {
+			if (engine.getGameLinks().JSON_NAME.equals("1.19.json")) {
+
+				engine.setGameStyle(GameStyle.VANILLA_1_19_HIGHER);
+			}else{
+
+				engine.setGameStyle(GameStyle.VANILLA);
+			}
 			LauncherMain.gameLinks = new GameLinks("https://majestycraft.com/minecraft/",
 					engine.getGameLinks().JSON_NAME);
-			engine.setGameStyle(GameStyle.VANILLA);
+			//Logger.log(LauncherMain.gameLinks.JSON_URL);
 		}
 	}
 }

@@ -67,7 +67,7 @@ public class LauncherInfo extends IScreen {
 
 		/** ===================== TITRE DEV ===================== */
 		this.DEV = new LauncherLabel(root);
-		this.DEV.setText("Développeur : Capdrake");
+		this.DEV.setText("Développeur : Capdrake, Ostix360");
 		this.DEV.setFont(Font.font("FontName", FontWeight.BOLD, 20d));
 		this.DEV.setStyle("-fx-text-fill: white;");
 		this.DEV.setPosition(engine.getWidth() / 2 - 449, engine.getHeight() / 2 - 250);
@@ -177,7 +177,7 @@ public class LauncherInfo extends IScreen {
 
 		/** ===================== TITRE Version actuelle ===================== */
 		this.version = new LauncherLabel(root);
-		this.version.setText("Version : 3.0 (20/05/2022)");
+		this.version.setText("Version : 3.0 (13/06/2022)");
 		this.version.setFont(Font.font("FontName", FontWeight.BOLD, 20d));
 		this.version.setStyle("-fx-text-fill: white;");
 		this.version.setPosition(engine.getWidth() / 2 - 449, engine.getHeight() / 2 + 180);
