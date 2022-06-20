@@ -169,11 +169,9 @@ public class LauncherSettings extends IScreen {
 
 		/** ===================== CHECKBOX USE Forge ===================== */
 		useForge = new JFXCheckBox();
-		useForge.setDisable(true);
-		useForge.setText("Forge (EN MAINTENANCE)");
+		useForge.setText("Forge");
 		useForge.setSelected((boolean) pane.config.getValue(EnumConfig.USE_FORGE));
 		useForge.setOpacity(1.0);
-		useForge.setOpacity(0.3);
 		useForge.setFont(FontLoader.loadFont("Comfortaa-Regular.ttf", "Comfortaa", 14F));
 		useForge.setStyle("-fx-text-fill: white; -jfx-checked-color: RED; -jfx-unchecked-color: BLACK");
 		useForge.setLayoutX(250);
@@ -203,10 +201,7 @@ public class LauncherSettings extends IScreen {
 		if (pane.config.getValue(EnumConfig.VERSION) != null) {
 			this.versionList.setValue((String) pane.config.getValue(EnumConfig.VERSION));
 			String verif = (String) pane.config.getValue(EnumConfig.VERSION);
-			if (verif.equals("1.8") || verif.equals("1.16.2")
-					|| verif.equals("1.16.3") || verif.equals("1.17")
-					|| verif.equals("1.17.1") || verif.equals("1.18")
-					|| verif.equals("1.18.1") || verif.equals("1.18.2")){
+			if (verif.equals("1.8")){
 				LauncherSettings.useForge.setDisable(true);
 				LauncherSettings.useForge.setSelected(false);
 				LauncherSettings.useForge.setOpacity(0.3);
@@ -227,10 +222,7 @@ public class LauncherSettings extends IScreen {
 
 			@Override
 			public void handle(ActionEvent event) {
-				if (versionList.getValue() == "1.8" || versionList.getValue() == "1.16.2"
-						|| versionList.getValue() == "1.16.3" || versionList.getValue() == "1.17"
-						|| versionList.getValue() == "1.17.1" || versionList.getValue() == "1.18"
-						|| versionList.getValue() == "1.18.1" || versionList.getValue() == "1.18.2") {
+				if (versionList.getValue() == "1.8") {
 					LauncherSettings.useForge.setDisable(true);
 					LauncherSettings.useForge.setSelected(false);
 					LauncherSettings.useForge.setOpacity(0.3);
