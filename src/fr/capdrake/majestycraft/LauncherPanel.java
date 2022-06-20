@@ -1640,7 +1640,7 @@ public class LauncherPanel extends IScreen {
                     //LauncherMain.gameForge = new GameForge(Forge.FML_CLIENT, "1.13.2", "25.0.219", "20190213.203750");
                     verif = 0;
                     break;
-                case "1.14.4.json": // NOT GOOD
+                case "1.14.4.json": // GOOD
                     LauncherMain.gameLinks = new GameLinks("https://majestycraft.com/minecraft/1.14.4/forge/",
                             "1.14.4.json");
 //                    try {
