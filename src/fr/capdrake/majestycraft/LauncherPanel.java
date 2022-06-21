@@ -1744,8 +1744,7 @@ public class LauncherPanel extends IScreen {
             }
             LauncherMain.gameLinks = new GameLinks("https://majestycraft.com/minecraft/",
                     engine.getGameLinks().JSON_NAME);
-
+            //Logger.log("[Launcher] Version " + engine.getGameLinks().JSON_NAME + " used.");
         }
-        Logger.log(LauncherMain.gameLinks.JSON_URL);
     }
 }
