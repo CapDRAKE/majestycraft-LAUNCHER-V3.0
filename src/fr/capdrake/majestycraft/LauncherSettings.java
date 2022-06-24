@@ -1,6 +1,6 @@
 package fr.capdrake.majestycraft;
 
-import java.util.HashMap;
+import java.util.*;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXCheckBox;
@@ -231,7 +231,7 @@ public class LauncherSettings extends IScreen {
 					//LauncherSettings.useForge.setOpacity(1);
 					//LauncherSettings.useForge.setDisable(false);
 				}
-				if (versionList.getValue() == "1.19") {
+				if (Objects.equals(versionList.getValue(), "1.19")) {
 					LauncherSettings.useOptifine.setDisable(true);
 					LauncherSettings.useOptifine.setSelected(false);
 					LauncherSettings.useOptifine.setOpacity(0.3);

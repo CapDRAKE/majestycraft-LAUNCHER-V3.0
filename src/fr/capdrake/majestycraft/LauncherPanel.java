@@ -1606,20 +1606,20 @@ public class LauncherPanel extends IScreen {
             LauncherMain.getGameLinks().JSON_NAME = config.getValue(EnumConfig.VERSION) + ".json";
             verif = 1;
             switch (engine.getGameLinks().JSON_NAME) {
-                case "1.9.json": // NOT GOOD (forge.json not present)
+                case "1.9.json": // GOOD
                     LauncherMain.gameLinks = new GameLinks("https://majestycraft.com/minecraft/1.9/forge/", "1.9.json");
                     engine.setGameStyle(GameStyle.FORGE_1_8_TO_1_12_2);
                     //LauncherMain.gameForge = new GameForge(Forge.FML_CLIENT, "1.9", "#1938", "20200515.085601");
                     verif = 0;
                     break;
-                case "1.10.2.json": // NOT GOOD
+                case "1.10.2.json": // GOOD
                     LauncherMain.gameLinks = new GameLinks("https://majestycraft.com/minecraft/1.10.2/forge/",
                             "1.10.2.json");
                     engine.setGameStyle(GameStyle.FORGE_1_8_TO_1_12_2);
                     //LauncherMain.gameForge = new GameForge(Forge.FML_CLIENT, "1.10.2", "#2185", "20200515.085601");
                     verif = 0;
                     break;
-                case "1.11.2.json": // NOT GOOD
+                case "1.11.2.json": // GOOD
                     LauncherMain.gameLinks = new GameLinks("https://majestycraft.com/minecraft/1.11.2/forge/",
                             "1.11.2.json");
                     engine.setGameStyle(GameStyle.FORGE_1_8_TO_1_12_2);
@@ -1632,7 +1632,7 @@ public class LauncherPanel extends IScreen {
                     engine.setGameStyle(GameStyle.FORGE_1_8_TO_1_12_2);
                     verif = 0;
                     break;
-                case "1.13.2.json": // NOT GOOD
+                case "1.13.2.json": // GOOD
                     LauncherMain.gameLinks = new GameLinks("https://majestycraft.com/minecraft/1.13.2/forge/",
                             "1.13.2.json");
                     engine.setGameStyle(GameStyle.FORGE_1_13_HIGHER);
@@ -1656,7 +1656,7 @@ public class LauncherPanel extends IScreen {
                     engine.setGameStyle(GameStyle.FORGE_1_13_HIGHER);
                     verif = 0;
                     break;
-                case "1.16.3.json": //NOT GOOD
+                case "1.16.3.json": // GOOD
                     LauncherMain.gameLinks = new GameLinks("https://majestycraft.com/minecraft/1.16.3/forge/",
                             "1.16.3.json");
                     engine.setGameStyle(GameStyle.FORGE_1_13_HIGHER);
@@ -1674,7 +1674,7 @@ public class LauncherPanel extends IScreen {
                     engine.setGameStyle(GameStyle.FORGE_1_13_HIGHER);
                     verif = 0;
                     break;
-                case "1.17.1.json": // NOT GOOD
+                case "1.17.1.json": // GOOD
                     LauncherMain.gameLinks = new GameLinks("https://majestycraft.com/minecraft/1.17.1/forge/", "1.17.1.json");
                     engine.setGameStyle(GameStyle.FORGE_1_17_HIGHER);
                     verif = 0;
@@ -1684,27 +1684,30 @@ public class LauncherPanel extends IScreen {
                     engine.setGameStyle(GameStyle.FORGE_1_17_HIGHER);
                     verif = 0;
                     break;
-                case "1.18.1.json": // NOT GOOD
+                case "1.18.1.json": // GOOD
                     LauncherMain.gameLinks = new GameLinks("https://majestycraft.com/minecraft/1.18.1/forge/",
                             "1.18.1.json");
                     engine.setGameStyle(GameStyle.FORGE_1_17_HIGHER);
                     verif = 0;
                     break;
-                case "1.18.2.json": // NOT GOOD
+                case "1.18.2.json": // GOOD
                     LauncherMain.gameLinks = new GameLinks("https://majestycraft.com/minecraft/1.18.2/forge/",
                             "1.18.2.json");
                     engine.setGameStyle(GameStyle.FORGE_1_17_HIGHER);
                     verif = 0;
                     break;
+                case "1.19.json": // GOOD
+                    LauncherMain.gameLinks = new GameLinks("https://majestycraft.com/minecraft/1.19/forge/",
+                            "1.19.json");
+                    engine.setGameStyle(GameStyle.FORGE_1_19_HIGHER);
+                    verif = 0;
+                    break;
                 default:
                     LauncherMain.gameLinks = new GameLinks("https://majestycraft.com/minecraft/1.16.5/forge/",
                             "1.16.5.json");
-                    try {
-                        forgeUpdater = new CustomForgeUpdater("1.16.5", "36.2.22", "20210115.111550");
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
                     engine.setGameStyle(GameStyle.FORGE_1_13_HIGHER);
+                    verif = 0;
+                    break;
             }
         } else {
             LauncherMain.getGameLinks().JSON_NAME = config.getValue(EnumConfig.VERSION) + ".json";
