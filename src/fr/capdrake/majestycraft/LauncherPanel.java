@@ -60,7 +60,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
-import javafx.scene.media.Media;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
@@ -248,36 +247,28 @@ public class LauncherPanel extends IScreen {
         this.microsoftButton.setPosition(engine.getWidth() / 2 - 522, engine.getHeight() / 2 - 100);
         this.microsoftButton.setSize(60, 46);
         this.microsoftButton.setOnAction(event -> {
-
+        	
             if ((boolean) config.getValue(EnumConfig.USE_CONNECT)) {
                 theGameEngine.reg(LauncherMain.getGameConnect());
             }
             if (LauncherMain.netIsAvailable()) {
-
-                /*
-                 * ===================== VERIFICATION USEFORGE =====================
-                 */
-
-                if ((boolean) config.getValue(EnumConfig.USE_MICROSOFT)) {
-                    gameAuthentication = new GameAuth(AccountType.MICROSOFT);
-                    showMicrosoftAuth(gameAuthentication);
-                    if (gameAuthentication.isLogged()) {
-                        connectAccountPremiumCO(gameAuthentication.getSession().getUsername(), root);
-                        selectVersion(engine);
-                        if ((boolean) config.getValue(EnumConfig.USE_FORGE) && verif == 1) {
-                            update(gameAuthentication);
-                        } else {
-                            update2(gameAuthentication);
-                        }
-
-
+                gameAuthentication = new GameAuth(AccountType.MICROSOFT);
+                showMicrosoftAuth(gameAuthentication);
+                if (gameAuthentication.isLogged()) {
+                    connectAccountPremiumCO(gameAuthentication.getSession().getUsername(), root);
+                    selectVersion(engine);
+                    config.updateValue("useMicrosoft", true);
+                    if ((boolean) config.getValue(EnumConfig.USE_FORGE) && verif == 1) {
+                        update(gameAuthentication);
                     } else {
-                        Platform.runLater(() -> new LauncherAlert("Authentification echouï¿½e!",
-                                "Impossible de se connecter, vous ï¿½tes en mode offline"
-                                        + " \nMerci de vous connecter en crack."));
+                        update2(gameAuthentication);
                     }
+                } else {
+                    Platform.runLater(() -> new LauncherAlert("Authentification echouée!",
+                            "Impossible de se connecter, vous êtes en mode offline"
+                                    + " \nMerci de vous connecter en crack."));
                 }
-            }
+             }
         });
 
         /* ===================== RECTANGLE DES CONNEXIONS ===================== */
@@ -1517,6 +1508,7 @@ public class LauncherPanel extends IScreen {
     }
 
     private Parent createMicrosoftPanel(GameAuth auth) {
+        System.out.println("test");
         LauncherPane contentPane = new LauncherPane(theGameEngine);
         auth.connectMicrosoft(theGameEngine, contentPane);
         return contentPane;
@@ -1597,8 +1589,16 @@ public class LauncherPanel extends IScreen {
                     LauncherMain.gameLinks = new GameLinks("https://majestycraft.com/minecraft/1.18.1/", "1.18.1.json");
                     engine.setGameStyle(GameStyle.OPTIFINE);
                     break;
-                default:
+                case "1.18.2.json":
                     LauncherMain.gameLinks = new GameLinks("https://majestycraft.com/minecraft/1.18.2/", "1.18.2.json");
+                    engine.setGameStyle(GameStyle.OPTIFINE);
+                    break;
+                case "1.19.json":
+                    LauncherMain.gameLinks = new GameLinks("https://majestycraft.com/minecraft/1.19/", "1.19.json");
+                    engine.setGameStyle(GameStyle.OPTIFINE);
+                    break;
+                default:
+                    LauncherMain.gameLinks = new GameLinks("https://majestycraft.com/minecraft/1.19/", "1.19.json");
                     engine.setGameStyle(GameStyle.OPTIFINE);
                     break;
             }

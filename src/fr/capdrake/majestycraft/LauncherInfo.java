@@ -127,7 +127,7 @@ public class LauncherInfo extends IScreen {
 
 		/** ===================== changelogs 1 ===================== */
 		this.CHANGE1 = new LauncherLabel(root);
-		this.CHANGE1.setText("- Ajout du mode offline");
+		this.CHANGE1.setText("- Ajout de Forge sur toutes les versions");
 		this.CHANGE1.setFont(Font.font("FontName", FontWeight.BOLD, 20d));
 		this.CHANGE1.setStyle("-fx-text-fill: white;");
 		this.CHANGE1.setPosition(engine.getWidth() / 2 - 449, engine.getHeight() / 2 - 20);
@@ -137,7 +137,7 @@ public class LauncherInfo extends IScreen {
 
 		/** ===================== changelogs 2 ===================== */
 		this.CHANGE2 = new LauncherLabel(root);
-		this.CHANGE2.setText("- Ajout des dernières snapshots");
+		this.CHANGE2.setText("- Patch sur la connexion Microsoft");
 		this.CHANGE2.setFont(Font.font("FontName", FontWeight.BOLD, 20d));
 		this.CHANGE2.setStyle("-fx-text-fill: white;");
 		this.CHANGE2.setPosition(engine.getWidth() / 2 - 449, engine.getHeight() / 2 + 20);
@@ -177,7 +177,7 @@ public class LauncherInfo extends IScreen {
 
 		/** ===================== TITRE Version actuelle ===================== */
 		this.version = new LauncherLabel(root);
-		this.version.setText("Version : 3.0 (13/06/2022)");
+		this.version.setText("Version : 3.1.0.1 (02/07/2022)");
 		this.version.setFont(Font.font("FontName", FontWeight.BOLD, 20d));
 		this.version.setStyle("-fx-text-fill: white;");
 		this.version.setPosition(engine.getWidth() / 2 - 449, engine.getHeight() / 2 + 180);

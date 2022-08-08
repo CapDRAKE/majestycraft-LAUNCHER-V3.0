@@ -207,7 +207,7 @@ public class LauncherSettings extends IScreen {
 				LauncherSettings.useForge.setOpacity(0.3);
 				pane.config.updateValue("useforge", false);
 			}
-			if (verif.equals("1.19")) {
+			if (verif.equals("1.8")) {
 				LauncherSettings.useOptifine.setDisable(true);
 				LauncherSettings.useOptifine.setSelected(false);
 				LauncherSettings.useOptifine.setOpacity(0.3);
@@ -231,7 +231,7 @@ public class LauncherSettings extends IScreen {
 					//LauncherSettings.useForge.setOpacity(1);
 					//LauncherSettings.useForge.setDisable(false);
 				}
-				if (Objects.equals(versionList.getValue(), "1.19")) {
+				if (Objects.equals(versionList.getValue(), "1.8")) {
 					LauncherSettings.useOptifine.setDisable(true);
 					LauncherSettings.useOptifine.setSelected(false);
 					LauncherSettings.useOptifine.setOpacity(0.3);
@@ -442,7 +442,11 @@ public class LauncherSettings extends IScreen {
 				this.versionList.getItems().add("1.18.2");
 			} else if (i == 18) {
 				this.versionList.getItems().add("1.19");
-			}
+			} else if (i == 19) {
+				this.versionList.getItems().add("1.19.1");
+			} else if (i == 20) {
+				this.versionList.getItems().add("1.19.2");
+			} 
 		}
 	}
 }

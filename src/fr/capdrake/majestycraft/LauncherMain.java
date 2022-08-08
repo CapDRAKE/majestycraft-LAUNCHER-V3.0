@@ -180,6 +180,14 @@ public class LauncherMain extends AlternativeBase {
 			this.gameEngine.setGameStyle(GameStyle.VANILLA_1_19_HIGHER);
 			gameLinks.JSON_URL = gameLinks.BASE_URL + "1.19.json";
 			break;
+		case "1.19.1":
+			this.gameEngine.setGameStyle(GameStyle.VANILLA_1_19_HIGHER);
+			gameLinks.JSON_URL = gameLinks.BASE_URL + "1.19.1.json";
+			break;
+		case "1.19.2":
+			this.gameEngine.setGameStyle(GameStyle.VANILLA_1_19_HIGHER);
+			gameLinks.JSON_URL = gameLinks.BASE_URL + "1.19.2.json";
+			break;
 		default:
 			panel.config.updateValue("version", gameLinks.getJsonName().replace(".json", ""));
 			break;
