@@ -201,13 +201,13 @@ public class LauncherSettings extends IScreen {
 		if (pane.config.getValue(EnumConfig.VERSION) != null) {
 			this.versionList.setValue((String) pane.config.getValue(EnumConfig.VERSION));
 			String verif = (String) pane.config.getValue(EnumConfig.VERSION);
-			if (verif.equals("1.8")){
+			if (verif.equals("1.8") || verif.equals("1.19.1") || verif.equals("1.19.2")){
 				LauncherSettings.useForge.setDisable(true);
 				LauncherSettings.useForge.setSelected(false);
 				LauncherSettings.useForge.setOpacity(0.3);
 				pane.config.updateValue("useforge", false);
 			}
-			if (verif.equals("1.8")) {
+			if (verif.equals("1.8") || verif.equals("1.19.1") || verif.equals("1.19.2")) {
 				LauncherSettings.useOptifine.setDisable(true);
 				LauncherSettings.useOptifine.setSelected(false);
 				LauncherSettings.useOptifine.setOpacity(0.3);
@@ -222,7 +222,7 @@ public class LauncherSettings extends IScreen {
 
 			@Override
 			public void handle(ActionEvent event) {
-				if (versionList.getValue() == "1.8") {
+				if (versionList.getValue() == "1.8" || versionList.getValue() == "1.19.1" || versionList.getValue() == "1.19.2") {
 					LauncherSettings.useForge.setDisable(true);
 					LauncherSettings.useForge.setSelected(false);
 					LauncherSettings.useForge.setOpacity(0.3);
@@ -231,7 +231,7 @@ public class LauncherSettings extends IScreen {
 					//LauncherSettings.useForge.setOpacity(1);
 					//LauncherSettings.useForge.setDisable(false);
 				}
-				if (Objects.equals(versionList.getValue(), "1.8")) {
+				if (Objects.equals(versionList.getValue(), "1.8") || Objects.equals(versionList.getValue(), "1.19.1") || Objects.equals(versionList.getValue(), "1.19.2")) {
 					LauncherSettings.useOptifine.setDisable(true);
 					LauncherSettings.useOptifine.setSelected(false);
 					LauncherSettings.useOptifine.setOpacity(0.3);

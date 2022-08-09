@@ -224,7 +224,7 @@ public class LauncherMain extends AlternativeBase {
 		presence.largeImageKey = "image";
 		presence.largeImageText = "MajestyCraft, Launcher Gratuit Crack/Premium";
 		presence.details = "Launcher MajestyCraft";
-		presence.state = "Version : 1.8 => 1.19";
+		presence.state = "Version : 1.8 => 1.19.2";
 
 		discord.Discord_UpdatePresence(presence);
 	}
