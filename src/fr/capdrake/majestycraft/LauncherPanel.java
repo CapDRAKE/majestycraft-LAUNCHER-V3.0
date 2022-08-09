@@ -264,8 +264,8 @@ public class LauncherPanel extends IScreen {
                         update2(gameAuthentication);
                     }
                 } else {
-                    Platform.runLater(() -> new LauncherAlert("Authentification echouée!",
-                            "Impossible de se connecter, vous êtes en mode offline"
+                    Platform.runLater(() -> new LauncherAlert("Authentification echouï¿½e!",
+                            "Impossible de se connecter, vous ï¿½tes en mode offline"
                                     + " \nMerci de vous connecter en crack."));
                 }
              }
@@ -1711,7 +1711,7 @@ public class LauncherPanel extends IScreen {
             }
         } else {
             LauncherMain.getGameLinks().JSON_NAME = config.getValue(EnumConfig.VERSION) + ".json";
-            if (engine.getGameLinks().JSON_NAME.equals("1.19.json")) {
+            if (engine.getGameLinks().JSON_NAME.contains("1.19")) {
 
                 engine.setGameStyle(GameStyle.VANILLA_1_19_HIGHER);
             } else {
