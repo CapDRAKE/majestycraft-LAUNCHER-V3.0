@@ -82,7 +82,7 @@ public class LauncherMain extends AlternativeBase {
 		rectangle.setArcWidth(15.0);
 		LauncherMain.getContentPane().setClip(rectangle);
 		LauncherMain.getContentPane().setStyle("-fx-background-color: transparent;");
-		LauncherPanel panel = new LauncherPanel(LauncherMain.getContentPane(), this.gameEngine, this);
+		LauncherPanel panel = new LauncherPanel(LauncherMain.getContentPane(), this.gameEngine);
 		readVersion(panel);
 		final JackInTheBox animationOUVERTURE = new JackInTheBox(LauncherMain.getContentPane());
 		animationOUVERTURE.setSpeed(0.5);
@@ -189,7 +189,7 @@ public class LauncherMain extends AlternativeBase {
 			gameLinks.JSON_URL = gameLinks.BASE_URL + "1.19.2.json";
 			break;
 		default:
-			panel.config.updateValue("version", gameLinks.getJsonName().replace(".json", ""));
+			panel.config.updateValue("version", "1.19");
 			break;
 		}
 	}

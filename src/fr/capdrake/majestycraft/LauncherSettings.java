@@ -53,7 +53,7 @@ public class LauncherSettings extends IScreen {
 	public LauncherSettings(final Pane root, final GameEngine engine, final LauncherPanel pane) {
 
 		// String version = (String) pane.config.getValue(EnumConfig.VERSION);
-		/** ===================== BOUGER LE MENU PARAMETRE ===================== */
+		/* ===================== BOUGER LE MENU PARAMETRE ===================== */
 		// Cet évent nous permet de récupérer les valeurs en x et en y initiales.
 		root.setOnMousePressed(event -> {
 			xOffSet = event.getSceneX();
@@ -68,17 +68,20 @@ public class LauncherSettings extends IScreen {
 
 		this.drawBackgroundImage(engine, root, "background.png");
 		pane.config.loadConfiguration();
-		/** ===================== RECTANGLE NOIR EN HAUT ===================== */
+
+		/* ===================== RECTANGLE NOIR EN HAUT ===================== */
 		this.topRectangle = new LauncherRectangle(root, 0, 0, 1500, 15);
 		this.topRectangle.setOpacity(0.7);
-		/** ===================== LABEL TITRE ===================== */
+
+		/* ===================== LABEL TITRE ===================== */
 		this.titleLabel = new LauncherLabel(root);
 		this.titleLabel.setText("PARAMETRES");
 		this.titleLabel.setStyle("-fx-text-fill: white;");
 		this.titleLabel.setFont(FontLoader.loadFont("Comfortaa-Regular.ttf", "Comfortaa", 28F));
 		this.titleLabel.setPosition(350, 20);
 		this.titleLabel.setSize(230, 35);
-		/** ===================== MC SIZE LABEL ===================== */
+
+		/* ===================== MC SIZE LABEL ===================== */
 		this.windowsSizeLabel = new LauncherLabel(root);
 		this.windowsSizeLabel.setText("Taille de la fenêtre:");
 		this.windowsSizeLabel.setOpacity(1.0);
@@ -86,7 +89,8 @@ public class LauncherSettings extends IScreen {
 		this.windowsSizeLabel.setStyle("-fx-text-fill: white;");
 		this.windowsSizeLabel.setSize(370, 30);
 		this.windowsSizeLabel.setPosition(250, 110);
-		/** ===================== MC SIZE LIST ===================== */
+
+		/* ===================== MC SIZE LIST ===================== */
 		this.windowsSizeList = new JFXComboBox<String>();
 		this.populateSizeList();
 		if (pane.config.getValue(EnumConfig.GAME_SIZE) != null) {
@@ -98,7 +102,8 @@ public class LauncherSettings extends IScreen {
 		this.windowsSizeList.setLayoutY(115);
 		this.windowsSizeList.setVisibleRowCount(5);
 		root.getChildren().add(this.windowsSizeList);
-		/** ===================== SLIDER RAM LABEL ===================== */
+
+		/* ===================== SLIDER RAM LABEL ===================== */
 		this.sliderLabel = new LauncherLabel(root);
 		this.sliderLabel.setText("RAM Allouée:");
 		this.sliderLabel.setOpacity(1.0);
@@ -106,14 +111,16 @@ public class LauncherSettings extends IScreen {
 		this.sliderLabel.setStyle("-fx-text-fill: white;");
 		this.sliderLabel.setSize(370, 30);
 		this.sliderLabel.setPosition(250, 220);
-		/** ===================== SLIDER RAM LABEL SELECTIONNED ===================== */
+
+		/* ===================== SLIDER RAM LABEL SELECTIONNED ===================== */
 		this.memorySliderLabel = new LauncherLabel(root);
 		this.memorySliderLabel.setOpacity(1.0);
 		this.memorySliderLabel.setFont(FontLoader.loadFont("Comfortaa-Regular.ttf", "Comfortaa", 16F));
 		this.memorySliderLabel.setStyle("-fx-text-fill: white;");
 		this.memorySliderLabel.setSize(370, 30);
 		this.memorySliderLabel.setPosition(540, 220);
-		/** ===================== SLIDER RAM ===================== */
+
+		/* ===================== SLIDER RAM ===================== */
 		this.memorySlider = new JFXSlider();
 		this.memorySlider.setStyle(
 				"    -jfx-default-thumb: #FF0000;\r\n" + "    -jfx-default-track: #212121; -fx-pref-height: 10px;");
@@ -147,7 +154,7 @@ public class LauncherSettings extends IScreen {
 
 		this.memorySliderLabel.setText(this.memorySlider.getValue() + "Gb");
 		
-		/** ===================== CHECKBOX USE Optifine ===================== */
+		/* ===================== CHECKBOX USE Optifine ===================== */
 		useOptifine = new JFXCheckBox();
 		useOptifine.setText("Optifine");
 		useOptifine.setSelected((boolean) pane.config.getValue(EnumConfig.USE_OPTIFINE));
@@ -167,7 +174,7 @@ public class LauncherSettings extends IScreen {
 		});
 		root.getChildren().add(useOptifine);
 
-		/** ===================== CHECKBOX USE Forge ===================== */
+		/* ===================== CHECKBOX USE Forge ===================== */
 		useForge = new JFXCheckBox();
 		useForge.setText("Forge");
 		useForge.setSelected((boolean) pane.config.getValue(EnumConfig.USE_FORGE));
@@ -187,7 +194,7 @@ public class LauncherSettings extends IScreen {
 		});
 		root.getChildren().add(useForge);
 
-		/** ===================== MC VERSION LABEL ===================== */
+		/* ===================== MC VERSION LABEL ===================== */
 		this.versionListLabel = new LauncherLabel(root);
 		this.versionListLabel.setText("Choix de la version:");
 		this.versionListLabel.setOpacity(1.0);
@@ -195,7 +202,8 @@ public class LauncherSettings extends IScreen {
 		this.versionListLabel.setStyle("-fx-text-fill: white;");
 		this.versionListLabel.setSize(370, 30);
 		this.versionListLabel.setPosition(250, 160);
-		/** ===================== MC VERSION LIST ===================== */
+
+		/* ===================== MC VERSION LIST ===================== */
 		this.versionList = new JFXComboBox<String>();
 		this.populateVersionList();
 		if (pane.config.getValue(EnumConfig.VERSION) != null) {
@@ -206,12 +214,10 @@ public class LauncherSettings extends IScreen {
 				LauncherSettings.useForge.setSelected(false);
 				LauncherSettings.useForge.setOpacity(0.3);
 				pane.config.updateValue("useforge", false);
-			}
-			if (verif.equals("1.8") || verif.equals("1.19.1") || verif.equals("1.19.2")) {
 				LauncherSettings.useOptifine.setDisable(true);
 				LauncherSettings.useOptifine.setSelected(false);
 				LauncherSettings.useOptifine.setOpacity(0.3);
-				pane.config.updateValue("useOptifine", false);					
+				pane.config.updateValue("useOptifine", false);
 			}
 		}
 		this.versionList.setPrefSize(150, 20);
@@ -222,15 +228,16 @@ public class LauncherSettings extends IScreen {
 
 			@Override
 			public void handle(ActionEvent event) {
-				if (versionList.getValue() == "1.8" || versionList.getValue() == "1.19.1" || versionList.getValue() == "1.19.2") {
+				if (versionList.getValue().equals("1.8") || versionList.getValue().equals("1.19.1") || versionList.getValue().equals("1.19.2")) {
 					LauncherSettings.useForge.setDisable(true);
 					LauncherSettings.useForge.setSelected(false);
 					LauncherSettings.useForge.setOpacity(0.3);
 					pane.config.updateValue("useforge", false);
-				} else {
-					//LauncherSettings.useForge.setOpacity(1);
-					//LauncherSettings.useForge.setDisable(false);
 				}
+//				else {
+//					//LauncherSettings.useForge.setOpacity(1);
+//					//LauncherSettings.useForge.setDisable(false);
+//				}
 				if (Objects.equals(versionList.getValue(), "1.8") || Objects.equals(versionList.getValue(), "1.19.1") || Objects.equals(versionList.getValue(), "1.19.2")) {
 					LauncherSettings.useOptifine.setDisable(true);
 					LauncherSettings.useOptifine.setSelected(false);
@@ -247,12 +254,13 @@ public class LauncherSettings extends IScreen {
 		});
 		root.getChildren().add(this.versionList);
 
-		/** ===================== VM ARGUMENTS TEXTFIELD ===================== */
+		/* ===================== VM ARGUMENTS TEXTFIELD ===================== */
 		this.vmArguments = new LauncherTextField(root);
 		this.vmArguments.setText((String) pane.config.getValue(EnumConfig.VM_ARGUMENTS));
 		this.vmArguments.setSize(390, 20);
 		this.vmArguments.setPosition(250, 425);
-		/** ===================== CHECKBOX USE VM ARGUMENTS ===================== */
+
+		/* ===================== CHECKBOX USE VM ARGUMENTS ===================== */
 		this.useVMArguments = new JFXCheckBox();
 		this.useVMArguments.setText("Utiliser les Arguments JVM");
 		this.useVMArguments.setSelected((Boolean) pane.config.getValue(EnumConfig.USE_VM_ARGUMENTS));
@@ -263,18 +271,14 @@ public class LauncherSettings extends IScreen {
 		this.useVMArguments.setLayoutY(395);
 		this.useVMArguments.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent event) {
-				if (useVMArguments.isSelected()) {
-					vmArguments.setDisable(false);
-				} else {
-					vmArguments.setDisable(true);
-				}
+				vmArguments.setDisable(!useVMArguments.isSelected());
 			}
 		});
 		root.getChildren().add(useVMArguments);
 		this.vmArguments.setDisable(!this.useVMArguments.isSelected());
 
 
-		/** ===================== CHECKBOX Discord statut ===================== */
+		/* ===================== CHECKBOX Discord statut ===================== */
 		this.useDiscord = new JFXCheckBox();
 		this.useDiscord.setText("Statut discord");
 		this.useDiscord.setSelected((Boolean) pane.config.getValue(EnumConfig.USE_DISCORD));
@@ -292,7 +296,7 @@ public class LauncherSettings extends IScreen {
 		});
 		root.getChildren().add(this.useDiscord);
 
-		/** ===================== AUTO LOGIN CHECK BOX ===================== */
+		/* ===================== AUTO LOGIN CHECK BOX ===================== */
 		this.autoLogin = new JFXCheckBox();
 		this.autoLogin.setText("Connexion automatique");
 		this.autoLogin.setSelected((Boolean) pane.config.getValue(EnumConfig.AUTOLOGIN));
@@ -302,7 +306,7 @@ public class LauncherSettings extends IScreen {
 		this.autoLogin.setLayoutY(335);
 		root.getChildren().add(autoLogin);
 
-		/** ===================== MICROSOFT CHECK BOX ===================== */
+		/* ===================== MICROSOFT CHECK BOX ===================== */
 		this.microsoft = new JFXCheckBox();
 		this.microsoft.setText("Connexion auto MICROSOFT (desactiver si 'session invalide')");
 		this.microsoft.setSelected((Boolean) pane.config.getValue(EnumConfig.USE_MICROSOFT));
@@ -320,7 +324,7 @@ public class LauncherSettings extends IScreen {
 		});
 		root.getChildren().add(this.microsoft);
 
-		/** ===================== MICROSOFT CHECK BOX ===================== */
+		/* ===================== MICROSOFT CHECK BOX ===================== */
 		this.connect = new JFXCheckBox();
 		this.connect.setText("Connexion auto au serveur MajestyCraft (EXPERIMENTAL)");
 		this.connect.setSelected((Boolean) pane.config.getValue(EnumConfig.USE_CONNECT));
@@ -330,12 +334,12 @@ public class LauncherSettings extends IScreen {
 		this.connect.setLayoutY(495);
 		this.connect.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent event) {
-				pane.config.updateValue("useConnect", connect.isSelected());
+				pane.config.updateValue(EnumConfig.USE_CONNECT.getOption(), connect.isSelected());
 			}
 		});
 		root.getChildren().add(this.connect);
 
-		/** ===================== AUTO LOGIN CHECK BOX ===================== */
+		/* ===================== AUTO LOGIN CHECK BOX ===================== */
 		this.useMusic = new JFXCheckBox();
 		this.useMusic.setText("Couper la musique");
 		this.useMusic.setSelected((Boolean) pane.config.getValue(EnumConfig.USE_MUSIC));
@@ -355,7 +359,7 @@ public class LauncherSettings extends IScreen {
 		});
 		root.getChildren().add(this.useMusic);
 
-		/** ===================== BOUTON DE VALIDATION ===================== */
+		/* ===================== BOUTON DE VALIDATION ===================== */
 		this.saveButton = new JFXButton("Valider");
 		this.saveButton.setStyle("-fx-background-color: rgba(53, 89, 119, 0.4); -fx-text-fill: white;");
 		this.saveButton.setFont(FontLoader.loadFont("Comfortaa-Regular.ttf", "Comfortaa", 16F));
@@ -377,9 +381,8 @@ public class LauncherSettings extends IScreen {
 				configMap.put("usediscord", "" + useDiscord.isSelected());
 				pane.config.updateValues(configMap);
 				engine.reg(GameMemory.getMemory(Double.parseDouble((String) pane.config.getValue(EnumConfig.RAM))));
-				engine.reg(
-						GameSize.getWindowSize(Integer.parseInt((String) pane.config.getValue(EnumConfig.GAME_SIZE))));
-				engine.getGameLinks().JSON_NAME = (String) pane.config.getValue(EnumConfig.VERSION) + ".json";
+				engine.reg(GameSize.getWindowSize(Integer.parseInt((String) pane.config.getValue(EnumConfig.GAME_SIZE))));
+				engine.getGameLinks().JSON_NAME = pane.config.getValue(EnumConfig.VERSION) + ".json";
 				engine.getGameLinks().JSON_URL = engine.getGameLinks().BASE_URL + engine.getGameLinks().JSON_NAME;
 				engine.reg(engine.getGameLinks());
 				engine.reg(engine.getGameStyle());

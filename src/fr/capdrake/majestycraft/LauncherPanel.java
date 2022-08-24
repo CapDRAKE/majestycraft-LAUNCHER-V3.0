@@ -23,19 +23,12 @@ import animatefx.animation.RotateOut;
 import animatefx.animation.ZoomInDown;
 import animatefx.animation.ZoomInLeft;
 import animatefx.animation.ZoomOutDown;
-import fr.capdrake.majestycraft.forge.CustomForgeUpdater;
-import fr.flowarg.flowlogger.ILogger;
-import fr.flowarg.flowupdater.download.IProgressCallback;
-import fr.flowarg.flowupdater.download.Step;
-import fr.theshark34.openlauncherlib.minecraft.GameTweak;
-import fr.theshark34.openlauncherlib.minecraft.GameType;
 import fr.trxyy.alternative.alternative_api.GameEngine;
 import fr.trxyy.alternative.alternative_api.GameLinks;
 import fr.trxyy.alternative.alternative_api.GameMemory;
 import fr.trxyy.alternative.alternative_api.GameSize;
 import fr.trxyy.alternative.alternative_api.GameStyle;
 import fr.trxyy.alternative.alternative_api.JVMArguments;
-import fr.trxyy.alternative.alternative_api.build.CustomGameRunner;
 import fr.trxyy.alternative.alternative_api.updater.GameUpdater;
 import fr.trxyy.alternative.alternative_api.utils.*;
 import fr.trxyy.alternative.alternative_api.utils.config.EnumConfig;
@@ -72,11 +65,7 @@ import javafx.stage.StageStyle;
 public class LauncherPanel extends IScreen {
 
     private final LauncherPane panel = LauncherMain.getContentPane();
-
-    private IProgressCallback callback;
     private static LauncherPanel instance;
-    private CustomForgeUpdater forgeUpdater;
-    private static int verif;
     // Auth de Microsoft
     private GameAuth gameAuthentication;
 
@@ -90,7 +79,6 @@ public class LauncherPanel extends IScreen {
 
     // Les bouttons
     private final LauncherButton siteButton;
-    private final LauncherButton forumButton;
     private final LauncherButton voteButton;
     private final LauncherButton boutiqueButton;
 
@@ -99,8 +87,6 @@ public class LauncherPanel extends IScreen {
     private final JFXButton loginButton2;
 
     private final LauncherButton settingsButton;
-    private final LauncherButton closeButton;
-    private final LauncherButton reduceButton;
     private static LauncherButton minestratorButton;
     private static LauncherButton twitterButton;
     private static LauncherButton tiktokButton;
@@ -122,13 +108,11 @@ public class LauncherPanel extends IScreen {
     private final LauncherLabel currentFileLabel;
     private final LauncherLabel percentageLabel;
     private final LauncherLabel currentStep;
-    private final LauncherLabel titleLabel;
     private final LauncherLabel titlePremium;
     private final LauncherLabel titleCrack;
 
     // Les rectangles
     private final LauncherRectangle autoLoginRectangle;
-    private final LauncherRectangle topRectangle;
     private final LauncherRectangle updateRectangle;
     private final LauncherRectangle connexionRectangle;
 
@@ -144,15 +128,12 @@ public class LauncherPanel extends IScreen {
     private final LauncherButton autoLoginButton;
     private final LauncherButton autoLoginButton2;
 
-    private Timeline timeline;
     private final DecimalFormat decimalFormat = new DecimalFormat(".#");
-    private Thread updateThread;
 
     public JFXProgressBar bar;
 
     // Image avatar
     public static LauncherImage avatar;
-    public static LauncherImage avatar2;
     public static LauncherImage avatar3;
 
     private final String MINESTRATOR_URL = "https://minestrator.com/?partner=eus561rkso";
@@ -163,7 +144,7 @@ public class LauncherPanel extends IScreen {
     private final String DISCORD_URL = "https://discord.gg/qyuuHk4udD";
     public LauncherConfig config;
 
-    public LauncherPanel(Pane root, GameEngine engine, final LauncherMain launcherMain) {
+    public LauncherPanel(Pane root, GameEngine engine) {
         instance = this;
         this.drawBackgroundImage(engine, root, "heading.jpg");
         // D�selectionne la textfield par d�faut
@@ -174,21 +155,21 @@ public class LauncherPanel extends IScreen {
         this.config = new LauncherConfig(engine);
         this.config.loadConfiguration();
         /* ===================== RECTANGLE NOIR EN HAUT ===================== */
-        this.topRectangle = new LauncherRectangle(root, 0, 0, 70, engine.getHeight());
-        this.topRectangle.setFill(Color.rgb(255, 255, 255, 0.10));
+        LauncherRectangle topRectangle = new LauncherRectangle(root, 0, 0, 70, engine.getHeight());
+        topRectangle.setFill(Color.rgb(255, 255, 255, 0.10));
         /* ===================== AFFICHER UN LOGO ===================== */
         this.drawImage(engine, getResourceLocation().loadImage(engine, "launchergifpng.png"),
                 engine.getWidth() / 2 - 70, 40, 150, 150, root, Mover.DONT_MOVE);
 
         // Partie texte
-        this.titleLabel = new LauncherLabel(root);
-        this.titleLabel.setText("Launcher MajestyCraft Optifine + Forge");
-        this.titleLabel.setFont(FontLoader.loadFont("Roboto-Light.ttf", "Roboto Light", 18F));
-        this.titleLabel.setStyle("-fx-background-color: transparent; -fx-text-fill: orange");
-        this.titleLabel.setPosition(engine.getWidth() / 2 - 150, -4);
-        this.titleLabel.setOpacity(0.7);
-        this.titleLabel.setSize(500, 40);
-        this.titleLabel.setVisible(false);
+        LauncherLabel titleLabel = new LauncherLabel(root);
+        titleLabel.setText("Launcher MajestyCraft Optifine + Forge");
+        titleLabel.setFont(FontLoader.loadFont("Roboto-Light.ttf", "Roboto Light", 18F));
+        titleLabel.setStyle("-fx-background-color: transparent; -fx-text-fill: orange");
+        titleLabel.setPosition(engine.getWidth() / 2 - 150, -4);
+        titleLabel.setOpacity(0.7);
+        titleLabel.setSize(500, 40);
+        titleLabel.setVisible(false);
 
         // Affiche ou non le statut discord
         if ((boolean) config.getValue(EnumConfig.USE_DISCORD)) {
@@ -258,11 +239,11 @@ public class LauncherPanel extends IScreen {
                     connectAccountPremiumCO(gameAuthentication.getSession().getUsername(), root);
                     selectVersion(engine);
                     config.updateValue("useMicrosoft", true);
-                    if ((boolean) config.getValue(EnumConfig.USE_FORGE) && verif == 1) {
-                        update(gameAuthentication);
-                    } else {
+//                    if ((boolean) config.getValue(EnumConfig.USE_FORGE) && verif == 1) {
+//                        update(gameAuthentication);
+//                    } else {
                         update2(gameAuthentication);
-                    }
+//                    }
                 } else {
                     Platform.runLater(() -> new LauncherAlert("Authentification echou�e!",
                             "Impossible de se connecter, vous �tes en mode offline"
@@ -341,11 +322,11 @@ public class LauncherPanel extends IScreen {
                 gameAuthentication = new GameAuth(usernameField2.getText(), passwordField.getText(),
                         AccountType.OFFLINE);
                 if (gameAuthentication.isLogged()) {
-                    if ((boolean) config.getValue(EnumConfig.USE_FORGE) && verif == 1) {
-                        update(gameAuthentication);
-                    } else {
+//                    if ((boolean) config.getValue(EnumConfig.USE_FORGE) && verif == 1) {
+//                        update(gameAuthentication);
+//                    } else {
                         update2(gameAuthentication);
-                    }
+//                    }
                 }
                 connectAccountCrackCO(root);
             }
@@ -443,11 +424,11 @@ public class LauncherPanel extends IScreen {
                     gameAuthentication = new GameAuth(usernameField.getText(), passwordField.getText(),
                             AccountType.MOJANG);
                     if (gameAuthentication.isLogged()) {
-                        if ((boolean) config.getValue(EnumConfig.USE_FORGE) && verif == 1) {
-                            update(gameAuthentication);
-                        } else {
+//                        if ((boolean) config.getValue(EnumConfig.USE_FORGE) && verif == 1) {
+//                            update(gameAuthentication);
+//                        } else {
                             update2(gameAuthentication);
-                        }
+//                        }
                         connectAccountPremiumCO(usernameField.getText(), root);
                     } else {
                         new LauncherAlert("Authentification echou�e!",
@@ -616,12 +597,12 @@ public class LauncherPanel extends IScreen {
                         if (gameAuthentication.isLogged()) {
                             connectAccountPremiumCO(gameAuthentication.getSession().getUsername(), root);
                             selectVersion(engine);
-                            if ((boolean) config.getValue(EnumConfig.USE_FORGE) && verif == 1) {
-                                update(gameAuthentication);
-                            } else {
+//                            if ((boolean) config.getValue(EnumConfig.USE_FORGE) && verif == 1) {
+//                                update(gameAuthentication);
+//                            } else {
 
                                 update2(gameAuthentication);
-                            }
+//                            }
                         }
 
                     } else {
@@ -643,11 +624,11 @@ public class LauncherPanel extends IScreen {
                     autoLoginRectangle.setVisible(false);
                     gameAuthentication = new GameAuth(usernameField.getText(), passwordField.getText(),
                             AccountType.OFFLINE);
-                    if ((boolean) config.getValue(EnumConfig.USE_FORGE) && verif == 1) {
-                        update(gameAuthentication);
-                    } else {
+//                    if ((boolean) config.getValue(EnumConfig.USE_FORGE) && verif == 1) {
+//                        update(gameAuthentication);
+//                    } else {
                         update2(gameAuthentication);
-                    }
+//                    }
 
                 }
 
@@ -665,11 +646,11 @@ public class LauncherPanel extends IScreen {
                         gameAuthentication = new GameAuth(usernameField.getText(), passwordField.getText(),
                                 AccountType.MOJANG);
                         if (gameAuthentication.isLogged()) {
-                            if ((boolean) config.getValue(EnumConfig.USE_FORGE) && verif == 1) {
-                                update(gameAuthentication);
-                            } else {
+//                            if ((boolean) config.getValue(EnumConfig.USE_FORGE) && verif == 1) {
+//                                update(gameAuthentication);
+//                            } else {
                                 update2(gameAuthentication);
-                            }
+//                            }
                         } else {
                             autoLoginLabel.setVisible(false);
                             autoLoginButton.setVisible(false);
@@ -744,11 +725,11 @@ public class LauncherPanel extends IScreen {
                                                 connectAccountPremiumCO(
                                                         gameAuthentication.getSession().getUsername(), root);
                                                 selectVersion(engine);
-                                                if ((boolean) config.getValue(EnumConfig.USE_FORGE) && verif == 1) {
-                                                    update(gameAuthentication);
-                                                } else {
+//                                                if ((boolean) config.getValue(EnumConfig.USE_FORGE) && verif == 1) {
+//                                                    update(gameAuthentication);
+//                                                } else {
                                                     update2(gameAuthentication);
-                                                }
+//                                                }
                                             }
                                         });
 
@@ -771,11 +752,11 @@ public class LauncherPanel extends IScreen {
                                     autoLoginRectangle.setVisible(false);
                                     gameAuthentication = new GameAuth(usernameField.getText(),
                                             passwordField.getText(), AccountType.OFFLINE);
-                                    if ((boolean) config.getValue(EnumConfig.USE_FORGE) && verif == 1) {
-                                        update(gameAuthentication);
-                                    } else {
+//                                    if ((boolean) config.getValue(EnumConfig.USE_FORGE) && verif == 1) {
+//                                        update(gameAuthentication);
+//                                    } else {
                                         update2(gameAuthentication);
-                                    }
+//                                    }
 
                                 }
 
@@ -793,11 +774,11 @@ public class LauncherPanel extends IScreen {
                                                 passwordField.getText(), AccountType.MOJANG);
                                         if (gameAuthentication.isLogged()) {
                                             selectVersion(engine);
-                                            if ((boolean) config.getValue(EnumConfig.USE_FORGE) && verif == 1) {
-                                                update(gameAuthentication);
-                                            } else {
+//                                            if ((boolean) config.getValue(EnumConfig.USE_FORGE) && verif == 1) {
+//                                                update(gameAuthentication);
+//                                            } else {
                                                 update2(gameAuthentication);
-                                            }
+//                                            }
                                         } else {
                                             autoLoginLabel.setVisible(false);
                                             autoLoginButton.setVisible(false);
@@ -941,30 +922,30 @@ public class LauncherPanel extends IScreen {
         });
 
         /* ===================== BOUTON FERMETURE ===================== */
-        this.closeButton = new LauncherButton(root);
+        LauncherButton closeButton = new LauncherButton(root);
         // this.closeButton.setInvisible();
         LauncherImage closeImg = new LauncherImage(root, getResourceLocation().loadImage(engine, "close.png"));
         closeImg.setSize(15, 15);
-        this.closeButton.setGraphic(closeImg);
-        this.closeButton.setBackground(null);
-        this.closeButton.setPosition(engine.getWidth() - 35, 2);
-        this.closeButton.setSize(15, 15);
-        this.closeButton.setOnAction(event -> {
+        closeButton.setGraphic(closeImg);
+        closeButton.setBackground(null);
+        closeButton.setPosition(engine.getWidth() - 35, 2);
+        closeButton.setSize(15, 15);
+        closeButton.setOnAction(event -> {
             final BounceOutDown animation = new BounceOutDown(panel);
             animation.setOnFinished(actionEvent -> System.exit(0));
             animation.play();
         });
 
         /* ===================== BOUTON REDUIRE ===================== */
-        this.reduceButton = new LauncherButton(root);
+        LauncherButton reduceButton = new LauncherButton(root);
         // this.reduceButton.setInvisible();
         LauncherImage reduceImg = new LauncherImage(root, getResourceLocation().loadImage(engine, "reduce.png"));
         reduceImg.setSize(15, 15);
-        this.reduceButton.setGraphic(reduceImg);
-        this.reduceButton.setBackground(null);
-        this.reduceButton.setPosition(engine.getWidth() - 65, 2);
-        this.reduceButton.setSize(15, 15);
-        this.reduceButton.setOnAction(event -> {
+        reduceButton.setGraphic(reduceImg);
+        reduceButton.setBackground(null);
+        reduceButton.setPosition(engine.getWidth() - 65, 2);
+        reduceButton.setSize(15, 15);
+        reduceButton.setOnAction(event -> {
             final ZoomOutDown animation2 = new ZoomOutDown(panel);
             animation2.setOnFinished(actionEvent -> {
                 Stage stage = (Stage) ((LauncherButton) event.getSource()).getScene().getWindow();
@@ -1003,14 +984,14 @@ public class LauncherPanel extends IScreen {
         this.siteButton.setVisible(false);
 
         /* ===================== BOUTON URL FORUM ===================== */
-        this.forumButton = new LauncherButton(root);
-        this.forumButton.setText("Discord");
-        this.forumButton.setFont(FontLoader.loadFont("Comfortaa-Regular.ttf", "Comfortaa", 22F));
-        this.forumButton.setPosition(engine.getWidth() / 2 + 300, engine.getHeight() - 107);
-        this.forumButton.setSize(200, 45);
-        this.forumButton.setStyle("-fx-background-color: rgba(0 ,0 ,0 , 0.4); -fx-text-fill: orange");
-        this.forumButton.setOnAction(event -> openLink(DISCORD_URL));
-        this.forumButton.setVisible(false);
+        LauncherButton forumButton = new LauncherButton(root);
+        forumButton.setText("Discord");
+        forumButton.setFont(FontLoader.loadFont("Comfortaa-Regular.ttf", "Comfortaa", 22F));
+        forumButton.setPosition(engine.getWidth() / 2 + 300, engine.getHeight() - 107);
+        forumButton.setSize(200, 45);
+        forumButton.setStyle("-fx-background-color: rgba(0 ,0 ,0 , 0.4); -fx-text-fill: orange");
+        forumButton.setOnAction(event -> openLink(DISCORD_URL));
+        forumButton.setVisible(false);
 
         /* ===================== BOUTON URL MINESTRATOR ===================== */
         setMinestratorButton(new LauncherButton(root));
@@ -1159,141 +1140,8 @@ public class LauncherPanel extends IScreen {
         }
     }
 
-    public void update(GameAuth auth) {
-        new ZoomOutDown(this.microsoftButton).setResetOnFinished(false).play();
-        new ZoomOutDown(this.infoButton).setResetOnFinished(false).play();
-        new ZoomOutDown(this.settingsButton).setResetOnFinished(false).play();
-        new ZoomOutDown(this.lolButton).setResetOnFinished(false).play();
-        new ZoomOutDown(this.usernameField2).setResetOnFinished(false).play();
-        new ZoomOutDown(this.usernameField).setResetOnFinished(false).play();
-        new ZoomOutDown(this.passwordField).setResetOnFinished(false).play();
-        new ZoomOutDown(this.boutiqueButton).setResetOnFinished(false).play();
-        new ZoomOutDown(avatar).setResetOnFinished(false).play();
-        new ZoomOutDown(this.titlePremium).setResetOnFinished(false).play();
-        new ZoomOutDown(this.titleCrack).setResetOnFinished(false).play();
-        new ZoomOutDown(getMinestratorButton()).setResetOnFinished(false).play();
-        new ZoomOutDown(getTwitterButton()).setResetOnFinished(false).play();
-        new ZoomOutDown(getTiktokButton()).setResetOnFinished(false).play();
-        new ZoomOutDown(getYoutubeButton()).setResetOnFinished(false).play();
-        new ZoomOutDown(this.deadButton).setResetOnFinished(false).play();
-        new ZoomOutDown(this.rememberMe).setResetOnFinished(false).play();
-        new ZoomOutDown(this.loginButton).setResetOnFinished(false).play();
-        new ZoomOutDown(this.loginButton2).setResetOnFinished(false).play();
-        new ZoomOutDown(this.toggleButton).setResetOnFinished(false).play();
-        new ZoomOutDown(this.siteButton).setResetOnFinished(false).play();
-        new ZoomOutDown(this.voteButton).setResetOnFinished(false).play();
-        new ZoomOutDown(this.connexionRectangle).setResetOnFinished(false).play();
-        new ZoomOutDown(this.lolButton2).setResetOnFinished(false).play();
 
-        this.usernameField.setDisable(true);
-        this.connexionRectangle.setDisable(true);
-        this.usernameField2.setDisable(true);
-        this.titlePremium.setDisable(true);
-        this.titleCrack.setDisable(true);
-        this.rememberMe.setDisable(true);
-        this.passwordField.setDisable(true);
-        this.loginButton.setDisable(true);
-        this.loginButton2.setDisable(true);
-        this.settingsButton.setDisable(true);
 
-        this.updateRectangle.setVisible(true);
-        this.updateLabel.setVisible(true);
-        this.currentStep.setVisible(true);
-        this.currentFileLabel.setVisible(true);
-        this.percentageLabel.setVisible(true);
-        this.bar.setVisible(true);
-        avatar.setVisible(false);
-        new ZoomInDown(this.updateRectangle).play();
-        new ZoomInDown(this.updateLabel).play();
-        new ZoomInDown(this.currentStep).play();
-        new ZoomInDown(this.currentFileLabel).play();
-        new ZoomInDown(this.percentageLabel).play();
-        new ZoomInDown(this.bar).play();
-        new ZoomInDown(avatar3).play();
-        avatar3.setVisible(true);
-        theGameEngine.reg(LauncherMain.gameLinks);
-        theGameEngine.getGameLinks().JSON_URL = theGameEngine.getGameLinks().BASE_URL
-                + this.config.getValue(EnumConfig.VERSION) + ".json";
-
-        /*
-         * Change settings in GameEngine from launcher_config.json
-         */
-        theGameEngine.reg(GameMemory.getMemory(Double.parseDouble((String) this.config.getValue(EnumConfig.RAM))));
-        theGameEngine
-                .reg(GameSize.getWindowSize(Integer.parseInt((String) this.config.getValue(EnumConfig.GAME_SIZE))));
-        boolean useVmArgs = (Boolean) config.getValue(EnumConfig.USE_VM_ARGUMENTS);
-        String vmArgs = (String) config.getValue(EnumConfig.VM_ARGUMENTS);
-        String[] s = null;
-        if (useVmArgs) {
-            if (vmArgs.length() > 3) {
-                s = vmArgs.split(" ");
-            }
-            assert s != null;
-            JVMArguments arguments = new JVMArguments(s);
-            theGameEngine.reg(arguments);
-        }
-        /* END */
-        this.updateThread = new Thread(() -> {
-            try {
-                callback = new IProgressCallback() {
-
-                    @Override
-                    public void update(long downloaded, long max) {
-                        Platform.runLater(() -> {
-                            if (downloaded > 0) {
-                                percentageLabel.setText(decimalFormat.format(downloaded * 100.0D / max) + "%");
-                            }
-                            double percent = (downloaded * 100.0D / max / 100.0D);
-                            bar.setProgress(percent);
-                        });
-                    }
-
-                    @Override
-                    public void step(Step step) {
-                        Platform.runLater(() -> {
-                            currentStep.setText(step.name());
-                            if (step.equals(Step.END)) { // End of download
-                                try {
-                                    new CustomGameRunner(gameAuthentication.getSession(),
-                                            forgeUpdater.getVersionConfig(), forgeUpdater.getForgeVersionConfig(),
-                                            forgeUpdater.getMcpVersion(), LauncherMain.getGameFolder(),
-                                            GameType.V1_13_HIGHER_FORGE, new GameTweak[]{}, theGameEngine);
-                                } catch (NoSuchFieldException | SecurityException | IllegalArgumentException
-                                         | IllegalAccessException e) {
-                                    e.printStackTrace();
-                                }
-                            }
-                        });
-                    }
-
-                    @Override
-                    public void init(ILogger logger) {
-
-                    }
-                };
-                forgeUpdater.update();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        });
-        this.updateThread.start();
-        /*
-         * ===================== REFAICHIR LE NOM DU FICHIER, PROGRESSBAR, POURCENTAGE
-         * =====================
-         **/
-
-        this.timeline = new Timeline(
-                new KeyFrame(javafx.util.Duration.seconds(0.0D), event -> timelineUpdate(theGameEngine)),
-                new KeyFrame(javafx.util.Duration.seconds(0.1D)));
-
-        this.timeline.setCycleCount(Animation.INDEFINITE);
-        this.timeline.play();
-
-    }
-
-    public void timelineUpdate(GameEngine engine) {
-
-    }
 
     public void update2(GameAuth auth) {
         new ZoomOutDown(this.microsoftButton).setResetOnFinished(false).play();
@@ -1374,19 +1222,19 @@ public class LauncherPanel extends IScreen {
 
         theGameEngine.reg(this.gameUpdater);
 
-        this.updateThread = new Thread(() -> theGameEngine.getGameUpdater().start());
-        this.updateThread.start();
+        Thread updateThread = new Thread(() -> theGameEngine.getGameUpdater().start());
+        updateThread.start();
 
         /*
          * ===================== REFAICHIR LE NOM DU FICHIER, PROGRESSBAR, POURCENTAGE
          * =====================
          **/
-        this.timeline = new Timeline(
+        Timeline timeline = new Timeline(
                 new KeyFrame(javafx.util.Duration.seconds(0.0D), event -> timelineUpdate2(theGameEngine)),
                 new KeyFrame(javafx.util.Duration.seconds(0.1D)));
 
-        this.timeline.setCycleCount(Animation.INDEFINITE);
-        this.timeline.play();
+        timeline.setCycleCount(Animation.INDEFINITE);
+        timeline.play();
 
     }
 
@@ -1454,14 +1302,6 @@ public class LauncherPanel extends IScreen {
         avatar3.setVisible(false);
     }
 
-    public JFXTextField getUsernameField() {
-        return usernameField;
-    }
-
-    public JFXPasswordField getPasswordField() {
-        return passwordField;
-    }
-
     public static LauncherButton getTiktokButton() {
         return tiktokButton;
     }
@@ -1518,9 +1358,6 @@ public class LauncherPanel extends IScreen {
         return instance;
     }
 
-    public IProgressCallback getCallback() {
-        return callback;
-    }
 
     public void selectVersion(GameEngine engine) {
         if ((boolean) config.getValue(EnumConfig.USE_OPTIFINE)
@@ -1560,8 +1397,6 @@ public class LauncherPanel extends IScreen {
                     engine.setGameStyle(GameStyle.OPTIFINE);
                     break;
                 case "1.16.2.json":
-                    engine.setGameStyle(GameStyle.OPTIFINE);
-                    break;
                 case "1.16.3.json":
                     engine.setGameStyle(GameStyle.OPTIFINE);
                     break;
@@ -1604,109 +1439,91 @@ public class LauncherPanel extends IScreen {
             }
         } else if ((boolean) config.getValue(EnumConfig.USE_FORGE)) {
             LauncherMain.getGameLinks().JSON_NAME = config.getValue(EnumConfig.VERSION) + ".json";
-            verif = 1;
             switch (engine.getGameLinks().JSON_NAME) {
                 case "1.9.json": // GOOD
                     LauncherMain.gameLinks = new GameLinks("https://majestycraft.com/minecraft/1.9/forge/", "1.9.json");
                     engine.setGameStyle(GameStyle.FORGE_1_8_TO_1_12_2);
                     //LauncherMain.gameForge = new GameForge(Forge.FML_CLIENT, "1.9", "#1938", "20200515.085601");
-                    verif = 0;
                     break;
                 case "1.10.2.json": // GOOD
                     LauncherMain.gameLinks = new GameLinks("https://majestycraft.com/minecraft/1.10.2/forge/",
                             "1.10.2.json");
                     engine.setGameStyle(GameStyle.FORGE_1_8_TO_1_12_2);
                     //LauncherMain.gameForge = new GameForge(Forge.FML_CLIENT, "1.10.2", "#2185", "20200515.085601");
-                    verif = 0;
                     break;
                 case "1.11.2.json": // GOOD
                     LauncherMain.gameLinks = new GameLinks("https://majestycraft.com/minecraft/1.11.2/forge/",
                             "1.11.2.json");
                     engine.setGameStyle(GameStyle.FORGE_1_8_TO_1_12_2);
                     //LauncherMain.gameForge = new GameForge(Forge.FML_CLIENT, "1.11.2", "#2588", "20200515.085601");
-                    verif = 0;
                     break;
                 case "1.12.2.json": // GOOD
                     LauncherMain.gameLinks = new GameLinks("https://majestycraft.com/minecraft/1.12.2/forge/",
                             "1.12.2.json");
                     engine.setGameStyle(GameStyle.FORGE_1_8_TO_1_12_2);
-                    verif = 0;
                     break;
                 case "1.13.2.json": // GOOD
                     LauncherMain.gameLinks = new GameLinks("https://majestycraft.com/minecraft/1.13.2/forge/",
                             "1.13.2.json");
                     engine.setGameStyle(GameStyle.FORGE_1_13_HIGHER);
-                    verif = 0;
                     break;
                 case "1.14.4.json": // GOOD
                     LauncherMain.gameLinks = new GameLinks("https://majestycraft.com/minecraft/1.14.4/forge/",
                             "1.14.4.json");
                     engine.setGameStyle(GameStyle.FORGE_1_13_HIGHER);
-                    verif = 0;
                     break;
                 case "1.15.2.json": // GOOD
                     LauncherMain.gameLinks = new GameLinks("https://majestycraft.com/minecraft/1.15.2/forge/",
                             "1.15.2.json");
                     engine.setGameStyle(GameStyle.FORGE_1_13_HIGHER);
-                    verif = 0;
                     break;
                 case "1.16.2.json": // GOOD
                     LauncherMain.gameLinks = new GameLinks("https://majestycraft.com/minecraft/1.16.2/forge/",
                             "1.16.2.json");
                     engine.setGameStyle(GameStyle.FORGE_1_13_HIGHER);
-                    verif = 0;
                     break;
                 case "1.16.3.json": // GOOD
                     LauncherMain.gameLinks = new GameLinks("https://majestycraft.com/minecraft/1.16.3/forge/",
                             "1.16.3.json");
                     engine.setGameStyle(GameStyle.FORGE_1_13_HIGHER);
-                    verif = 0;
                     break;
                 case "1.16.4.json": // GOOD
                     LauncherMain.gameLinks = new GameLinks("https://majestycraft.com/minecraft/1.16.4/forge/",
                             "1.16.4.json");
                     engine.setGameStyle(GameStyle.FORGE_1_13_HIGHER);
-                    verif = 0;
                     break;
                 case "1.16.5.json": //GOOD
                     LauncherMain.gameLinks = new GameLinks("https://majestycraft.com/minecraft/1.16.5/forge/",
                             "1.16.5.json");
                     engine.setGameStyle(GameStyle.FORGE_1_13_HIGHER);
-                    verif = 0;
                     break;
                 case "1.17.1.json": // GOOD
                     LauncherMain.gameLinks = new GameLinks("https://majestycraft.com/minecraft/1.17.1/forge/", "1.17.1.json");
                     engine.setGameStyle(GameStyle.FORGE_1_17_HIGHER);
-                    verif = 0;
                     break;
                 case "1.18.json": // GOOD
                     LauncherMain.gameLinks = new GameLinks("https://majestycraft.com/minecraft/1.18/forge/", "1.18.json");
                     engine.setGameStyle(GameStyle.FORGE_1_17_HIGHER);
-                    verif = 0;
                     break;
                 case "1.18.1.json": // GOOD
                     LauncherMain.gameLinks = new GameLinks("https://majestycraft.com/minecraft/1.18.1/forge/",
                             "1.18.1.json");
                     engine.setGameStyle(GameStyle.FORGE_1_17_HIGHER);
-                    verif = 0;
                     break;
                 case "1.18.2.json": // GOOD
                     LauncherMain.gameLinks = new GameLinks("https://majestycraft.com/minecraft/1.18.2/forge/",
                             "1.18.2.json");
                     engine.setGameStyle(GameStyle.FORGE_1_17_HIGHER);
-                    verif = 0;
                     break;
                 case "1.19.json": // GOOD
                     LauncherMain.gameLinks = new GameLinks("https://majestycraft.com/minecraft/1.19/forge/",
                             "1.19.json");
                     engine.setGameStyle(GameStyle.FORGE_1_19_HIGHER);
-                    verif = 0;
                     break;
                 default:
                     LauncherMain.gameLinks = new GameLinks("https://majestycraft.com/minecraft/1.16.5/forge/",
                             "1.16.5.json");
                     engine.setGameStyle(GameStyle.FORGE_1_13_HIGHER);
-                    verif = 0;
                     break;
             }
         } else {

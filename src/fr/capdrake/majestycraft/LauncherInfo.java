@@ -42,7 +42,6 @@ public class LauncherInfo extends IScreen {
 
 	public LauncherInfo(final Pane root, final GameEngine engine, final LauncherPanel pane) {
 		this.drawBackgroundImage(engine, root, "background.png");
-		pane.config.loadConfiguration();
 		/** ===================== RECTANGLE NOIR EN HAUT ===================== */
 		this.topRectangle = new LauncherRectangle(root, 0, 0, 1500, 15);
 		this.topRectangle.setOpacity(0.7);
@@ -57,7 +56,7 @@ public class LauncherInfo extends IScreen {
 
 		/** ===================== TITRE DEVELOPPEUR ===================== */
 		this.developpeur = new LauncherLabel(root);
-		this.developpeur.setText("DÈveloppeur");
+		this.developpeur.setText("D√©veloppeur");
 		this.developpeur.setFont(Font.font("FontName", FontWeight.BOLD, 24d));
 		this.developpeur.setStyle("-fx-background-color: transparent; -fx-text-fill: orange");
 		this.developpeur.setPosition(engine.getWidth() / 2 - 479, engine.getHeight() / 2 - 300);
@@ -67,7 +66,7 @@ public class LauncherInfo extends IScreen {
 
 		/** ===================== TITRE DEV ===================== */
 		this.DEV = new LauncherLabel(root);
-		this.DEV.setText("DÈveloppeur : Capdrake, Ostix360");
+		this.DEV.setText("D√©veloppeur : Capdrake, Ostix360");
 		this.DEV.setFont(Font.font("FontName", FontWeight.BOLD, 20d));
 		this.DEV.setStyle("-fx-text-fill: white;");
 		this.DEV.setPosition(engine.getWidth() / 2 - 449, engine.getHeight() / 2 - 250);
@@ -97,7 +96,7 @@ public class LauncherInfo extends IScreen {
 
 		/** ===================== TITRE remarque 1 ===================== */
 		this.REM = new LauncherLabel(root);
-		this.REM.setText("1 => Si une version ne dÈmarre pas, allez dans votre %appdata% et ");
+		this.REM.setText("1 => Si une version ne d√©marre pas, allez dans votre %appdata% et ");
 		this.REM.setFont(Font.font("FontName", FontWeight.BOLD, 16d));
 		this.REM.setStyle("-fx-text-fill: white;");
 		this.REM.setPosition(engine.getWidth() / 2 - 449, engine.getHeight() / 2 - 140);
@@ -147,7 +146,7 @@ public class LauncherInfo extends IScreen {
 
 		/** ===================== changelogs 3 ===================== */
 		this.CHANGE3 = new LauncherLabel(root);
-		this.CHANGE3.setText("- Le temps de connexion auto est passÈ de 5 ‡ 7 secondes");
+		this.CHANGE3.setText("- Le temps de connexion auto est pass√© de 5 √† 7 secondes");
 		this.CHANGE3.setFont(Font.font("FontName", FontWeight.BOLD, 20d));
 		this.CHANGE3.setStyle("-fx-text-fill: white;");
 		this.CHANGE3.setPosition(engine.getWidth() / 2 - 449, engine.getHeight() / 2 + 60);
@@ -157,7 +156,7 @@ public class LauncherInfo extends IScreen {
 
 		/** ===================== changelogs 4 ===================== */
 		this.CHANGE4 = new LauncherLabel(root);
-		this.CHANGE4.setText("- Ajout d'un bouton dÈmarrer lors de la connexion auto");
+		this.CHANGE4.setText("- Ajout d'un bouton d√©marrer lors de la connexion auto");
 		this.CHANGE4.setFont(Font.font("FontName", FontWeight.BOLD, 20d));
 		this.CHANGE4.setStyle("-fx-text-fill: white;");
 		this.CHANGE4.setPosition(engine.getWidth() / 2 - 449, engine.getHeight() / 2 + 100);
