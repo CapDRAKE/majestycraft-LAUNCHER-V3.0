@@ -1432,8 +1432,16 @@ public class LauncherPanel extends IScreen {
                     LauncherMain.gameLinks = new GameLinks("https://majestycraft.com/minecraft/1.19/", "1.19.json");
                     engine.setGameStyle(GameStyle.OPTIFINE);
                     break;
+                case "1.19.1.json":
+                    LauncherMain.gameLinks = new GameLinks("https://majestycraft.com/minecraft/1.19.1/", "1.19.1.json");
+                    engine.setGameStyle(GameStyle.OPTIFINE);
+                    break;
+                case "1.19.2.json":
+                    LauncherMain.gameLinks = new GameLinks("https://majestycraft.com/minecraft/1.19.2/", "1.19.2.json");
+                    engine.setGameStyle(GameStyle.OPTIFINE);
+                    break;
                 default:
-                    LauncherMain.gameLinks = new GameLinks("https://majestycraft.com/minecraft/1.19/", "1.19.json");
+                    LauncherMain.gameLinks = new GameLinks("https://majestycraft.com/minecraft/1.19.2/", "1.19.2.json");
                     engine.setGameStyle(GameStyle.OPTIFINE);
                     break;
             }
@@ -1521,8 +1529,8 @@ public class LauncherPanel extends IScreen {
                     engine.setGameStyle(GameStyle.FORGE_1_19_HIGHER);
                     break;
                 default:
-                    LauncherMain.gameLinks = new GameLinks("https://majestycraft.com/minecraft/1.16.5/forge/",
-                            "1.16.5.json");
+                    LauncherMain.gameLinks = new GameLinks("https://majestycraft.com/minecraft/1.19/forge/",
+                            "1.19.json");
                     engine.setGameStyle(GameStyle.FORGE_1_13_HIGHER);
                     break;
             }
